@@ -1,4 +1,4 @@
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short_model.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/repository.dart';
 import 'package:rxdart/rxdart.dart';

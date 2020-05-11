@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short_model.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 
 class RecipesShortScreen extends StatefulWidget {
