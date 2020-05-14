@@ -10,20 +10,23 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
   final _serverUrl = TextEditingController();
-
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a `GlobalKey<FormState>`,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     _onLoginButtonPressed() {
-      BlocProvider.of<LoginBloc>(context).add(
-        LoginButtonPressed(
-          username: _usernameController.text,
-          password: _passwordController.text,
-          serverURL: _serverUrl.text,
-        ),
-      );
+      if (_formKey.currentState.validate()) {
+        BlocProvider.of<LoginBloc>(context).add(
+          LoginButtonPressed(
+            serverURL: _serverUrl.text,
+          ),
+        );
+      }
     }
 
     return BlocListener<LoginBloc, LoginState>(
@@ -40,26 +43,28 @@ class _LoginFormState extends State<LoginForm> {
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return Form(
+            // Build a Form widget using the _formKey created above.
+            key: _formKey,
             child: Column(
               children: [
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'username'),
-                  controller: _usernameController,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'password'),
-                  controller: _passwordController,
-                  obscureText: true,
-                ),
-                TextFormField(
                   decoration: InputDecoration(labelText: 'Server URL'),
                   controller: _serverUrl,
-                  obscureText: true,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter a Nextcloud URL';
+                    }
+                    bool _validURL = Uri.parse(value).isAbsolute;
+                    if ( ! _validURL){
+                      return 'Please enter a valid URL';
+                    }
+                    return null;
+                  },
                 ),
                 RaisedButton(
                   onPressed:
-                  state is! LoginLoading ? _onLoginButtonPressed : null,
-                  child: Text('Login'),
+                    state is! LoginLoading ? _onLoginButtonPressed : null,
+                    child: Text('Login'),
                 ),
                 Container(
                   child: state is LoginLoading

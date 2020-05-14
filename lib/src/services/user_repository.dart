@@ -1,14 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_web_auth/flutter_web_auth.dart';
+
+import 'dart:convert' show jsonDecode;
 final storage = new FlutterSecureStorage();
 final String _appkey = 'appkey';
 final String _serverURL = 'serverURL';
+final callbackUrlScheme = 'com.googleusercontent.apps.XXXXXXXXXXXX-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 class UserRepository {
   Future<String> authenticate({
-    @required String username,
-    @required String password,
     @required String serverUrl,
   }) async {
+
+    Future<http.Response> fetchAlbum() {
+      return http.get('');
+    }
+
+
+
     String returnKey = 'daskjlönlksdjFNJKPDSFBNJJKLDS';
     //TODO get ServerAppkey
     await storage.write(key: _serverURL, value: serverUrl);
