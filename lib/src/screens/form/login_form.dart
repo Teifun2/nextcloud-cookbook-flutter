@@ -55,6 +55,7 @@ class _LoginFormState extends State<LoginForm> {
                       return 'Please enter a Nextcloud URL';
                     }
                     bool _validURL = Uri.parse(value).isAbsolute;
+                    //TODO user input better, accept without https
                     if ( ! _validURL){
                       return 'Please enter a valid URL';
                     }
