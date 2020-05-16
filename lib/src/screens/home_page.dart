@@ -11,6 +11,15 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cookbook App'),
+          actions: <Widget>[
+      // action button
+           IconButton(
+              icon: Icon(Icons.delete, semanticLabel: 'Logoff',),
+             onPressed: () {
+               BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+              },
+           ),
+          ]
       ),
       body: Container(
         child: Center(
