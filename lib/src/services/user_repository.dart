@@ -5,7 +5,7 @@ import 'jsonClasses/intial_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer' as developer;
+
 import 'dart:convert' show json, jsonDecode;
 import 'package:url_launcher/url_launcher.dart';
 final storage = new FlutterSecureStorage();
@@ -19,12 +19,17 @@ class UserRepository {
   }) async {
 
 
+    //TODO add HTTPS to link
     String urlInitialCall = serverUrl+'/index.php/login/v2';
+    var response;
+    try {
+      response = await http.post(urlInitialCall);
+    } catch (e) {
+      //TODO good erroer
+      throw ('Url not valid') ;
+    }
 
-    developer.log(urlInitialCall, name: 'my.app.category');
-    final response = await http.post(urlInitialCall);
-    //TODO Catch lookup Problems
-    developer.log("reüponse durch", name: 'my.app.category');
+
     if (response.statusCode == 200) {
       InitialLogin initialLoginFromJson(String str) => InitialLogin.fromJson(json.decode(str));
 
@@ -37,7 +42,7 @@ class UserRepository {
         Future<void> _lauched =    _launchURL(initialLogin.login);
 
         String urlLoginSuccess =  initialLogin.poll.endpoint + "?token=" + initialLogin.poll.token;
-        //TODO add catch
+        //TODO add when users goes back
 
 
         var repsponseLog =  await http.post(urlLoginSuccess);
@@ -46,17 +51,17 @@ class UserRepository {
           Timer(const Duration(milliseconds: 500), () {
           });
           repsponseLog = await http.post(urlLoginSuccess);
-          developer.log(repsponseLog.statusCode.toString(), name: 'my.app.thisshoudcool');
+
         }
 
-        developer.log("asdasdasdasdsad", name: 'my.app.thisshoudcool');
+
         closeWebView();
         Appkey appkeyFromJson(String str) => Appkey.fromJson(json.decode(str));
-        developer.log(repsponseLog.body.toString(), name: 'my.app.thisshoudcool');
+
         final appKeyJson =appkeyFromJson(repsponseLog.body);
-        developer.log(appKeyJson.appPassword.toString(), name: 'my.app.thisshoudcool');
+
         //TODO get ServerAppkey
-        developer.log(serverUrl, name: 'my.app.thisshoudcool');
+
         await storage.write(key: _serverURL, value: serverUrl);
         await storage.write(key: _appkey, value: appKeyJson.appPassword.toString());
 
@@ -73,8 +78,7 @@ class UserRepository {
 
     String p = await storage.read(key: _appkey);
     String c = await storage.read(key: _serverURL);
-    developer.log(p, name: 'my.app.thisshoudcool');
-    developer.log(c.toString(), name: 'my.app.thisshoudcool');
+
     return await storage.read(key: _appkey);
   }
 

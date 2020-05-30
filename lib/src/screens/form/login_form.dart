@@ -54,9 +54,10 @@ class _LoginFormState extends State<LoginForm> {
                     if (value.isEmpty) {
                       return 'Please enter a Nextcloud URL';
                     }
-                    bool _validURL = Uri.parse(value).isAbsolute;
+                    var urlPattern = r"([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
+                    bool _match = new RegExp(urlPattern, caseSensitive: false).hasMatch(value);
                     //TODO user input better, accept without https
-                    if ( ! _validURL){
+                    if ( ! _match){
                       return 'Please enter a valid URL';
                     }
                     return null;
