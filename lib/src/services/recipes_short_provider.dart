@@ -7,7 +7,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 
 class RecipesShortProvider {
   Client client = Client();
-  final _baseUrl = 'nas-boyi.mooo.com';
+  final _baseUrl = '';
 
   static final String _username = '';
   static final String _password = '';
