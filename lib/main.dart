@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_indicator.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/authentication_events.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/authentication_state.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list.dart';
+
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_events.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_state.dart';
 import './src/services/user_repository.dart';
 
-import './src/services/authentication_bloc.dart';
+import 'src/blocs/authentication/authentication_bloc.dart';
 import './src/screens/splash_screen.dart';
-import './src/screens/home_page.dart';
+
 import './src/screens/login_page.dart';
+import 'dart:developer' as developer;
 
 
 
@@ -38,13 +42,30 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
   runApp(
+    MultiBlocProvider(
+        providers: [
     BlocProvider<AuthenticationBloc>(
       create: (context) {
         return AuthenticationBloc(userRepository: userRepository)
           ..add(AppStarted());
       },
+      ),
+          BlocProvider<RecipesShortBloc>(
+            create: (context) {
+              return RecipesShortBloc();
+
+            },
+          ),
+      ],
       child: App(userRepository: userRepository),
     ),
+  /*  BlocProvider<AuthenticationBloc>(
+      create: (context) {
+        return AuthenticationBloc(userRepository: userRepository)
+          ..add(AppStarted());
+      },
+      child: App(userRepository: userRepository),
+    ),*/
   );
 }
 
@@ -61,13 +82,17 @@ class App extends StatelessWidget {
           if (state is AuthenticationUninitialized) {
             return SplashPage();
           }
-          if (state is AuthenticationAuthenticated) {
-            return HomePage();
+          else if (state is AuthenticationAuthenticated) {
+            BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded());
+            return RecipesListScreen();
           }
-          if (state is AuthenticationUnauthenticated) {
+          else if (state is AuthenticationUnauthenticated) {
             return LoginPage(userRepository: userRepository);
           }
-          if (state is AuthenticationLoading) {
+          else if (state is AuthenticationLoading) {
+            return LoadingIndicator();
+          }
+          else {
             return LoadingIndicator();
           }
         },

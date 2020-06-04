@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/authentication_events.dart';
-import 'user_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_events.dart';
+import '../../services/user_repository.dart';
 
 
 import 'login_event.dart';
 import 'login_state.dart';
-import 'authentication_bloc.dart';
+import '../authentication/authentication_bloc.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;

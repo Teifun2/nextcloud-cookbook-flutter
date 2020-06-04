@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../services/user_repository.dart';
 
-import '../services/authentication_bloc.dart';
-import '../services/login_nextcloud_bloc.dart';
+import '../blocs/authentication/authentication_bloc.dart';
+import '../blocs/login/login_nextcloud_bloc.dart';
 import 'form/login_form.dart';
 
 

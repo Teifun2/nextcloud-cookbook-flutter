@@ -5,8 +5,8 @@ class LoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
     child: SpinKitWave(
-      color: Colors.black,
-      size: 50.0,
+      color: Colors.green,
+      size: 2000.0,
     ),
   );
 }

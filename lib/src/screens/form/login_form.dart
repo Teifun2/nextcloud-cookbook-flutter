@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../services/login_nextcloud_bloc.dart';
-import '../../services/login_event.dart';
-import '../../services/login_state.dart';
+import '../../blocs/login/login_nextcloud_bloc.dart';
+import '../../blocs/login/login_event.dart';
+import '../../blocs/login/login_state.dart';
 
 class LoginForm extends StatefulWidget {
   @override
