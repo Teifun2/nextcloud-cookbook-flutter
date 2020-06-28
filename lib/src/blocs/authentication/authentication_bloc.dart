@@ -18,9 +18,7 @@ class AuthenticationBloc
   AuthenticationState get initialState => AuthenticationUninitialized();
 
   @override
-  Stream<AuthenticationState> mapEventToState(
-      AuthenticationEvent event,
-      ) async* {
+  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     if (event is AppStarted) {
       final bool hasToken = await userRepository.hasToken();
 
@@ -40,6 +38,5 @@ class AuthenticationBloc
       await userRepository.deleteToken();
       yield AuthenticationUnauthenticated();
     }
-
   }
 }

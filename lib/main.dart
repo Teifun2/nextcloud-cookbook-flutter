@@ -14,7 +14,6 @@ import 'src/blocs/authentication/authentication_bloc.dart';
 import './src/screens/splash_screen.dart';
 
 import './src/screens/login_page.dart';
-import 'dart:developer' as developer;
 
 
 
@@ -43,29 +42,19 @@ void main() {
   final userRepository = UserRepository();
   runApp(
     MultiBlocProvider(
-        providers: [
-    BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        return AuthenticationBloc(userRepository: userRepository)
-          ..add(AppStarted());
-      },
-      ),
-          BlocProvider<RecipesShortBloc>(
-            create: (context) {
-              return RecipesShortBloc();
-
-            },
-          ),
+      providers: [
+        BlocProvider<AuthenticationBloc>(
+          create: (context) {
+            return AuthenticationBloc(userRepository: userRepository)..add(AppStarted());},
+        ),
+        BlocProvider<RecipesShortBloc>(
+          create: (context) {
+            return RecipesShortBloc();
+          },
+        ),
       ],
       child: App(userRepository: userRepository),
     ),
-  /*  BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        return AuthenticationBloc(userRepository: userRepository)
-          ..add(AppStarted());
-      },
-      child: App(userRepository: userRepository),
-    ),*/
   );
 }
 
