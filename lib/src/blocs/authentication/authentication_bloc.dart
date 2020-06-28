@@ -7,8 +7,7 @@ import '../../services/user_repository.dart';
 import 'authentication_events.dart';
 import 'authentication_state.dart';
 
-class AuthenticationBloc
-    extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;
 
   AuthenticationBloc({@required this.userRepository})
@@ -30,6 +29,8 @@ class AuthenticationBloc
     }
 
     if (event is LoggedIn) {
+      yield AuthenticationLoading();
+      await userRepository.persistToken(event.token);
       yield AuthenticationAuthenticated();
     }
 

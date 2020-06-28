@@ -99,9 +99,6 @@ class UserRepository {
   }
 
 
-  //TODO remove
-
-
 
   Future<bool> hasToken() async {
     /// read from keystore/keychain
@@ -112,7 +109,12 @@ class UserRepository {
     else{
       return true;
     }
+  }
 
+  Future<void> persistToken(String token) async {
+    /// write to keystore/keychain
+    await Future.delayed(Duration(seconds: 1));
+    return;
   }
 }
 Future<void> _launchURL( String url) async {
