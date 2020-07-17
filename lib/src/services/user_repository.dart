@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'jsonClasses/app_key.dart';
+import '../models/app_authentication.dart';
 import 'jsonClasses/intial_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -53,7 +53,7 @@ class UserRepository {
 
         await closeWebView();
 
-        final appKeyJson = AppKey.fromJson(json.decode(responseLog.body));
+        final appKeyJson = AppAuthentication.fromJson(json.decode(responseLog.body));
 
         //TODO get ServerAppkey
 
