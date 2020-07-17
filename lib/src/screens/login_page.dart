@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../services/user_repository.dart';
 
 import '../blocs/authentication/authentication_bloc.dart';
-import '../blocs/login/login_nextcloud_bloc.dart';
+import '../blocs/login/login_bloc.dart';
 import 'form/login_form.dart';
 
 
