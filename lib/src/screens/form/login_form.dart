@@ -60,6 +60,10 @@ class _LoginFormState extends State<LoginForm> {
                     }
                     return null;
                   },
+                  onFieldSubmitted: (val) {
+                    if (state is! LoginLoading) {_onLoginButtonPressed();}
+                  },
+                  textInputAction: TextInputAction.done,
                 ),
                 RaisedButton(
                   onPressed:

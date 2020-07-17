@@ -28,10 +28,9 @@ class RecipesListScreenState extends State<RecipesListScreen> {
               actions: <Widget>[
                 // action button
                 IconButton(
-                  icon: Icon(Icons.delete, semanticLabel: 'Logoff',),
+                  icon: Icon(Icons.exit_to_app, semanticLabel: 'LogOut',),
                   onPressed: () {
                     BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-                    BlocProvider.of<AuthenticationBloc>(context).add(AppStarted());
                   },
                 ),
               ]
