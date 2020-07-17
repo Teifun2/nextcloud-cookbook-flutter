@@ -1,15 +1,15 @@
-class Appkey {
+class AppKey {
   String server;
   String loginName;
   String appPassword;
 
-  Appkey({
+  AppKey({
     this.server,
     this.loginName,
     this.appPassword,
   });
 
-  factory Appkey.fromJson(Map<String, dynamic> json) => Appkey(
+  factory AppKey.fromJson(Map<String, dynamic> json) => AppKey(
     server: json["server"],
     loginName: json["loginName"],
     appPassword: json["appPassword"],

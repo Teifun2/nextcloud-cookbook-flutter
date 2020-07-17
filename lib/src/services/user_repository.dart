@@ -53,7 +53,7 @@ class UserRepository {
 
         await closeWebView();
 
-        final appKeyJson =Appkey.fromJson(json.decode(responseLog.body));
+        final appKeyJson = AppKey.fromJson(json.decode(responseLog.body));
 
         //TODO get ServerAppkey
 
