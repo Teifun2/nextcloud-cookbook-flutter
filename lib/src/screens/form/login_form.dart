@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../blocs/login/login_nextcloud_bloc.dart';
-import '../../blocs/login/login_event.dart';
-import '../../blocs/login/login_state.dart';
+import '../../blocs/login/login.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -17,6 +15,7 @@ class _LoginFormState extends State<LoginForm> {
   // Note: This is a `GlobalKey<FormState>`,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     _onLoginButtonPressed() {
@@ -56,7 +55,6 @@ class _LoginFormState extends State<LoginForm> {
                     }
                     var urlPattern = r"([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
                     bool _match = new RegExp(urlPattern, caseSensitive: false).hasMatch(value);
-                    //TODO user input better, accept without https
                     if ( ! _match){
                       return 'Please enter a valid URL';
                     }
@@ -66,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
                 RaisedButton(
                   onPressed:
                     state is! LoginLoading ? _onLoginButtonPressed : null,
-                    child: Text('Login'),
+                  child: Text('Login'),
                 ),
                 Container(
                   child: state is LoginLoading

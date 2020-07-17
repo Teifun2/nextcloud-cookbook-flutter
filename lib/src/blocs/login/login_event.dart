@@ -17,5 +17,5 @@ class LoginButtonPressed extends LoginEvent {
 
   @override
   String toString() =>
-      'LoginButtonPressed {serverURL: $serverURL  }';
+      'LoginButtonPressed {serverURL: $serverURL}';
 }

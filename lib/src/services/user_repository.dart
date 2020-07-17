@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:nextcloud_cookbook_flutter/src/screens/login_page.dart';
 
 import 'jsonClasses/app_key.dart';
 import 'jsonClasses/intial_login.dart';
@@ -22,50 +20,40 @@ class UserRepository {
     @required String serverUrl,
   }) async {
 
-
-
     if (serverUrl.substring(0,4) != 'http') {
       serverUrl = 'https://'+serverUrl;
     }
     String urlInitialCall = serverUrl+'/index.php/login/v2';
     var response;
     try {
-      response = await http.post(urlInitialCall);
+      response = await http.post(urlInitialCall, headers: {"User-Agent":"Cookbook App", "Accept-Language":"en-US"});
     } catch (e) {
-      //TODO good erroer
-      throw ('Url not valid') ;
+      throw ('Cannot reach: $serverUrl') ;
     }
 
-
     if (response.statusCode == 200) {
-      InitialLogin initialLoginFromJson(String str) => InitialLogin.fromJson(json.decode(str));
+      final initialLogin = InitialLogin.fromJson(json.decode(response.body));
 
-      final initialLogin = initialLoginFromJson(response.body);
       if (await canLaunch(initialLogin.login)) {
 
+        Future<void> _launched = _launchURL(initialLogin.login);
 
-
-
-        Future<void> _lauched =    _launchURL(initialLogin.login);
-
-        String urlLoginSuccess =  initialLogin.poll.endpoint + "?token=" + initialLogin.poll.token;
+        String urlLoginSuccess = initialLogin.poll.endpoint + "?token=" + initialLogin.poll.token;
         //TODO add when users goes back
 
 
-        var repsponseLog =  await http.post(urlLoginSuccess);
-        while (repsponseLog.statusCode != 200)  {
+        var responseLog = await http.post(urlLoginSuccess);
+        while (responseLog.statusCode != 200)  {
           //TODO check if time is good
+          // I think this is no a correct usage of the Timer. We cold use Timer.periodic. But it should call the function.
           Timer(const Duration(milliseconds: 500), () {
           });
-          repsponseLog = await http.post(urlLoginSuccess);
-
+          responseLog = await http.post(urlLoginSuccess);
         }
 
-
         await closeWebView();
-        Appkey appkeyFromJson(String str) => Appkey.fromJson(json.decode(str));
 
-        final appKeyJson =appkeyFromJson(repsponseLog.body);
+        final appKeyJson =Appkey.fromJson(json.decode(responseLog.body));
 
         //TODO get ServerAppkey
 
@@ -81,11 +69,6 @@ class UserRepository {
       //TODO Catch Errors
       throw Exception('Your server Name is not correct');
     }
-
-
-
-    String p = await storage.read(key: _appkey);
-    String c = await storage.read(key: _serverURL);
 
     return await storage.read(key: _appkey);
   }
@@ -113,6 +96,7 @@ class UserRepository {
 
   Future<void> persistToken(String token) async {
     /// write to keystore/keychain
+    // TODO: Implement proper Persistent Token generation
     await Future.delayed(Duration(seconds: 1));
     return;
   }
