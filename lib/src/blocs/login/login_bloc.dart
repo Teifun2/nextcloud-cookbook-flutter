@@ -25,11 +25,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoading();
 
       try {
-        final token = await userRepository.authenticate(
+        final appAuthentication = await userRepository.authenticate(
           serverUrl: event.serverURL
         );
 
-        authenticationBloc.add(LoggedIn(token: token));
+        authenticationBloc.add(LoggedIn(appAuthentication: appAuthentication));
         yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());

@@ -9,7 +9,7 @@ class SplashPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SpinKitWave(
-          color: Colors.black,
+          color: Colors.blue,
           size: 50.0,
         )
       ),
