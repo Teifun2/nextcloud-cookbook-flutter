@@ -8,7 +8,7 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list.dart';
 
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_events.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_state.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import './src/services/user_repository.dart';
 
 import 'src/blocs/authentication/authentication_bloc.dart';
@@ -50,7 +50,7 @@ void main() {
         ),
         BlocProvider<RecipesShortBloc>(
           create: (context) {
-            return RecipesShortBloc(repository: Repository());
+            return RecipesShortBloc(repository: DataRepository());
           },
         ),
       ],

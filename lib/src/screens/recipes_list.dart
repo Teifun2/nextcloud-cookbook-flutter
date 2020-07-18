@@ -10,7 +10,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/login_page.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import 'dart:developer' as developer;
 
 import '../../main.dart';
@@ -31,6 +31,12 @@ class RecipesListScreenState extends State<RecipesListScreen> {
               actions: <Widget>[
                 // action button
                 IconButton(
+                  icon: Icon(Icons.refresh, semanticLabel: 'Refresh',),
+                  onPressed: () {
+                    BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                  },
+                ),
+                IconButton(
                   icon: Icon(Icons.exit_to_app, semanticLabel: 'LogOut',),
                   onPressed: () {
                     BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
@@ -43,12 +49,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
               AuthenticationAuthenticated authenticationState = BlocProvider.of<AuthenticationBloc>(context).state;
               return _buildRecipesShortScreen(authenticationState.appAuthentication, recipesShortState.recipesShort);
             } else if (recipesShortState is RecipesShortLoadInProgress) {
-              return Center(
-                child: SpinKitWave(
-                  color: Colors.blue,
-                  size: 50.0,
-                ),
-              );
+              return Center(child: CircularProgressIndicator());
             } else {
               //TODO Retry screen
               return Center(

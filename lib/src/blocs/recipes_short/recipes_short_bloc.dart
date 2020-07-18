@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_event.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_state.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 
 class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
-  final Repository repository;
+  final DataRepository repository;
 
   RecipesShortBloc({@required this.repository});
 
