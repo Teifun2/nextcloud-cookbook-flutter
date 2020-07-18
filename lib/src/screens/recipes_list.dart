@@ -33,7 +33,8 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                 IconButton(
                   icon: Icon(Icons.refresh, semanticLabel: 'Refresh',),
                   onPressed: () {
-                    BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                    AuthenticationAuthenticated authenticationState = BlocProvider.of<AuthenticationBloc>(context).state;
+                    BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded(appAuthentication: authenticationState.appAuthentication));
                   },
                 ),
                 IconButton(
@@ -58,10 +59,6 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                   onPressed: () {
                     AuthenticationAuthenticated authenticationState = BlocProvider.of<AuthenticationBloc>(context).state;
                     BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded(appAuthentication: authenticationState.appAuthentication));
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => RecipesListScreen()),
-                    );
                   },
                   child: Text("Welcome"),
                 ),
