@@ -1,24 +1,17 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short_model.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 
-class RecipesShortProvider {
+class RecipesShortProvider  {
   Client client = Client();
-  final _baseUrl = 'host';
 
-  static final String _username = 'username';
-  static final String _password = 'password';
-  static final String _basicAuth =
-      'Basic ' + base64Encode(utf8.encode('$_username:$_password'));
-
-  Future<List<RecipeShort>> fetchRecipesShort() async {
+  Future<List<RecipeShort>> fetchRecipesShort(AppAuthentication appAuthentication) async {
     final response = await client.get(
-      "$_baseUrl/apps/cookbook/api/recipes",
+      "${appAuthentication.server}/index.php/apps/cookbook/api/recipes",
       headers: {
-        "authorization": _basicAuth,
+        "authorization": appAuthentication.basicAuth,
       },
     );
 
@@ -29,14 +22,14 @@ class RecipesShortProvider {
     }
   }
 
-  CachedNetworkImage fetchRecipeThumb(String path) {
+  CachedNetworkImage fetchRecipeThumb(AppAuthentication appAuthentication, String path) {
     return CachedNetworkImage(
-      imageUrl: '$_baseUrl$path',
+      imageUrl: '${appAuthentication.server}$path',
       httpHeaders: {
-        "authorization": _basicAuth,
+        "authorization": appAuthentication.basicAuth,
       },
       placeholder: (context, url) => CircularProgressIndicator(),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => Icon(Icons.broken_image),
     );
   }
 }

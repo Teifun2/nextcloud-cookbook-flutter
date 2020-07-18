@@ -19,6 +19,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # For BLoc Pattern
+
+
+  #for app key
+  flutter_secure_storage: ^3.3.3
+  url_launcher: ^5.4.7
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -27,9 +33,17 @@ dependencies:
   # For HTTP Requests
   http: 0.12.0+4
 
-  rxdart: 0.23.1
+  # flutter_bloc for simpler bloc implementation
+  bloc: ^4.0.0
+  flutter_bloc: ^4.0.0
+
+  # For easier handling without hand built hash comparison
+  equatable: ^1.0.0
 
   cached_network_image: 2.1.0+1
+
+  flutter_spinkit: "^2.1.0"
+  validators: ^2.0.0
 
 dev_dependencies:
   flutter_test:
