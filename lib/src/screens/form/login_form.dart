@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../blocs/login/login.dart';
 
 class LoginForm extends StatefulWidget {
@@ -72,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 Container(
                   child: state is LoginLoading
-                      ? CircularProgressIndicator()
+                      ? SpinKitWave(color: Colors.blue, size: 50.0)
                       : null,
                 ),
               ],

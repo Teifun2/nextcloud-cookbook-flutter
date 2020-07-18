@@ -73,10 +73,11 @@ class App extends StatelessWidget {
             return SplashPage();
           }
           else if (state is AuthenticationAuthenticated) {
-            BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded());
+            BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded(appAuthentication: state.appAuthentication));
             return RecipesListScreen();
           }
           else if (state is AuthenticationUnauthenticated) {
+            print("LoginPage");
             return LoginPage(userRepository: userRepository);
           }
           else if (state is AuthenticationLoading) {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_events.dart';
@@ -42,7 +43,12 @@ class RecipesListScreenState extends State<RecipesListScreen> {
               AuthenticationAuthenticated authenticationState = BlocProvider.of<AuthenticationBloc>(context).state;
               return _buildRecipesShortScreen(authenticationState.appAuthentication, recipesShortState.recipesShort);
             } else if (recipesShortState is RecipesShortLoadInProgress) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: SpinKitWave(
+                  color: Colors.blue,
+                  size: 50.0,
+                ),
+              );
             } else {
               //TODO Retry screen
               return Center(

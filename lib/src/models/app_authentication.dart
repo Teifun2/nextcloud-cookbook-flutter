@@ -6,6 +6,7 @@ class AppAuthentication {
   String appPassword;
   String basicAuth;
 
+  // maybe only keep server, login name, and basic auth and drop appPassword for security.
   AppAuthentication({
     this.server,
     this.loginName,
