@@ -15,7 +15,7 @@ class RecipeShort {
     _recipeId = int.parse(json["recipe_id"]);
     _name = json["name"];
     _userId = json["user_id"];
-    _imageUrl = json["image_url"];
+    _imageUrl = json["imageUrl"];
   }
 
   static List<RecipeShort> parseRecipesShort(String responseBody) {

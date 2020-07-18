@@ -2,12 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_event.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_state.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/repository.dart';
-import 'dart:developer' as developer;
-import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 
 class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
-  final Repository repository;
+  final DataRepository repository;
 
   RecipesShortBloc({@required this.repository});
 
@@ -17,18 +15,14 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
   @override
   Stream<RecipesShortState> mapEventToState(RecipesShortEvent event) async* {
     if (event is RecipesShortLoaded) {
-      yield* _mapRecipesShortLoadedToState();
+      yield* _mapRecipesShortLoadedToState(event);
     }
     // TODO: Implement other events.
   }
 
-  Stream<RecipesShortState> _mapRecipesShortLoadedToState() async* {
-
+  Stream<RecipesShortState> _mapRecipesShortLoadedToState(RecipesShortLoaded recipesShortLoaded) async* {
     try {
-      developer.log('log me', name: 'my.app.category');
-     final RecipesShortProvider appRecipesShortProvider = RecipesShortProvider();
-      final recipesShort = await appRecipesShortProvider.fetchRecipesShort();
-
+      final recipesShort = await repository.fetchRecipesShort(recipesShortLoaded.appAuthentication);
       yield RecipesShortLoadSuccess(recipesShort);
     } catch (_) {
       yield RecipesShortLoadFailure();

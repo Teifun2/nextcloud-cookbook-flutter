@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import '../../services/user_repository.dart';
 
 import 'authentication_events.dart';
 import 'authentication_state.dart';
 
-class AuthenticationBloc
-    extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;
 
   AuthenticationBloc({@required this.userRepository})
@@ -18,28 +18,28 @@ class AuthenticationBloc
   AuthenticationState get initialState => AuthenticationUninitialized();
 
   @override
-  Stream<AuthenticationState> mapEventToState(
-      AuthenticationEvent event,
-      ) async* {
+  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     if (event is AppStarted) {
-      final bool hasToken = await userRepository.hasToken();
+      final bool hasToken = await userRepository.hasAppAuthentication();
 
       if (hasToken) {
-        yield AuthenticationAuthenticated();
+        final AppAuthentication appAuthentication = await userRepository.getAppAuthentication();
+        yield AuthenticationAuthenticated(appAuthentication: appAuthentication);
       } else {
         yield AuthenticationUnauthenticated();
       }
     }
 
     if (event is LoggedIn) {
-      yield AuthenticationAuthenticated();
+      yield AuthenticationLoading();
+      await userRepository.persistAppAuthentication(event.appAuthentication);
+      yield AuthenticationAuthenticated(appAuthentication: event.appAuthentication);
     }
 
     if (event is LoggedOut) {
       yield AuthenticationLoading();
-      await userRepository.deleteToken();
+      await userRepository.deleteAppAuthentication();
       yield AuthenticationUnauthenticated();
     }
-
   }
 }

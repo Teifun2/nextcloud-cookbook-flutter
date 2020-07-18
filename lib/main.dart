@@ -8,13 +8,13 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list.dart';
 
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_events.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_state.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import './src/services/user_repository.dart';
 
 import 'src/blocs/authentication/authentication_bloc.dart';
 import './src/screens/splash_screen.dart';
 
 import './src/screens/login_page.dart';
-import 'dart:developer' as developer;
 
 
 
@@ -43,29 +43,19 @@ void main() {
   final userRepository = UserRepository();
   runApp(
     MultiBlocProvider(
-        providers: [
-    BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        return AuthenticationBloc(userRepository: userRepository)
-          ..add(AppStarted());
-      },
-      ),
-          BlocProvider<RecipesShortBloc>(
-            create: (context) {
-              return RecipesShortBloc();
-
-            },
-          ),
+      providers: [
+        BlocProvider<AuthenticationBloc>(
+          create: (context) {
+            return AuthenticationBloc(userRepository: userRepository)..add(AppStarted());},
+        ),
+        BlocProvider<RecipesShortBloc>(
+          create: (context) {
+            return RecipesShortBloc(repository: DataRepository());
+          },
+        ),
       ],
       child: App(userRepository: userRepository),
     ),
-  /*  BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        return AuthenticationBloc(userRepository: userRepository)
-          ..add(AppStarted());
-      },
-      child: App(userRepository: userRepository),
-    ),*/
   );
 }
 
@@ -83,10 +73,11 @@ class App extends StatelessWidget {
             return SplashPage();
           }
           else if (state is AuthenticationAuthenticated) {
-            BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded());
+            BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded(appAuthentication: state.appAuthentication));
             return RecipesListScreen();
           }
           else if (state is AuthenticationUnauthenticated) {
+            print("LoginPage");
             return LoginPage(userRepository: userRepository);
           }
           else if (state is AuthenticationLoading) {
