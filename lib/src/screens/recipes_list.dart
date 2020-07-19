@@ -5,6 +5,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authenticati
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 
 class RecipesListScreen extends StatefulWidget {
@@ -75,11 +76,18 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     );
   }
 
-  ListTile _buildRecipeShortScreen(AppAuthentication appAuthentication, RecipeShort data) {
+  ListTile _buildRecipeShortScreen(AppAuthentication appAuthentication, RecipeShort recipeShort) {
     return ListTile(
-      title: Text(data.name),
-      trailing: RecipesShortProvider().fetchRecipeThumb(appAuthentication, data.imageUrl),
-      onTap: () => print(data.name),
+      title: Text(recipeShort.name),
+      trailing: RecipesShortProvider().fetchRecipeThumb(appAuthentication, recipeShort.imageUrl),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeScreen(recipeShort: recipeShort),
+          )
+        );
+      },
     );
   }
 }
