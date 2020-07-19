@@ -5,8 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import '../../services/user_repository.dart';
 
-import 'authentication_events.dart';
-import 'authentication_state.dart';
+import 'authentication.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;

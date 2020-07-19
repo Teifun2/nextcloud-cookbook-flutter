@@ -6,12 +6,10 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_indicator.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list.dart';
 
-import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_events.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_state.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import './src/services/user_repository.dart';
 
-import 'src/blocs/authentication/authentication_bloc.dart';
+import 'src/blocs/authentication/authentication.dart';
 import './src/screens/splash_screen.dart';
 
 import './src/screens/login_page.dart';
