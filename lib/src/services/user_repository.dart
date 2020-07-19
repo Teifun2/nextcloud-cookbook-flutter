@@ -82,7 +82,8 @@ class UserRepository {
       if (appAuthenticationString == null) {
         throw("No authentication found in Storage");
       } else{
-        return AppAuthentication.fromJson(appAuthenticationString);
+        currentAppAuthentication = AppAuthentication.fromJson(appAuthenticationString);
+        return currentAppAuthentication;
       }
     }
   }
