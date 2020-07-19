@@ -13,28 +13,9 @@ import 'src/blocs/authentication/authentication.dart';
 import './src/screens/splash_screen.dart';
 
 import './src/screens/login_page.dart';
+import 'src/blocs/simple_bloc_delegatae.dart';
 
 
-
-class SimpleBlocDelegate extends BlocDelegate {
-  @override
-  void onEvent(Bloc bloc, Object event) {
-    print(event);
-    super.onEvent(bloc, event);
-  }
-
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    print(transition);
-    super.onTransition(bloc, transition);
-  }
-
-  @override
-  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
-    print(error);
-    super.onError(bloc, error, stackTrace);
-  }
-}
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
