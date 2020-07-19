@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import '../models/app_authentication.dart';
-import 'jsonClasses/intial_login.dart';
+import '../models/intial_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
