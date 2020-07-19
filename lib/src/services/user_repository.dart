@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
 import '../models/app_authentication.dart';
 import '../models/intial_login.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +16,7 @@ final storage = new FlutterSecureStorage();
 final String _appAuthentication = 'appAuthentication';
 
 class UserRepository {
+  AppAuthentication currentAppAuthentication;
 
   Future<AppAuthentication> authenticate({
     @required String serverUrl,
@@ -64,25 +66,35 @@ class UserRepository {
   }
 
   Future<bool> hasAppAuthentication() async {
-    String appAuthentication = await storage.read(key: _appAuthentication);
-    return appAuthentication != null;
+    if (currentAppAuthentication != null) {
+      return true;
+    } else {
+      String appAuthentication = await storage.read(key: _appAuthentication);
+      return appAuthentication != null;
+    }
   }
 
   Future<AppAuthentication> getAppAuthentication() async {
-    String appAuthenticationString = await storage.read(key: _appAuthentication);
-    if (appAuthenticationString == null) {
-      throw("No authentication found in Storage");
-    } else{
-      return AppAuthentication.fromJson(appAuthenticationString);
+    if (currentAppAuthentication != null) {
+      return currentAppAuthentication;
+    } else {
+      String appAuthenticationString = await storage.read(key: _appAuthentication);
+      if (appAuthenticationString == null) {
+        throw("No authentication found in Storage");
+      } else{
+        return AppAuthentication.fromJson(appAuthenticationString);
+      }
     }
   }
 
   Future<void> persistAppAuthentication(AppAuthentication appAuthentication) async {
+    currentAppAuthentication = appAuthentication;
     await storage.write(key: _appAuthentication, value: appAuthentication.toJson());
   }
 
   Future<void> deleteAppAuthentication() async {
     //TODO Delete Appkey Serverside
+    currentAppAuthentication = null;
     await storage.delete(key: _appAuthentication);
   }
 }
