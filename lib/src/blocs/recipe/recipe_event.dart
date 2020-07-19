@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 
 abstract class RecipeEvent extends Equatable {
   const RecipeEvent();
@@ -10,11 +9,10 @@ abstract class RecipeEvent extends Equatable {
 }
 
 class RecipeLoaded extends RecipeEvent {
-  final AppAuthentication appAuthentication;
   final int recipeId;
 
-  const RecipeLoaded({@required this.appAuthentication, @required this.recipeId});
+  const RecipeLoaded({@required this.recipeId});
 
   @override
-  List<Object> get props => [appAuthentication];
+  List<Object> get props => [recipeId];
 }
