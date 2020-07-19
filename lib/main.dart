@@ -77,7 +77,6 @@ class App extends StatelessWidget {
             return RecipesListScreen();
           }
           else if (state is AuthenticationUnauthenticated) {
-            print("LoginPage");
             return LoginPage(userRepository: userRepository);
           }
           else if (state is AuthenticationLoading) {
