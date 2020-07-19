@@ -25,7 +25,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     try {
       yield RecipeLoadInProgress();
       final recipe = await dataRepository.fetchRecipe(userRepository.currentAppAuthentication, recipeLoaded.recipeId);
-      yield RecipeLoadSuccess();
+      yield RecipeLoadSuccess(recipe: recipe);
     } catch (_) {
       yield RecipeLoadFailure();
     }

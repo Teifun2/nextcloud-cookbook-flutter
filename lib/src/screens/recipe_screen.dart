@@ -44,7 +44,7 @@ class RecipeScreenState extends State<RecipeScreen> {
           if (state is RecipeLoadSuccess) {
             return Padding(
               padding: EdgeInsets.all(16.0),
-              child: Text(recipeShort.name),
+              child: Text(state.recipe.recipeCategory),
             );
           } else if (state is RecipeLoadInProgress) {
             return Center(
