@@ -13,7 +13,7 @@ class Recipe extends Equatable {
   String get imageUrl => _imageUrl;
   String get recipeCategory => _recipeCategory;
 
-  Recipe.formJson(Map<String, dynamic> json) :
+  Recipe.fromJson(Map<String, dynamic> json) :
     _recipeId = int.parse(json["recipe_id"]),
     _name = json["name"],
     _userId = json["user_id"],
