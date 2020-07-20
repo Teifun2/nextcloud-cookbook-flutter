@@ -19,7 +19,11 @@ class RecipeProvider  {
     );
 
     if (response.statusCode == 200) {
-      return Recipe.fromJson(json.decode(response.body));
+      try {
+        return Recipe.fromJson(json.decode(response.body));
+      } catch(ex) {
+        print(ex);
+      }
     } else {
       throw Exception("Failed to load RecipesShort!");
     }
