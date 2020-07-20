@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
@@ -79,11 +80,59 @@ class RecipeScreenState extends State<RecipeScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
-                  "Ingredients:",
+                  recipe.description,
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  "Ingredients",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              Text(recipe.recipeIngredient.fold("", (p, e) => p + e + "\n")),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                    recipe.recipeIngredient.fold("", (p, e) => p + e + "\n")),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  "Instructions",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Row(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(15),
+                            margin: EdgeInsets.only(right: 15),
+                            child: Text("${index + 1}"),
+                            decoration: ShapeDecoration(
+                              shape: CircleBorder(
+                                  side: BorderSide(color: Colors.grey)),
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(recipe.recipeInstructions[index]),
+                          ),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (c, i) => SizedBox(height: 10),
+                    itemCount: recipe.recipeInstructions.length,
+                  ),
+                ],
+              )
             ],
           ),
         ),
