@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import '../../services/user_repository.dart';
 
 import 'authentication.dart';
@@ -19,8 +17,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       final bool hasToken = await userRepository.hasAppAuthentication();
 
       if (hasToken) {
-        final AppAuthentication appAuthentication = await userRepository.getAppAuthentication();
-        yield AuthenticationAuthenticated(appAuthentication: appAuthentication);
+        yield AuthenticationLoading();
+        await userRepository.loadAppAuthentication();
+        yield AuthenticationAuthenticated();
       } else {
         yield AuthenticationUnauthenticated();
       }
@@ -29,7 +28,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     if (event is LoggedIn) {
       yield AuthenticationLoading();
       await userRepository.persistAppAuthentication(event.appAuthentication);
-      yield AuthenticationAuthenticated(appAuthentication: event.appAuthentication);
+      yield AuthenticationAuthenticated();
     }
 
     if (event is LoggedOut) {

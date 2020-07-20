@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
@@ -26,8 +25,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                 IconButton(
                   icon: Icon(Icons.refresh, semanticLabel: 'Refresh',),
                   onPressed: () {
-                    AuthenticationAuthenticated authenticationState = BlocProvider.of<AuthenticationBloc>(context).state;
-                    BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded(appAuthentication: authenticationState.appAuthentication));
+                    BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded());
                   },
                 ),
                 IconButton(
@@ -40,8 +38,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
           ),
           body: (() {
             if (recipesShortState is RecipesShortLoadSuccess) {
-              AuthenticationAuthenticated authenticationState = BlocProvider.of<AuthenticationBloc>(context).state;
-              return _buildRecipesShortScreen(authenticationState.appAuthentication, recipesShortState.recipesShort);
+              return _buildRecipesShortScreen(recipesShortState.recipesShort);
             } else if (recipesShortState is RecipesShortLoadInProgress) {
               return Center(child: CircularProgressIndicator());
             } else {
@@ -50,8 +47,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
 
                 child: RaisedButton(
                   onPressed: () {
-                    AuthenticationAuthenticated authenticationState = BlocProvider.of<AuthenticationBloc>(context).state;
-                    BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded(appAuthentication: authenticationState.appAuthentication));
+                    BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded());
                   },
                   child: Text("Welcome"),
                 ),
@@ -64,11 +60,11 @@ class RecipesListScreenState extends State<RecipesListScreen> {
   }
 
 
-  ListView _buildRecipesShortScreen(AppAuthentication appAuthentication, List<RecipeShort> data) {
+  ListView _buildRecipesShortScreen(List<RecipeShort> data) {
     return ListView.separated(
       itemCount: data.length,
       itemBuilder: (context, index) {
-        return _buildRecipeShortScreen(appAuthentication, data[index]);
+        return _buildRecipeShortScreen(data[index]);
       },
       separatorBuilder: (context, index) => Divider(
         color: Colors.black,
@@ -76,10 +72,10 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     );
   }
 
-  ListTile _buildRecipeShortScreen(AppAuthentication appAuthentication, RecipeShort recipeShort) {
+  ListTile _buildRecipeShortScreen(RecipeShort recipeShort) {
     return ListTile(
       title: Text(recipeShort.name),
-      trailing: RecipesShortProvider().fetchRecipeThumb(appAuthentication, recipeShort.imageUrl),
+      trailing: RecipesShortProvider().fetchRecipeThumb(recipeShort.imageUrl),
       onTap: () {
         Navigator.push(
           context,

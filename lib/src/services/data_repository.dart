@@ -18,11 +18,11 @@ class DataRepository {
   RecipeProvider recipeProvider = RecipeProvider();
 
   // Actions
-  Future<List<RecipeShort>> fetchRecipesShort(AppAuthentication appAuthentication) {
-    return recipesShortProvider.fetchRecipesShort(appAuthentication);
+  Future<List<RecipeShort>> fetchRecipesShort() {
+    return recipesShortProvider.fetchRecipesShort();
   }
 
-  Future<Recipe> fetchRecipe(AppAuthentication appAuthentication, int id) {
-    return recipeProvider.fetchRecipe(appAuthentication, id);
+  Future<Recipe> fetchRecipe(int id) {
+    return recipeProvider.fetchRecipe(id);
   }
 }

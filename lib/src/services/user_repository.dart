@@ -79,17 +79,12 @@ class UserRepository {
     }
   }
 
-  Future<AppAuthentication> getAppAuthentication() async {
-    if (currentAppAuthentication != null) {
-      return currentAppAuthentication;
-    } else {
-      String appAuthenticationString = await _secureStorage.read(key: _appAuthenticationKey);
-      if (appAuthenticationString == null) {
-        throw("No authentication found in Storage");
-      } else{
-        currentAppAuthentication = AppAuthentication.fromJson(appAuthenticationString);
-        return currentAppAuthentication;
-      }
+  Future<void> loadAppAuthentication() async {
+    String appAuthenticationString = await _secureStorage.read(key: _appAuthenticationKey);
+    if (appAuthenticationString == null) {
+      throw("No authentication found in Storage");
+    } else{
+      currentAppAuthentication = AppAuthentication.fromJson(appAuthenticationString);
     }
   }
 

@@ -19,7 +19,7 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
 
   Stream<RecipesShortState> _mapRecipesShortLoadedToState(RecipesShortLoaded recipesShortLoaded) async* {
     try {
-      final recipesShort = await dataRepository.fetchRecipesShort(recipesShortLoaded.appAuthentication);
+      final recipesShort = await dataRepository.fetchRecipesShort();
       yield RecipesShortLoadSuccess(recipesShort);
     } catch (_) {
       yield RecipesShortLoadFailure();
