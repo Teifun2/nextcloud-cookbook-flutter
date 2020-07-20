@@ -6,6 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class RecipesListScreen extends StatefulWidget {
   @override
@@ -75,7 +76,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
   ListTile _buildRecipeShortScreen(RecipeShort recipeShort) {
     return ListTile(
       title: Text(recipeShort.name),
-      trailing: RecipesShortProvider().fetchRecipeThumb(recipeShort.imageUrl),
+      trailing: AuthenticationCachedNetworkImage(imagePath: recipeShort.imageUrl),
       onTap: () {
         Navigator.push(
           context,
