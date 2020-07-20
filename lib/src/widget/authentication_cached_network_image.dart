@@ -25,9 +25,8 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
       httpHeaders: {
         "authorization": appAuthentication.basicAuth,
       },
-      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-      errorWidget: (context, url, error) =>
-          Center(child: Icon(Icons.broken_image)),
+      placeholder: (context, url) => CircularProgressIndicator(),
+      errorWidget: (context, url, error) => Icon(Icons.broken_image),
     );
   }
 }

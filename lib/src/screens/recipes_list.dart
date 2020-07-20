@@ -5,7 +5,6 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authenticati
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class RecipesListScreen extends StatefulWidget {
@@ -16,27 +15,31 @@ class RecipesListScreen extends StatefulWidget {
 class RecipesListScreenState extends State<RecipesListScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecipesShortBloc, RecipesShortState> (
+    return BlocBuilder<RecipesShortBloc, RecipesShortState>(
       builder: (context, recipesShortState) {
         return Scaffold(
-          appBar: AppBar(
-              title: Text('Cookbook App'),
-              actions: <Widget>[
-                // action button
-                IconButton(
-                  icon: Icon(Icons.refresh, semanticLabel: 'Refresh',),
-                  onPressed: () {
-                    BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded());
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.exit_to_app, semanticLabel: 'LogOut',),
-                  onPressed: () {
-                    BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-                  },
-                ),
-              ]
-          ),
+          appBar: AppBar(title: Text('Cookbook App'), actions: <Widget>[
+            // action button
+            IconButton(
+              icon: Icon(
+                Icons.refresh,
+                semanticLabel: 'Refresh',
+              ),
+              onPressed: () {
+                BlocProvider.of<RecipesShortBloc>(context)
+                    .add(RecipesShortLoaded());
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.exit_to_app,
+                semanticLabel: 'LogOut',
+              ),
+              onPressed: () {
+                BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+              },
+            ),
+          ]),
           body: (() {
             if (recipesShortState is RecipesShortLoadSuccess) {
               return _buildRecipesShortScreen(recipesShortState.recipesShort);
@@ -45,10 +48,10 @@ class RecipesListScreenState extends State<RecipesListScreen> {
             } else {
               //TODO Retry screen
               return Center(
-
                 child: RaisedButton(
                   onPressed: () {
-                    BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoaded());
+                    BlocProvider.of<RecipesShortBloc>(context)
+                        .add(RecipesShortLoaded());
                   },
                   child: Text("Welcome"),
                 ),
@@ -59,7 +62,6 @@ class RecipesListScreenState extends State<RecipesListScreen> {
       },
     );
   }
-
 
   ListView _buildRecipesShortScreen(List<RecipeShort> data) {
     return ListView.separated(
@@ -76,14 +78,16 @@ class RecipesListScreenState extends State<RecipesListScreen> {
   ListTile _buildRecipeShortScreen(RecipeShort recipeShort) {
     return ListTile(
       title: Text(recipeShort.name),
-      trailing: AuthenticationCachedNetworkImage(imagePath: recipeShort.imageUrl),
+      trailing: Container(
+        child:
+            AuthenticationCachedNetworkImage(imagePath: recipeShort.imageUrl),
+      ),
       onTap: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeScreen(recipeShort: recipeShort),
-          )
-        );
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeScreen(recipeShort: recipeShort),
+            ));
       },
     );
   }

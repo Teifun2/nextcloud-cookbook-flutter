@@ -52,11 +52,13 @@ class RecipeScreenState extends State<RecipeScreen> {
     return ListView(
       children: <Widget>[
         Container(
-          child: AuthenticationCachedNetworkImage(
-            imagePath: recipe.imageUrl,
-            width: double.infinity,
-            height: 200,
-            boxFit: BoxFit.cover,
+          child: Center(
+            child: AuthenticationCachedNetworkImage(
+              imagePath: recipe.imageUrl,
+              width: double.infinity,
+              height: 200,
+              boxFit: BoxFit.cover,
+            ),
           ),
           width: double.infinity,
           height: 200,
