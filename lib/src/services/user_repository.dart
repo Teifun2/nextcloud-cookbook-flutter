@@ -7,15 +7,20 @@ import '../models/intial_login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-
 import 'dart:convert' show json;
 import 'package:url_launcher/url_launcher.dart';
 
-final storage = new FlutterSecureStorage();
-
-final String _appAuthentication = 'appAuthentication';
-
 class UserRepository {
+
+  // Singleton
+  static final UserRepository _userRepository = UserRepository._internal();
+  factory UserRepository() {
+    return _userRepository;
+  }
+  UserRepository._internal();
+
+  final FlutterSecureStorage _secureStorage = new FlutterSecureStorage();
+  final String _appAuthenticationKey = 'appAuthentication';
   AppAuthentication currentAppAuthentication;
 
   Future<AppAuthentication> authenticate({
@@ -69,7 +74,7 @@ class UserRepository {
     if (currentAppAuthentication != null) {
       return true;
     } else {
-      String appAuthentication = await storage.read(key: _appAuthentication);
+      String appAuthentication = await _secureStorage.read(key: _appAuthenticationKey);
       return appAuthentication != null;
     }
   }
@@ -78,7 +83,7 @@ class UserRepository {
     if (currentAppAuthentication != null) {
       return currentAppAuthentication;
     } else {
-      String appAuthenticationString = await storage.read(key: _appAuthentication);
+      String appAuthenticationString = await _secureStorage.read(key: _appAuthenticationKey);
       if (appAuthenticationString == null) {
         throw("No authentication found in Storage");
       } else{
@@ -90,13 +95,13 @@ class UserRepository {
 
   Future<void> persistAppAuthentication(AppAuthentication appAuthentication) async {
     currentAppAuthentication = appAuthentication;
-    await storage.write(key: _appAuthentication, value: appAuthentication.toJson());
+    await _secureStorage.write(key: _appAuthenticationKey, value: appAuthentication.toJson());
   }
 
   Future<void> deleteAppAuthentication() async {
     //TODO Delete Appkey Serverside
     currentAppAuthentication = null;
-    await storage.delete(key: _appAuthentication);
+    await _secureStorage.delete(key: _appAuthenticationKey);
   }
 }
 

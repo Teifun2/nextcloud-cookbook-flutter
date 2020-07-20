@@ -6,7 +6,6 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_indicator.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list.dart';
 
-import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import './src/services/user_repository.dart';
 
 import 'src/blocs/authentication/authentication.dart';
@@ -16,32 +15,28 @@ import './src/screens/login_page.dart';
 import 'src/blocs/simple_bloc_delegatae.dart';
 
 
-
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final userRepository = UserRepository();
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationBloc>(
           create: (context) {
-            return AuthenticationBloc(userRepository: userRepository)..add(AppStarted());},
+            return AuthenticationBloc()..add(AppStarted());},
         ),
         BlocProvider<RecipesShortBloc>(
           create: (context) {
-            return RecipesShortBloc(repository: DataRepository());
+            return RecipesShortBloc();
           },
         ),
       ],
-      child: App(userRepository: userRepository),
+      child: App(),
     ),
   );
 }
 
 class App extends StatelessWidget {
-  final UserRepository userRepository;
-
-  App({Key key, @required this.userRepository}) : super(key: key);
+  final UserRepository userRepository = UserRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +51,7 @@ class App extends StatelessWidget {
             return RecipesListScreen();
           }
           else if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: userRepository);
+            return LoginPage();
           }
           else if (state is AuthenticationLoading) {
             return LoadingIndicator();

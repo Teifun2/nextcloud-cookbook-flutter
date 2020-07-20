@@ -5,10 +5,8 @@ import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
-  final UserRepository userRepository;
-  final DataRepository dataRepository;
-
-  RecipeBloc({@required this.userRepository, @required this.dataRepository});
+  final UserRepository userRepository = UserRepository();
+  final DataRepository dataRepository = DataRepository();
 
   @override
   RecipeState get initialState => RecipeInitial();

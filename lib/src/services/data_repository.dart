@@ -5,9 +5,19 @@ import 'package:nextcloud_cookbook_flutter/src/services/recipe_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 
 class DataRepository {
+
+  // Singleton
+  static final DataRepository _dataRepository = DataRepository._internal();
+  factory DataRepository() {
+    return _dataRepository;
+  }
+  DataRepository._internal();
+
+  // Provider List
   RecipesShortProvider recipesShortProvider = RecipesShortProvider();
   RecipeProvider recipeProvider = RecipeProvider();
 
+  // Actions
   Future<List<RecipeShort>> fetchRecipesShort(AppAuthentication appAuthentication) {
     return recipesShortProvider.fetchRecipesShort(appAuthentication);
   }
