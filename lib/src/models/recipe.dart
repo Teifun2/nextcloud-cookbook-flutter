@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/iso_time_format.dart';
 
 class Recipe extends Equatable {
   final int _id;
@@ -8,6 +9,10 @@ class Recipe extends Equatable {
   final String _description;
   final List<String> _recipeIngredient;
   final List<String> _recipeInstructions;
+  final int _recipeYield;
+  final Duration _prepTime;
+  final Duration _cookTime;
+  final Duration _totalTime;
 
   int get id => _id;
   String get name => _name;
@@ -16,6 +21,10 @@ class Recipe extends Equatable {
   String get description => _description;
   List<String> get recipeIngredient => _recipeIngredient;
   List<String> get recipeInstructions => _recipeInstructions;
+  int get recipeYield => _recipeYield;
+  Duration get prepTime => _prepTime;
+  Duration get cookTime => _cookTime;
+  Duration get totalTime => _totalTime;
 
   Recipe.fromJson(Map<String, dynamic> json)
       : _id = json["id"],
@@ -25,7 +34,11 @@ class Recipe extends Equatable {
         _description = json["description"],
         _recipeIngredient = json["recipeIngredient"].cast<String>().toList(),
         _recipeInstructions =
-            json["recipeInstructions"].cast<String>().toList();
+            json["recipeInstructions"].cast<String>().toList(),
+        _recipeYield = json["recipeYield"],
+        _prepTime = IsoTimeFormat.toDuration(json["prepTime"]),
+        _cookTime = IsoTimeFormat.toDuration(json["cookTime"]),
+        _totalTime = IsoTimeFormat.toDuration(json["totalTime"]);
 
   @override
   List<Object> get props => [_id];
