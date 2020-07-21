@@ -114,15 +114,21 @@ class RecipeScreenState extends State<RecipeScreen> {
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Column(
                       children: <Widget>[
-                        DurationIndicator(
-                            duration: recipe.prepTime,
-                            name: "Preparation time"),
+                        (recipe.prepTime != null)
+                            ? DurationIndicator(
+                                duration: recipe.prepTime,
+                                name: "Preparation time")
+                            : SizedBox(height: 0),
                         SizedBox(height: 10),
-                        DurationIndicator(
-                            duration: recipe.cookTime, name: "Cooking time"),
+                        (recipe.cookTime != null)
+                            ? DurationIndicator(
+                                duration: recipe.cookTime, name: "Cooking time")
+                            : SizedBox(height: 0),
                         SizedBox(height: 10),
-                        DurationIndicator(
-                            duration: recipe.totalTime, name: "Total time"),
+                        (recipe.totalTime != null)
+                            ? DurationIndicator(
+                                duration: recipe.totalTime, name: "Total time")
+                            : SizedBox(height: 0),
                       ],
                     ),
                   ),

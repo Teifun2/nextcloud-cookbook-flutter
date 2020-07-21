@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
@@ -20,7 +18,11 @@ class RecipeProvider {
     );
 
     if (response.statusCode == 200) {
-      return Recipe.fromJson(json.decode(response.body));
+      try {
+        return Recipe(response.body);
+      } catch (e) {
+        print(e);
+      }
     } else {
       throw Exception("Failed to load RecipesShort!");
     }
