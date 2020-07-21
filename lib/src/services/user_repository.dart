@@ -1,20 +1,27 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
 import '../models/app_authentication.dart';
-import 'jsonClasses/intial_login.dart';
-import 'package:flutter/cupertino.dart';
+import '../models/intial_login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-
 
 import 'dart:convert' show json;
 import 'package:url_launcher/url_launcher.dart';
 
-final storage = new FlutterSecureStorage();
-
-final String _appAuthentication = 'appAuthentication';
-
 class UserRepository {
+
+  // Singleton
+  static final UserRepository _userRepository = UserRepository._internal();
+  factory UserRepository() {
+    return _userRepository;
+  }
+  UserRepository._internal();
+
+  final FlutterSecureStorage _secureStorage = new FlutterSecureStorage();
+  final String _appAuthenticationKey = 'appAuthentication';
+  AppAuthentication currentAppAuthentication;
 
   Future<AppAuthentication> authenticate({
     @required String serverUrl,
@@ -64,26 +71,32 @@ class UserRepository {
   }
 
   Future<bool> hasAppAuthentication() async {
-    String appAuthentication = await storage.read(key: _appAuthentication);
-    return appAuthentication != null;
+    if (currentAppAuthentication != null) {
+      return true;
+    } else {
+      String appAuthentication = await _secureStorage.read(key: _appAuthenticationKey);
+      return appAuthentication != null;
+    }
   }
 
-  Future<AppAuthentication> getAppAuthentication() async {
-    String appAuthenticationString = await storage.read(key: _appAuthentication);
+  Future<void> loadAppAuthentication() async {
+    String appAuthenticationString = await _secureStorage.read(key: _appAuthenticationKey);
     if (appAuthenticationString == null) {
       throw("No authentication found in Storage");
     } else{
-      return AppAuthentication.fromJson(appAuthenticationString);
+      currentAppAuthentication = AppAuthentication.fromJson(appAuthenticationString);
     }
   }
 
   Future<void> persistAppAuthentication(AppAuthentication appAuthentication) async {
-    await storage.write(key: _appAuthentication, value: appAuthentication.toJson());
+    currentAppAuthentication = appAuthentication;
+    await _secureStorage.write(key: _appAuthenticationKey, value: appAuthentication.toJson());
   }
 
   Future<void> deleteAppAuthentication() async {
     //TODO Delete Appkey Serverside
-    await storage.delete(key: _appAuthentication);
+    currentAppAuthentication = null;
+    await _secureStorage.delete(key: _appAuthenticationKey);
   }
 }
 

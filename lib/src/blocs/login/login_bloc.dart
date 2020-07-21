@@ -8,14 +8,12 @@ import '../../services/user_repository.dart';
 import 'login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final UserRepository userRepository;
+  final UserRepository userRepository = UserRepository();
   final AuthenticationBloc authenticationBloc;
 
   LoginBloc({
-    @required this.userRepository,
     @required this.authenticationBloc,
-  })  : assert(userRepository != null),
-        assert(authenticationBloc != null);
+  }) : assert(authenticationBloc != null);
 
   LoginState get initialState => LoginInitial();
 
