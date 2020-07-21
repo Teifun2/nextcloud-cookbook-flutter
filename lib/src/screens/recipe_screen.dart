@@ -6,6 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 
 class RecipeScreen extends StatefulWidget {
   final RecipeShort recipeShort;
@@ -107,6 +108,22 @@ class RecipeScreenState extends State<RecipeScreen> {
                           )
                         ],
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Column(
+                      children: <Widget>[
+                        DurationIndicator(
+                            duration: recipe.prepTime,
+                            name: "Preparation time"),
+                        SizedBox(height: 10),
+                        DurationIndicator(
+                            duration: recipe.cookTime, name: "Cooking time"),
+                        SizedBox(height: 10),
+                        DurationIndicator(
+                            duration: recipe.totalTime, name: "Total time"),
+                      ],
                     ),
                   ),
                   Padding(
