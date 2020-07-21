@@ -92,8 +92,27 @@ class RecipeScreenState extends State<RecipeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Servings: ",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: recipe.recipeYield.toString(),
+                            style: TextStyle(
+//                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
-                      "Ingredients",
+                      "Ingredients:",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -105,7 +124,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
-                      "Instructions",
+                      "Instructions:",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
