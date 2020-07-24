@@ -18,6 +18,8 @@ class _LandingScreenState extends State<LandingScreen> {
           body: (() {
             if (categoriesState is CategoriesLoadSuccess) {
               return _buildCategoriesScreen(categoriesState.categories);
+            } else if (categoriesState is CategoriesImageLoadSuccess) {
+              return _buildCategoriesScreen(categoriesState.categories);
             } else {
               return Center(child: CircularProgressIndicator());
             }
@@ -37,8 +39,10 @@ class _LandingScreenState extends State<LandingScreen> {
           child: GridView.count(
             crossAxisCount: 3,
             semanticChildCount: categories.length,
-            children:
-                categories.map((category) => Text(category.name)).toList(),
+            children: categories
+                .map((category) => Text(category.name +
+                    (category.imageUrl != null ? "Yes" : "nope")))
+                .toList(),
           ),
         ),
 //        Wrap(

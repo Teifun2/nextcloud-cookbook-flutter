@@ -20,6 +20,15 @@ class CategoriesLoadSuccess extends CategoriesState {
   List<Object> get props => [categories];
 }
 
+class CategoriesImageLoadSuccess extends CategoriesState {
+  final List<Category> categories;
+
+  const CategoriesImageLoadSuccess({@required this.categories});
+
+  @override
+  List<Object> get props => [categories];
+}
+
 class CategoriesLoadFailure extends CategoriesState {}
 
 class CategoriesLoadInProgress extends CategoriesState {}
