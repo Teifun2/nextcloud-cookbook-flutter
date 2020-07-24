@@ -19,7 +19,8 @@ class CategoriesProvider {
 
     if (response.statusCode == 200) {
       try {
-        return Category.parseCategories(response.body);
+        return Category.parseCategories(response.body)
+          ..sort((a, b) => a.name.compareTo(b.name));
       } catch (e) {
         throw Exception(e);
       }
