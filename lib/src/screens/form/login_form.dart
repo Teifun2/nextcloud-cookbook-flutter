@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import '../../blocs/login/login.dart';
 
 class LoginForm extends StatefulWidget {
@@ -23,7 +24,7 @@ class _LoginFormState extends State<LoginForm> {
       if (_formKey.currentState.validate()) {
         BlocProvider.of<LoginBloc>(context).add(
           LoginButtonPressed(
-            serverURL: _serverUrl.text,
+            serverURL: _serverUrl.text.trim(),
           ),
         );
       }
@@ -54,21 +55,25 @@ class _LoginFormState extends State<LoginForm> {
                     if (value.isEmpty) {
                       return 'Please enter a Nextcloud URL';
                     }
-                    var urlPattern = r"([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
-                    bool _match = new RegExp(urlPattern, caseSensitive: false).hasMatch(value);
-                    if ( ! _match){
+                    var urlPattern =
+                        r"([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
+                    bool _match = new RegExp(urlPattern, caseSensitive: false)
+                        .hasMatch(value);
+                    if (!_match) {
                       return 'Please enter a valid URL';
                     }
                     return null;
                   },
                   onFieldSubmitted: (val) {
-                    if (state is! LoginLoading) {_onLoginButtonPressed();}
+                    if (state is! LoginLoading) {
+                      _onLoginButtonPressed();
+                    }
                   },
                   textInputAction: TextInputAction.done,
                 ),
                 RaisedButton(
                   onPressed:
-                    state is! LoginLoading ? _onLoginButtonPressed : null,
+                      state is! LoginLoading ? _onLoginButtonPressed : null,
                   child: Text('Login'),
                 ),
                 Container(
