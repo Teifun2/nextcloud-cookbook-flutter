@@ -6,8 +6,8 @@ class Category extends Equatable {
   final String _name;
   final int _recipeCount;
 
-  get name => _name;
-  get recipeCount => _recipeCount;
+  String get name => _name;
+  int get recipeCount => _recipeCount;
 
   Category.fromJson(Map<String, dynamic> json)
       : _name = json["name"],

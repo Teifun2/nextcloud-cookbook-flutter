@@ -42,19 +42,8 @@ class RecipesListScreenState extends State<RecipesListScreen> {
           body: (() {
             if (recipesShortState is RecipesShortLoadSuccess) {
               return _buildRecipesShortScreen(recipesShortState.recipesShort);
-            } else if (recipesShortState is RecipesShortLoadInProgress) {
-              return Center(child: CircularProgressIndicator());
             } else {
-              //TODO Retry screen
-              return Center(
-                child: RaisedButton(
-                  onPressed: () {
-                    BlocProvider.of<RecipesShortBloc>(context)
-                        .add(RecipesShortLoaded());
-                  },
-                  child: Text("Welcome"),
-                ),
-              );
+              return Center(child: CircularProgressIndicator());
             }
           }()),
         );
