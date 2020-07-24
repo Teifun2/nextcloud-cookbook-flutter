@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
@@ -17,7 +17,30 @@ class _LandingScreenState extends State<LandingScreen> {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, categoriesState) {
         return Scaffold(
-          appBar: AppBar(title: Text("Cookbook")),
+          appBar: AppBar(
+            title: Text("Cookbook"),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.refresh,
+                  semanticLabel: 'Refresh',
+                ),
+                onPressed: () {
+                  BlocProvider.of<CategoriesBloc>(context)
+                      .add(CategoriesLoaded());
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.exit_to_app,
+                  semanticLabel: 'LogOut',
+                ),
+                onPressed: () {
+                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                },
+              ),
+            ],
+          ),
           body: (() {
             if (categoriesState is CategoriesLoadSuccess) {
               return _buildCategoriesScreen(categoriesState.categories);
@@ -55,8 +78,6 @@ class _LandingScreenState extends State<LandingScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            BlocProvider.of<RecipesShortBloc>(context).add(
-                                RecipesShortLoaded(category: category.name));
                             return RecipesListScreen(category: category.name);
                           },
                         ),

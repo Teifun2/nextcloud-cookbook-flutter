@@ -48,12 +48,11 @@ class App extends StatelessWidget {
         builder: (context, state) {
           if (state is AuthenticationUninitialized) {
             return SplashPage();
-//          } else if (state is AuthenticationAuthenticated) {
-//            BlocProvider.of<RecipesShortBloc>(context)
-//                .add(RecipesShortLoaded());
-//            return RecipesListScreen();
           } else if (state is AuthenticationAuthenticated) {
-            BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
+            if (BlocProvider.of<CategoriesBloc>(context).state
+                is CategoriesInitial) {
+              BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
+            }
             return LandingScreen();
           } else if (state is AuthenticationUnauthenticated) {
             return LoginPage();

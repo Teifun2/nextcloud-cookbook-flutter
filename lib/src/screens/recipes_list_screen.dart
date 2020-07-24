@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
@@ -26,31 +25,28 @@ class RecipesListScreenState extends State<RecipesListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<RecipesShortBloc>(context)
+        .add(RecipesShortLoaded(category: category));
+
     return BlocBuilder<RecipesShortBloc, RecipesShortState>(
       builder: (context, recipesShortState) {
         return Scaffold(
-          appBar: AppBar(title: Text('Cookbook App'), actions: <Widget>[
-            // action button
-            IconButton(
-              icon: Icon(
-                Icons.refresh,
-                semanticLabel: 'Refresh',
+          appBar: AppBar(
+            title: Text('Category: $category'),
+            actions: <Widget>[
+              // action button
+              IconButton(
+                icon: Icon(
+                  Icons.refresh,
+                  semanticLabel: 'Refresh',
+                ),
+                onPressed: () {
+                  BlocProvider.of<RecipesShortBloc>(context)
+                      .add(RecipesShortLoaded(category: category));
+                },
               ),
-              onPressed: () {
-                BlocProvider.of<RecipesShortBloc>(context)
-                    .add(RecipesShortLoaded());
-              },
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.exit_to_app,
-                semanticLabel: 'LogOut',
-              ),
-              onPressed: () {
-                BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-              },
-            ),
-          ]),
+            ],
+          ),
           body: (() {
             if (recipesShortState is RecipesShortLoadSuccess) {
               return _buildRecipesShortScreen(recipesShortState.recipesShort);
@@ -63,14 +59,17 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     );
   }
 
-  ListView _buildRecipesShortScreen(List<RecipeShort> data) {
-    return ListView.separated(
-      itemCount: data.length,
-      itemBuilder: (context, index) {
-        return _buildRecipeShortScreen(data[index]);
-      },
-      separatorBuilder: (context, index) => Divider(
-        color: Colors.black,
+  Widget _buildRecipesShortScreen(List<RecipeShort> data) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.separated(
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return _buildRecipeShortScreen(data[index]);
+        },
+        separatorBuilder: (context, index) => Divider(
+          color: Colors.black,
+        ),
       ),
     );
   }
