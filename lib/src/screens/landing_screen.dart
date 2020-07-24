@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -49,7 +51,16 @@ class _LandingScreenState extends State<LandingScreen> {
                   .map(
                     (category) => GestureDetector(
                       child: CategoryCard(category),
-                      onTap: () => print("Test"),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            BlocProvider.of<RecipesShortBloc>(context).add(
+                                RecipesShortLoaded(category: category.name));
+                            return RecipesListScreen(category: category.name);
+                          },
+                        ),
+                      ),
                     ),
                   )
                   .toList(),

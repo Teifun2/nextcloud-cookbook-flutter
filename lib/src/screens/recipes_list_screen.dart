@@ -7,11 +7,23 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class RecipesListScreen extends StatefulWidget {
+  final String category;
+
+  const RecipesListScreen({Key key, @required this.category}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => RecipesListScreenState();
 }
 
 class RecipesListScreenState extends State<RecipesListScreen> {
+  String category;
+
+  @override
+  void initState() {
+    category = widget.category;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecipesShortBloc, RecipesShortState>(
