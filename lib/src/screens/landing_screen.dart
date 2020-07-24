@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -30,26 +31,32 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 
   Widget _buildCategoriesScreen(List<Category> categories) {
-    return Column(
-      children: <Widget>[
-        TextField(
-          readOnly: true,
-        ),
-        Expanded(
-          child: GridView.count(
-            crossAxisCount: 3,
-            semanticChildCount: categories.length,
-            children: categories
-                .map((category) => Text(category.name +
-                    (category.imageUrl != null ? "Yes" : "nope")))
-                .toList(),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: <Widget>[
+          TextField(
+            readOnly: true,
           ),
-        ),
-//        Wrap(
-//          direction: Axis.horizontal,
-//          children: categories.map((category) => Text(category.name)).toList(),
-//        ),
-      ],
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              padding: EdgeInsets.only(top: 10),
+              semanticChildCount: categories.length,
+              children: categories
+                  .map(
+                    (category) => GestureDetector(
+                      child: CategoryCard(category),
+                      onTap: () => print("Test"),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
