@@ -1,17 +1,17 @@
 import 'package:http/http.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
-class RecipeProvider {
+class CategoriesProvider {
   Client client = Client();
 
-  Future<Recipe> fetchRecipe(int id) async {
+  Future<List<Category>> fetchCategories() async {
     AppAuthentication appAuthentication =
         UserRepository().currentAppAuthentication;
 
     final response = await client.get(
-      "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/$id",
+      "${appAuthentication.server}/index.php/apps/cookbook/categories",
       headers: {
         "authorization": appAuthentication.basicAuth,
       },
@@ -19,7 +19,8 @@ class RecipeProvider {
 
     if (response.statusCode == 200) {
       try {
-        return Recipe(response.body);
+        return Category.parseCategories(response.body)
+          ..sort((a, b) => a.name.compareTo(b.name));
       } catch (e) {
         throw Exception(e);
       }
