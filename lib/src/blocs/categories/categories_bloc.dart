@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
@@ -18,8 +19,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   Stream<CategoriesState> _mapCategoriesLoadedToState() async* {
     try {
       yield CategoriesLoadInProgress();
-      // Load
-      yield CategoriesLoadSuccess(categories: null);
+      List<Category> categories = await dataRepository.fetchCategories();
+      yield CategoriesLoadSuccess(categories: categories);
     } catch (_) {
       yield CategoriesLoadFailure();
     }
