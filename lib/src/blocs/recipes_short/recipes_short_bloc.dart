@@ -17,9 +17,11 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
     // TODO: Implement other events.
   }
 
-  Stream<RecipesShortState> _mapRecipesShortLoadedToState(RecipesShortLoaded recipesShortLoaded) async* {
+  Stream<RecipesShortState> _mapRecipesShortLoadedToState(
+      RecipesShortLoaded recipesShortLoaded) async* {
     try {
-      final recipesShort = await dataRepository.fetchRecipesShort();
+      final recipesShort = await dataRepository.fetchRecipesShort(
+          category: recipesShortLoaded.category);
       yield RecipesShortLoadSuccess(recipesShort);
     } catch (_) {
       yield RecipesShortLoadFailure();

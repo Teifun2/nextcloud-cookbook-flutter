@@ -7,7 +7,14 @@ abstract class RecipesShortEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class RecipesShortLoaded extends RecipesShortEvent {}
+class RecipesShortLoaded extends RecipesShortEvent {
+  final String category;
+
+  const RecipesShortLoaded({this.category = 'all'});
+
+  @override
+  List<Object> get props => [category];
+}
 
 // TODO: Implement Recipe Deletion
 class RecipesShortDeleted extends RecipesShortEvent {}
