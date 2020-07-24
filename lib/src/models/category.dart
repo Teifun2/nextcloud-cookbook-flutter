@@ -3,18 +3,16 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class Category extends Equatable {
-  final String _name;
-  final int _recipeCount;
-
-  String get name => _name;
-  int get recipeCount => _recipeCount;
+  final String name;
+  final int recipeCount;
+  String imageUrl;
 
   Category.fromJson(Map<String, dynamic> json)
-      : _name = json["name"],
-        _recipeCount = int.parse(json["recipe_count"]);
+      : name = json["name"],
+        recipeCount = int.parse(json["recipe_count"]);
 
   @override
-  List<Object> get props => [_name];
+  List<Object> get props => [name];
 
   static List<Category> parseCategories(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
