@@ -25,7 +25,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           await dataRepository.fetchCategoryImages(categories);
       yield CategoriesImageLoadSuccess(categories: categoriesWithImage);
     } catch (_) {
-      yield CategoriesLoadFailure();
+      yield CategoriesLoadFailure(_.toString());
     }
   }
 }

@@ -46,8 +46,13 @@ class _LandingScreenState extends State<LandingScreen> {
               return _buildCategoriesScreen(categoriesState.categories);
             } else if (categoriesState is CategoriesImageLoadSuccess) {
               return _buildCategoriesScreen(categoriesState.categories);
-            } else {
+            } else if (categoriesState is CategoriesLoadInProgress ||
+                categoriesState is CategoriesInitial) {
               return Center(child: CircularProgressIndicator());
+            } else if (categoriesState is CategoriesLoadFailure) {
+              return Text("Category Load Failed: ${categoriesState.errorMsg}");
+            } else {
+              return Text("Category unknown State!");
             }
           }()),
         );

@@ -29,6 +29,13 @@ class CategoriesImageLoadSuccess extends CategoriesState {
   List<Object> get props => [categories];
 }
 
-class CategoriesLoadFailure extends CategoriesState {}
+class CategoriesLoadFailure extends CategoriesState {
+  final String errorMsg;
+
+  const CategoriesLoadFailure(this.errorMsg);
+
+  @override
+  List<Object> get props => [errorMsg];
+}
 
 class CategoriesLoadInProgress extends CategoriesState {}

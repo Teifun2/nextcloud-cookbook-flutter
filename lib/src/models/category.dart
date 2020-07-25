@@ -9,7 +9,9 @@ class Category extends Equatable {
 
   Category.fromJson(Map<String, dynamic> json)
       : name = json["name"],
-        recipeCount = int.parse(json["recipe_count"]);
+        recipeCount = json["recipe_count"] is int
+            ? json["recipe_count"]
+            : int.parse(json["recipe_count"]);
 
   @override
   List<Object> get props => [name];
