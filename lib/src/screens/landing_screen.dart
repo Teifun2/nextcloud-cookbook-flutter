@@ -4,6 +4,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authenticati
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -20,6 +21,22 @@ class _LandingScreenState extends State<LandingScreen> {
           appBar: AppBar(
             title: Text("Cookbook"),
             actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.search,
+                  semanticLabel: 'Search',
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SearchScreen();
+                      },
+                    ),
+                  );
+                },
+              ),
               IconButton(
                 icon: Icon(
                   Icons.refresh,
@@ -63,36 +80,27 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget _buildCategoriesScreen(List<Category> categories) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: <Widget>[
-          TextField(
-            readOnly: true,
-          ),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              padding: EdgeInsets.only(top: 10),
-              semanticChildCount: categories.length,
-              children: categories
-                  .map(
-                    (category) => GestureDetector(
-                      child: CategoryCard(category),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return RecipesListScreen(category: category.name);
-                          },
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ],
+      child: GridView.count(
+        crossAxisCount: 3,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        padding: EdgeInsets.only(top: 10),
+        semanticChildCount: categories.length,
+        children: categories
+            .map(
+              (category) => GestureDetector(
+                child: CategoryCard(category),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return RecipesListScreen(category: category.name);
+                    },
+                  ),
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
