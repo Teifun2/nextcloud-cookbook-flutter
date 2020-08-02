@@ -21,6 +21,9 @@ class DataRepository {
   RecipeProvider recipeProvider = RecipeProvider();
   CategoriesProvider categoriesProvider = CategoriesProvider();
 
+  // Data
+  static Future<List<RecipeShort>> _allRecipesShort;
+
   // Actions
   Future<List<RecipeShort>> fetchRecipesShort({String category = 'all'}) {
     if (category == 'all') {
@@ -51,5 +54,15 @@ class DataRepository {
     category.imageUrl = categoryRecipes.first.imageUrl;
 
     return category;
+  }
+
+  Future<void> fetchSearchRecipes() async {
+    _allRecipesShort = fetchRecipesShort(category: "all");
+  }
+
+  Future<List<RecipeShort>> searchRecipes(String pattern) async {
+    return (await _allRecipesShort)
+        .where((element) => element.name.startsWith(pattern))
+        .toList();
   }
 }

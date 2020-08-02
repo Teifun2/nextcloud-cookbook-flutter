@@ -1,9 +1,14 @@
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 
 class SearchScreen extends StatelessWidget {
+  SearchScreen() {
+    DataRepository().fetchSearchRecipes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,14 +18,21 @@ class SearchScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SearchBar<RecipeShort>(
+          minimumChars: 3,
           onCancelled: () => Navigator.pop(context),
-          onSearch: (text) =>
-              DataRepository().fetchRecipesShort(category: text),
+          onSearch: (text) => DataRepository().searchRecipes(text),
           onItemFound: (RecipeShort item, int index) {
             return ListTile(
               title: Text(item.name),
+              onTap: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RecipeScreen(recipeShort: item),
+                  )),
             );
           },
+          onError: (error) => Text(error.toString()),
+          emptyWidget: Center(child: Text("No recipe found!")),
         ),
       ),
     );
