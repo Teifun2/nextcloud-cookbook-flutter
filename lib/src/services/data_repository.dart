@@ -62,7 +62,8 @@ class DataRepository {
 
   Future<List<RecipeShort>> searchRecipes(String pattern) async {
     return (await _allRecipesShort)
-        .where((element) => element.name.startsWith(pattern))
+        .where((element) =>
+            element.name.toLowerCase().contains(pattern.toLowerCase()))
         .toList();
   }
 }
