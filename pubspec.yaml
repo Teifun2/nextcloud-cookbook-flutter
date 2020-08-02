@@ -39,6 +39,9 @@ dependencies:
   # For easier handling without hand built hash comparison
   equatable: ^1.0.0
 
+  # Search
+  flappy_search_bar: ^1.7.2
+
   cached_network_image: 2.1.0+1
 
   flutter_spinkit: "^2.1.0"
