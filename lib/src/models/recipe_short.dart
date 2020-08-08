@@ -12,7 +12,9 @@ class RecipeShort extends Equatable {
   String get imageUrl => _imageUrl;
 
   RecipeShort.fromJson(Map<String, dynamic> json)
-      : _recipeId = int.parse(json["recipe_id"]),
+      : _recipeId = json["recipe_id"] is int
+            ? json["recipe_id"]
+            : int.parse(json["recipe_id"]),
         _name = json["name"],
         _imageUrl = json["imageUrl"];
 

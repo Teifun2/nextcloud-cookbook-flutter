@@ -20,6 +20,13 @@ class RecipeLoadSuccess extends RecipeState {
   List<Object> get props => [recipe];
 }
 
-class RecipeLoadFailure extends RecipeState {}
+class RecipeLoadFailure extends RecipeState {
+  final String errorMsg;
+
+  const RecipeLoadFailure(this.errorMsg);
+
+  @override
+  List<Object> get props => [errorMsg];
+}
 
 class RecipeLoadInProgress extends RecipeState {}

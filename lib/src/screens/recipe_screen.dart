@@ -41,6 +41,10 @@ class RecipeScreenState extends State<RecipeScreen> {
               return Center(
                 child: CircularProgressIndicator(),
               );
+            } else if (state is RecipeLoadFailure) {
+              return Center(
+                child: Text(state.errorMsg),
+              );
             } else {
               return Center(
                 child: Text("FAILED"),

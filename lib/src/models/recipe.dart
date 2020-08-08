@@ -42,15 +42,16 @@ class Recipe extends Equatable {
     List<String> recipeInstructions =
         data["recipeInstructions"].cast<String>().toList();
     int recipeYield = data["recipeYield"];
-    Duration prepTime = data.containsKey("prepTime")
+    Duration prepTime = data.containsKey("prepTime") && data["prepTime"] != ""
         ? IsoTimeFormat.toDuration(data["prepTime"])
         : null;
-    Duration cookTime = data.containsKey("cookTime")
+    Duration cookTime = data.containsKey("cookTime") && data["cookTime"] != ""
         ? IsoTimeFormat.toDuration(data["cookTime"])
         : null;
-    Duration totalTime = data.containsKey("totalTime")
-        ? IsoTimeFormat.toDuration(data["totalTime"])
-        : null;
+    Duration totalTime =
+        data.containsKey("totalTime") && data["totalTime"] != ""
+            ? IsoTimeFormat.toDuration(data["totalTime"])
+            : null;
 
     return Recipe._(
         id,
