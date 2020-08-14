@@ -70,3 +70,32 @@ class Recipe extends Equatable {
   @override
   List<Object> get props => [id];
 }
+
+class MutableRecipe {
+  int id;
+  String name;
+  String imageUrl;
+  String recipeCategory;
+  String description;
+  List<String> recipeIngredient;
+  List<String> recipeInstructions;
+  int recipeYield;
+  Duration prepTime;
+  Duration cookTime;
+  Duration totalTime;
+
+  Recipe toRecipe() {
+    return Recipe._(
+        id,
+        name,
+        imageUrl,
+        recipeCategory,
+        description,
+        recipeIngredient,
+        recipeInstructions,
+        recipeYield,
+        prepTime,
+        cookTime,
+        totalTime);
+  }
+}
