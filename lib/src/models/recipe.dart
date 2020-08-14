@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/iso_time_format.dart';
 
-@JsonSerializable()
 class Recipe extends Equatable {
   final int id;
   final String name;
