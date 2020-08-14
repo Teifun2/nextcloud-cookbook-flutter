@@ -29,7 +29,7 @@ class RecipeProvider {
     }
   }
 
-  Future<void> updateRecipe(Recipe recipe) async {
+  Future<int> updateRecipe(Recipe recipe) async {
     AppAuthentication appAuthentication =
         UserRepository().currentAppAuthentication;
 
@@ -42,6 +42,7 @@ class RecipeProvider {
               headers: {
                 "authorization": appAuthentication.basicAuth,
               }));
+      return response.data;
     } catch (e) {
       throw Exception(e);
     }
