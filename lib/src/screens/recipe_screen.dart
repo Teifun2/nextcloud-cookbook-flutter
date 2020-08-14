@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 
@@ -28,13 +29,34 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Recipe"),
-        ),
-        body: BlocBuilder<RecipeBloc, RecipeState>(
-          bloc: RecipeBloc()..add(RecipeLoaded(recipeId: recipeShort.recipeId)),
+    return BlocProvider<RecipeBloc>(
+      create: (context) =>
+          RecipeBloc()..add(RecipeLoaded(recipeId: recipeShort.recipeId)),
+      child: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (BuildContext context, RecipeState state) {
+        final recipeBloc = BlocProvider.of<RecipeBloc>(context);
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Recipe"),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              if (state is RecipeLoadSuccess) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BlocProvider.value(
+                          value: recipeBloc,
+                          child: RecipeEditScreen(state.recipe));
+                    },
+                  ),
+                );
+              }
+            },
+            child: Icon(Icons.edit),
+          ),
+          body: () {
             if (state is RecipeLoadSuccess) {
               return _buildRecipeScreen(state.recipe);
             } else if (state is RecipeLoadInProgress) {
@@ -50,8 +72,10 @@ class RecipeScreenState extends State<RecipeScreen> {
                 child: Text("FAILED"),
               );
             }
-          },
-        ));
+          }(),
+        );
+      }),
+    );
   }
 
   Widget _buildRecipeScreen(Recipe recipe) {
@@ -116,19 +140,20 @@ class RecipeScreenState extends State<RecipeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Column(
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      runSpacing: 10,
+                      spacing: 10,
                       children: <Widget>[
                         (recipe.prepTime != null)
                             ? DurationIndicator(
                                 duration: recipe.prepTime,
                                 name: "Preparation time")
                             : SizedBox(height: 0),
-                        SizedBox(height: 10),
                         (recipe.cookTime != null)
                             ? DurationIndicator(
                                 duration: recipe.cookTime, name: "Cooking time")
                             : SizedBox(height: 0),
-                        SizedBox(height: 10),
                         (recipe.totalTime != null)
                             ? DurationIndicator(
                                 duration: recipe.totalTime, name: "Total time")
