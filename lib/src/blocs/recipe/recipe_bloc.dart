@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
@@ -12,6 +14,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   Stream<RecipeState> mapEventToState(RecipeEvent event) async* {
     if (event is RecipeLoaded) {
       yield* _mapRecipeLoadedToState(event);
+    } else if (event is RecipeUpdated) {
+      yield* _mapRecipeUpdatedToState(event);
     }
   }
 
@@ -23,6 +27,18 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield RecipeLoadSuccess(recipe);
     } catch (_) {
       yield RecipeLoadFailure(_.toString());
+    }
+  }
+
+  Stream<RecipeState> _mapRecipeUpdatedToState(
+      RecipeUpdated recipeUpdated) async* {
+    try {
+      yield RecipeUpdateInProgress();
+      // TODO: add actual sending of data
+      log(recipeUpdated.recipe.toString());
+      yield RecipeUpdateSuccess(null);
+    } catch (_) {
+      yield RecipeUpdateFailure(_.toString());
     }
   }
 }
