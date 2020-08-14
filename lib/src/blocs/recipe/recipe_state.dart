@@ -42,8 +42,6 @@ class RecipeUpdateFailure extends RecipeFailure {
   RecipeUpdateFailure(String errorMsg) : super(errorMsg);
 }
 
-class RecipeUpdateSuccess extends RecipeSuccess {
-  RecipeUpdateSuccess(Recipe recipe) : super(recipe);
-}
+class RecipeUpdateSuccess extends RecipeState {}
 
 class RecipeUpdateInProgress extends RecipeState {}

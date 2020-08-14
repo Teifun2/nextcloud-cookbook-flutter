@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
@@ -34,9 +32,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       RecipeUpdated recipeUpdated) async* {
     try {
       yield RecipeUpdateInProgress();
-      // TODO: add actual sending of data
-      log(recipeUpdated.recipe.toString());
-      yield RecipeUpdateSuccess(null);
+      await dataRepository.updateRecipe(recipeUpdated.recipe);
+      yield RecipeUpdateSuccess();
     } catch (_) {
       yield RecipeUpdateFailure(_.toString());
     }
