@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/iso_time_format.dart';
 
+@JsonSerializable()
 class Recipe extends Equatable {
   final int id;
   final String name;
@@ -66,6 +68,20 @@ class Recipe extends Equatable {
         cookTime,
         totalTime);
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'imageUrl': imageUrl,
+        'recipeCategory': recipeCategory,
+        'description': description,
+        'recipeIngredient': recipeIngredient,
+        'recipeInstructions': recipeInstructions,
+        'recipeYield': recipeYield,
+        'prepTime': prepTime,
+        'cookTime': cookTime,
+        'totalTime': totalTime
+      };
 
   @override
   List<Object> get props => [id];
