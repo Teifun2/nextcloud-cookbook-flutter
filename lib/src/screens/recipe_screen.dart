@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +7,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecipeScreen extends StatefulWidget {
   final RecipeShort recipeShort;
@@ -63,7 +63,7 @@ class RecipeScreenState extends State<RecipeScreen> {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is RecipeLoadFailure) {
+            } else if (state is RecipeFailure) {
               return Center(
                 child: Text(state.errorMsg),
               );
@@ -121,21 +121,36 @@ class RecipeScreenState extends State<RecipeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
-                    child: RichText(
-                      text: TextSpan(
-                        text: "Servings: ",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: recipe.recipeYield.toString(),
+                    child: Row(
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            text: "Servings: ",
                             style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: recipe.recipeYield.toString(),
+                                style: TextStyle(
 //                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                            ),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        if (recipe.url.isNotEmpty)
+                          RaisedButton(
+                            onPressed: () async {
+                              if (await canLaunch(recipe.url)) {
+                                await launch(recipe.url);
+                              }
+                            },
+                            child: Text("Source"),
                           )
-                        ],
-                      ),
+                      ],
                     ),
                   ),
                   Padding(
@@ -145,83 +160,105 @@ class RecipeScreenState extends State<RecipeScreen> {
                       runSpacing: 10,
                       spacing: 10,
                       children: <Widget>[
-                        (recipe.prepTime != null)
-                            ? DurationIndicator(
-                                duration: recipe.prepTime,
-                                name: "Preparation time")
-                            : SizedBox(height: 0),
-                        (recipe.cookTime != null)
-                            ? DurationIndicator(
-                                duration: recipe.cookTime, name: "Cooking time")
-                            : SizedBox(height: 0),
-                        (recipe.totalTime != null)
-                            ? DurationIndicator(
-                                duration: recipe.totalTime, name: "Total time")
-                            : SizedBox(height: 0),
+                        if (recipe.prepTime != null)
+                          DurationIndicator(
+                              duration: recipe.prepTime,
+                              name: "Preparation time"),
+                        if (recipe.cookTime != null)
+                          DurationIndicator(
+                              duration: recipe.cookTime, name: "Cooking time"),
+                        if (recipe.totalTime != null)
+                          DurationIndicator(
+                              duration: recipe.totalTime, name: "Total time"),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      "Ingredients:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text(recipe.recipeIngredient
-                        .fold("", (p, e) => p + e + "\n")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      "Instructions:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                instructionsDone[index] =
-                                    !instructionsDone[index];
-                              });
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  margin: EdgeInsets.only(right: 15, top: 10),
-                                  child: instructionsDone[index]
-                                      ? Icon(Icons.check)
-                                      : Center(child: Text("${index + 1}")),
-                                  decoration: ShapeDecoration(
-                                    shape: CircleBorder(
-                                        side: BorderSide(color: Colors.grey)),
-                                    color: Colors.grey[300],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(recipe.recipeInstructions[index]),
-                                ),
-                              ],
+                  if (recipe.tool.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: ExpansionTile(
+                        title: Text("Tools"),
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Text(recipe.tool.fold(
+                                  "", (p, e) => p + "-  " + e.trim() + "\n")),
                             ),
-                          );
-                        },
-                        separatorBuilder: (c, i) => SizedBox(height: 10),
-                        itemCount: recipe.recipeInstructions.length,
+                          ),
+                        ],
                       ),
-                    ],
-                  )
+                    ),
+                  if (recipe.recipeIngredient.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: ExpansionTile(
+                        title: Text("Ingredients"),
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Text(recipe.recipeIngredient.fold(
+                                  "", (p, e) => p + "-  " + e.trim() + "\n")),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: ExpansionTile(
+                      title: Text("Instructions"),
+                      initiallyExpanded: true,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    instructionsDone[index] =
+                                        !instructionsDone[index];
+                                  });
+                                },
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      margin:
+                                          EdgeInsets.only(right: 15, top: 10),
+                                      child: instructionsDone[index]
+                                          ? Icon(Icons.check)
+                                          : Center(child: Text("${index + 1}")),
+                                      decoration: ShapeDecoration(
+                                        shape: CircleBorder(
+                                            side:
+                                                BorderSide(color: Colors.grey)),
+                                        color: Colors.grey[300],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                          recipe.recipeInstructions[index]),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            separatorBuilder: (c, i) => SizedBox(height: 10),
+                            itemCount: recipe.recipeInstructions.length,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
