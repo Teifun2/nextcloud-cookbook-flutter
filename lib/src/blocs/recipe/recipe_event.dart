@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 
 abstract class RecipeEvent extends Equatable {
   const RecipeEvent();
@@ -15,4 +16,13 @@ class RecipeLoaded extends RecipeEvent {
 
   @override
   List<Object> get props => [recipeId];
+}
+
+class RecipeUpdated extends RecipeEvent {
+  final Recipe recipe;
+
+  const RecipeUpdated(this.recipe);
+
+  @override
+  List<Object> get props => [recipe];
 }

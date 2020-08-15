@@ -37,6 +37,10 @@ class DataRepository {
     return recipeProvider.fetchRecipe(id);
   }
 
+  Future<int> updateRecipe(Recipe recipe) {
+    return recipeProvider.updateRecipe(recipe);
+  }
+
   Future<List<Category>> fetchCategories() {
     return categoriesProvider.fetchCategories();
   }

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 
 abstract class RecipeState extends Equatable {
@@ -11,22 +10,45 @@ abstract class RecipeState extends Equatable {
 
 class RecipeInitial extends RecipeState {}
 
-class RecipeLoadSuccess extends RecipeState {
-  final Recipe recipe;
-
-  RecipeLoadSuccess({@required this.recipe});
-
-  @override
-  List<Object> get props => [recipe];
-}
-
-class RecipeLoadFailure extends RecipeState {
+class RecipeFailure extends RecipeState {
   final String errorMsg;
 
-  const RecipeLoadFailure(this.errorMsg);
+  const RecipeFailure(this.errorMsg);
 
   @override
   List<Object> get props => [errorMsg];
 }
 
+class RecipeSuccess extends RecipeState {
+  final Recipe recipe;
+
+  const RecipeSuccess(this.recipe);
+
+  @override
+  List<Object> get props => [recipe];
+}
+
+class RecipeLoadSuccess extends RecipeSuccess {
+  RecipeLoadSuccess(Recipe recipe) : super(recipe);
+}
+
+class RecipeLoadFailure extends RecipeFailure {
+  RecipeLoadFailure(String errorMsg) : super(errorMsg);
+}
+
 class RecipeLoadInProgress extends RecipeState {}
+
+class RecipeUpdateFailure extends RecipeFailure {
+  RecipeUpdateFailure(String errorMsg) : super(errorMsg);
+}
+
+class RecipeUpdateSuccess extends RecipeState {
+  final int recipeId;
+
+  const RecipeUpdateSuccess(this.recipeId);
+
+  @override
+  List<Object> get props => [recipeId];
+}
+
+class RecipeUpdateInProgress extends RecipeState {}
