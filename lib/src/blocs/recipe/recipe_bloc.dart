@@ -12,17 +12,30 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   Stream<RecipeState> mapEventToState(RecipeEvent event) async* {
     if (event is RecipeLoaded) {
       yield* _mapRecipeLoadedToState(event);
+    } else if (event is RecipeUpdated) {
+      yield* _mapRecipeUpdatedToState(event);
     }
   }
 
-
-  Stream<RecipeState> _mapRecipeLoadedToState(RecipeLoaded recipeLoaded) async* {
+  Stream<RecipeState> _mapRecipeLoadedToState(
+      RecipeLoaded recipeLoaded) async* {
     try {
       yield RecipeLoadInProgress();
       final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
-      yield RecipeLoadSuccess(recipe: recipe);
+      yield RecipeLoadSuccess(recipe);
     } catch (_) {
-      yield RecipeLoadFailure();
+      yield RecipeLoadFailure(_.toString());
+    }
+  }
+
+  Stream<RecipeState> _mapRecipeUpdatedToState(
+      RecipeUpdated recipeUpdated) async* {
+    try {
+      yield RecipeUpdateInProgress();
+      int recipeId = await dataRepository.updateRecipe(recipeUpdated.recipe);
+      yield RecipeUpdateSuccess(recipeId);
+    } catch (_) {
+      yield RecipeUpdateFailure(_.toString());
     }
   }
 }

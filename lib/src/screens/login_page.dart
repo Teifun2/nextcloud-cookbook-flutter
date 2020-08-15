@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/authentication/authentication_bloc.dart';
@@ -13,7 +12,7 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: BlocProvider(
+      body: BlocProvider<LoginBloc>(
         create: (context) {
           return LoginBloc(
             authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
