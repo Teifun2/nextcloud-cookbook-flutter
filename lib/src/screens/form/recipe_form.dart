@@ -16,13 +16,12 @@ class RecipeForm extends StatefulWidget {
 class _RecipeFormState extends State<RecipeForm> {
   final _formKey = GlobalKey<FormState>();
   Recipe recipe;
-  MutableRecipe _mutableRecipe = MutableRecipe();
+  MutableRecipe _mutableRecipe;
 
   @override
   void initState() {
     recipe = widget.recipe;
-
-    _mutableRecipe.id = recipe.id;
+    _mutableRecipe = recipe.toMutableRecipe();
 
     super.initState();
   }
