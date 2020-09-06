@@ -1,8 +1,11 @@
 ![GitHub](https://img.shields.io/github/license/Teifun2/nextcloud-cookbook-flutter) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Teifun2/nextcloud-cookbook-flutter) ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Teifun2/nextcloud-cookbook-flutter/Build/master)
 
+[![IzzyDorid](assets/IzzyOnDroid.png)(https://apt.izzysoft.de/fdroid/index/apk/com.nextcloud_cookbook_flutter)]
 # Nextcloud Cookbook Mobile Client written in Flutter
 
-This project aims to provide a mobile client for both Android and IOs for the nextcloud plugin cookbook (https://github.com/nextcloud/cookbook)
+This project aims to provide a mobile client for both Android and IOs for the nextcloud app cookbook (https://github.com/nextcloud/cookbook)
+
+It works best with an Nextcloud installation >= 17
 
 ## Screenshots
 
