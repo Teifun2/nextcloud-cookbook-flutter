@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 import '../../blocs/login/login.dart';
 
@@ -10,7 +11,7 @@ class LoginForm extends StatefulWidget {
   State<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   final _serverUrl = TextEditingController();
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
@@ -19,8 +20,34 @@ class _LoginFormState extends State<LoginForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  Function authenticateInterruptCallback;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      authenticateInterruptCallback();
+      debugPrint("WAT");
+    }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    authenticateInterruptCallback = () {
+      UserRepository().stopAuthenticate();
+    };
+
     _onLoginButtonPressed() {
       if (_formKey.currentState.validate()) {
         BlocProvider.of<LoginBloc>(context).add(

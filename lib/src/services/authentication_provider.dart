@@ -12,10 +12,12 @@ class AuthenticationProvider {
   final FlutterSecureStorage _secureStorage = new FlutterSecureStorage();
   final String _appAuthenticationKey = 'appAuthentication';
   AppAuthentication currentAppAuthentication;
+  bool resumeAuthenticate = true;
 
   Future<AppAuthentication> authenticate({
     @required String serverUrl,
   }) async {
+    resumeAuthenticate = true;
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
     }
@@ -32,31 +34,34 @@ class AuthenticationProvider {
       final initialLogin = InitialLogin.fromJson(json.decode(response.body));
 
       if (await canLaunch(initialLogin.login)) {
-        Future<void> _launched = _launchURL(initialLogin.login);
+        _launchURL(initialLogin.login);
 
         String urlLoginSuccess =
             initialLogin.poll.endpoint + "?token=" + initialLogin.poll.token;
-        //TODO add when users goes back
 
         var responseLog = await http.post(urlLoginSuccess);
-        while (responseLog.statusCode != 200) {
-          //TODO check if time is good
-          // I think this is no a correct usage of the Timer. We cold use Timer.periodic. But it should call the function.
-          Timer(const Duration(milliseconds: 500), () {});
+        while (responseLog.statusCode != 200 && resumeAuthenticate) {
+          await Future.delayed(Duration(milliseconds: 100));
           responseLog = await http.post(urlLoginSuccess);
         }
 
         await closeWebView();
 
-        return AppAuthentication.fromJson(responseLog.body);
+        if (responseLog.statusCode != 200) {
+          throw "Login Process was interrupted!";
+        } else {
+          return AppAuthentication.fromJson(responseLog.body);
+        }
       } else {
-        //TODO throw good errror
-        throw 'Could not launchsade';
+        throw 'Could not launch the authentication window.';
       }
     } else {
-      //TODO Catch Errors
       throw Exception('Your server Name is not correct');
     }
+  }
+
+  void stopAuthenticate() {
+    resumeAuthenticate = false;
   }
 
   Future<bool> hasAppAuthentication() async {

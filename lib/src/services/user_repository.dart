@@ -18,6 +18,10 @@ class UserRepository {
     return authenticationProvider.authenticate(serverUrl: serverUrl);
   }
 
+  void stopAuthenticate() {
+    authenticationProvider.stopAuthenticate();
+  }
+
   AppAuthentication getCurrentAppAuthentication() {
     return authenticationProvider.currentAppAuthentication;
   }
