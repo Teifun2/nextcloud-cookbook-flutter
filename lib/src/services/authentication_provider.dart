@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -93,6 +94,20 @@ class AuthenticationProvider {
   }
 
   Future<void> deleteAppAuthentication() async {
+    var response = await dio.Dio().delete(
+      "${currentAppAuthentication.server}/ocs/v2.php/core/apppassword",
+      options: new dio.Options(
+        headers: {
+          "OCS-APIREQUEST": "true",
+          "authorization": currentAppAuthentication.basicAuth
+        },
+      ),
+    );
+
+    if (response.statusCode != 200) {
+      debugPrint("Failed to remove remote apppassword!");
+    }
+
     //TODO Delete Appkey Serverside
     currentAppAuthentication = null;
     await _secureStorage.delete(key: _appAuthenticationKey);
