@@ -25,8 +25,8 @@ class DataRepository {
   static Future<List<RecipeShort>> _allRecipesShort;
 
   // Actions
-  Future<List<RecipeShort>> fetchRecipesShort({String category = 'all'}) {
-    if (category == 'all') {
+  Future<List<RecipeShort>> fetchRecipesShort({String category = 'All'}) {
+    if (category == 'All') {
       return recipesShortProvider.fetchRecipesShort();
     } else {
       return categoryRecipesShortProvider.fetchCategoryRecipesShort(category);
@@ -52,8 +52,14 @@ class DataRepository {
   }
 
   Future<Category> _fetchCategoryImage(Category category) async {
-    List<RecipeShort> categoryRecipes = await categoryRecipesShortProvider
-        .fetchCategoryRecipesShort(category.name);
+    List<RecipeShort> categoryRecipes = await () {
+      if (category.name == "All") {
+        return recipesShortProvider.fetchRecipesShort();
+      } else {
+        return categoryRecipesShortProvider
+            .fetchCategoryRecipesShort(category.name);
+      }
+    }();
 
     category.imageUrl = categoryRecipes.first.imageUrl;
 
