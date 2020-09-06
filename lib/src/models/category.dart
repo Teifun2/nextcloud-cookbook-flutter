@@ -7,6 +7,8 @@ class Category extends Equatable {
   final int recipeCount;
   String imageUrl;
 
+  Category(this.name, this.recipeCount);
+
   Category.fromJson(Map<String, dynamic> json)
       : name = json["name"],
         recipeCount = json["recipe_count"] is int

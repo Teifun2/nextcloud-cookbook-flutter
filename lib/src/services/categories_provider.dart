@@ -19,8 +19,19 @@ class CategoriesProvider {
 
     if (response.statusCode == 200) {
       try {
-        return Category.parseCategories(response.body)
-          ..sort((a, b) => a.name.compareTo(b.name));
+        List<Category> categories = Category.parseCategories(response.body);
+        categories.sort((a, b) => a.name.compareTo(b.name));
+        categories.insert(
+          0,
+          Category(
+            "All",
+            categories.fold(
+                0,
+                (previousValue, element) =>
+                    previousValue + element.recipeCount),
+          ),
+        );
+        return categories;
       } catch (e) {
         throw Exception(e);
       }
