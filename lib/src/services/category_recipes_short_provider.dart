@@ -8,7 +8,7 @@ class CategoryRecipesShortProvider {
 
   Future<List<RecipeShort>> fetchCategoryRecipesShort(String category) async {
     AppAuthentication appAuthentication =
-        UserRepository().currentAppAuthentication;
+        UserRepository().getCurrentAppAuthentication();
 
     final response = await client.get(
       "${appAuthentication.server}/index.php/apps/cookbook/category/$category",

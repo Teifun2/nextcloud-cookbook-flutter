@@ -15,7 +15,7 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppAuthentication appAuthentication =
-        UserRepository().currentAppAuthentication;
+        UserRepository().getCurrentAppAuthentication();
 
     return CachedNetworkImage(
       width: width,

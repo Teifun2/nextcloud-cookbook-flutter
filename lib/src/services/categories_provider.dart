@@ -8,7 +8,7 @@ class CategoriesProvider {
 
   Future<List<Category>> fetchCategories() async {
     AppAuthentication appAuthentication =
-        UserRepository().currentAppAuthentication;
+        UserRepository().getCurrentAppAuthentication();
 
     final response = await client.get(
       "${appAuthentication.server}/index.php/apps/cookbook/categories",
