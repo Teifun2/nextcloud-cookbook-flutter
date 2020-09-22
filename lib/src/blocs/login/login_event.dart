@@ -1,8 +1,11 @@
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 abstract class LoginEvent extends Equatable {
   const LoginEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
 class LoginButtonPressed extends LoginEvent {
@@ -16,6 +19,5 @@ class LoginButtonPressed extends LoginEvent {
   List<Object> get props => [serverURL];
 
   @override
-  String toString() =>
-      'LoginButtonPressed {serverURL: $serverURL}';
+  String toString() => 'LoginButtonPressed {serverURL: $serverURL}';
 }

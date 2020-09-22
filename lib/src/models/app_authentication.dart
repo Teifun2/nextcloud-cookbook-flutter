@@ -15,8 +15,14 @@ class AppAuthentication {
   factory AppAuthentication.fromJson(String jsonString) {
     Map<String, dynamic> jsonData = json.decode(jsonString);
 
-    String basicAuth = jsonData.containsKey("basicAuth") ? jsonData['basicAuth'] :
-      'Basic '+base64Encode(utf8.encode('${jsonData["loginName"]}:${jsonData["appPassword"]}'));
+    String basicAuth = jsonData.containsKey("basicAuth")
+        ? jsonData['basicAuth']
+        : 'Basic ' +
+            base64Encode(
+              utf8.encode(
+                '${jsonData["loginName"]}:${jsonData["appPassword"]}',
+              ),
+            );
 
     return AppAuthentication(
       server: jsonData["server"],

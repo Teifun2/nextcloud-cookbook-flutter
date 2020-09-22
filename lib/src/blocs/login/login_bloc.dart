@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
-import '../../services/user_repository.dart';
 
+import '../../services/user_repository.dart';
 import 'login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -23,9 +23,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoading();
 
       try {
-        final appAuthentication = await userRepository.authenticate(
-          serverUrl: event.serverURL
-        );
+        final appAuthentication =
+            await userRepository.authenticate(event.serverURL);
 
         authenticationBloc.add(LoggedIn(appAuthentication: appAuthentication));
         yield LoginInitial();

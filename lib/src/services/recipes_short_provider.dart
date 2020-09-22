@@ -3,11 +3,12 @@ import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
-class RecipesShortProvider  {
+class RecipesShortProvider {
   Client client = Client();
 
   Future<List<RecipeShort>> fetchRecipesShort() async {
-    AppAuthentication appAuthentication = UserRepository().currentAppAuthentication;
+    AppAuthentication appAuthentication =
+        UserRepository().getCurrentAppAuthentication();
 
     final response = await client.get(
       "${appAuthentication.server}/index.php/apps/cookbook/api/recipes",

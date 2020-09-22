@@ -9,7 +9,7 @@ class RecipeProvider {
 
   Future<Recipe> fetchRecipe(int id) async {
     AppAuthentication appAuthentication =
-        UserRepository().currentAppAuthentication;
+        UserRepository().getCurrentAppAuthentication();
 
     final response = await client.get(
       "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/$id",
@@ -31,7 +31,7 @@ class RecipeProvider {
 
   Future<int> updateRecipe(Recipe recipe) async {
     AppAuthentication appAuthentication =
-        UserRepository().currentAppAuthentication;
+        UserRepository().getCurrentAppAuthentication();
 
     try {
       var response = await Dio().put(

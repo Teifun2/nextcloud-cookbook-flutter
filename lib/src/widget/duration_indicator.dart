@@ -32,7 +32,7 @@ class DurationIndicator extends StatelessWidget {
         Container(
           child: Center(
             child: Text(
-              "${duration.inHours % 24}:${duration.inMinutes % 60}",
+              "${duration.inHours % 24}:${duration.inMinutes % 60 < 10 ? "0" : ""}${duration.inMinutes % 60}",
               style: TextStyle(fontSize: 16),
             ),
           ),
