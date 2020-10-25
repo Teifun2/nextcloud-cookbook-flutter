@@ -91,6 +91,48 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
+                      "Category",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    TextFormField(
+                      enabled: !(state is RecipeUpdateInProgress),
+                      initialValue: recipe.recipeCategory,
+                      decoration: InputDecoration(hintText: "Recipe Category"),
+                      onChanged: (value) {
+                        _mutableRecipe.recipeCategory = value;
+                      },
+                    ),
+                  ],
+                ), // Category
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Keywords",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    TextFormField(
+                      enabled: !(state is RecipeUpdateInProgress),
+                      initialValue: recipe.keywords,
+                      decoration: InputDecoration(hintText: "Recipe Keywords"),
+                      onChanged: (value) {
+                        _mutableRecipe.keywords = value;
+                      },
+                    ),
+                  ],
+                ), // Keywords
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
                       "URL",
                       style: TextStyle(
                         color: Colors.black,
