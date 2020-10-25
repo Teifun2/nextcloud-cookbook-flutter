@@ -18,7 +18,7 @@ class IntegerTextFormField extends StatefulWidget {
     this.minValue,
     this.maxValue,
   }) {
-    assert((this.minValue == null && this.maxValue == null) ||
+    assert((this.minValue == null || this.maxValue == null) ||
         this.minValue <= this.maxValue);
   }
 

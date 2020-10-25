@@ -148,6 +148,34 @@ class _RecipeFormState extends State<RecipeForm> {
                     ),
                   ],
                 ), // Servings
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Preparation Time",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    IntegerTextFormField(
+                      enabled: !(state is RecipeUpdateInProgress),
+                      initialValue: recipe.prepTime.inHours,
+                      decoration: InputDecoration(hintText: "Preparation Time"),
+                      onChanged: (value) => _mutableRecipe.recipeYield = value,
+                      onSaved: (value) => _mutableRecipe.recipeYield = value,
+                    ),
+                    IntegerTextFormField(
+                      enabled: !(state is RecipeUpdateInProgress),
+                      initialValue: recipe.prepTime.inMinutes,
+                      maxValue: 60,
+                      decoration: InputDecoration(hintText: "Preparation Time"),
+                      onChanged: (value) => _mutableRecipe.recipeYield = value,
+                      onSaved: (value) => _mutableRecipe.recipeYield = value,
+                    ),
+                  ],
+                ), // Prep Time
                 Container(
                   width: 150,
                   child: RaisedButton(
