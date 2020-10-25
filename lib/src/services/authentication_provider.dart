@@ -28,7 +28,7 @@ class AuthenticationProvider {
       response = await http.post(urlInitialCall,
           headers: {"User-Agent": "Cookbook App", "Accept-Language": "en-US"});
     } catch (e) {
-      throw ('Cannot reach: $serverUrl');
+      throw ('Cannot reach: $serverUrl \n $e');
     }
 
     if (response.statusCode == 200) {
