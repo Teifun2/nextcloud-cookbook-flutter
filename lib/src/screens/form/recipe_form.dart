@@ -6,6 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/input/list_form_field.dart';
 
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
@@ -208,6 +209,26 @@ class _RecipeFormState extends State<RecipeForm> {
                   state: state,
                   duration: recipe.totalTime,
                   onChanged: (value) => {_mutableRecipe.totalTime = value},
+                ),
+                // ListFormField(
+                //   state: state,
+                //   list: recipe.tool,
+                //   title: "Tools",
+                //   onChanged: (value) => {_mutableRecipe.tool = value},
+                // ),
+                // ListFormField(
+                //   state: state,
+                //   list: recipe.recipeIngredient,
+                //   title: "Ingredients",
+                //   onChanged: (value) =>
+                //       {_mutableRecipe.recipeIngredient = value},
+                // ),
+                ListFormField(
+                  state: state,
+                  list: recipe.recipeInstructions,
+                  title: "Instructions",
+                  onChanged: (value) =>
+                      {_mutableRecipe.recipeInstructions = value},
                 ),
                 Container(
                   width: 150,
