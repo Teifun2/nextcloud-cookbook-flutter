@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 
 class RecipeForm extends StatefulWidget {
@@ -119,7 +120,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                     ),
                     TextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
+                      enabled: false,
                       initialValue: recipe.imageUrl,
                       decoration: InputDecoration(hintText: "Image Location"),
                       onChanged: (value) {
@@ -148,41 +149,29 @@ class _RecipeFormState extends State<RecipeForm> {
                     ),
                   ],
                 ), // Servings
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Preparation Time",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    IntegerTextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
-                      initialValue: recipe.prepTime.inHours,
-                      decoration: InputDecoration(hintText: "Preparation Time"),
-                      onChanged: (value) => _mutableRecipe.recipeYield = value,
-                      onSaved: (value) => _mutableRecipe.recipeYield = value,
-                    ),
-                    IntegerTextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
-                      initialValue: recipe.prepTime.inMinutes,
-                      maxValue: 60,
-                      decoration: InputDecoration(hintText: "Preparation Time"),
-                      onChanged: (value) => _mutableRecipe.recipeYield = value,
-                      onSaved: (value) => _mutableRecipe.recipeYield = value,
-                    ),
-                  ],
-                ), // Prep Time
+                DurationFormField(
+                  title: "Preparation Time",
+                  state: state,
+                  duration: recipe.prepTime,
+                  onChanged: (value) => {_mutableRecipe.prepTime = value},
+                ),
+                DurationFormField(
+                  title: "Cooking Time",
+                  state: state,
+                  duration: recipe.cookTime,
+                  onChanged: (value) => {_mutableRecipe.cookTime = value},
+                ),
+                DurationFormField(
+                  title: "Total Time",
+                  state: state,
+                  duration: recipe.totalTime,
+                  onChanged: (value) => {_mutableRecipe.totalTime = value},
+                ),
                 Container(
                   width: 150,
                   child: RaisedButton(
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
-
                         BlocProvider.of<RecipeBloc>(context)
                             .add(RecipeUpdated(_mutableRecipe.toRecipe()));
                       }
