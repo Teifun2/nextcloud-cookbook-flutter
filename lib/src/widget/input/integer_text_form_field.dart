@@ -31,9 +31,12 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
 
   @override
   void initState() {
-    int curVal = _ensureMinMax(widget.initialValue);
-    controller = TextEditingController(text: curVal.toString());
     super.initState();
+    int curVal = _ensureMinMax(widget.initialValue);
+    if (controller == null) {
+      controller = new TextEditingController(text: curVal.toString());
+    }
+    controller.addListener(_updateController);
   }
 
   @override
@@ -43,20 +46,26 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
       controller: controller,
       decoration: widget.decoration,
       keyboardType: TextInputType.number,
-      onChanged: (value) {
-        if (value == "") {
-          controller.text = "";
-          widget.onChanged(_ensureMinMax(0));
-        } else {
-          var parsedValue = _ensureMinMax(_parseValue(value));
-          if (controller.text != parsedValue.toString()) {
-            controller.text = parsedValue.toString();
-          }
-          widget.onChanged(parsedValue);
-        }
-      },
       onSaved: (value) => widget.onSaved(_ensureMinMax(_parseValue(value))),
     );
+  }
+
+  _updateController() {
+    String value = controller.text;
+    if (value == "") {
+      widget.onChanged(_ensureMinMax(0));
+    } else {
+      var parsedValue = _ensureMinMax(_parseValue(value));
+      if (controller.text != parsedValue.toString()) {
+        controller.value = TextEditingValue(
+          text: parsedValue.toString(),
+          selection: TextSelection.fromPosition(
+            TextPosition(offset: parsedValue.toString().length),
+          ),
+        );
+      }
+      widget.onChanged(parsedValue);
+    }
   }
 
   int _ensureMinMax(int value) {
