@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
@@ -26,7 +27,9 @@ class RecipeEditScreen extends StatelessWidget {
                 if (state is RecipeUpdateFailure) {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
-                      content: Text("Update Failed: ${state.errorMsg}"),
+                      content: Text(translate(
+                          'recipe_edit.errors.update_failed',
+                          args: {"error_msg": state.errorMsg})),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -36,7 +39,7 @@ class RecipeEditScreen extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-              child: Text("Edit Recipe")),
+              child: Text(translate('recipe_edit.title'))),
         ),
         body: RecipeForm(recipe),
       ),

@@ -19,6 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  flutter_translate: ^1.6.0
+
   # For BLoc Pattern
 
   #for app key
@@ -74,6 +77,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/i18n/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

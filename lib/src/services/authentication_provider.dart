@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart' as http;
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/intial_login.dart';
@@ -28,7 +29,8 @@ class AuthenticationProvider {
       response = await http.post(urlInitialCall,
           headers: {"User-Agent": "Cookbook App", "Accept-Language": "en-US"});
     } catch (e) {
-      throw ('Cannot reach: $serverUrl \n $e');
+      throw (translate('login.errors.not_reachable',
+          args: {"server_url": serverUrl, "error_msg": e}));
     }
 
     if (response.statusCode == 200) {
@@ -49,15 +51,15 @@ class AuthenticationProvider {
         await closeWebView();
 
         if (responseLog.statusCode != 200) {
-          throw "Login Process was interrupted!";
+          throw translate('login.errors.interrupted');
         } else {
           return AppAuthentication.fromJson(responseLog.body);
         }
       } else {
-        throw 'Could not launch the authentication window.';
+        throw translate('login.errors.window_error');
       }
     } else {
-      throw Exception('Your server Name is not correct');
+      throw Exception(translate('login.errors.communication_failed'));
     }
   }
 
@@ -79,7 +81,7 @@ class AuthenticationProvider {
     String appAuthenticationString =
         await _secureStorage.read(key: _appAuthenticationKey);
     if (appAuthenticationString == null) {
-      throw ("No authentication found in Storage");
+      throw (translate('login.errors.authentication_not_found'));
     } else {
       currentAppAuthentication =
           AppAuthentication.fromJson(appAuthenticationString);
@@ -105,7 +107,7 @@ class AuthenticationProvider {
     );
 
     if (response.statusCode != 200) {
-      debugPrint("Failed to remove remote apppassword!");
+      debugPrint(translate('login.errors.failed_remove_remote'));
     }
 
     //TODO Delete Appkey Serverside

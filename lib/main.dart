@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/landing_screen.dart';
@@ -12,28 +13,36 @@ import './src/services/user_repository.dart';
 import 'src/blocs/authentication/authentication.dart';
 import 'src/blocs/simple_bloc_delegatae.dart';
 
-void main() {
+void main() async {
   BlocSupervisor.delegate = SimpleBlocDelegate();
+  var delegate = await LocalizationDelegate.create(
+    basePath: 'assets/i18n/',
+    fallbackLocale: 'en',
+    supportedLocales: ['en', 'de'],
+  );
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthenticationBloc>(
-          create: (context) {
-            return AuthenticationBloc()..add(AppStarted());
-          },
-        ),
-        BlocProvider<RecipesShortBloc>(
-          create: (context) {
-            return RecipesShortBloc();
-          },
-        ),
-        BlocProvider<CategoriesBloc>(
-          create: (context) {
-            return CategoriesBloc();
-          },
-        )
-      ],
-      child: App(),
+    LocalizedApp(
+      delegate,
+      MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+            create: (context) {
+              return AuthenticationBloc()..add(AppStarted());
+            },
+          ),
+          BlocProvider<RecipesShortBloc>(
+            create: (context) {
+              return RecipesShortBloc();
+            },
+          ),
+          BlocProvider<CategoriesBloc>(
+            create: (context) {
+              return CategoriesBloc();
+            },
+          )
+        ],
+        child: App(),
+      ),
     ),
   );
 }

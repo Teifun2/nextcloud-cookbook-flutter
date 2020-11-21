@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
@@ -32,13 +33,16 @@ class RecipesListScreenState extends State<RecipesListScreen> {
       builder: (context, recipesShortState) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Category: $category'),
+            title: Text(translate(
+              'recipe_list.title_category',
+              args: {'category': category},
+            )),
             actions: <Widget>[
               // action button
               IconButton(
                 icon: Icon(
                   Icons.refresh,
-                  semanticLabel: 'Refresh',
+                  semanticLabel: translate('app_bar.refresh'),
                 ),
                 onPressed: () {
                   BlocProvider.of<RecipesShortBloc>(context)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
@@ -19,12 +20,12 @@ class _LandingScreenState extends State<LandingScreen> {
       builder: (context, categoriesState) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Cookbook"),
+            title: Text(translate('categories.title')),
             actions: <Widget>[
               IconButton(
                 icon: Icon(
                   Icons.search,
-                  semanticLabel: 'Search',
+                  semanticLabel: translate('app_bar.search'),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -40,7 +41,7 @@ class _LandingScreenState extends State<LandingScreen> {
               IconButton(
                 icon: Icon(
                   Icons.refresh,
-                  semanticLabel: 'Refresh',
+                  semanticLabel: translate('app_bar.refresh'),
                 ),
                 onPressed: () {
                   BlocProvider.of<CategoriesBloc>(context)
@@ -50,7 +51,7 @@ class _LandingScreenState extends State<LandingScreen> {
               IconButton(
                 icon: Icon(
                   Icons.exit_to_app,
-                  semanticLabel: 'LogOut',
+                  semanticLabel: translate('app_bar.logout'),
                 ),
                 onPressed: () {
                   BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
@@ -67,9 +68,10 @@ class _LandingScreenState extends State<LandingScreen> {
                 categoriesState is CategoriesInitial) {
               return Center(child: CircularProgressIndicator());
             } else if (categoriesState is CategoriesLoadFailure) {
-              return Text("Category Load Failed: ${categoriesState.errorMsg}");
+              return Text(translate('categories.errors.load_failed',
+                  args: {'error_msg': categoriesState.errorMsg}));
             } else {
-              return Text("Category unknown State!");
+              return Text(translate('categories.errors.unknown'));
             }
           }()),
         );

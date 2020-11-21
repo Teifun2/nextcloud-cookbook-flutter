@@ -1,5 +1,6 @@
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
@@ -14,7 +15,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search"),
+        title: Text(translate("search.title")),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -38,7 +39,7 @@ class SearchScreen extends StatelessWidget {
             );
           },
           onError: (error) => Text(error.toString()),
-          emptyWidget: Center(child: Text("No recipe found!")),
+          emptyWidget: Center(child: Text(translate("search.nothing_found"))),
         ),
       ),
     );
