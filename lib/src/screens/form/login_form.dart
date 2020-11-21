@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 import '../../blocs/login/login.dart';
@@ -26,7 +27,6 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       authenticateInterruptCallback();
-      debugPrint("WAT");
     }
   }
 
@@ -79,19 +79,20 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
               child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Server URL'),
+                    decoration: InputDecoration(
+                        labelText: translate('login.server_url.field')),
                     controller: _serverUrl,
                     keyboardType: TextInputType.url,
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter a Nextcloud URL';
+                        return translate('login.server_url.validator.empty');
                       }
                       var urlPattern =
-                          r"([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
+                          r"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
                       bool _match = new RegExp(urlPattern, caseSensitive: false)
                           .hasMatch(value);
                       if (!_match) {
-                        return 'Please enter a valid URL';
+                        return translate('login.server_url.validator.pattern');
                       }
                       return null;
                     },
@@ -105,7 +106,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                   RaisedButton(
                     onPressed:
                         state is! LoginLoading ? _onLoginButtonPressed : null,
-                    child: Text('Login'),
+                    child: Text(translate('login.button')),
                   ),
                   Container(
                     child: state is LoginLoading

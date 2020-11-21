@@ -1,3 +1,4 @@
+import 'package:flutter_translate/global.dart';
 import 'package:http/http.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
@@ -24,7 +25,7 @@ class CategoriesProvider {
         categories.insert(
           0,
           Category(
-            "All",
+            translate('categories.all_categories'),
             categories.fold(
                 0,
                 (previousValue, element) =>
@@ -36,7 +37,7 @@ class CategoriesProvider {
         throw Exception(e);
       }
     } else {
-      throw Exception("Failed to load RecipesShort!");
+      throw Exception(translate('categories.errors.load_no_response'));
     }
   }
 }
