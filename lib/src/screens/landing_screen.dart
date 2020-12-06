@@ -80,10 +80,14 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 
   Widget _buildCategoriesScreen(List<Category> categories) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    int axisRatio = (screenWidth / 150).round();
+    int axisCount = axisRatio < 1 ? 1 : axisRatio;
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GridView.count(
-        crossAxisCount: 3,
+        crossAxisCount: axisCount,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         padding: EdgeInsets.only(top: 10),
