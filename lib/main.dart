@@ -7,7 +7,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/screens/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 
-import './src/screens/login_page.dart';
+import './src/screens/login_screen.dart';
 import './src/screens/splash_screen.dart';
 import './src/services/user_repository.dart';
 import 'src/blocs/authentication/authentication.dart';
@@ -64,7 +64,7 @@ class App extends StatelessWidget {
             }
             return CategoryScreen();
           } else if (state is AuthenticationUnauthenticated) {
-            return LoginPage();
+            return LoginScreen();
           } else if (state is AuthenticationLoading) {
             return LoadingScreen();
           } else {
