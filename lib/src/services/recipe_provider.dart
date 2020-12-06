@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
@@ -25,7 +26,7 @@ class RecipeProvider {
         throw Exception(e);
       }
     } else {
-      throw Exception("Failed to load RecipesShort!");
+      throw Exception(translate('recipe.errors.load_failed'));
     }
   }
 

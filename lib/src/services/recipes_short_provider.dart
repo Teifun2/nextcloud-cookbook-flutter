@@ -1,3 +1,4 @@
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:http/http.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
@@ -20,7 +21,7 @@ class RecipesShortProvider {
     if (response.statusCode == 200) {
       return RecipeShort.parseRecipesShort(response.body);
     } else {
-      throw Exception("Failed to load RecipesShort!");
+      throw Exception(translate('recipe_list.errors.load_failed'));
     }
   }
 }

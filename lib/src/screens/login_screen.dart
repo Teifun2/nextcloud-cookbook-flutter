@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 import '../blocs/authentication/authentication_bloc.dart';
 import '../blocs/login/login_bloc.dart';
 import 'form/login_form.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text(translate('login.title')),
       ),
       body: BlocProvider<LoginBloc>(
         create: (context) {

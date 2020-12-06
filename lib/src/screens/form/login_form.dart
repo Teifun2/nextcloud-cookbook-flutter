@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:punycode/punycode.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 import '../../blocs/login/login.dart';
@@ -13,6 +17,8 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   final _serverUrl = TextEditingController();
+  final _username = TextEditingController();
+  final _password = TextEditingController();
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -26,7 +32,6 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       authenticateInterruptCallback();
-      debugPrint("WAT");
     }
   }
 
@@ -50,9 +55,20 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
 
     _onLoginButtonPressed() {
       if (_formKey.currentState.validate()) {
+        String serverUrl = _punyEncodeUrl(_serverUrl.text);
+        String username = _username.text.trim();
+        String password = _password.text.trim();
+        String originalBasicAuth = 'Basic ' +
+            base64Encode(
+              utf8.encode(
+                '$username:$password',
+              ),
+            );
         BlocProvider.of<LoginBloc>(context).add(
           LoginButtonPressed(
-            serverURL: _serverUrl.text.trim(),
+            serverURL: serverUrl,
+            username: username,
+            originalBasicAuth: originalBasicAuth,
           ),
         );
       }
@@ -79,22 +95,39 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
               child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Server URL'),
+                    decoration: InputDecoration(
+                      labelText: translate('login.server_url.field'),
+                    ),
                     controller: _serverUrl,
                     keyboardType: TextInputType.url,
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter a Nextcloud URL';
+                        return translate('login.server_url.validator.empty');
                       }
                       var urlPattern =
-                          r"([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?";
+                          r"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
                       bool _match = new RegExp(urlPattern, caseSensitive: false)
-                          .hasMatch(value);
+                          .hasMatch(_punyEncodeUrl(value));
                       if (!_match) {
-                        return 'Please enter a valid URL';
+                        return translate('login.server_url.validator.pattern');
                       }
                       return null;
                     },
+                    textInputAction: TextInputAction.next,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: translate('login.username.field'),
+                    ),
+                    controller: _username,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: translate('login.password.field'),
+                    ),
+                    controller: _password,
+                    obscureText: true,
                     onFieldSubmitted: (val) {
                       if (state is! LoginLoading) {
                         _onLoginButtonPressed();
@@ -105,7 +138,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                   RaisedButton(
                     onPressed:
                         state is! LoginLoading ? _onLoginButtonPressed : null,
-                    child: Text('Login'),
+                    child: Text(translate('login.button')),
                   ),
                   Container(
                     child: state is LoginLoading
@@ -119,5 +152,25 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
         },
       ),
     );
+  }
+
+  String _punyEncodeUrl(String url) {
+    String pattern = r"(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)";
+    RegExp expression = new RegExp(pattern, caseSensitive: false);
+    String prefix = "";
+    if (url.startsWith("https://")) {
+      url = url.replaceFirst("https://", "");
+      prefix = "https://";
+    } else if (url.startsWith("http://")) {
+      url = url.replaceFirst("http://", "");
+      prefix = "http://";
+    }
+
+    while (expression.hasMatch(url)) {
+      String match = expression.firstMatch(url).group(1);
+      url = url.replaceFirst(match, "xn--" + punycodeEncode(match));
+    }
+
+    return prefix + url;
   }
 }

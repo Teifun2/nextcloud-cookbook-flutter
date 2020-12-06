@@ -1,0 +1,77 @@
+{
+  "app_bar": {
+    "search": "Search",
+    "refresh": "Refresh",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Login",
+    "server_url": {
+      "field": "Server URL",
+      "validator": {
+        "empty": "Please enter the URL to your Nextcloud instance.",
+        "pattern": "Please enter a valid URL"
+      }
+    },
+    "username": {
+      "field": "Username"
+    },
+    "password": {
+      "field": "Password"
+    },
+    "button": "Login",
+    "errors": {
+      "not_reachable": "Cannot reach: {server_url} \n {error_msg}",
+      "request_failed": "AppPassword request failed:\n {error_msg}",
+      "parse_failed": "Cannot parse the appPassword response!\n {error_msg}",
+      "parse_missing": "Cannot find appPassword in response!\n {error_msg}",
+      "auth_failed": "Username and / or Password is incorrect!",
+      "authentication_not_found": "No authentication found in Storage",
+      "failed_remove_remote": "Failed to remove remote apppassword!",
+      "failure": "Login Process could not finish properly.\n {status_code}\n {status_message}"
+    }
+  },
+  "categories": {
+    "title": "Cookbook",
+    "all_categories": "All",
+    "errors": {
+      "unknown": "Categories in unknown state",
+      "load_failed": "Category Load Failed: {error_msg}",
+      "load_no_response": "Could not retrieve the Categories from the server."
+    }
+  },
+  "recipe_list": {
+    "title_category": "Category: {category}",
+    "errors": {
+      "load_failed": "Failed to load RecipesShort!"
+    }
+  },
+  "recipe": {
+    "title": "Recipe",
+    "fields": {
+      "servings": "Servings: ",
+      "source": "Source",
+      "time": {
+        "prep": "Preparation time",
+        "cook": "Cooking time",
+        "total": "Total time"
+      },
+      "tools": "Tools",
+      "ingredients": "Ingredients",
+      "instructions": "Instructions"
+    },
+    "errors": {
+      "load_failed": "Failed to load Recipe!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Edit Recipe",
+    "errors": {
+      "update_failed": "Update Failed {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "nothing_found": "No recipe found!"
+  }
+}
