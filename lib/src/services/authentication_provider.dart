@@ -15,13 +15,12 @@ class AuthenticationProvider {
   final FlutterSecureStorage _secureStorage = new FlutterSecureStorage();
   final String _appAuthenticationKey = 'appAuthentication';
   AppAuthentication currentAppAuthentication;
-  bool resumeAuthenticate = true;
+  dio.CancelToken _cancelToken;
 
   Future<AppAuthentication> authenticate(
       {@required String serverUrl,
       @required String username,
       @required String originalBasicAuth}) async {
-    resumeAuthenticate = true;
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
     }
@@ -39,6 +38,7 @@ class AuthenticationProvider {
           },
           validateStatus: (status) => status < 500,
         ),
+        cancelToken: _cancelToken,
       );
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
@@ -47,6 +47,7 @@ class AuthenticationProvider {
       }
       throw (translate("login.errors.request_failed", args: {"error_msg": e}));
     }
+    _cancelToken = null;
 
     if (response.statusCode == 200) {
       String appPassword;
@@ -80,7 +81,10 @@ class AuthenticationProvider {
   }
 
   void stopAuthenticate() {
-    resumeAuthenticate = false;
+    if (_cancelToken != null) {
+      _cancelToken.cancel("Stopped by the User!");
+      _cancelToken = null;
+    }
   }
 
   Future<bool> hasAppAuthentication() async {
@@ -128,14 +132,5 @@ class AuthenticationProvider {
 
     currentAppAuthentication = null;
     await _secureStorage.delete(key: _appAuthenticationKey);
-  }
-
-  Future<void> _launchURL(String url) async {
-    await launch(
-      url,
-      forceSafariVC: true,
-      forceWebView: true,
-      enableJavaScript: true,
-    );
   }
 }
