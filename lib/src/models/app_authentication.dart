@@ -39,5 +39,5 @@ class AppAuthentication {
   }
 
   @override
-  String toString() => 'LoggedIn { token: $server, $loginName, $basicAuth}';
+  String toString() => 'LoggedIn { token: $server, $loginName}';
 }
