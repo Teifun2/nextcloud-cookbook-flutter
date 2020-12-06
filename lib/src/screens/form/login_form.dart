@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:punycode/punycode.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 import '../../blocs/login/login.dart';
@@ -54,7 +55,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
 
     _onLoginButtonPressed() {
       if (_formKey.currentState.validate()) {
-        String serverUrl = _serverUrl.text.trim();
+        String serverUrl = _punyEncodeUrl(_serverUrl.text);
         String username = _username.text.trim();
         String password = _password.text.trim();
         String originalBasicAuth = 'Basic ' +
@@ -106,7 +107,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                       var urlPattern =
                           r"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
                       bool _match = new RegExp(urlPattern, caseSensitive: false)
-                          .hasMatch(value);
+                          .hasMatch(_punyEncodeUrl(value));
                       if (!_match) {
                         return translate('login.server_url.validator.pattern');
                       }
@@ -151,5 +152,25 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
         },
       ),
     );
+  }
+
+  String _punyEncodeUrl(String url) {
+    String pattern = r"(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)";
+    RegExp expression = new RegExp(pattern, caseSensitive: false);
+    String prefix = "";
+    if (url.startsWith("https://")) {
+      url = url.replaceFirst("https://", "");
+      prefix = "https://";
+    } else if (url.startsWith("http://")) {
+      url = url.replaceFirst("http://", "");
+      prefix = "http://";
+    }
+
+    while (expression.hasMatch(url)) {
+      String match = expression.firstMatch(url).group(1);
+      url = url.replaceFirst(match, "xn--" + punycodeEncode(match));
+    }
+
+    return prefix + url;
   }
 }

@@ -22,7 +22,8 @@ dependencies:
 
   flutter_translate: ^1.6.0
 
-  # For BLoc Pattern
+  # For DNS punycode translation
+  punycode: 0.1.0
 
   #for app key
   flutter_secure_storage: ^3.3.3
