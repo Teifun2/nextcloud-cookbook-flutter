@@ -14,8 +14,16 @@ class UserRepository {
 
   AuthenticationProvider authenticationProvider = AuthenticationProvider();
 
-  Future<AppAuthentication> authenticate(String serverUrl) async {
-    return authenticationProvider.authenticate(serverUrl: serverUrl);
+  Future<AppAuthentication> authenticate(
+    String serverUrl,
+    String username,
+    String originalBasicAuth,
+  ) async {
+    return authenticationProvider.authenticate(
+      serverUrl: serverUrl,
+      username: username,
+      originalBasicAuth: originalBasicAuth,
+    );
   }
 
   void stopAuthenticate() {

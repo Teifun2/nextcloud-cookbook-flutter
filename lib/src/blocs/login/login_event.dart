@@ -10,14 +10,18 @@ abstract class LoginEvent extends Equatable {
 
 class LoginButtonPressed extends LoginEvent {
   final String serverURL;
+  final String username;
+  final String originalBasicAuth;
 
-  const LoginButtonPressed({
-    @required this.serverURL,
-  });
+  const LoginButtonPressed(
+      {@required this.serverURL,
+      @required this.username,
+      @required this.originalBasicAuth});
 
   @override
-  List<Object> get props => [serverURL];
+  List<Object> get props => [serverURL, username];
 
   @override
-  String toString() => 'LoginButtonPressed {serverURL: $serverURL}';
+  String toString() =>
+      'LoginButtonPressed {serverURL: $serverURL, username: $username}';
 }

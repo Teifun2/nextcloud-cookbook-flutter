@@ -5,7 +5,6 @@ class AppAuthentication {
   String loginName;
   String basicAuth;
 
-  // maybe only keep server, login name, and basic auth and drop appPassword for security.
   AppAuthentication({
     this.server,
     this.loginName,
@@ -40,5 +39,5 @@ class AppAuthentication {
   }
 
   @override
-  String toString() => 'LoggedIn { token: $server, $loginName, $basicAuth}';
+  String toString() => 'LoggedIn { token: $server, $loginName}';
 }
