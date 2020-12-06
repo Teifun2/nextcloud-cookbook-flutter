@@ -8,12 +8,12 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart'
 import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 
-class LandingScreen extends StatefulWidget {
+class CategoryScreen extends StatefulWidget {
   @override
-  _LandingScreenState createState() => _LandingScreenState();
+  _CategoryScreenState createState() => _CategoryScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> {
+class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
