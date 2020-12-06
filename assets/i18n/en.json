@@ -13,6 +13,12 @@
         "pattern": "Please enter a valid URL"
       }
     },
+    "username": {
+      "field": "Username"
+    },
+    "password": {
+      "field": "Password"
+    },
     "button": "Login",
     "errors": {
       "not_reachable": "Cannot reach: {server_url} \n {error_msg}",

@@ -13,6 +13,12 @@
         "pattern": "Geben Sie eine gültige URL an."
       }
     },
+    "username": {
+      "field": "Benutzername"
+    },
+    "password": {
+      "field": "Passwort"
+    },
     "button": "Anmelden",
     "errors": {
       "not_reachable": "Cannot reach: {server_url} \n {error_msg}",

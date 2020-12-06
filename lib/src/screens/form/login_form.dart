@@ -14,6 +14,8 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   final _serverUrl = TextEditingController();
+  final _username = TextEditingController();
+  final _password = TextEditingController();
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -80,7 +82,8 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
-                        labelText: translate('login.server_url.field')),
+                      labelText: translate('login.server_url.field'),
+                    ),
                     controller: _serverUrl,
                     keyboardType: TextInputType.url,
                     validator: (value) {
@@ -96,6 +99,21 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                       }
                       return null;
                     },
+                    textInputAction: TextInputAction.next,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: translate('login.username.field'),
+                    ),
+                    controller: _username,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: translate('login.password.field'),
+                    ),
+                    controller: _password,
+                    obscureText: true,
                     onFieldSubmitted: (val) {
                       if (state is! LoginLoading) {
                         _onLoginButtonPressed();
