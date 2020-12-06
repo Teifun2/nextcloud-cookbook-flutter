@@ -16,51 +16,56 @@ class AuthenticationProvider {
   AppAuthentication currentAppAuthentication;
   bool resumeAuthenticate = true;
 
-  Future<AppAuthentication> authenticate({
-    @required String serverUrl,
-  }) async {
+  Future<AppAuthentication> authenticate(
+      {@required String serverUrl,
+      @required String username,
+      @required String originalBasicAuth}) async {
     resumeAuthenticate = true;
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
     }
-    String urlInitialCall = serverUrl + '/index.php/login/v2';
-    var response;
-    try {
-      response = await http.post(urlInitialCall,
-          headers: {"User-Agent": "Cookbook App", "Accept-Language": "en-US"});
-    } catch (e) {
-      throw (translate('login.errors.not_reachable',
-          args: {"server_url": serverUrl, "error_msg": e}));
-    }
+    String urlInitialCall = serverUrl + '/ocs/v2.php/core/getapppassword';
 
-    if (response.statusCode == 200) {
-      final initialLogin = InitialLogin.fromJson(json.decode(response.body));
+    var response = await dio.Dio().get(
+      urlInitialCall,
+      options: new dio.Options(
+        headers: {"OCS-APIREQUEST": "true", "authorization": originalBasicAuth},
+      ),
+    );
 
-      if (await canLaunch(initialLogin.login)) {
-        _launchURL(initialLogin.login);
+    print(response.statusCode);
+    print(response.data);
 
-        String urlLoginSuccess =
-            initialLogin.poll.endpoint + "?token=" + initialLogin.poll.token;
+    throw ("TESTING");
 
-        var responseLog = await http.post(urlLoginSuccess);
-        while (responseLog.statusCode != 200 && resumeAuthenticate) {
-          await Future.delayed(Duration(milliseconds: 100));
-          responseLog = await http.post(urlLoginSuccess);
-        }
-
-        await closeWebView();
-
-        if (responseLog.statusCode != 200) {
-          throw translate('login.errors.interrupted');
-        } else {
-          return AppAuthentication.fromJson(responseLog.body);
-        }
-      } else {
-        throw translate('login.errors.window_error');
-      }
-    } else {
-      throw Exception(translate('login.errors.communication_failed'));
-    }
+    // if (response.statusCode == 200) {
+    //   final initialLogin = InitialLogin.fromJson(json.decode(response.body));
+    //
+    //   if (await canLaunch(initialLogin.login)) {
+    //     _launchURL(initialLogin.login);
+    //
+    //     String urlLoginSuccess =
+    //         initialLogin.poll.endpoint + "?token=" + initialLogin.poll.token;
+    //
+    //     var responseLog = await http.post(urlLoginSuccess);
+    //     while (responseLog.statusCode != 200 && resumeAuthenticate) {
+    //       await Future.delayed(Duration(milliseconds: 100));
+    //       responseLog = await http.post(urlLoginSuccess);
+    //     }
+    //
+    //     await closeWebView();
+    //
+    //     if (responseLog.statusCode != 200) {
+    //       throw translate('login.errors.interrupted');
+    //     } else {
+    //       return AppAuthentication.fromJson(responseLog.body);
+    //     }
+    //   } else {
+    //     throw translate('login.errors.window_error');
+    //   }
+    // } else {
+    //   throw Exception(translate('login.errors.communication_failed'));
+    // }
   }
 
   void stopAuthenticate() {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,9 +54,20 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
 
     _onLoginButtonPressed() {
       if (_formKey.currentState.validate()) {
+        String serverUrl = _serverUrl.text.trim();
+        String username = _username.text.trim();
+        String password = _password.text.trim();
+        String originalBasicAuth = 'Basic ' +
+            base64Encode(
+              utf8.encode(
+                '$username:$password',
+              ),
+            );
         BlocProvider.of<LoginBloc>(context).add(
           LoginButtonPressed(
-            serverURL: _serverUrl.text.trim(),
+            serverURL: serverUrl,
+            username: username,
+            originalBasicAuth: originalBasicAuth,
           ),
         );
       }
