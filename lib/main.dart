@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/landing_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/loading_indicator.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/category_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 
-import './src/screens/login_page.dart';
+import './src/screens/login_screen.dart';
 import './src/screens/splash_screen.dart';
 import './src/services/user_repository.dart';
 import 'src/blocs/authentication/authentication.dart';
@@ -62,13 +62,13 @@ class App extends StatelessWidget {
                 is CategoriesInitial) {
               BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
             }
-            return LandingScreen();
+            return CategoryScreen();
           } else if (state is AuthenticationUnauthenticated) {
-            return LoginPage();
+            return LoginScreen();
           } else if (state is AuthenticationLoading) {
-            return LoadingIndicator();
+            return LoadingScreen();
           } else {
-            return LoadingIndicator();
+            return LoadingScreen();
           }
         },
       ),
