@@ -42,9 +42,10 @@ class AuthenticationProvider {
       );
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
-        throw ("SocketException: The URL is wrong or the server is not reachable!\n $e");
+        throw (translate("login.errors.not_reachable",
+            args: {"server_url": serverUrl, "error_msg": e}));
       }
-      throw ("AppPassword request failed:\n $e");
+      throw (translate("login.errors.request_failed", args: {"error_msg": e}));
     }
 
     if (response.statusCode == 200) {
@@ -55,9 +56,9 @@ class AuthenticationProvider {
             .first
             .text;
       } on XmlParserException catch (e) {
-        throw ('Cannot parse the appPassword response!\n $e');
+        throw (translate("login.errors.parse_failed", args: {"error_msg": e}));
       } on StateError catch (e) {
-        throw ('Cannot find appPassword in response!\n $e');
+        throw (translate("login.errors.parse_missing", args: {"error_msg": e}));
       }
 
       String basicAuth =
@@ -69,9 +70,12 @@ class AuthenticationProvider {
         basicAuth: basicAuth,
       );
     } else if (response.statusCode == 401) {
-      throw ('Username and / or Password is incorrect!');
+      throw (translate("login.errors.auth_failed"));
     } else {
-      throw ('Login Process could not finish properly.\n ${response.statusCode}\n ${response.statusMessage}');
+      throw (translate("login.errors.failure", args: {
+        "status_code": response.statusCode,
+        "status_message": response.statusMessage,
+      }));
     }
   }
 
@@ -122,7 +126,6 @@ class AuthenticationProvider {
       debugPrint(translate('login.errors.failed_remove_remote'));
     }
 
-    //TODO Delete Appkey Serverside
     currentAppAuthentication = null;
     await _secureStorage.delete(key: _appAuthenticationKey);
   }

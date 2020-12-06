@@ -22,11 +22,13 @@
     "button": "Login",
     "errors": {
       "not_reachable": "Cannot reach: {server_url} \n {error_msg}",
-      "interrupted": "Login Process was interrupted!",
-      "window_error": "Could not launch the authentication window.",
-      "communication_failed": "Could not communicate with the server. Check if the url is correct.",
+      "request_failed": "AppPassword request failed:\n {error_msg}",
+      "parse_failed": "Cannot parse the appPassword response!\n {error_msg}",
+      "parse_missing": "Cannot find appPassword in response!\n {error_msg}",
+      "auth_failed": "Username and / or Password is incorrect!",
       "authentication_not_found": "No authentication found in Storage",
-      "failed_remove_remote": "Failed to remove remote apppassword!"
+      "failed_remove_remote": "Failed to remove remote apppassword!",
+      "failure": "Login Process could not finish properly.\n {status_code}\n {status_message}"
     }
   },
   "categories": {

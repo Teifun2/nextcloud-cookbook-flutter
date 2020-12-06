@@ -21,12 +21,14 @@
     },
     "button": "Anmelden",
     "errors": {
-      "not_reachable": "Cannot reach: {server_url} \n {error_msg}",
-      "interrupted": "Login Process was interrupted!",
-      "window_error": "Could not launch the authentication window.",
-      "communication_failed": "Could not communicate with the server. Check if the url is correct.",
-      "authentication_not_found": "No authentication found in Storage",
-      "failed_remove_remote": "Failed to remove remote apppassword!"
+      "not_reachable": "Server konnte nicht erreicht werden: {server_url} \n {error_msg}",
+      "request_failed": "AppPassword Anfrage fehlgeschlagen:\n {error_msg}",
+      "parse_failed": "Konnte die AppPassword Antwort nicht lesen!\n {error_msg}",
+      "parse_missing": "Das AppPassword fehlt in der response!\n {error_msg}",
+      "auth_failed": "Benutzername oder Passwort ist incorrect!",
+      "authentication_not_found": "Es wurde keine gespeicherte Authentifizierung gefunden.",
+      "failed_remove_remote": "Das entfernen des appPasswortes auf dem server ist fehlgeschlagen!",
+      "failure": "Der Login Prozess konnte nicht erfolgreich beendet werden. \n {status_code}\n {status_message}"
     }
   },
   "categories": {
