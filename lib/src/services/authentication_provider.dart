@@ -44,6 +44,9 @@ class AuthenticationProvider {
       if (e.message.contains("SocketException")) {
         throw (translate("login.errors.not_reachable",
             args: {"server_url": serverUrl, "error_msg": e}));
+      } else if (e.message.contains("CERTIFICATE_VERIFY_FAILED")) {
+        throw (translate("login.errors.certificate_failed",
+            args: {"server_url": serverUrl, "error_msg": e}));
       }
       throw (translate("login.errors.request_failed", args: {"error_msg": e}));
     }
@@ -116,17 +119,22 @@ class AuthenticationProvider {
   }
 
   Future<void> deleteAppAuthentication() async {
-    var response = await dio.Dio().delete(
-      "${currentAppAuthentication.server}/ocs/v2.php/core/apppassword",
-      options: new dio.Options(
-        headers: {
-          "OCS-APIREQUEST": "true",
-          "authorization": currentAppAuthentication.basicAuth
-        },
-      ),
-    );
+    var response;
+    try {
+      response = await dio.Dio().delete(
+        "${currentAppAuthentication.server}/ocs/v2.php/core/apppassword",
+        options: new dio.Options(
+          headers: {
+            "OCS-APIREQUEST": "true",
+            "authorization": currentAppAuthentication.basicAuth
+          },
+        ),
+      );
+    } on dio.DioError catch (e) {
+      debugPrint(translate('login.errors.failed_remove_remote'));
+    }
 
-    if (response.statusCode != 200) {
+    if (response != null && response.statusCode != 200) {
       debugPrint(translate('login.errors.failed_remove_remote'));
     }
 

@@ -22,6 +22,7 @@
     "button": "Login",
     "errors": {
       "not_reachable": "Cannot reach: {server_url} \n {error_msg}",
+      "certificate_failed": "The Certificate of the server could not be verified: {server_url} \n {error_msg}",
       "request_failed": "AppPassword request failed:\n {error_msg}",
       "parse_failed": "Cannot parse the appPassword response!\n {error_msg}",
       "parse_missing": "Cannot find appPassword in response!\n {error_msg}",

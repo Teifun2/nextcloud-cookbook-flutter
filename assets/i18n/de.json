@@ -22,6 +22,7 @@
     "button": "Anmelden",
     "errors": {
       "not_reachable": "Server konnte nicht erreicht werden: {server_url} \n {error_msg}",
+      "certificate_failed": "Das Zertifikat des Server konnte nicht verifiziert werden: {server_url} \n {error_msg}",
       "request_failed": "AppPassword Anfrage fehlgeschlagen:\n {error_msg}",
       "parse_failed": "Konnte die AppPassword Antwort nicht lesen!\n {error_msg}",
       "parse_missing": "Das AppPassword fehlt in der response!\n {error_msg}",
