@@ -12,16 +12,19 @@ class LoginButtonPressed extends LoginEvent {
   final String serverURL;
   final String username;
   final String originalBasicAuth;
+  final bool isAppPassword;
 
-  const LoginButtonPressed(
-      {@required this.serverURL,
-      @required this.username,
-      @required this.originalBasicAuth});
+  const LoginButtonPressed({
+    @required this.serverURL,
+    @required this.username,
+    @required this.originalBasicAuth,
+    @required this.isAppPassword,
+  });
 
   @override
-  List<Object> get props => [serverURL, username];
+  List<Object> get props => [serverURL, username, isAppPassword];
 
   @override
   String toString() =>
-      'LoginButtonPressed {serverURL: $serverURL, username: $username}';
+      'LoginButtonPressed {serverURL: $serverURL, username: $username, isAppPassword: $isAppPassword}';
 }
