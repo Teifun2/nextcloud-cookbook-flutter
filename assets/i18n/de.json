@@ -19,6 +19,10 @@
     "password": {
       "field": "Passwort"
     },
+    "settings": {
+      "title": "Erweiterte Einstellungen",
+      "app_password": "Benutze selbst generiertes AppPassword.\n(Für accounts mit 2FA)"
+    },
     "button": "Anmelden",
     "errors": {
       "not_reachable": "Server konnte nicht erreicht werden: {server_url} \n {error_msg}",

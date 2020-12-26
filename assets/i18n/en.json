@@ -17,11 +17,11 @@
       "field": "Username"
     },
     "password": {
-      "field": "Password",
-      "app_password": "Use self generated AppPassword.\n(Used for accounts with 2FA)"
+      "field": "Password"
     },
     "settings": {
-      "title": "Advanced Settings"
+      "title": "Advanced Settings",
+      "app_password": "Use self generated AppPassword.\n(Used for accounts with 2FA)"
     },
     "button": "Login",
     "errors": {
