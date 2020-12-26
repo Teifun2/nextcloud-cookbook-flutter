@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/self_signed_certificate_http_overrides.dart';
 
@@ -24,13 +23,7 @@ class AppAuthentication {
     authenticatedClient.options.headers["User-Agent"] = "Cookbook App";
     authenticatedClient.options.responseType = ResponseType.plain;
 
-    if (selfSignedCertificate) {
-      (authenticatedClient.httpClientAdapter as DefaultHttpClientAdapter)
-          .onHttpClientCreate = (HttpClient client) {
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
-      };
-
+    if (!selfSignedCertificate) {
       HttpOverrides.global = new SelfSignedCertificateHttpOverride();
     }
   }
