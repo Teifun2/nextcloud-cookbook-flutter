@@ -1,25 +1,33 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import '../../services/user_repository.dart';
 
+import '../../services/user_repository.dart';
 import 'authentication.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository = UserRepository();
 
   @override
   AuthenticationState get initialState => AuthenticationUninitialized();
 
   @override
-  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
+  Stream<AuthenticationState> mapEventToState(
+      AuthenticationEvent event) async* {
     if (event is AppStarted) {
       final bool hasToken = await userRepository.hasAppAuthentication();
 
       if (hasToken) {
         yield AuthenticationLoading();
         await userRepository.loadAppAuthentication();
-        yield AuthenticationAuthenticated();
+        bool validCredentials = await userRepository.checkAppAuthentication();
+        if (validCredentials) {
+          yield AuthenticationAuthenticated();
+        } else {
+          await userRepository.deleteAppAuthentication();
+          yield AuthenticationInvalid();
+        }
       } else {
         yield AuthenticationUnauthenticated();
       }

@@ -19,16 +19,23 @@
     "password": {
       "field": "Password"
     },
+    "settings": {
+      "title": "Advanced Settings",
+      "app_password": "Use self generated AppPassword.\nNeeded for accounts with 2FA",
+      "self_signed_certificate": "Ignore invalid certificate\nNeeded for self signed certificates\n(Use at your own risk!) "
+    },
     "button": "Login",
     "errors": {
       "not_reachable": "Cannot reach: {server_url} \n {error_msg}",
+      "certificate_failed": "The Certificate of the server could not be verified: {server_url} \n {error_msg}",
       "request_failed": "AppPassword request failed:\n {error_msg}",
       "parse_failed": "Cannot parse the appPassword response!\n {error_msg}",
       "parse_missing": "Cannot find appPassword in response!\n {error_msg}",
       "auth_failed": "Username and / or Password is incorrect!",
       "authentication_not_found": "No authentication found in Storage",
       "failed_remove_remote": "Failed to remove remote apppassword!",
-      "failure": "Login Process could not finish properly.\n {status_code}\n {status_message}"
+      "failure": "Login Process could not finish properly.\n {status_code}\n {status_message}",
+      "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!"
     }
   },
   "categories": {
