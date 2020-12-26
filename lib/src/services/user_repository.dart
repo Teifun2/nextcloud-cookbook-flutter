@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/authentication_provider.dart';
 
 import '../models/app_authentication.dart';
@@ -44,6 +45,10 @@ class UserRepository {
 
   AppAuthentication getCurrentAppAuthentication() {
     return authenticationProvider.currentAppAuthentication;
+  }
+
+  Dio getAuthenticatedClient() {
+    return authenticationProvider.currentAppAuthentication.authenticatedClient;
   }
 
   Future<bool> hasAppAuthentication() async {
