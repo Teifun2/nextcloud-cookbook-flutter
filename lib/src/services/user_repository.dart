@@ -26,6 +26,18 @@ class UserRepository {
     );
   }
 
+  Future<AppAuthentication> authenticateAppPassword(
+    String serverUrl,
+    String username,
+    String basicAuth,
+  ) async {
+    return authenticationProvider.authenticateAppPassword(
+      serverUrl: serverUrl,
+      username: username,
+      basicAuth: basicAuth,
+    );
+  }
+
   void stopAuthenticate() {
     authenticationProvider.stopAuthenticate();
   }
