@@ -17,7 +17,11 @@
       "field": "Username"
     },
     "password": {
-      "field": "Password"
+      "field": "Password",
+      "app_password": "Use self generated AppPassword.\n(Used for accounts with 2FA)"
+    },
+    "settings": {
+      "title": "Advanced Settings"
     },
     "button": "Login",
     "errors": {

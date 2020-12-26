@@ -164,7 +164,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                 })
                               },
                               title: Text(
-                                  'Use self generated AppPassword.\n(Used for accounts with 2FA)'),
+                                  translate('login.settings.app_password')),
                             ),
                             headerBuilder:
                                 (BuildContext context, bool isExpanded) {
@@ -172,7 +172,8 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 16.0),
-                                  child: Text("Advanced Settings"),
+                                  child:
+                                      Text(translate('login.settings.title')),
                                 ),
                               );
                             },
