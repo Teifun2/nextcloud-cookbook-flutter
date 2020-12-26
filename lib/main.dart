@@ -65,6 +65,10 @@ class App extends StatelessWidget {
             return CategoryScreen();
           } else if (state is AuthenticationUnauthenticated) {
             return LoginScreen();
+          } else if (state is AuthenticationInvalid) {
+            return LoginScreen(
+              invalidCredentials: true,
+            );
           } else if (state is AuthenticationLoading) {
             return LoadingScreen();
           } else {

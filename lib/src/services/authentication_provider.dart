@@ -14,10 +14,11 @@ class AuthenticationProvider {
   AppAuthentication currentAppAuthentication;
   dio.CancelToken _cancelToken;
 
-  Future<AppAuthentication> authenticate(
-      {@required String serverUrl,
-      @required String username,
-      @required String originalBasicAuth}) async {
+  Future<AppAuthentication> authenticate({
+    @required String serverUrl,
+    @required String username,
+    @required String originalBasicAuth,
+  }) async {
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
     }
@@ -80,10 +81,11 @@ class AuthenticationProvider {
     }
   }
 
-  Future<AppAuthentication> authenticateAppPassword(
-      {@required String serverUrl,
-      @required String username,
-      @required String basicAuth}) async {
+  Future<AppAuthentication> authenticateAppPassword({
+    @required String serverUrl,
+    @required String username,
+    @required String basicAuth,
+  }) async {
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
     }

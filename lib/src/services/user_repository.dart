@@ -54,6 +54,13 @@ class UserRepository {
     return authenticationProvider.loadAppAuthentication();
   }
 
+  Future<bool> checkAppAuthentication() async {
+    return authenticationProvider.checkAppAuthentication(
+      authenticationProvider.currentAppAuthentication.server,
+      authenticationProvider.currentAppAuthentication.basicAuth,
+    );
+  }
+
   Future<void> persistAppAuthentication(
       AppAuthentication appAuthentication) async {
     return authenticationProvider.persistAppAuthentication(appAuthentication);

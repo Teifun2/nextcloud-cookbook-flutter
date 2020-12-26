@@ -33,7 +33,8 @@
       "auth_failed": "Username and / or Password is incorrect!",
       "authentication_not_found": "No authentication found in Storage",
       "failed_remove_remote": "Failed to remove remote apppassword!",
-      "failure": "Login Process could not finish properly.\n {status_code}\n {status_message}"
+      "failure": "Login Process could not finish properly.\n {status_code}\n {status_message}",
+      "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!"
     }
   },
   "categories": {
