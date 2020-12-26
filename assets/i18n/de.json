@@ -19,6 +19,11 @@
     "password": {
       "field": "Passwort"
     },
+    "settings": {
+      "title": "Erweiterte Einstellungen",
+      "app_password": "Benutze selbst generiertes AppPassword.\nFür accounts mit 2FA",
+      "self_signed_certificate": "Ignorier ungültige Zertifikate\nFür selbst signierte Zertifikate\n(Benutzung auf eigene Gefahr!)"
+    },
     "button": "Anmelden",
     "errors": {
       "not_reachable": "Server konnte nicht erreicht werden: {server_url} \n {error_msg}",
@@ -29,20 +34,21 @@
       "auth_failed": "Benutzername oder Passwort ist incorrect!",
       "authentication_not_found": "Es wurde keine gespeicherte Authentifizierung gefunden.",
       "failed_remove_remote": "Das entfernen des appPasswortes auf dem server ist fehlgeschlagen!",
-      "failure": "Der Login Prozess konnte nicht erfolgreich beendet werden. \n {status_code}\n {status_message}"
+      "failure": "Der Login Prozess konnte nicht erfolgreich beendet werden. \n {status_code}\n {status_message}",
+      "credentials_invalid": "Die gespeicherten authentifizierung war nicht mehr gültig und du wurdest ausgeloggt!"
     }
   },
   "categories": {
     "title": "Kochbuch",
     "all_categories": "Alle",
     "errors": {
-      "unknown": "Categories in unknown state",
-      "load_failed": "Category Load Failed: {error_msg}",
-      "load_no_response": "Could not retrieve the Categories from the server."
+      "unknown": "Kategorien sin in einem unbekannten zustand",
+      "load_failed": "Fehler beim laden der Kategorien: {error_msg}",
+      "load_no_response": "Konnte die Kategorien nicht vom Server laden."
     }
   },
   "recipe_list": {
-    "title_category": "Category: {category}",
+    "title_category": "Kategorie: {category}",
     "errors": {
       "load_failed": "Das RecipesShort konnte nicht geladen werden!"
     }

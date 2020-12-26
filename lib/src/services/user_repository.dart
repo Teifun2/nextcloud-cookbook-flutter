@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/authentication_provider.dart';
 
 import '../models/app_authentication.dart';
@@ -18,11 +19,27 @@ class UserRepository {
     String serverUrl,
     String username,
     String originalBasicAuth,
+    bool isSelfSignedCertificate,
   ) async {
     return authenticationProvider.authenticate(
       serverUrl: serverUrl,
       username: username,
       originalBasicAuth: originalBasicAuth,
+      isSelfSignedCertificate: isSelfSignedCertificate,
+    );
+  }
+
+  Future<AppAuthentication> authenticateAppPassword(
+    String serverUrl,
+    String username,
+    String basicAuth,
+    bool isSelfSignedCertificate,
+  ) async {
+    return authenticationProvider.authenticateAppPassword(
+      serverUrl: serverUrl,
+      username: username,
+      basicAuth: basicAuth,
+      isSelfSignedCertificate: isSelfSignedCertificate,
     );
   }
 
@@ -34,12 +51,24 @@ class UserRepository {
     return authenticationProvider.currentAppAuthentication;
   }
 
+  Dio getAuthenticatedClient() {
+    return authenticationProvider.currentAppAuthentication.authenticatedClient;
+  }
+
   Future<bool> hasAppAuthentication() async {
     return authenticationProvider.hasAppAuthentication();
   }
 
   Future<void> loadAppAuthentication() async {
     return authenticationProvider.loadAppAuthentication();
+  }
+
+  Future<bool> checkAppAuthentication() async {
+    return authenticationProvider.checkAppAuthentication(
+        authenticationProvider.currentAppAuthentication.server,
+        authenticationProvider.currentAppAuthentication.basicAuth,
+        authenticationProvider
+            .currentAppAuthentication.isSelfSignedCertificate);
   }
 
   Future<void> persistAppAuthentication(
