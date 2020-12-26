@@ -22,6 +22,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   final _password = TextEditingController();
   bool advancedSettingsExpanded = false;
   bool advancedIsAppPassword = false;
+  bool advancedIsSelfSignedCertificate = false;
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -75,6 +76,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
             username: username,
             originalBasicAuth: originalBasicAuth,
             isAppPassword: advancedIsAppPassword,
+            isSelfSignedCertificate: advancedIsSelfSignedCertificate,
           ),
         );
       }
@@ -156,15 +158,34 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         children: [
                           ExpansionPanel(
                             isExpanded: advancedSettingsExpanded,
-                            body: CheckboxFormField(
-                              initialValue: advancedIsAppPassword,
-                              onSaved: (bool checked) => {
-                                setState(() {
-                                  advancedIsAppPassword = checked;
-                                })
-                              },
-                              title: Text(
-                                  translate('login.settings.app_password')),
+                            body: Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: Column(
+                                children: [
+                                  CheckboxFormField(
+                                    initialValue: advancedIsAppPassword,
+                                    onSaved: (bool checked) => {
+                                      setState(() {
+                                        advancedIsAppPassword = checked;
+                                      })
+                                    },
+                                    title: Text(translate(
+                                        'login.settings.app_password')),
+                                  ),
+                                  CheckboxFormField(
+                                    initialValue:
+                                        advancedIsSelfSignedCertificate,
+                                    onSaved: (bool checked) => {
+                                      setState(() {
+                                        advancedIsSelfSignedCertificate =
+                                            checked;
+                                      })
+                                    },
+                                    title: Text(translate(
+                                        'login.settings.self_signed_certificate')),
+                                  ),
+                                ],
+                              ),
                             ),
                             headerBuilder:
                                 (BuildContext context, bool isExpanded) {

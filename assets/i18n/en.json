@@ -21,7 +21,8 @@
     },
     "settings": {
       "title": "Advanced Settings",
-      "app_password": "Use self generated AppPassword.\n(Used for accounts with 2FA)"
+      "app_password": "Use self generated AppPassword.\nNeeded for accounts with 2FA",
+      "self_signed_certificate": "Ignore invalid certificate\nNeeded for self signed certificates\n(Use at your own risk!) "
     },
     "button": "Login",
     "errors": {

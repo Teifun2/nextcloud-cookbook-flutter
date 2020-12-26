@@ -19,11 +19,13 @@ class UserRepository {
     String serverUrl,
     String username,
     String originalBasicAuth,
+    bool isSelfSignedCertificate,
   ) async {
     return authenticationProvider.authenticate(
       serverUrl: serverUrl,
       username: username,
       originalBasicAuth: originalBasicAuth,
+      isSelfSignedCertificate: isSelfSignedCertificate,
     );
   }
 
@@ -31,11 +33,13 @@ class UserRepository {
     String serverUrl,
     String username,
     String basicAuth,
+    bool isSelfSignedCertificate,
   ) async {
     return authenticationProvider.authenticateAppPassword(
       serverUrl: serverUrl,
       username: username,
       basicAuth: basicAuth,
+      isSelfSignedCertificate: isSelfSignedCertificate,
     );
   }
 
@@ -61,9 +65,10 @@ class UserRepository {
 
   Future<bool> checkAppAuthentication() async {
     return authenticationProvider.checkAppAuthentication(
-      authenticationProvider.currentAppAuthentication.server,
-      authenticationProvider.currentAppAuthentication.basicAuth,
-    );
+        authenticationProvider.currentAppAuthentication.server,
+        authenticationProvider.currentAppAuthentication.basicAuth,
+        authenticationProvider
+            .currentAppAuthentication.isSelfSignedCertificate);
   }
 
   Future<void> persistAppAuthentication(

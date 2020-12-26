@@ -31,12 +31,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             event.serverURL,
             event.username,
             event.originalBasicAuth,
+            event.isSelfSignedCertificate,
           );
         } else {
           appAuthentication = await userRepository.authenticate(
             event.serverURL,
             event.username,
             event.originalBasicAuth,
+            event.isSelfSignedCertificate,
           );
         }
 

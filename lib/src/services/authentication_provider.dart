@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -18,6 +20,7 @@ class AuthenticationProvider {
     @required String serverUrl,
     @required String username,
     @required String originalBasicAuth,
+    @required bool isSelfSignedCertificate,
   }) async {
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
@@ -26,7 +29,16 @@ class AuthenticationProvider {
 
     dio.Response response;
     try {
-      response = await dio.Dio().get(
+      dio.Dio client = dio.Dio();
+      if (isSelfSignedCertificate) {
+        (client.httpClientAdapter as DefaultHttpClientAdapter)
+            .onHttpClientCreate = (HttpClient httpClient) {
+          httpClient.badCertificateCallback =
+              (X509Certificate cert, String host, int port) => true;
+        };
+      }
+
+      response = await client.get(
         urlInitialCall,
         options: new dio.Options(
           headers: {
@@ -70,6 +82,7 @@ class AuthenticationProvider {
         server: serverUrl,
         loginName: username,
         basicAuth: basicAuth,
+        isSelfSignedCertificate: isSelfSignedCertificate,
       );
     } else if (response.statusCode == 401) {
       throw (translate("login.errors.auth_failed"));
@@ -85,6 +98,7 @@ class AuthenticationProvider {
     @required String serverUrl,
     @required String username,
     @required String basicAuth,
+    @required bool isSelfSignedCertificate,
   }) async {
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
@@ -92,7 +106,8 @@ class AuthenticationProvider {
 
     bool authenticated;
     try {
-      authenticated = await checkAppAuthentication(serverUrl, basicAuth);
+      authenticated = await checkAppAuthentication(
+          serverUrl, basicAuth, isSelfSignedCertificate);
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
         throw (translate("login.errors.not_reachable",
@@ -109,6 +124,7 @@ class AuthenticationProvider {
         server: serverUrl,
         loginName: username,
         basicAuth: basicAuth,
+        isSelfSignedCertificate: isSelfSignedCertificate,
       );
     } else {
       throw (translate("login.errors.auth_failed"));
@@ -147,12 +163,21 @@ class AuthenticationProvider {
   Future<bool> checkAppAuthentication(
     String serverUrl,
     String basicAuth,
+    bool isSelfSignedCertificate,
   ) async {
     String urlAuthCheck = serverUrl + '/index.php/apps/cookbook/categories';
 
     dio.Response response;
     try {
-      response = await dio.Dio().get(
+      dio.Dio client = dio.Dio();
+      if (isSelfSignedCertificate) {
+        (client.httpClientAdapter as DefaultHttpClientAdapter)
+            .onHttpClientCreate = (HttpClient httpClient) {
+          httpClient.badCertificateCallback =
+              (X509Certificate cert, String host, int port) => true;
+        };
+      }
+      response = await client.get(
         urlAuthCheck,
         options: new dio.Options(
           headers: {"authorization": basicAuth},
@@ -184,16 +209,15 @@ class AuthenticationProvider {
   Future<void> deleteAppAuthentication() async {
     var response;
     try {
-      response = await dio.Dio().delete(
+      response = await currentAppAuthentication.authenticatedClient.delete(
         "${currentAppAuthentication.server}/ocs/v2.php/core/apppassword",
         options: new dio.Options(
           headers: {
             "OCS-APIREQUEST": "true",
-            "authorization": currentAppAuthentication.basicAuth
           },
         ),
       );
-    } on dio.DioError catch (e) {
+    } on dio.DioError {
       debugPrint(translate('login.errors.failed_remove_remote'));
     }
 

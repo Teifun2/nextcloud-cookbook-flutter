@@ -8,7 +8,7 @@ class AppAuthentication {
   String server;
   String loginName;
   String basicAuth;
-  bool selfSignedCertificate;
+  bool isSelfSignedCertificate;
 
   Dio authenticatedClient;
 
@@ -16,14 +16,14 @@ class AppAuthentication {
     this.server,
     this.loginName,
     this.basicAuth,
-    this.selfSignedCertificate,
+    this.isSelfSignedCertificate,
   }) {
     authenticatedClient = Dio();
     authenticatedClient.options.headers["authorization"] = basicAuth;
     authenticatedClient.options.headers["User-Agent"] = "Cookbook App";
     authenticatedClient.options.responseType = ResponseType.plain;
 
-    if (!selfSignedCertificate) {
+    if (isSelfSignedCertificate) {
       HttpOverrides.global = new SelfSignedCertificateHttpOverride();
     }
   }
@@ -40,15 +40,15 @@ class AppAuthentication {
               ),
             );
 
-    bool selfSignedCertificate = jsonData.containsKey("selfSignedCertificate")
-        ? jsonData['selfSignedCertificate']
+    bool selfSignedCertificate = jsonData.containsKey("isSelfSignedCertificate")
+        ? jsonData['isSelfSignedCertificate']
         : false;
 
     return AppAuthentication(
         server: jsonData["server"],
         loginName: jsonData["loginName"],
         basicAuth: basicAuth,
-        selfSignedCertificate: selfSignedCertificate);
+        isSelfSignedCertificate: selfSignedCertificate);
   }
 
   String toJson() {
@@ -56,11 +56,11 @@ class AppAuthentication {
       "server": server,
       "loginName": loginName,
       "basicAuth": basicAuth,
-      "selfSignedCertificate": selfSignedCertificate,
+      "isSelfSignedCertificate": isSelfSignedCertificate,
     });
   }
 
   @override
   String toString() =>
-      'LoggedIn { token: $server, $loginName, selfSignedCertificate $selfSignedCertificate}';
+      'LoggedIn { token: $server, $loginName, isSelfSignedCertificate $isSelfSignedCertificate}';
 }
