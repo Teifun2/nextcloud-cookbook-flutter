@@ -4,24 +4,39 @@ import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class AuthenticationCachedNetworkImage extends StatelessWidget {
+  final RegExp exp = new RegExp(r'recipes/(\d*?)/image\?(.*?)$');
+  String imageId;
+  String imageSettings;
   final String imagePath;
   final double width;
   final double height;
   final BoxFit boxFit;
 
-  const AuthenticationCachedNetworkImage(
-      {@required this.imagePath, this.width, this.height, this.boxFit});
+  AuthenticationCachedNetworkImage({
+    @required this.imagePath,
+    this.width,
+    this.height,
+    this.boxFit,
+  }) {
+    RegExpMatch match = exp.firstMatch(imagePath);
+    this.imageId = match.group(1);
+    this.imageSettings = match.group(2);
+  }
 
   @override
   Widget build(BuildContext context) {
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
 
+    print(
+        '${appAuthentication.server}/apps/cookbook/recipes/$imageId/image?$imageSettings');
+
     return CachedNetworkImage(
       width: width,
       height: height,
       fit: boxFit,
-      imageUrl: '${appAuthentication.server}$imagePath',
+      imageUrl:
+          '${appAuthentication.server}/apps/cookbook/recipes/$imageId/image?$imageSettings',
       httpHeaders: {
         "authorization": appAuthentication.basicAuth,
       },
