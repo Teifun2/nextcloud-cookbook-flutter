@@ -6,7 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/input/list_form_field.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
@@ -223,12 +223,15 @@ class _RecipeFormState extends State<RecipeForm> {
                 //   onChanged: (value) =>
                 //       {_mutableRecipe.recipeIngredient = value},
                 // ),
-                ListFormField(
-                  state: state,
-                  list: recipe.recipeInstructions,
-                  title: "Instructions",
-                  onChanged: (value) =>
-                      {_mutableRecipe.recipeInstructions = value},
+                // ListFormField(
+                //   state: state,
+                //   list: recipe.recipeInstructions,
+                //   title: "Instructions",
+                //   onChanged: (value) =>
+                //       {_mutableRecipe.recipeInstructions = value},
+                // ),
+                ReorderableListFormField(
+                  title: "HENLO",
                 ),
                 Container(
                   width: 150,

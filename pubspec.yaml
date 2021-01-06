@@ -55,6 +55,9 @@ dependencies:
   flutter_spinkit: "^2.1.0"
   validators: ^2.0.0
 
+  # Reorderable List for Edit and Create Recipe
+  flutter_reorderable_list: 0.1.5
+
 dev_dependencies:
   flutter_launcher_icons: "^0.7.3"
 
