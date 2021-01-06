@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
@@ -37,7 +38,7 @@ class RecipeScreenState extends State<RecipeScreen> {
         final recipeBloc = BlocProvider.of<RecipeBloc>(context);
         return Scaffold(
           appBar: AppBar(
-            title: Text("Recipe"),
+            title: Text(translate('recipe.title')),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
@@ -125,7 +126,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                       children: <Widget>[
                         RichText(
                           text: TextSpan(
-                            text: "Servings: ",
+                            text: translate('recipe.fields.servings'),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
@@ -148,7 +149,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                                 await launch(recipe.url);
                               }
                             },
-                            child: Text("Source"),
+                            child: Text(translate('recipe.fields.source')),
                           )
                       ],
                     ),
@@ -163,13 +164,15 @@ class RecipeScreenState extends State<RecipeScreen> {
                         if (recipe.prepTime != null)
                           DurationIndicator(
                               duration: recipe.prepTime,
-                              name: "Preparation time"),
+                              name: translate('recipe.fields.time.prep')),
                         if (recipe.cookTime != null)
                           DurationIndicator(
-                              duration: recipe.cookTime, name: "Cooking time"),
+                              duration: recipe.cookTime,
+                              name: translate('recipe.fields.time.cook')),
                         if (recipe.totalTime != null)
                           DurationIndicator(
-                              duration: recipe.totalTime, name: "Total time"),
+                              duration: recipe.totalTime,
+                              name: translate('recipe.fields.time.total')),
                       ],
                     ),
                   ),
@@ -177,7 +180,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: ExpansionTile(
-                        title: Text("Tools"),
+                        title: Text(translate('recipe.fields.tools')),
                         children: <Widget>[
                           Align(
                             alignment: Alignment.centerLeft,
@@ -194,7 +197,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: ExpansionTile(
-                        title: Text("Ingredients"),
+                        title: Text(translate('recipe.fields.ingredients')),
                         children: <Widget>[
                           Align(
                             alignment: Alignment.centerLeft,
@@ -210,7 +213,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: ExpansionTile(
-                      title: Text("Instructions"),
+                      title: Text(translate('recipe.fields.instructions')),
                       initiallyExpanded: true,
                       children: <Widget>[
                         Padding(

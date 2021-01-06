@@ -21,6 +21,9 @@ class Category extends Equatable {
   static List<Category> parseCategories(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
-    return parsed.map<Category>((json) => Category.fromJson(json)).toList();
+    return parsed
+        .map<Category>((json) => Category.fromJson(json))
+        .where((Category c) => c.recipeCount > 0)
+        .toList();
   }
 }

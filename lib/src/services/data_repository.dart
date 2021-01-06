@@ -1,3 +1,4 @@
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
@@ -23,10 +24,11 @@ class DataRepository {
 
   // Data
   static Future<List<RecipeShort>> _allRecipesShort;
+  static String categoryAll = translate('categories.all_categories');
 
   // Actions
-  Future<List<RecipeShort>> fetchRecipesShort({String category = 'All'}) {
-    if (category == 'All') {
+  Future<List<RecipeShort>> fetchRecipesShort({String category}) {
+    if (category == categoryAll) {
       return recipesShortProvider.fetchRecipesShort();
     } else {
       return categoryRecipesShortProvider.fetchCategoryRecipesShort(category);
@@ -53,7 +55,7 @@ class DataRepository {
 
   Future<Category> _fetchCategoryImage(Category category) async {
     List<RecipeShort> categoryRecipes = await () {
-      if (category.name == "All") {
+      if (category.name == translate('categories.all_categories')) {
         return recipesShortProvider.fetchRecipesShort();
       } else {
         return categoryRecipesShortProvider
@@ -67,7 +69,7 @@ class DataRepository {
   }
 
   Future<void> fetchSearchRecipes() async {
-    _allRecipesShort = fetchRecipesShort(category: "all");
+    _allRecipesShort = fetchRecipesShort(category: "All");
   }
 
   Future<List<RecipeShort>> searchRecipes(String pattern) async {

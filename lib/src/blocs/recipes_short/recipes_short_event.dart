@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 abstract class RecipesShortEvent extends Equatable {
   const RecipesShortEvent();
@@ -10,7 +11,7 @@ abstract class RecipesShortEvent extends Equatable {
 class RecipesShortLoaded extends RecipesShortEvent {
   final String category;
 
-  const RecipesShortLoaded({this.category = 'all'});
+  const RecipesShortLoaded({this.category});
 
   @override
   List<Object> get props => [category];
