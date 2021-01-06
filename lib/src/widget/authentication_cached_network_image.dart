@@ -28,9 +28,6 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
 
-    print(
-        '${appAuthentication.server}/apps/cookbook/recipes/$imageId/image?$imageSettings');
-
     return CachedNetworkImage(
       width: width,
       height: height,
