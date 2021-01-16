@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/authentication_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
 
 import '../models/app_authentication.dart';
 
@@ -14,6 +15,7 @@ class UserRepository {
   UserRepository._internal();
 
   AuthenticationProvider authenticationProvider = AuthenticationProvider();
+  VersionProvider versionProvider = VersionProvider();
 
   Future<AppAuthentication> authenticate(
     String serverUrl,
@@ -78,5 +80,13 @@ class UserRepository {
 
   Future<void> deleteAppAuthentication() async {
     return authenticationProvider.deleteAppAuthentication();
+  }
+
+  Future<ApiVersion> fetchApiVersion() async {
+    return versionProvider.fetchApiVersion();
+  }
+
+  AndroidApiVersion getAndroidVersion() {
+    return versionProvider.getAndroidVersion();
   }
 }
