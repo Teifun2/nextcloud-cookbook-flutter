@@ -5,9 +5,9 @@
 
 # Nextcloud Cookbook Mobile Client written in Flutter
 
-This project aims to provide a mobile client for both Android and IOs for the nextcloud app cookbook (https://github.com/nextcloud/cookbook)
+This project aims to provide a mobile client for both Android and IOs for the Nextcloud Cookbook App (https://github.com/nextcloud/cookbook)
 
-It works best with an Nextcloud installation >= 17
+It works best with an Nextcloud installation >= 19 and a Cookbook plugin version 0.7.9
 
 ## Screenshots
 
