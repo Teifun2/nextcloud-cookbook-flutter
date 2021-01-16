@@ -5,6 +5,7 @@ import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class VersionProvider {
   ApiVersion _currentApiVersion;
+  bool warningWasShown = false;
 
   Future<ApiVersion> fetchApiVersion() async {
     AppAuthentication appAuthentication =

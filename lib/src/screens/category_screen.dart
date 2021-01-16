@@ -69,8 +69,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 categoriesState is CategoriesInitial) {
               return Column(
                 children: [
-                  Center(child: CircularProgressIndicator()),
                   ApiVersionWarning(),
+                  Center(child: CircularProgressIndicator()),
                 ],
               );
             } else if (categoriesState is CategoriesLoadFailure) {
