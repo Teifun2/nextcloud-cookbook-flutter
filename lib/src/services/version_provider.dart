@@ -8,13 +8,16 @@ class VersionProvider {
   bool warningWasShown = false;
 
   Future<ApiVersion> fetchApiVersion() async {
+    warningWasShown = false;
+
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
 
     var response = await appAuthentication.authenticatedClient
         .get("${appAuthentication.server}/index.php/apps/cookbook/api/version");
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 &&
+        !response.data.toString().startsWith("<!DOCTYPE html>")) {
       try {
         _currentApiVersion = ApiVersion.decodeJsonApiVersion(response.data);
       } catch (e) {
