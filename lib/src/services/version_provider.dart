@@ -55,8 +55,20 @@ class ApiVersion {
 
   static ApiVersion decodeJsonApiVersion(jsonString) {
     Map<String, dynamic> data = json.decode(jsonString);
+
+    if (!(data.containsKey("cookbook_version") &&
+        data.containsKey("api_version"))) {
+      throw Exception("Required Fields not present!\n$jsonString");
+    }
+
     List<int> appVersion = data["cookbook_version"].cast<int>();
     var apiVersion = data["api_version"];
+
+    if (!(appVersion.length == 3 &&
+        apiVersion.containsKey("major") &&
+        apiVersion.containsKey("minor"))) {
+      throw Exception("Required Fields not present!\n$jsonString");
+    }
 
     return ApiVersion(
       apiVersion["major"],
@@ -73,7 +85,7 @@ class ApiVersion {
     if (majorApiVersion == 0 && minorApiVersion == 0) {
       return AndroidApiVersion.BEFORE_API_ENDPOINT;
     } else {
-      return AndroidApiVersion.PARTIAL_API_TRANSITION;
+      return AndroidApiVersion.CATEGORY_API_TRANSITION;
     }
   }
 
@@ -93,4 +105,4 @@ class ApiVersion {
   }
 }
 
-enum AndroidApiVersion { BEFORE_API_ENDPOINT, PARTIAL_API_TRANSITION }
+enum AndroidApiVersion { BEFORE_API_ENDPOINT, CATEGORY_API_TRANSITION }
