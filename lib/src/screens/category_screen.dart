@@ -6,6 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart'
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -66,7 +67,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
               return _buildCategoriesScreen(categoriesState.categories);
             } else if (categoriesState is CategoriesLoadInProgress ||
                 categoriesState is CategoriesInitial) {
-              return Center(child: CircularProgressIndicator());
+              return Column(
+                children: [
+                  Center(child: CircularProgressIndicator()),
+                  ApiVersionWarning(),
+                ],
+              );
             } else if (categoriesState is CategoriesLoadFailure) {
               return Text(translate('categories.errors.load_failed',
                   args: {'error_msg': categoriesState.errorMsg}));
