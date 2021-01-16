@@ -114,7 +114,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                           return translate('login.server_url.validator.empty');
                         }
                         var urlPattern =
-                            r"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+                            r"^(?:http(s)?:\/\/)?[\w.-]+(?:(?:\.[\w\.-]+)|(?:\:\d+))+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]*$";
                         bool _match =
                             new RegExp(urlPattern, caseSensitive: false)
                                 .hasMatch(_punyEncodeUrl(value));

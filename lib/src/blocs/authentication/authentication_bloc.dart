@@ -23,6 +23,7 @@ class AuthenticationBloc
         await userRepository.loadAppAuthentication();
         bool validCredentials = await userRepository.checkAppAuthentication();
         if (validCredentials) {
+          await userRepository.fetchApiVersion();
           yield AuthenticationAuthenticated();
         } else {
           await userRepository.deleteAppAuthentication();
@@ -36,6 +37,7 @@ class AuthenticationBloc
     if (event is LoggedIn) {
       yield AuthenticationLoading();
       await userRepository.persistAppAuthentication(event.appAuthentication);
+      await userRepository.fetchApiVersion();
       yield AuthenticationAuthenticated();
     }
 
