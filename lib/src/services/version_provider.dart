@@ -18,7 +18,7 @@ class VersionProvider {
         _currentApiVersion = ApiVersion.decodeJsonApiVersion(response.data);
       } catch (e) {
         _currentApiVersion = ApiVersion(0, 0, 0, 0, 0);
-        throw (e);
+        _currentApiVersion.loadFailureMessage = e.toString();
       }
     } else {
       _currentApiVersion = ApiVersion(0, 0, 0, 0, 0);
@@ -27,15 +27,8 @@ class VersionProvider {
     return _currentApiVersion;
   }
 
-  /// Returns a VersionCode that indicates the app which endpoints to call.
-  /// Versions only need to be adapted if backwards comparability is required.
-  AndroidApiVersion getAndroidVersion() {
-    if (_currentApiVersion.majorApiVersion == 0 &&
-        _currentApiVersion.minorApiVersion == 0) {
-      return AndroidApiVersion.BEFORE_API_ENDPOINT;
-    } else {
-      return AndroidApiVersion.PARTIAL_API_TRANSITION;
-    }
+  ApiVersion getApiVersion() {
+    return _currentApiVersion;
   }
 }
 
@@ -49,6 +42,8 @@ class ApiVersion {
   final int minorAppVersion;
   final int patchAppVersion;
 
+  String loadFailureMessage = "";
+
   ApiVersion(
     this.majorApiVersion,
     this.minorApiVersion,
@@ -59,7 +54,7 @@ class ApiVersion {
 
   static ApiVersion decodeJsonApiVersion(jsonString) {
     Map<String, dynamic> data = json.decode(jsonString);
-    List<int> appVersion = data["cookbook_version"];
+    List<int> appVersion = data["cookbook_version"].cast<int>();
     var apiVersion = data["api_version"];
 
     return ApiVersion(
@@ -71,6 +66,16 @@ class ApiVersion {
     );
   }
 
+  /// Returns a VersionCode that indicates the app which endpoints to call.
+  /// Versions only need to be adapted if backwards comparability is required.
+  AndroidApiVersion getAndroidVersion() {
+    if (majorApiVersion == 0 && minorApiVersion == 0) {
+      return AndroidApiVersion.BEFORE_API_ENDPOINT;
+    } else {
+      return AndroidApiVersion.PARTIAL_API_TRANSITION;
+    }
+  }
+
   bool isVersionAboveConfirmed() {
     if (majorApiVersion > CONFIRMED_MAJOR_API_VERSION ||
         (majorApiVersion == CONFIRMED_MAJOR_API_VERSION &&
@@ -79,6 +84,11 @@ class ApiVersion {
     } else {
       return false;
     }
+  }
+
+  @override
+  String toString() {
+    return "ApiVersion: $majorApiVersion.$minorApiVersion  AppVersion: $majorAppVersion.$minorAppVersion.$patchAppVersion";
   }
 }
 

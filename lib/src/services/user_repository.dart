@@ -87,6 +87,6 @@ class UserRepository {
   }
 
   AndroidApiVersion getAndroidVersion() {
-    return versionProvider.getAndroidVersion();
+    return versionProvider.getApiVersion().getAndroidVersion();
   }
 }
