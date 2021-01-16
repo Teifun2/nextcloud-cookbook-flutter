@@ -33,7 +33,7 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
       height: height,
       fit: boxFit,
       imageUrl:
-          '${appAuthentication.server}/apps/cookbook/recipes/$imageId/image?$imageSettings',
+          '${appAuthentication.server}/index.php/apps/cookbook/recipes/$imageId/image?$imageSettings',
       httpHeaders: {
         "authorization": appAuthentication.basicAuth,
       },
