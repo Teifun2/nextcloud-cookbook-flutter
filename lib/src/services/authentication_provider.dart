@@ -24,6 +24,9 @@ class AuthenticationProvider {
   }) async {
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
+      if (serverUrl.endsWith("/")) {
+        serverUrl = serverUrl.substring(0, serverUrl.length - 1);
+      }
     }
     String urlInitialCall = serverUrl + '/ocs/v2.php/core/getapppassword';
 
