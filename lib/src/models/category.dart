@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 class Category extends Equatable {
   final String name;
   final int recipeCount;
-  String imageUrl;
+  int firstRecipeId;
 
   Category(this.name, this.recipeCount);
 

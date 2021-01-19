@@ -4,42 +4,36 @@ import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class AuthenticationCachedNetworkImage extends StatelessWidget {
-  final RegExp exp = new RegExp(r'recipes/(\d*?)/image\?(.*?)$');
-  String imageId = "";
-  String imageSettings = "";
-  final String imagePath;
-  final double width;
-  final double height;
-  final BoxFit boxFit;
+  double width;
+  double height;
+  BoxFit boxFit;
 
-  AuthenticationCachedNetworkImage({
-    @required this.imagePath,
-    this.width,
-    this.height,
-    this.boxFit,
-  }) {
-    RegExpMatch match = exp.firstMatch(imagePath);
-    if (match != null) {
-      this.imageId = match.group(1);
-      this.imageSettings = match.group(2);
-    }
-  }
+  final int recipeId;
+  final bool full;
+
+  AuthenticationCachedNetworkImage(
+      {@required this.recipeId,
+      @required this.full,
+      this.width,
+      this.height,
+      this.boxFit});
 
   @override
   Widget build(BuildContext context) {
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
 
-    if (imageId == "") {
-      return Icon(Icons.broken_image);
-    }
+    String settings = full ? "full" : "thumb";
+
+    print(
+        "${appAuthentication.server}/index.php/apps/cookbook/recipes/$recipeId/image?size=$settings");
 
     return CachedNetworkImage(
       width: width,
       height: height,
       fit: boxFit,
       imageUrl:
-          '${appAuthentication.server}/index.php/apps/cookbook/recipes/$imageId/image?$imageSettings',
+          '${appAuthentication.server}/index.php/apps/cookbook/recipes/$recipeId/image?size=$settings',
       httpHeaders: {
         "authorization": appAuthentication.basicAuth,
       },

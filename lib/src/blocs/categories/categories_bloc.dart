@@ -22,7 +22,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       List<Category> categories = await dataRepository.fetchCategories();
       yield CategoriesLoadSuccess(categories: categories);
       List<Category> categoriesWithImage =
-          await dataRepository.fetchCategoryImages(categories);
+          await dataRepository.fetchCategoryMainRecipes(categories);
       yield CategoriesImageLoadSuccess(categories: categoriesWithImage);
     } on Exception catch (e) {
       yield CategoriesLoadFailure(e.toString());

@@ -47,13 +47,14 @@ class DataRepository {
     return categoriesProvider.fetchCategories();
   }
 
-  Future<List<Category>> fetchCategoryImages(List<Category> categories) async {
+  Future<List<Category>> fetchCategoryMainRecipes(
+      List<Category> categories) async {
     return await Future.wait(
-      categories.map((category) => _fetchCategoryImage(category)).toList(),
+      categories.map((category) => _fetchCategoryMainRecipe(category)).toList(),
     );
   }
 
-  Future<Category> _fetchCategoryImage(Category category) async {
+  Future<Category> _fetchCategoryMainRecipe(Category category) async {
     List<RecipeShort> categoryRecipes = await () {
       if (category.name == translate('categories.all_categories')) {
         return recipesShortProvider.fetchRecipesShort();
@@ -64,9 +65,9 @@ class DataRepository {
     }();
 
     if (categoryRecipes.length > 0) {
-      category.imageUrl = categoryRecipes.first.imageUrl;
+      category.firstRecipeId = categoryRecipes.first.recipeId;
     } else {
-      category.imageUrl = "";
+      category.firstRecipeId = -1;
     }
 
     return category;

@@ -89,7 +89,8 @@ class RecipeScreenState extends State<RecipeScreen> {
             Container(
               child: Center(
                 child: AuthenticationCachedNetworkImage(
-                  imagePath: recipe.imageUrl,
+                  recipeId: recipe.id,
+                  full: true,
                   width: double.infinity,
                   height: 200,
                   boxFit: BoxFit.cover,
