@@ -63,7 +63,11 @@ class DataRepository {
       }
     }();
 
-    category.imageUrl = categoryRecipes.first.imageUrl;
+    if (categoryRecipes.length > 0) {
+      category.imageUrl = categoryRecipes.first.imageUrl;
+    } else {
+      category.imageUrl = "";
+    }
 
     return category;
   }

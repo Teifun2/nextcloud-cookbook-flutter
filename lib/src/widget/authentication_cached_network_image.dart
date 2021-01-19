@@ -5,8 +5,8 @@ import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class AuthenticationCachedNetworkImage extends StatelessWidget {
   final RegExp exp = new RegExp(r'recipes/(\d*?)/image\?(.*?)$');
-  String imageId;
-  String imageSettings;
+  String imageId = "";
+  String imageSettings = "";
   final String imagePath;
   final double width;
   final double height;
@@ -19,14 +19,20 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
     this.boxFit,
   }) {
     RegExpMatch match = exp.firstMatch(imagePath);
-    this.imageId = match.group(1);
-    this.imageSettings = match.group(2);
+    if (match != null) {
+      this.imageId = match.group(1);
+      this.imageSettings = match.group(2);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
+
+    if (imageId == "") {
+      return Icon(Icons.broken_image);
+    }
 
     return CachedNetworkImage(
       width: width,
