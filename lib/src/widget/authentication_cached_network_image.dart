@@ -39,13 +39,15 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
       loadStateChanged: (ExtendedImageState state) {
         if (state.extendedImageLoadState == LoadState.loading) {
           return Container(
+            width: width,
+            height: height,
             color: Colors.grey[400],
             child: Center(child: CircularProgressIndicator()),
           );
         } else if (state.extendedImageLoadState == LoadState.failed) {
           return Container(
-            width: 500,
-            height: 500,
+            width: width,
+            height: height,
             color: Colors.grey[400],
             child: SvgPicture.asset(
               'assets/icon.svg',

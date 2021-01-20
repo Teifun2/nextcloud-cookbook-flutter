@@ -83,7 +83,11 @@ class RecipesListScreenState extends State<RecipesListScreen> {
       title: Text(recipeShort.name),
       trailing: Container(
         child: AuthenticationCachedNetworkImage(
-            recipeId: recipeShort.recipeId, full: false),
+          recipeId: recipeShort.recipeId,
+          full: false,
+          width: 60,
+          height: 60,
+        ),
       ),
       onTap: () {
         Navigator.push(
