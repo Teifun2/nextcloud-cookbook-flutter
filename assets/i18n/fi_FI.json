@@ -1,0 +1,86 @@
+{
+  "app_bar": {
+    "search": "Etsi",
+    "refresh": "Päivitä",
+    "logout": "Kirjaudu ulos"
+  },
+  "login": {
+    "title": "Kirjaudu sisään",
+    "server_url": {
+      "field": "Palvelimen osoite",
+      "validator": {
+        "empty": "Syötä Nextcloud-palvelimesi URL-osoite.",
+        "pattern": "Syötä kelvollinen URL"
+      }
+    },
+    "username": {
+      "field": "Käyttäjänimi"
+    },
+    "password": {
+      "field": "Salasana"
+    },
+    "settings": {
+      "title": "Lisäasetukset",
+      "app_password": "Käytä itse luotua sovellussalasanaa,\njota tarvitaan tileillä, joilla on kaksivaiheisen tunnistautuminen (2FA) käytössä",
+      "self_signed_certificate": "Ohita virheellinen sertifikaatti\nTarvitaan itse allekirjoitetuille varmenteille\n(Käytä omalla vastuulla!) "
+    },
+    "button": "Kirjaudu sisään",
+    "errors": {
+      "not_reachable": "Ei voitu yhdistää: {server_url} \n {error_msg}",
+      "certificate_failed": "Palvelimen identiteettiä ei voitu vahvistaa: {server_url} \n {error_msg}",
+      "request_failed": "Sovellussalasanan pyyntö epäonnistui:\n{error_msg}",
+      "parse_failed": "Sovellussalasanan jäsentäminen palvelimen vastauksesta epäonnistui!\n{error_msg}",
+      "parse_missing": "Sovellussalasanaa ei löydy palvelimen vastauksesta!\n{error_msg}",
+      "auth_failed": "Käyttäjänimi ja/tai salasana on väärin!",
+      "authentication_not_found": "Tunnistautumista ei löytynyt tallennustilasta",
+      "failed_remove_remote": "Sovellussalasanan poisto epäonnistui!",
+      "failure": "Kirjautuminen ei onnistunut.\n {status_code}\n {status_message}",
+      "credentials_invalid": "Tallennetut tunnistetiedot eivät ole enää kelvollisia, sinut on kirjattu ulos!"
+    }
+  },
+  "categories": {
+    "title": "Keittokirja",
+    "all_categories": "Kaikki",
+    "errors": {
+      "unknown": "Luokat tuntemattomassa tilassa",
+      "load_failed": "Luokan lataus epäonnistui: {error_msg}",
+      "load_no_response": "Luokkien haku palvelimelta ei onnistunut.",
+      "api_version_check_failed": "Palvelimen API-version varmistus epäonnistui:\n {error_msg}",
+      "api_version_above_confirmed": "Palvelimen API-versio on päivitetty. Jotkin ominaisuudet eivät välttämättä toimi odotetusti. Odota sovelluksen päivitystä!\n {version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Luokka: {category}",
+    "errors": {
+      "load_failed": "Reseptien lataaminen epäonnistui!"
+    }
+  },
+  "recipe": {
+    "title": "Resepti",
+    "fields": {
+      "servings": "Annoksia:",
+      "source": "Lähde",
+      "time": {
+        "prep": "Esivalmistelujen kesto",
+        "cook": "Valmistuksen kesto",
+        "total": "Kokonaiskesto"
+      },
+      "tools": "Työvälineet",
+      "ingredients": "Ainesosat",
+      "instructions": "Ohjeet"
+    },
+    "errors": {
+      "load_failed": "Reseptin lataus epäonnistui!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Muokkaa reseptiä",
+    "errors": {
+      "update_failed": "Päivitys epäonnistui {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Etsi",
+    "nothing_found": "Reseptiä ei löytynyt!"
+  }
+}
