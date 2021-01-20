@@ -67,7 +67,7 @@ class DataRepository {
     if (categoryRecipes.length > 0) {
       category.firstRecipeId = categoryRecipes.first.recipeId;
     } else {
-      category.firstRecipeId = -1;
+      category.firstRecipeId = 0;
     }
 
     return category;
