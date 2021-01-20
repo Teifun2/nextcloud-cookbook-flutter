@@ -60,6 +60,7 @@
     "fields": {
       "servings": "Servings:",
       "source": "Source:",
+      "source_button": "Source",
       "time": {
         "prep": "Preparation time:",
         "cook": "Cooking time:",

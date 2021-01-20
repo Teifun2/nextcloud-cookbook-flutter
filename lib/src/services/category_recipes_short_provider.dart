@@ -17,6 +17,9 @@ class CategoryRecipesShortProvider {
       response = await client.get(
           "${appAuthentication.server}/index.php/apps/cookbook/category/$category");
     } else {
+      category = category == "*"
+          ? "_"
+          : category; // Mapping from * to _ for recipes without a category!
       response = await client.get(
           "${appAuthentication.server}/index.php/apps/cookbook/api/category/$category");
     }

@@ -24,15 +24,24 @@ class CategoryCard extends StatelessWidget {
                       colors: <Color>[Colors.black, Colors.transparent])
                   .createShader(bounds);
             },
-            child: (category.imageUrl != null
+            child: (category.firstRecipeId != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: AuthenticationCachedNetworkImage(
-                      imagePath: category.imageUrl,
+                      recipeId: category.firstRecipeId,
+                      full: false,
                       boxFit: BoxFit.cover,
                     ),
                   )
-                : Center(child: CircularProgressIndicator())),
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      color: Colors.grey[400],
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  )),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

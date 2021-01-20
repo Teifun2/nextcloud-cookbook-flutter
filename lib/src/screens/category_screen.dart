@@ -20,6 +20,35 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, categoriesState) {
         return Scaffold(
+          drawer: Drawer(
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child: Column(
+                    children: [
+                      Text('Coming soon!'),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.exit_to_app,
+                    semanticLabel: translate('app_bar.logout'),
+                  ),
+                  title: Text(translate('app_bar.logout')),
+                  onTap: () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(LoggedOut());
+                  },
+                ),
+              ],
+            ),
+          ),
           appBar: AppBar(
             title: Text(translate('categories.title')),
             actions: <Widget>[
@@ -47,15 +76,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 onPressed: () {
                   BlocProvider.of<CategoriesBloc>(context)
                       .add(CategoriesLoaded());
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.exit_to_app,
-                  semanticLabel: translate('app_bar.logout'),
-                ),
-                onPressed: () {
-                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
                 },
               ),
             ],
