@@ -1,0 +1,86 @@
+{
+  "app_bar": {
+    "search": "Zoeken",
+    "refresh": "Verversen",
+    "logout": "Uitloggen"
+  },
+  "login": {
+    "title": "Inloggen",
+    "server_url": {
+      "field": "Server URL",
+      "validator": {
+        "empty": "Geef de URL van je Nextcloud server op.",
+        "pattern": "Geef een geldige URL op."
+      }
+    },
+    "username": {
+      "field": "Gebruikersnaam"
+    },
+    "password": {
+      "field": "Wachtwoord"
+    },
+    "settings": {
+      "title": "Geavanceerde instellingen",
+      "app_password": "Gebruik het zelf genereren van een app-wachtwoord.\nNodig voor accounts met 2FA",
+      "self_signed_certificate": "Negeer ongeldig certificaat\nNodig voor zelfondertekende certificaten\n(Gebruik op eigen risico!)"
+    },
+    "button": "Inloggen",
+    "errors": {
+      "not_reachable": "Kan {server_url} niet bereiken\n {error_msg}",
+      "certificate_failed": "Het certificaat van de server kon niet worden geverifieerd: {server_url} \n {error_msg}",
+      "request_failed": "AppPassword aanvraag mislukt:\n {error_msg}",
+      "parse_failed": "Kan de appPassword reactie niet interpreteren!\n {error_msg}",
+      "parse_missing": "Kan geen appPassword vinden in de reactie!\n {error_msg}",
+      "auth_failed": "Gebruikersnaam en / of wachtwoord onjuist!",
+      "authentication_not_found": "Geen authenticatie gevonden in Opslag",
+      "failed_remove_remote": "Kon het oude remote apppassword niet verwijderen!",
+      "failure": "Het inlogproces kon niet goed eindigen.\n {status_code}\n {status_message}",
+      "credentials_invalid": "De opgeslagen inloggegevens zijn niet meer geldig en je bent uitgelogd!"
+    }
+  },
+  "categories": {
+    "title": "Kookboek",
+    "all_categories": "Alle",
+    "errors": {
+      "unknown": "Categorieën met onbekende status",
+      "load_failed": "Laden categorie mislukt: {error_msg}",
+      "load_no_response": "Kon geen categorieën van de server ophalen.",
+      "api_version_check_failed": "Kon de API versie van de server niet verifiëren:\n {error_msg}",
+      "api_version_above_confirmed": "De Api-versie van de server is bijgewerkt. Sommige functies werken mogelijk niet zoals verwacht. Wacht op een update!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Categorie: {category}",
+    "errors": {
+      "load_failed": "Kon KorteRecepten niet laden!"
+    }
+  },
+  "recipe": {
+    "title": "Recept",
+    "fields": {
+      "servings": "Porties:",
+      "source": "Bron",
+      "time": {
+        "prep": "Bereidingstijd",
+        "cook": "Kooktijd",
+        "total": "Totale tijd"
+      },
+      "tools": "Hulpmiddelen",
+      "ingredients": "Ingrediënten",
+      "instructions": "Instructies"
+    },
+    "errors": {
+      "load_failed": "Kon recept niet laden!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Bewerk recept",
+    "errors": {
+      "update_failed": "Bijwerken mislukt {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Zoeken",
+    "nothing_found": "Geen recept gevonden!"
+  }
+}
