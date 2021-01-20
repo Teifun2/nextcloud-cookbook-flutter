@@ -33,7 +33,15 @@ class CategoryCard extends StatelessWidget {
                       boxFit: BoxFit.cover,
                     ),
                   )
-                : Center(child: CircularProgressIndicator())),
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      color: Colors.grey[400],
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  )),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
