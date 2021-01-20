@@ -132,9 +132,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                                 fontWeight: FontWeight.bold),
                             children: <TextSpan>[
                               TextSpan(
-                                text: recipe.recipeYield.toString(),
+                                text: " " + recipe.recipeYield.toString(),
                                 style: TextStyle(
-//                              color: Colors.black,
                                   fontWeight: FontWeight.w400,
                                 ),
                               )
@@ -149,7 +148,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                                 await launch(recipe.url);
                               }
                             },
-                            child: Text(translate('recipe.fields.source')),
+                            child:
+                                Text(translate('recipe.fields.source_button')),
                           )
                       ],
                     ),
