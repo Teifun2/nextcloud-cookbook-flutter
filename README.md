@@ -9,7 +9,22 @@ This project aims to provide a mobile client for both Android and IOs for the Ne
 
 It works best with an Nextcloud installation >= 19 and a Cookbook plugin version 0.7.9
 
-## Screenshots
+
+## Roadmap
+
+Current Features:
+- View all recipes by Category
+- Search Recipes by Name
+
+Planned Features:
+- Recipe Editing *
+- Recipe Creating
+- Recipe Import
+- Darkmode
+
+\* Currently worked on!
+
+### Screenshots
 
 <img src="https://user-images.githubusercontent.com/7461832/91664922-899d6400-eaf2-11ea-8120-3222bd5b5363.png" alt="Screenshot_categories" width="300px" />    <img src="https://user-images.githubusercontent.com/7461832/91664920-8904cd80-eaf2-11ea-9bb3-62e0b41f85c0.png" alt="Screenshot_category_list" width="300px" />
 
