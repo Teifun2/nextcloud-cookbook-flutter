@@ -21,20 +21,20 @@
     },
     "settings": {
       "title": "Advanced Settings",
-      "app_password": "Use self generated AppPassword.\nNeeded for accounts with 2FA",
-      "self_signed_certificate": "Ignore invalid certificate\nNeeded for self signed certificates\n(Use at your own risk!) "
+      "app_password": "Use self generated App Password.\nNeeded for accounts with 2FA.",
+      "self_signed_certificate": "Ignore invalid certificate.\nNeeded for self signed certificates.\n(Use at your own risk!)"
     },
     "button": "Login",
     "errors": {
-      "not_reachable": "Cannot reach: {server_url} \n {error_msg}",
-      "certificate_failed": "The Certificate of the server could not be verified: {server_url} \n {error_msg}",
-      "request_failed": "AppPassword request failed:\n {error_msg}",
-      "parse_failed": "Cannot parse the appPassword response!\n {error_msg}",
-      "parse_missing": "Cannot find appPassword in response!\n {error_msg}",
+      "not_reachable": "Cannot reach: {server_url}\n{error_msg}",
+      "certificate_failed": "The Certificate of the server could not be verified: {server_url}\n{error_msg}",
+      "request_failed": "AppPassword request failed:\n{error_msg}",
+      "parse_failed": "Cannot parse the App Password response!\n{error_msg}",
+      "parse_missing": "Cannot find App Password in response!\n{error_msg}",
       "auth_failed": "Username and / or Password is incorrect!",
       "authentication_not_found": "No authentication found in Storage",
-      "failed_remove_remote": "Failed to remove remote apppassword!",
-      "failure": "Login Process could not finish properly.\n {status_code}\n {status_message}",
+      "failed_remove_remote": "Failed to remove remote App Password!",
+      "failure": "Login Process could not finish properly.\n{status_code}\n{status_message}",
       "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!"
     }
   },
@@ -45,29 +45,30 @@
       "unknown": "Categories in unknown state",
       "load_failed": "Category Load Failed: {error_msg}",
       "load_no_response": "Could not retrieve the Categories from the server.",
-      "api_version_check_failed": "Failed to check the API version of the Server:\n {error_msg}",
-      "api_version_above_confirmed": "The Api Version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n {version}"
+      "api_version_check_failed": "Failed to check the API version of the Server:\n{error_msg}",
+      "api_version_above_confirmed": "The Api Version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n{version}"
     }
   },
   "recipe_list": {
     "title_category": "Category: {category}",
     "errors": {
-      "load_failed": "Failed to load RecipesShort!"
+      "load_failed": "Failed to load Recipes Short!"
     }
   },
   "recipe": {
-    "title": "Recipe",
+    "title": "Recipe:",
     "fields": {
-      "servings": "Servings: ",
-      "source": "Source",
+      "servings": "Servings:",
+      "source": "Source:",
+      "source_button": "Source",
       "time": {
-        "prep": "Preparation time",
-        "cook": "Cooking time",
-        "total": "Total time"
+        "prep": "Preparation time:",
+        "cook": "Cooking time:",
+        "total": "Total time:"
       },
-      "tools": "Tools",
-      "ingredients": "Ingredients",
-      "instructions": "Instructions"
+      "tools": "Tools:",
+      "ingredients": "Ingredients:",
+      "instructions": "Instructions:"
     },
     "errors": {
       "load_failed": "Failed to load Recipe!"

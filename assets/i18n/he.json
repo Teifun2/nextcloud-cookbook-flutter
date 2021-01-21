@@ -1,0 +1,86 @@
+{
+  "app_bar": {
+    "search": "חיפוש",
+    "refresh": "רענון",
+    "logout": "יציאה"
+  },
+  "login": {
+    "title": "כניסה",
+    "server_url": {
+      "field": "כתובת השרת",
+      "validator": {
+        "empty": "נא למלא את כתובת עותק ה־Nextcloud שלך.",
+        "pattern": "נא למלא כתובת תקנית"
+      }
+    },
+    "username": {
+      "field": "שם משתמש"
+    },
+    "password": {
+      "field": "ססמה"
+    },
+    "settings": {
+      "title": "הגדרות מתקדמות",
+      "app_password": "להשתמש ב־AppPassword (ססמת יישומון) שיצרת בעצמך.\nנחוץ לטובת חשבונות עם אימות דו־שלבי",
+      "self_signed_certificate": "התעלמות מאישור שגוי\nנחוץ למקרה של אישורים שנחתמו עצמית\n(על אחריותך בלבד!)"
+    },
+    "button": "כניסה",
+    "errors": {
+      "not_reachable": "לא ניתן לגשת אל: {server_url} \n {error_msg}",
+      "certificate_failed": "לא ניתן לאמת את אישור השרת: {server_url} \n {error_msg}",
+      "request_failed": "בקשת AppPassword (ססמת יישומון) נכשלה:\n {error_msg}",
+      "parse_failed": "לא ניתן לפענח את תגובת ה־AppPassword (ססמת יישומון)!\n {error_msg}",
+      "parse_missing": "לא ניתן לאתר את תגובת ה־AppPassword (ססמת יישומון)!\n{error_msg}",
+      "auth_failed": "שם המשתמש ו/או הססמה שגויים!",
+      "authentication_not_found": "לא נמצא אימות באחסון",
+      "failed_remove_remote": "הסרת ה־AppPassword (ססמת יישומון) המרוחקת נכשלה!",
+      "failure": "תהליך הכניסה לא הסתיים כראוי.\n {status_code}\n {status_message}",
+      "credentials_invalid": "פרטי הגישה המאוחסנים אינם תקפים עוד ויצאת מהחשבון!"
+    }
+  },
+  "categories": {
+    "title": "ספר בישול",
+    "all_categories": "הכול",
+    "errors": {
+      "unknown": "הקטגוריות נמצאות במצב לא ידוע",
+      "load_failed": "טעינת הקטגוריות נכשלה: {error_msg}",
+      "load_no_response": "לא ניתן לקבל את הקטגוריות מהשרת.",
+      "api_version_check_failed": "בדיקת גרסת ה־API של השרת נכשלה:\n {error_msg}",
+      "api_version_above_confirmed": "גרסת ה־API של השרת עודכנה. חלק מהתכונות עשויות לעבוד אחרת מהמצופה. נא להמתין לעדכון!\n {version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "קטגוריה: {category}",
+    "errors": {
+      "load_failed": "טעינת תקצירי המתכונים נכשלה!"
+    }
+  },
+  "recipe": {
+    "title": "מתכון",
+    "fields": {
+      "servings": "מנות:",
+      "source": "מקור",
+      "time": {
+        "prep": "זמן הכנה",
+        "cook": "זמן בישול",
+        "total": "זמן כולל"
+      },
+      "tools": "כלים",
+      "ingredients": "רכיבים",
+      "instructions": "הוראות"
+    },
+    "errors": {
+      "load_failed": "טעינת המתכון נכשלה!"
+    }
+  },
+  "recipe_edit": {
+    "title": "עריכת מתכון",
+    "errors": {
+      "update_failed": "העדכון נכשל {error_msg}"
+    }
+  },
+  "search": {
+    "title": "חיפוש",
+    "nothing_found": "לא נמצאו מתכונים!"
+  }
+}

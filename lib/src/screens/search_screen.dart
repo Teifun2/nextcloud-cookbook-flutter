@@ -28,8 +28,8 @@ class SearchScreen extends StatelessWidget {
             return ListTile(
               title: Text(item.name),
               trailing: Container(
-                child:
-                    AuthenticationCachedNetworkImage(imagePath: item.imageUrl),
+                child: AuthenticationCachedNetworkImage(
+                    recipeId: item.recipeId, full: false),
               ),
               onTap: () => Navigator.pushReplacement(
                   context,

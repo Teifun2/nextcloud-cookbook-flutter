@@ -1,0 +1,86 @@
+{
+  "app_bar": {
+    "search": "Arama",
+    "refresh": "Yenlle",
+    "logout": "Oturumu Kapat"
+  },
+  "login": {
+    "title": "Oturum Aç",
+    "server_url": {
+      "field": "Sunucu Adresi",
+      "validator": {
+        "empty": "Lütfen Nextcloud kopyanızın adresini yazın.",
+        "pattern": "Lütfen geçerli bir adres yazın"
+      }
+    },
+    "username": {
+      "field": "Kullanıcı Adı"
+    },
+    "password": {
+      "field": "Parola"
+    },
+    "settings": {
+      "title": "Gelişmiş Ayarlar",
+      "app_password": "Otomatik oluşturulan appPassword kullanılsın.\nİki aşamalı kimlik doğrulaması kullanan hesaplar için gereklidir",
+      "self_signed_certificate": "Hatalı sertifika yok sayılsın\nİmzalanmış sertifikalar için gereklidir\n(Kullanımdan doğacak riskler size aittir!)"
+    },
+    "button": "Oturum Aç",
+    "errors": {
+      "not_reachable": "Sunucuya erişilemedi: {server_url} \n {error_msg}",
+      "certificate_failed": "Sunucunun sertifikası doğrulanamadı: {server_url} \n {error_msg}",
+      "request_failed": "appPassword isteği yapılamadı:\n {error_msg}",
+      "parse_failed": "appPassword yanıtı işlenemedi!\n {error_msg}",
+      "parse_missing": "Yanıtta appPassword bulunamadı!\n {error_msg}",
+      "auth_failed": "Kullanıcı adı ya da parola geçersiz!",
+      "authentication_not_found": "Depolama içinde bir kimlik doğrulaması bulunamadı",
+      "failed_remove_remote": "Uzak appPassword silinemedi!",
+      "failure": "Oturum açma işlemi düzgün şekilde tamamlanamadı.\n {status_code}\n{status_message}",
+      "credentials_invalid": "Kaydedilmiş kimlik doğrulama bilgileri artık geçerli olmadığından oturumunuz kapatıldı!"
+    }
+  },
+  "categories": {
+    "title": "Yemek kitabı",
+    "all_categories": "Tümü",
+    "errors": {
+      "unknown": "Durumu bilinmeyen kategoriler",
+      "load_failed": "Kategori yüklenemedi: {error_msg}",
+      "load_no_response": "Sunucudan kategoriler alınamadı.",
+      "api_version_check_failed": "Sunucunun API sürümü denetlenemedi:\n {error_msg}",
+      "api_version_above_confirmed": "Sunucunun API sürümü güncellendi. Bazı özellikler beklendiği gibi çalışmayabilir. Lütfen bir güncelleme bekleyin!\n {version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategori: {category}",
+    "errors": {
+      "load_failed": "Kısa tarif yüklenemedi!"
+    }
+  },
+  "recipe": {
+    "title": "Tarif",
+    "fields": {
+      "servings": "Porsiyon:",
+      "source": "Kaynak",
+      "time": {
+        "prep": "Hazırlama süresi",
+        "cook": "Pişirme süresi",
+        "total": "Toplam süre"
+      },
+      "tools": "Araçlar",
+      "ingredients": "Malzemeler",
+      "instructions": "Nasıl yapılır"
+    },
+    "errors": {
+      "load_failed": "Tarif yüklenemedi!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Tarifi Düzenle",
+    "errors": {
+      "update_failed": "Güncellenemedi {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Arama",
+    "nothing_found": "Herhangi bir tarif bulunamadı!"
+  }
+}
