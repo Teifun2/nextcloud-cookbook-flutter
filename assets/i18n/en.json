@@ -28,7 +28,7 @@
     "errors": {
       "not_reachable": "Cannot reach: {server_url}\n{error_msg}",
       "certificate_failed": "The Certificate of the server could not be verified: {server_url}\n{error_msg}",
-      "request_failed": "AppPassword request failed:\n{error_msg}",
+      "request_failed": "App Password request failed:\n{error_msg}",
       "parse_failed": "Cannot parse the App Password response!\n{error_msg}",
       "parse_missing": "Cannot find App Password in response!\n{error_msg}",
       "auth_failed": "Username and / or Password is incorrect!",
@@ -46,7 +46,7 @@
       "load_failed": "Category Load Failed: {error_msg}",
       "load_no_response": "Could not retrieve the Categories from the server.",
       "api_version_check_failed": "Failed to check the API version of the Server:\n{error_msg}",
-      "api_version_above_confirmed": "The Api Version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n{version}"
+      "api_version_above_confirmed": "The API version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n{version}"
     }
   },
   "recipe_list": {
