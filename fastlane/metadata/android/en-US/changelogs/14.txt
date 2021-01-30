@@ -1,0 +1,3 @@
+- Further Fixes for new cookbook plugin version
+- Added a lot initial translations
+
