@@ -21,12 +21,19 @@ Planned Features:
 - Recipe Creating
 - Recipe Import
 - Darkmode
+- Offline Usage (Caching)
 
 \* Currently worked on!
 
 ### Screenshots
 
-<img src="https://user-images.githubusercontent.com/7461832/91664922-899d6400-eaf2-11ea-8120-3222bd5b5363.png" alt="Screenshot_categories" width="300px" />    <img src="https://user-images.githubusercontent.com/7461832/91664920-8904cd80-eaf2-11ea-9bb3-62e0b41f85c0.png" alt="Screenshot_category_list" width="300px" />
+<img src="https://user-images.githubusercontent.com/7461832/106359784-0c7e5100-6315-11eb-809b-975ad55dd3eb.png" alt="Login Screen" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359789-0e481480-6315-11eb-9631-c5d919dfe197.png" alt="Categories" width="300px" />
+<img src="https://user-images.githubusercontent.com/7461832/106359788-0daf7e00-6315-11eb-8604-7abbc541e344.png" alt="Search" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359787-0daf7e00-6315-11eb-88a4-b305b796d512.png" alt="Category Recipes" width="300px" />
+<img src="https://user-images.githubusercontent.com/7461832/106359786-0d16e780-6315-11eb-830a-3454551e3a07.png" alt="Recipe" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359785-0d16e780-6315-11eb-9099-0c33aa8943be.png" alt="Recipe Details" width="300px" /> 
 
-<img src="https://user-images.githubusercontent.com/7461832/91664923-8a35fa80-eaf2-11ea-9bfe-6ed8edc41b49.png" alt="Screenshot_recipe_2" width="300px" />    <img src="https://user-images.githubusercontent.com/7461832/91664918-873b0a00-eaf2-11ea-86a6-e30fde4c98a9.png" alt="Screenshot_recipe_1" width="300px" />
+
+  
+
+
+
 
