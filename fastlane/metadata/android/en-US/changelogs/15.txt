@@ -1,0 +1,2 @@
+- Fixing wrong Cooking Duration in case of duration > 24 hours
+- Added two new languages
