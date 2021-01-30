@@ -21,20 +21,20 @@
     },
     "settings": {
       "title": "高级设置",
-      "app_password": "使用自生成的应用程序密码。对启用了双因素认证的账号是必需的",
-      "self_signed_certificate": "忽略无效证书对自签名证书是必需的（使用风险自负！）"
+      "app_password": "使用自生成的应用密码。\n对开启 2FA 的账户是必需的。",
+      "self_signed_certificate": "忽略无效证书对自签名证书是必须的（使用风险自担！）"
     },
     "button": "登录",
     "errors": {
-      "not_reachable": "无法抵达：{server_url} {error_msg}",
-      "certificate_failed": "无法验证服务器证书：{server_url} {error_msg}",
-      "request_failed": "应用程序密码请求失败： {error_msg}",
+      "not_reachable": "无法抵达：{server_url}{error_msg}",
+      "certificate_failed": "无法验证服务器证书：{server_url}{error_msg}",
+      "request_failed": "应用程序密码请求失败：{error_msg}",
       "parse_failed": "无法解析应用程序密码响应！{error_msg}",
-      "parse_missing": "在响应中找不到应用程序密码！ {error_msg}",
+      "parse_missing": "在响应中找不到应用程序密码！\n{error_msg}",
       "auth_failed": "用户名和/或密码不正确！",
       "authentication_not_found": "在存储中未找到验证",
-      "failed_remove_remote": "移除远程应用程序密码失败！",
-      "failure": "无法正常完成登录过程。 {status_code} {status_message}",
+      "failed_remove_remote": "移除远程应用密码失败！",
+      "failure": "无法正常完成登录过程。{status_code}{status_message}",
       "credentials_invalid": "储存的凭据不再有效，你已被登出！"
     }
   },
@@ -45,29 +45,30 @@
       "unknown": "处于未知状态的类别",
       "load_failed": "类别加载失败：{error_msg}",
       "load_no_response": "无法从服务器取得类别",
-      "api_version_check_failed": "检查服务器的 API 版本失败：\n {error_msg}",
-      "api_version_above_confirmed": "服务器的 API 版本已更新。有些功能可能不能像预期的那样工作。请等待更新！ {version}"
+      "api_version_check_failed": "检查服务器的 API 版本失败：{error_msg}",
+      "api_version_above_confirmed": "服务器的 Api 版本已更新。有些功能可能不能像预期的那样工作。请等待更新！{version}"
     }
   },
   "recipe_list": {
     "title_category": "类别：{category}",
     "errors": {
-      "load_failed": "加载 RecipesShort 失败！"
+      "load_failed": "加载 Recipes Short 失败！"
     }
   },
   "recipe": {
-    "title": "菜谱",
+    "title": "菜谱：",
     "fields": {
-      "servings": "人份：",
-      "source": "原材料",
+      "servings": "份数：",
+      "source": "原材料：",
+      "source_button": "来源",
       "time": {
-        "prep": "准备时间",
+        "prep": "准备时间：",
         "cook": "烹饪时间",
-        "total": "总时间"
+        "total": "总时间："
       },
-      "tools": "工具",
-      "ingredients": "佐料",
-      "instructions": "步骤"
+      "tools": "工具：",
+      "ingredients": "配料：",
+      "instructions": "步骤："
     },
     "errors": {
       "load_failed": "加载菜谱失败！"

@@ -29,11 +29,11 @@
       "not_reachable": "Brak dostępu: {server_url}\n{error_msg}",
       "certificate_failed": "Nie można zweryfikować certyfikatu serwera: {server_url}\n{error_msg}",
       "request_failed": "Żądanie hasła do aplikacji nie powiodło się:\n{error_msg}",
-      "parse_failed": "Nie można przeanalizować odpowiedzi na hasło aplikacji! {error_msg}",
+      "parse_failed": "Nie można przeanalizować odpowiedzi na hasło aplikacji!\n{error_msg}",
       "parse_missing": "Nie można znaleźć hasła aplikacji w odpowiedzi\n{error_msg}",
       "auth_failed": "Nazwa użytkownika i/lub hasło jest nieprawidłowe!",
       "authentication_not_found": "Nie znaleziono uwierzytelnienia w pamięci",
-      "failed_remove_remote": "Nie udało się usunąć hasła do zdalnej aplikacji!",
+      "failed_remove_remote": "Nie udało się usunąć zdalnego hasła do aplikacji!",
       "failure": "Proces logowania nie mógł zakończyć się poprawnie.\n{status_code}\n{status_message}",
       "credentials_invalid": "Zapisane dane uwierzytelniające są już nie ważne i zostałeś wylogowany!"
     }
@@ -60,12 +60,13 @@
     "fields": {
       "servings": "Porcje:",
       "source": "Źródło:",
+      "source_button": "Źródło",
       "time": {
         "prep": "Czas przygotowania:",
         "cook": "Czas gotowania:",
         "total": "Czas całkowity:"
       },
-      "tools": "Narzędzia:",
+      "tools": "Przybory:",
       "ingredients": "Składniki:",
       "instructions": "Instrukcje:"
     },

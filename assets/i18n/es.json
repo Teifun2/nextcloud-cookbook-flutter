@@ -1,0 +1,87 @@
+{
+  "app_bar": {
+    "search": "Buscar",
+    "refresh": "Actualizar",
+    "logout": "Desconectar"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "server_url": {
+      "field": "URL del servidor",
+      "validator": {
+        "empty": "Por favor, introduzca la URL de su instancia de Nextcloud.",
+        "pattern": "Por favor introduzca una URL valida"
+      }
+    },
+    "username": {
+      "field": "Nombre de usuario"
+    },
+    "password": {
+      "field": "Contraseña"
+    },
+    "settings": {
+      "title": "Configuración avanzada",
+      "app_password": "Use una contraseña autogenerada por App Password.\nNecesaria para cuentas con doble factor de autenticación, 2FA.",
+      "self_signed_certificate": "Ignorar certificados inválidos.\nNecesario para certificados auto firmados.\n(¡Uselo bajo su propio riesgo!)"
+    },
+    "button": "Iniciar sesión",
+    "errors": {
+      "not_reachable": "No se puede alcanzar: {server_url} \n {error_msg}",
+      "certificate_failed": "No puede verificar el Certificado del servidor: {server_url} \n {error_msg}",
+      "request_failed": "Falló la consulta a la App Password {error_msg}",
+      "parse_failed": "¡No se pudo analizar la respuesta de App Password!\n{error_msg}",
+      "parse_missing": "¡No se pudo encontrar la respuesta de App Password!\n{error_msg}",
+      "auth_failed": "¡Usuario y/o contraseña incorrectos!",
+      "authentication_not_found": "No se ha encontrado autenticación en Storage",
+      "failed_remove_remote": "¡Fallo al eliminar la App Password remota!",
+      "failure": "El proceso de Inicio de sesión no se ha completado adecuadamente.\n{status_code}\n{status_message}",
+      "credentials_invalid": "¡Las credenciales almacenados ya no son válidas y has sido desconectado!"
+    }
+  },
+  "categories": {
+    "title": "Recetario",
+    "all_categories": "Todo",
+    "errors": {
+      "unknown": "Categorías en estado desconocido",
+      "load_failed": "Fallo al Cargar Categorías: {error_msg}",
+      "load_no_response": "No se pudieron recuperar las Categorías desde el servidor.",
+      "api_version_check_failed": "Fallo al comprobar la versión API del Servidor:\n{error_msg}",
+      "api_version_above_confirmed": "Se ha actualizado la Version API del Servidor. Algunas caracteristicas puede que no funcionen como se espera. ¡Por favor espere a una actualización!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Categoría: {category}",
+    "errors": {
+      "load_failed": "¡Fallo al cargar las Recetas Cortas!"
+    }
+  },
+  "recipe": {
+    "title": "Receta:",
+    "fields": {
+      "servings": "Porciones:",
+      "source": "Origen:",
+      "source_button": "Origen",
+      "time": {
+        "prep": "Tiempo de preparación:",
+        "cook": "Tiempo de cocción:",
+        "total": "Tiempo total:"
+      },
+      "tools": "Herramientas:",
+      "ingredients": "Ingredientes:",
+      "instructions": "Instrucciones:"
+    },
+    "errors": {
+      "load_failed": "¡Fallo al cargar la Receta!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Editar receta",
+    "errors": {
+      "update_failed": "La actualización falló {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Buscar",
+    "nothing_found": "¡No se ha encontrado la receta!"
+  }
+}

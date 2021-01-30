@@ -19,9 +19,11 @@ void main() async {
     basePath: 'assets/i18n/',
     fallbackLocale: 'en',
     supportedLocales: [
+      'cs_CZ',
       'de',
       'de_DE',
       'en',
+      'es',
       'fi_FI',
       'gl',
       'he',

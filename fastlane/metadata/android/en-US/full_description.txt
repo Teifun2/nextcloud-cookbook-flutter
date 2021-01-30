@@ -1,0 +1,24 @@
+Nextcloud Cookbook Mobile Client written in Flutter
+This project aims to provide a mobile client for both Android and IOs for the Nextcloud Cookbook App (https://github.com/nextcloud/cookbook)
+
+It works best with an Nextcloud installation >= 19 and a Cookbook plugin version 0.7.9
+
+Roadmap
+
+Current Features:
+
+    View all recipes by Category
+    Search Recipes by Name
+
+
+Planned Features:
+
+    Recipe Editing *
+    Recipe Creating
+    Recipe Import
+    Darkmode
+    Offline Usage (Caching)
+    * Currently worked on!
+
+Translation
+To help the translation of the app visit: https://www.transifex.com/nextcloud/nextcloud/cookbook_flutter/

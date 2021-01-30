@@ -21,20 +21,20 @@
     },
     "settings": {
       "title": "Configurações avançadas",
-      "app_password": "Use a geração automática do AppPassword.\nNecessário para contas com 2FA",
-      "self_signed_certificate": "Ignorar certificado inválido\nNecessário para certificados autoassinados\n(Use por sua conta e risco!) "
+      "app_password": "Use a senha gerada pelo aplicativo Senha.\nÉ necessário para contas com 2FA.",
+      "self_signed_certificate": "Ignorar certificado inválido.\nNecessário para certificados autoasssinados.\n(Use por sua conta e risco!)"
     },
     "button": "Entrar",
     "errors": {
-      "not_reachable": "Não pode alcançar: {server_url} \n {error_msg}",
-      "certificate_failed": "Não foi possível verificar o certificado do servidor: {server_url} \n {error_msg}",
-      "request_failed": "Erro na solicitação do AppPassword:\n {error_msg}",
-      "parse_failed": "Não é possível analisar a resposta do appPassword!{\n {error_msg}",
-      "parse_missing": "Não é possível encontrar appPassword em resposta\n {error_msg}",
+      "not_reachable": "Cannot reach: {server_url}\n{error_msg}",
+      "certificate_failed": "The Certificate of the server could not be verified: {server_url}\n{error_msg}",
+      "request_failed": "AppPassword request failed:\n{error_msg}",
+      "parse_failed": "Cannot parse the App Password response!\n{error_msg}",
+      "parse_missing": "Cannot find App Password in response!\n{error_msg}",
       "auth_failed": "Usuário e/ou senha incorretos!",
       "authentication_not_found": "Nenhuma autenticação encontrada no Armazenamento",
-      "failed_remove_remote": "Erro ao remover o apppassword remoto!",
-      "failure": "O processo de autenticação não pôde ser concluído corretamente.\n {status_code}\n {status_message}",
+      "failed_remove_remote": "Failed to remove remote App Password!",
+      "failure": "Login Process could not finish properly.\n{status_code}\n{status_message}",
       "credentials_invalid": "As credenciais armazenadas não eram mais válidas e você foi desconectado!"
     }
   },
@@ -45,29 +45,30 @@
       "unknown": "Categorias em estado desconhecido",
       "load_failed": "Falha ao carregar categoria: {error_msg}",
       "load_no_response": "Não foi possível recuperar as categorias a partir do servidor.",
-      "api_version_check_failed": "Erro ao verificar a versão API do Servidor:\n {error_msg}",
-      "api_version_above_confirmed": "A versão da API do servidor foi atualizada. Alguns recursos podem não funcionar como esperado. Aguarde uma atualização!\n {version}"
+      "api_version_check_failed": "Falha ao verificar a versão da API do servidor:\n{error_msg}",
+      "api_version_above_confirmed": "A versão da API do servidor foi atualizada. Alguns recursos podem não funcionar como esperado. Aguarde uma atualização!\n{version}"
     }
   },
   "recipe_list": {
     "title_category": "Categoria: {category}",
     "errors": {
-      "load_failed": "Erro ao carregar o RecipesShort!"
+      "load_failed": "Falha no carregamento de Receitas Curtas!"
     }
   },
   "recipe": {
-    "title": "Receita",
+    "title": "Receita:",
     "fields": {
       "servings": "Porções:",
-      "source": "Origem",
+      "source": "Origem:",
+      "source_button": "Origem",
       "time": {
-        "prep": "Tempo de preparo",
-        "cook": "Tempo de cozimento",
-        "total": "Tempo total"
+        "prep": "Tempo de preparo:",
+        "cook": "Tempo de cozimento:",
+        "total": "Tempo total:"
       },
-      "tools": "Ferramentas",
-      "ingredients": "Ingredientes",
-      "instructions": "Instruções"
+      "tools": "Utensílios:",
+      "ingredients": "Ingredientes:",
+      "instructions": "Instruções:"
     },
     "errors": {
       "load_failed": "Erro ao carregar a receita!"
