@@ -21,20 +21,20 @@
     },
     "settings": {
       "title": "Impostazioni avanzate",
-      "app_password": "Usa la password dell'applicazione generata automaticamente.\nNecessario per account con 2FA",
-      "self_signed_certificate": "Ignora certificato non valido\nNecessario per certificati auto-firmati\n(Utilizzalo a tuo rischio!)"
+      "app_password": "Usa la password dell'applicazione generata automaticamente.\nNecessario per account con 2FA.",
+      "self_signed_certificate": "Ignora certificato non valido.\nNecessario per certificati auto-firmati\n(Utilizzalo a tuo rischio!)"
     },
     "button": "Accedi",
     "errors": {
       "not_reachable": "Impossibile raggiungere: {server_url}\n{error_msg}",
-      "certificate_failed": "Non è stato possibile verificare il certificato del server: {server_url}\n{error_msg}",
+      "certificate_failed": "Impossibile verificare il certificato del server: {server_url}\n{error_msg}",
       "request_failed": "Richiesta della password dell'applicazione non riuscita:\n{error_msg}",
       "parse_failed": "Impossibile analizzare la risposta della password dell'applicazione!\n{error_msg}",
       "parse_missing": "Impossibile trovare la password dell'applicazione nella risposta!\n{error_msg}",
       "auth_failed": "Il nome utente e/o la password non sono corretti!",
       "authentication_not_found": "Nessuna autenticazione trovata in Archiviazione",
       "failed_remove_remote": "Impossibile rimuovere la password dell'applicazione remota!",
-      "failure": "L'accesso non è stato completato correttamente.\n {status_code}\n {status_message}",
+      "failure": "L'accesso non è stato completato correttamente.\n{status_code}\n{status_message}",
       "credentials_invalid": "Le credenziali memorizzate non sono più valide e sei stato disconnesso!"
     }
   },
@@ -45,29 +45,30 @@
       "unknown": "Categorie in stato sconosciuto",
       "load_failed": "Caricamento categoria non riuscito: {error_msg}",
       "load_no_response": "Impossibile recuperare le categorie dal server.",
-      "api_version_check_failed": "Controllo della versione di API del server non riuscito:\n {error_msg}",
-      "api_version_above_confirmed": "La versione di API del server è stata aggiornata. Alcune funzionalità potrebbero non funzionare come previsto. Attendi un aggiornamento!\n {version}"
+      "api_version_check_failed": "Controllo della versione di API del server non riuscito:\n{error_msg}",
+      "api_version_above_confirmed": "La versione di API del server è stata aggiornata. Alcune funzionalità potrebbero non funzionare come previsto. Attendi un aggiornamento!\n{version}"
     }
   },
   "recipe_list": {
     "title_category": "Categoria: {category}",
     "errors": {
-      "load_failed": "Failed to load RecipesShort!"
+      "load_failed": "Caricamento delle ricette brevi non riuscito!"
     }
   },
   "recipe": {
-    "title": "Ricetta",
+    "title": "Ricetta:",
     "fields": {
       "servings": "Porzioni:",
-      "source": "Fonte",
+      "source": "Fonte:",
+      "source_button": "Fonte",
       "time": {
-        "prep": "Tempo di preparazione",
-        "cook": "Tempo di cottura",
-        "total": "Tempo totale"
+        "prep": "Tempo di preparazione:",
+        "cook": "Tempo di cottura:",
+        "total": "Tempo totale:"
       },
-      "tools": "Strumenti",
-      "ingredients": "Ingredienti",
-      "instructions": "Istruzioni"
+      "tools": "Strumenti:",
+      "ingredients": "Ingredienti:",
+      "instructions": "Istruzioni:"
     },
     "errors": {
       "load_failed": "Caricamento della ricetta non riuscito!"

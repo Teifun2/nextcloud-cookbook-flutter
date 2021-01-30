@@ -21,19 +21,19 @@
     },
     "settings": {
       "title": "Axustes avanzados",
-      "app_password": "Use un ContrasinalDeAplicación autoxerado.\nNecesario para contas con 2FA",
+      "app_password": "Use un contrasinal de aplicación autoxerado.\nNecesario para contas con 2FA",
       "self_signed_certificate": "Ignorar o certificado non válido\nNecesario para os certificados autoasinados\n(Utilíceo baixo a súa propia responsabilidade!)"
     },
     "button": "Acceder",
     "errors": {
-      "not_reachable": "Non é posíbel acadar: {server_url} \n {error_msg}",
+      "not_reachable": "Non é posíbel acadar: {server_url}\n{error_msg}",
       "certificate_failed": "Non foi posíbel verificar o certificado do servidor: {server_url}\n{error_msg}",
-      "request_failed": "Produciuse un fallo ao solicitar o contrasinalDeAplicación:\n{error_msg}",
-      "parse_failed": "Non foi posíbel analizar a resposta do contrasinalDeAplicación.\n{error_msg}",
-      "parse_missing": "Non foi posíbel atopar o  contrasinalDeAplicación na resposta.\n{error_msg}",
+      "request_failed": "Produciuse un fallo ao solicitar o contrasinal de aplicación:\n{error_msg}",
+      "parse_failed": "Non foi posíbel analizar a resposta do contrasinal de aplicación.\n{error_msg}",
+      "parse_missing": "Non foi posíbel atopar o  contrasinal de aplicación na resposta.\n{error_msg}",
       "auth_failed": "O nome de usuario e / ou o contrasinal son incorrectos.",
       "authentication_not_found": "Non se atopou ningunha autenticación no almacenamento",
-      "failed_remove_remote": "Produciuse un erro ao eliminar o contrasinaDeAplicación remoto.",
+      "failed_remove_remote": "Produciuse un erro ao eliminar o contrasinal de aplicación remoto.",
       "failure": "O proceso de acceso non puido rematar correctamente.\n{status_code}\n{status_message}",
       "credentials_invalid": "As credenciais almacenadas xa non son válidas e foi pechada a sesión."
     }
@@ -46,7 +46,7 @@
       "load_failed": "Produciuse un fallo ao cargar a categoría {error_msg}",
       "load_no_response": "Non foi posíbel recuperar as categorías do servidor.",
       "api_version_check_failed": "Produciuse un fallo ao comprobar a versión da API do servidor:\n{error_msg}",
-      "api_version_above_confirmed": "Actualizouse a versión da API do servidor. É posíbel que algunhas funcións non traballen como se agardaba. Agarde por unha actualización.\n{versión}"
+      "api_version_above_confirmed": "Actualizouse a versión da API do servidor. É posíbel que algunhas funcións non traballen como se agardaba. Agarde por unha actualización.\n{version}"
     }
   },
   "recipe_list": {
@@ -56,18 +56,19 @@
     }
   },
   "recipe": {
-    "title": "Receita",
+    "title": "Receita:",
     "fields": {
-      "servings": "Racións",
-      "source": "Orixe",
+      "servings": "Racións:",
+      "source": "Orixe:",
+      "source_button": "Orixe",
       "time": {
-        "prep": "Tempo de preparación",
-        "cook": "Tempo de cocedura",
-        "total": "Tempo total"
+        "prep": "Tempo de preparación:",
+        "cook": "Tempo de cociñado:",
+        "total": "Tempo total:"
       },
-      "tools": "Trebellos",
-      "ingredients": "Ingredientes",
-      "instructions": "Elaboración"
+      "tools": "Trebellos:",
+      "ingredients": "Ingredientes:",
+      "instructions": "Elaboración:"
     },
     "errors": {
       "load_failed": "Produciuse un fallo ao cargar a receita!"

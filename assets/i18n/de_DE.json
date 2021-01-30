@@ -22,19 +22,19 @@
     "settings": {
       "title": "Erweiterte Einstellungen",
       "app_password": "Selbst generiertes App-Passwort verwenden.\nErforderlich für Konten mit 2FA.",
-      "self_signed_certificate": "Ungültiges Zertifikat ignorieren\nWird für selbstsignierte Zertifikate benötigt\n(Verwendung auf eigene Gefahr!)"
+      "self_signed_certificate": "Ungültiges Zertifikat ignorieren.\nWird für selbstsignierte Zertifikate benötigt.\n(Verwendung auf eigene Gefahr!)"
     },
     "button": "Anmelden",
     "errors": {
-      "not_reachable": "Nicht erreichbar: {server_url} \n {error_msg}",
-      "certificate_failed": "Das Zertifikat des Servers konnte nicht verifiziert werden {server_url} \n {error_msg}",
-      "request_failed": "App-Passwortabfrage fehlgeschlagen:\n {error_msg}",
-      "parse_failed": "Kann die App Password-Antwort nicht parsen!\n {error_msg}",
-      "parse_missing": "Kann App-Passwort in Antwort nicht finden!\n {error_msg}",
+      "not_reachable": "Nicht erreichbar: {server_url} \n{error_msg}",
+      "certificate_failed": "Das Zertifikat des Servers konnte nicht verifiziert werden {server_url} \n{error_msg}",
+      "request_failed": "App-Passwortabfrage fehlgeschlagen:\n{error_msg}",
+      "parse_failed": "Kann die App Password-Antwort nicht parsen!\n{error_msg}",
+      "parse_missing": "Kann App-Passwort in Antwort nicht finden!\n{error_msg}",
       "auth_failed": "Benutzername und/oder Passwort falsch",
       "authentication_not_found": "Keine Authentifizierung im Speicher gefunden",
       "failed_remove_remote": "Remote-App-Passwort konnte nicht entfernt werden!",
-      "failure": "Anmeldevorgang konnte nicht ordnungsgemäß beendet werden.\n {status_code}\n {status_message}",
+      "failure": "Anmeldevorgang konnte nicht ordnungsgemäß beendet werden.\n{status_code}\n{status_message}",
       "credentials_invalid": "Die gespeicherten Anmeldedaten waren nicht mehr gültig und Sie wurden abgemeldet!"
     }
   },
@@ -46,7 +46,7 @@
       "load_failed": "Laden der Kategorien ist fehlgeschlagen: {error_msg}",
       "load_no_response": "Kategorien konnten vom Server nicht abgerufen werden.",
       "api_version_check_failed": "API-Version auf dem Server konnte nicht geprüft werden:\n{error_msg}",
-      "api_version_above_confirmed": "Die API-Version des Servers wurde aktualisiert. Einige Funktionen funktionieren möglicherweise nicht wie erwartet. Bitte warten Sie auf eine Aktualisierung!\n {version}"
+      "api_version_above_confirmed": "Die API-Version des Servers wurde aktualisiert. Einige Funktionen funktionieren möglicherweise nicht wie erwartet. Bitte warten Sie auf eine Aktualisierung!\n{version}"
     }
   },
   "recipe_list": {
@@ -56,18 +56,19 @@
     }
   },
   "recipe": {
-    "title": "Rezepte",
+    "title": "Rezept:",
     "fields": {
       "servings": "Portionen:",
-      "source": "Quelle",
+      "source": "Quelle:",
+      "source_button": "Quelle",
       "time": {
-        "prep": "Vorbereitungsdauer",
-        "cook": "Kochdauer",
-        "total": "Gesamtzeit"
+        "prep": "Vorbereitungsdauer:",
+        "cook": "Kochdauer:",
+        "total": "Gesamtzeit:"
       },
-      "tools": "Utensilien",
-      "ingredients": "Zutaten",
-      "instructions": "Zubereitung"
+      "tools": "Utensilien:",
+      "ingredients": "Zutaten:",
+      "instructions": "Zubereitung:"
     },
     "errors": {
       "load_failed": "Laden des Rezepts fehlgeschlagen!"

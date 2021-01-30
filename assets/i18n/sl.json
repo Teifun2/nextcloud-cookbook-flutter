@@ -22,7 +22,7 @@
     "settings": {
       "title": "Napredne nastavitve",
       "app_password": "Uporabi samodejno ustvarjeno geslo programa.\nNastavitev je obvezna za račune z 2FA.",
-      "self_signed_certificate": "Prezri neveljavna potrdila.\nZahtevano za samo-podpidana potrdila.\n(Uporaba na lastno odgovornost!)"
+      "self_signed_certificate": "Prezri neveljavna potrdila.\nZahtevano za samo-podpisana potrdila.\n(Uporaba na lastno odgovornost!)"
     },
     "button": "Prijava",
     "errors": {
@@ -32,7 +32,7 @@
       "parse_failed": "Ni mogoče razčleniti odziva gesla programa!\n {error_msg}",
       "parse_missing": "V odzivu ni mogoče najti odziva gesla programa!\n{error_msg}",
       "auth_failed": "Uporabniško ime ali geslo ni veljavno!",
-      "authentication_not_found": "No authentication found in Storage",
+      "authentication_not_found": "V mapi shrambe ni najdenih datotek za overitev",
       "failed_remove_remote": "Odstranjevanje oddaljenega gesla programa je spodletelo!",
       "failure": "Prijave ni mogoče pravilno dokončati.\n {status_code}\n {status_message}",
       "credentials_invalid": "Shranjena poverila niso več veljavna ali pa ni več vzpostavljene prijave!"
@@ -56,18 +56,19 @@
     }
   },
   "recipe": {
-    "title": "Recept",
+    "title": "Recept:",
     "fields": {
       "servings": "Število porcij:",
-      "source": "Vir",
+      "source": "Vir:",
+      "source_button": "Vir",
       "time": {
-        "prep": "Čas priprave",
-        "cook": "Čas kuhanja ali pečenja",
+        "prep": "Čas priprave:",
+        "cook": "Čas kuhanja ali pečenja:",
         "total": "Skupni čas"
       },
-      "tools": "Pripomočki",
-      "ingredients": "Sestavine",
-      "instructions": "Navodila"
+      "tools": "Pripomočki:",
+      "ingredients": "Sestavine:",
+      "instructions": "Navodila:"
     },
     "errors": {
       "load_failed": "Nalaganje recepta je spodletelo!"
