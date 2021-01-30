@@ -1,0 +1,87 @@
+{
+  "app_bar": {
+    "search": "Hledat",
+    "refresh": "Načíst znovu",
+    "logout": "Odhlásit"
+  },
+  "login": {
+    "title": "Přihlásit",
+    "server_url": {
+      "field": "URL Serveru",
+      "validator": {
+        "empty": "Prosím zadejte URL k vašemu Nextcloudu.",
+        "pattern": "Zadejte prosím platnou URL"
+      }
+    },
+    "username": {
+      "field": "Přezdívka"
+    },
+    "password": {
+      "field": "Heslo"
+    },
+    "settings": {
+      "title": "Pokročilá nastavení",
+      "app_password": "Použít vygenerované heslo k aplikaci. \nPotřebné k účtům s 2FA",
+      "self_signed_certificate": "Ignorovat neplatný certifikát.\nPotřebné pro certifikáty podepsané samotnou organizací.\n(Používejte na vlastní riziko!)"
+    },
+    "button": "Přihlásit",
+    "errors": {
+      "not_reachable": "Nelze se připojit k: {server_url}\n{error_msg}",
+      "certificate_failed": "Certifikát serveru nemohl být ověřen: {server_url}\n{error_msg}",
+      "request_failed": "Žádost o heslo generované aplikací selhala:\n{error_msg}",
+      "parse_failed": "Nelze parsovat heslo generované aplikací:\n{error_msg}",
+      "parse_missing": "Nelze najít vygenerované heslo v odpovědi:\n{error_msg}",
+      "auth_failed": "Přezdívka a / nebo heslo je nesprávné!",
+      "authentication_not_found": "V uložišti nebyla nalezena autentifikace",
+      "failed_remove_remote": "Nepovedlo se odstranit heslo generované externí aplikací!",
+      "failure": "Proces přihlašování nebyl dokončen.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Uložené přihlašovací údaje již nebyly platné a tak jste byl odhlášen!"
+    }
+  },
+  "categories": {
+    "title": "Kuchařka",
+    "all_categories": "Všechno",
+    "errors": {
+      "unknown": "Kategorie v neznámém stavu",
+      "load_failed": "Načítání kategorie selhalo: {error_msg}",
+      "load_no_response": "Nebylo možné získat kategorie ze serveru.",
+      "api_version_check_failed": "Nepovedlo se zjistit verzi API serveru:\n{error_msg}",
+      "api_version_above_confirmed": "Verze API serveru byla updatována. Některé služby nemusí fungovat, jako by se dalo očekávat. Počkejte prosím na update!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategorie: {category}",
+    "errors": {
+      "load_failed": "Nepovedlo se načíst krátké recepty!"
+    }
+  },
+  "recipe": {
+    "title": "Recept:",
+    "fields": {
+      "servings": "Porcí:",
+      "source": "Zdroj:",
+      "source_button": "Zdroj",
+      "time": {
+        "prep": "Čas na přípravu:",
+        "cook": "Čas vaření:",
+        "total": "Celkový čas:"
+      },
+      "tools": "Nástroje:",
+      "ingredients": "Ingredience:",
+      "instructions": "Postup:"
+    },
+    "errors": {
+      "load_failed": "Nepovedlo se načíst recept!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Upravit recept",
+    "errors": {
+      "update_failed": "Update se nezdařil: {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Hledat",
+    "nothing_found": "Žádný recept nebyl nalezen!"
+  }
+}

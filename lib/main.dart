@@ -18,7 +18,23 @@ void main() async {
   var delegate = await LocalizationDelegate.create(
     basePath: 'assets/i18n/',
     fallbackLocale: 'en',
-    supportedLocales: ['en', 'de'],
+    supportedLocales: [
+      'cs_CZ',
+      'de',
+      'de_DE',
+      'en',
+      'es',
+      'fi_FI',
+      'gl',
+      'he',
+      'it',
+      'nl',
+      'pl',
+      'pt_BR',
+      'sl',
+      'tr',
+      'zh_CN'
+    ],
   );
   runApp(
     LocalizedApp(

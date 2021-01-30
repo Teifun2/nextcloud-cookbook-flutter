@@ -11,7 +11,7 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.3.6+12
+version: 0.3.9+15
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -50,10 +50,13 @@ dependencies:
   # Form data HTTP Client
   dio: 3.0.10
 
-  cached_network_image: 2.1.0+1
+  extended_image: 1.5.0
+  xml: 4.5.1
 
   flutter_spinkit: "^2.1.0"
   validators: ^2.0.0
+
+  flutter_svg: ^0.18.0
 
   # Reorderable List for Edit and Create Recipe
   flutter_reorderable_list: 0.1.5
@@ -85,6 +88,7 @@ flutter:
 
   assets:
     - assets/i18n/
+    - assets/icon.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

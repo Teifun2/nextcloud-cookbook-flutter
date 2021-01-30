@@ -6,6 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart'
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -19,6 +20,35 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, categoriesState) {
         return Scaffold(
+          drawer: Drawer(
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child: Column(
+                    children: [
+                      Text('Coming soon!'),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.exit_to_app,
+                    semanticLabel: translate('app_bar.logout'),
+                  ),
+                  title: Text(translate('app_bar.logout')),
+                  onTap: () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(LoggedOut());
+                  },
+                ),
+              ],
+            ),
+          ),
           appBar: AppBar(
             title: Text(translate('categories.title')),
             actions: <Widget>[
@@ -48,15 +78,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       .add(CategoriesLoaded());
                 },
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.exit_to_app,
-                  semanticLabel: translate('app_bar.logout'),
-                ),
-                onPressed: () {
-                  BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-                },
-              ),
             ],
           ),
           body: (() {
@@ -66,7 +87,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
               return _buildCategoriesScreen(categoriesState.categories);
             } else if (categoriesState is CategoriesLoadInProgress ||
                 categoriesState is CategoriesInitial) {
-              return Center(child: CircularProgressIndicator());
+              return Column(
+                children: [
+                  ApiVersionWarning(),
+                  Center(child: CircularProgressIndicator()),
+                ],
+              );
             } else if (categoriesState is CategoriesLoadFailure) {
               return Text(translate('categories.errors.load_failed',
                   args: {'error_msg': categoriesState.errorMsg}));

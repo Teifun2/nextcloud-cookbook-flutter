@@ -1,0 +1,87 @@
+{
+  "app_bar": {
+    "search": "Poišči",
+    "refresh": "Osveži",
+    "logout": "Odjava"
+  },
+  "login": {
+    "title": "Prijava",
+    "server_url": {
+      "field": "Naslov URL strežnika",
+      "validator": {
+        "empty": "Naslov URL te namestitve Nextcloud.",
+        "pattern": "Vpišite veljaven naslov URL"
+      }
+    },
+    "username": {
+      "field": "Uporabniško ime"
+    },
+    "password": {
+      "field": "Geslo"
+    },
+    "settings": {
+      "title": "Napredne nastavitve",
+      "app_password": "Uporabi samodejno ustvarjeno geslo programa.\nNastavitev je obvezna za račune z 2FA.",
+      "self_signed_certificate": "Prezri neveljavna potrdila.\nZahtevano za samo-podpisana potrdila.\n(Uporaba na lastno odgovornost!)"
+    },
+    "button": "Prijava",
+    "errors": {
+      "not_reachable": "Povezava s strežnikom ni mogoča: {server_url} \n {error_msg}",
+      "certificate_failed": "Potrdila strežnika ni mogoče preveriti {server_url} \n{error_msg}",
+      "request_failed": "Zahteva za geslo programa je spodletela:\n{error_msg}",
+      "parse_failed": "Ni mogoče razčleniti odziva gesla programa!\n {error_msg}",
+      "parse_missing": "V odzivu ni mogoče najti odziva gesla programa!\n{error_msg}",
+      "auth_failed": "Uporabniško ime ali geslo ni veljavno!",
+      "authentication_not_found": "V mapi shrambe ni najdenih datotek za overitev",
+      "failed_remove_remote": "Odstranjevanje oddaljenega gesla programa je spodletelo!",
+      "failure": "Prijave ni mogoče pravilno dokončati.\n {status_code}\n {status_message}",
+      "credentials_invalid": "Shranjena poverila niso več veljavna ali pa ni več vzpostavljene prijave!"
+    }
+  },
+  "categories": {
+    "title": "Kuhar'ca",
+    "all_categories": "Vse",
+    "errors": {
+      "unknown": "Kategorije v neznanem stanju",
+      "load_failed": "Nalaganje kategorije je spodletelo: {error_msg}",
+      "load_no_response": "Ni mogoče pridobiti kategorij s strežnika.",
+      "api_version_check_failed": "Preverjanje različice API strežnika je spodletelo:\n {error_msg}",
+      "api_version_above_confirmed": "Različica vmesnika API strežnika je posodobljena. Nekatere zmožnosti morda ne bodo delovale pravilno. Počakajte na posodobitev!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategorija: {category}",
+    "errors": {
+      "load_failed": "Nalaganje RecipesShort je spodletelo!"
+    }
+  },
+  "recipe": {
+    "title": "Recept:",
+    "fields": {
+      "servings": "Število porcij:",
+      "source": "Vir:",
+      "source_button": "Vir",
+      "time": {
+        "prep": "Čas priprave:",
+        "cook": "Čas kuhanja ali pečenja:",
+        "total": "Skupni čas"
+      },
+      "tools": "Pripomočki:",
+      "ingredients": "Sestavine:",
+      "instructions": "Navodila:"
+    },
+    "errors": {
+      "load_failed": "Nalaganje recepta je spodletelo!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Uredi recept",
+    "errors": {
+      "update_failed": "Posodobitev je spodletela {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Poišči",
+    "nothing_found": "Ni najdenih receptov"
+  }
+}

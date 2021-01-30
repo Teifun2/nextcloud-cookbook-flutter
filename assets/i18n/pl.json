@@ -1,0 +1,87 @@
+{
+  "app_bar": {
+    "search": "Szukaj",
+    "refresh": "Odśwież",
+    "logout": "Wyloguj"
+  },
+  "login": {
+    "title": "Zaloguj",
+    "server_url": {
+      "field": "Adres URL serwera",
+      "validator": {
+        "empty": "Wprowadź adres URL do swojej instancji Nextcloud.",
+        "pattern": "Wprowadź poprawny adres URL"
+      }
+    },
+    "username": {
+      "field": "Nazwa użytkownika"
+    },
+    "password": {
+      "field": "Hasło"
+    },
+    "settings": {
+      "title": "Ustawienia zaawansowane",
+      "app_password": "Użyj wygenerowanego hasła do aplikacji.\nWymagane w przypadku kont z 2FA.",
+      "self_signed_certificate": "Zignoruj nieprawidłowy certyfikat.\nWymagane w przypadku certyfikatów z podpisem własnym.\n(Używasz na własne ryzyko!)"
+    },
+    "button": "Zaloguj",
+    "errors": {
+      "not_reachable": "Brak dostępu: {server_url}\n{error_msg}",
+      "certificate_failed": "Nie można zweryfikować certyfikatu serwera: {server_url}\n{error_msg}",
+      "request_failed": "Żądanie hasła do aplikacji nie powiodło się:\n{error_msg}",
+      "parse_failed": "Nie można przeanalizować odpowiedzi na hasło aplikacji!\n{error_msg}",
+      "parse_missing": "Nie można znaleźć hasła aplikacji w odpowiedzi\n{error_msg}",
+      "auth_failed": "Nazwa użytkownika i/lub hasło jest nieprawidłowe!",
+      "authentication_not_found": "Nie znaleziono uwierzytelnienia w pamięci",
+      "failed_remove_remote": "Nie udało się usunąć zdalnego hasła do aplikacji!",
+      "failure": "Proces logowania nie mógł zakończyć się poprawnie.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Zapisane dane uwierzytelniające są już nie ważne i zostałeś wylogowany!"
+    }
+  },
+  "categories": {
+    "title": "Książka kucharska",
+    "all_categories": "Wszystkie",
+    "errors": {
+      "unknown": "Kategorie o nieznanym statusie",
+      "load_failed": "Ładowanie kategorii nie powiodło się: {error_msg}",
+      "load_no_response": "Nie można pobrać kategorii z serwera.",
+      "api_version_check_failed": "Nie udało się sprawdzić wersji API serwera:\n{error_msg}",
+      "api_version_above_confirmed": "Zaktualizowano wersję API serwera. Niektóre funkcje mogą nie działać zgodnie z oczekiwaniami. Czekaj na aktualizację!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategoria: {category}",
+    "errors": {
+      "load_failed": "Nie udało się załadować krótkiego przepisu!"
+    }
+  },
+  "recipe": {
+    "title": "Przepis:",
+    "fields": {
+      "servings": "Porcje:",
+      "source": "Źródło:",
+      "source_button": "Źródło",
+      "time": {
+        "prep": "Czas przygotowania:",
+        "cook": "Czas gotowania:",
+        "total": "Czas całkowity:"
+      },
+      "tools": "Przybory:",
+      "ingredients": "Składniki:",
+      "instructions": "Instrukcje:"
+    },
+    "errors": {
+      "load_failed": "Nie udało się załadować przepisu!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Edytuj przepis",
+    "errors": {
+      "update_failed": "Aktualizacja nie powiodła się {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Szukaj",
+    "nothing_found": "Nie znaleziono przepisu!"
+  }
+}
