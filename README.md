@@ -25,6 +25,11 @@ Planned Features:
 
 \* Currently worked on!
 
+## Translation
+
+To help the translation of the app visit:
+https://www.transifex.com/nextcloud/nextcloud/cookbook_flutter/
+
 ### Screenshots
 
 <img src="https://user-images.githubusercontent.com/7461832/106359784-0c7e5100-6315-11eb-809b-975ad55dd3eb.png" alt="Login Screen" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359789-0e481480-6315-11eb-9631-c5d919dfe197.png" alt="Categories" width="300px" />
