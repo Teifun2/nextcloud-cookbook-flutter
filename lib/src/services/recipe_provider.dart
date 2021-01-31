@@ -35,9 +35,9 @@ class RecipeProvider {
           "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/${recipe.id}",
           data: recipe.toJson(),
           options: new Options(
-            contentType: "application/x-www-form-urlencoded",
+            contentType: "application/json;charset=UTF-8",
           ));
-      return response.data;
+      return int.parse(response.data);
     } catch (e) {
       throw Exception(e);
     }

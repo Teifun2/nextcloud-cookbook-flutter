@@ -5,6 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,23 +40,23 @@ class RecipeScreenState extends State<RecipeScreen> {
           appBar: AppBar(
             title: Text(translate('recipe.title')),
           ),
-//          floatingActionButton: FloatingActionButton(
-//            onPressed: () {
-//              if (state is RecipeLoadSuccess) {
-//                Navigator.push(
-//                  context,
-//                  MaterialPageRoute(
-//                    builder: (context) {
-//                      return BlocProvider.value(
-//                          value: recipeBloc,
-//                          child: RecipeEditScreen(state.recipe));
-//                    },
-//                  ),
-//                );
-//              }
-//            },
-//            child: Icon(Icons.edit),
-//          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              if (state is RecipeLoadSuccess) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BlocProvider.value(
+                          value: recipeBloc,
+                          child: RecipeEditScreen(state.recipe));
+                    },
+                  ),
+                );
+              }
+            },
+            child: Icon(Icons.edit),
+          ),
           body: () {
             if (state is RecipeLoadSuccess) {
               return _buildRecipeScreen(state.recipe);
