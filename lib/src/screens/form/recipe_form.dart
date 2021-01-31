@@ -235,6 +235,7 @@ class _RecipeFormState extends State<RecipeForm> {
                 ReorderableListFormField(
                   title: "Recipe Instructions",
                   items: recipe.recipeInstructions,
+                  state: state,
                 ),
                 Container(
                   width: 150,

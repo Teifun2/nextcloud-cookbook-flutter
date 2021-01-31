@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 
 class ReorderableListFormField extends StatefulWidget {
   final String title;
   final List<String> items;
+  final RecipeState state;
 
-  ReorderableListFormField({Key key, this.title, this.items}) : super(key: key);
+  ReorderableListFormField({Key key, this.title, this.items, this.state})
+      : super(key: key);
 
   @override
   _ReorderableListFormFieldState createState() =>
@@ -89,11 +92,15 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: IconButton(
+                            enableFeedback:
+                                !(widget.state is RecipeUpdateInProgress),
                             icon: Icon(Icons.add, color: Colors.black),
                             onPressed: () {
                               setState(() {
-                                _items
-                                    .add(ItemData("", ValueKey(_items.length)));
+                                if (!(widget.state is RecipeUpdateInProgress)) {
+                                  _items.add(
+                                      ItemData("", ValueKey(_items.length)));
+                                }
                               });
                             },
                           ),
@@ -109,6 +116,7 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                             _items.removeAt(index);
                           });
                         },
+                        state: widget.state,
                       );
                     },
                     childCount: _items.length + 1,
@@ -123,8 +131,26 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
   }
 }
 
-class Item extends StatelessWidget {
-  Item({this.data, this.isFirst, this.isLast, this.deleteItem});
+class Item extends StatefulWidget {
+  Item({this.data, this.isFirst, this.isLast, this.deleteItem, this.state});
+
+  final ItemData data;
+  final bool isFirst;
+  final bool isLast;
+  final Function deleteItem;
+  final RecipeState state;
+
+  @override
+  State<StatefulWidget> createState() => _ItemState(
+        data: data,
+        isFirst: isFirst,
+        isLast: isLast,
+        deleteItem: deleteItem,
+      );
+}
+
+class _ItemState extends State<Item> {
+  _ItemState({this.data, this.isFirst, this.isLast, this.deleteItem});
 
   final ItemData data;
   final bool isFirst;
@@ -156,6 +182,7 @@ class Item extends StatelessWidget {
     // For iOS dragging mode, there will be drag handle on the right that triggers
     // reordering; For android mode it will be just an empty container
     Widget dragHandle = ReorderableListener(
+      canStart: () => !(widget.state is RecipeUpdateInProgress),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 7),
         color: Color(0x08000000),
@@ -169,8 +196,13 @@ class Item extends StatelessWidget {
       color: Color(0x08000000),
       child: Center(
         child: IconButton(
+          enableFeedback: !(widget.state is RecipeUpdateInProgress),
           icon: Icon(Icons.delete, color: Colors.red),
-          onPressed: deleteItem,
+          onPressed: () {
+            if (!(widget.state is RecipeUpdateInProgress)) {
+              deleteItem();
+            }
+          },
         ),
       ),
     );
@@ -194,6 +226,7 @@ class Item extends StatelessWidget {
                         horizontal: 10.0,
                       ),
                       child: TextFormField(
+                        enabled: !(widget.state is RecipeUpdateInProgress),
                         maxLines: 10000,
                         minLines: 1,
                         initialValue: data.title,
