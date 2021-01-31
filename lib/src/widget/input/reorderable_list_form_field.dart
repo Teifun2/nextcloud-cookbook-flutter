@@ -18,9 +18,9 @@ class ReorderableListFormField extends StatefulWidget {
 }
 
 class ItemData {
-  ItemData(this.title, this.key);
+  ItemData(this.text, this.key);
 
-  String title;
+  String text;
 
   // Each item in reorderable list needs stable and unique key
   final Key key;
@@ -83,7 +83,7 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                   initialValue: "",
                   enabled: false,
                   onSaved: (_) {
-                    widget.onSave(_items.map((e) => e.title).toList());
+                    widget.onSave(_items.map((e) => e.text).toList());
                   },
                 ),
               ),
@@ -137,7 +137,7 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                             },
                             state: widget.state,
                             onChange: (String value) {
-                              _items[index].title = value;
+                              _items[index].text = value;
                             },
                           );
                         },
@@ -265,7 +265,7 @@ class _ItemState extends State<Item> {
                         enabled: !(widget.state is RecipeUpdateInProgress),
                         maxLines: 10000,
                         minLines: 1,
-                        initialValue: data.title,
+                        initialValue: data.text,
                         onChanged: widget.onChange,
                       ),
                       // child: Text(
