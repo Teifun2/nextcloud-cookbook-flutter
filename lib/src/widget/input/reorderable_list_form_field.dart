@@ -57,30 +57,45 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
   //
 
   Widget build(BuildContext context) {
-    return ReorderableList(
-      onReorder: this._reorderCallback,
-      onReorderDone: this._reorderDone,
-      child: CustomScrollView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        slivers: <Widget>[
-          SliverPadding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return Item(
-                      data: _items[index],
-                      isFirst: index == 0,
-                      isLast: index == _items.length - 1,
-                    );
-                  },
-                  childCount: _items.length,
-                ),
-              )),
-        ],
+    return ExpansionTile(
+      childrenPadding: EdgeInsets.zero,
+      tilePadding: EdgeInsets.zero,
+      title: Text(
+        widget.title,
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
       ),
+      children: [
+        ReorderableList(
+          onReorder: this._reorderCallback,
+          onReorderDone: this._reorderDone,
+          child: CustomScrollView(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            slivers: <Widget>[
+              SliverPadding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return Item(
+                        data: _items[index],
+                        isFirst: index == 0,
+                        isLast: index == _items.length - 1,
+                      );
+                    },
+                    childCount: _items.length,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -143,12 +158,22 @@ class Item extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Expanded(
-                      child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
-                    child: Text(data.title,
-                        style: Theme.of(context).textTheme.subtitle1),
-                  )),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 5.0,
+                        horizontal: 10.0,
+                      ),
+                      child: TextFormField(
+                        maxLines: 10000,
+                        minLines: 1,
+                        initialValue: data.title,
+                      ),
+                      // child: Text(
+                      //   data.title,
+                      //   style: Theme.of(context).textTheme.subtitle1,
+                      // ),
+                    ),
+                  ),
                   // Triggers the reordering
                   dragHandle,
                 ],

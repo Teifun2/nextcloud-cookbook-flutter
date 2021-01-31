@@ -79,7 +79,8 @@ class _RecipeFormState extends State<RecipeForm> {
                     TextFormField(
                       enabled: !(state is RecipeUpdateInProgress),
                       initialValue: recipe.description,
-                      maxLines: 5,
+                      maxLines: 100,
+                      minLines: 1,
                       decoration:
                           InputDecoration(hintText: "Recipe Description"),
                       onChanged: (value) {
@@ -164,6 +165,7 @@ class _RecipeFormState extends State<RecipeForm> {
                     ),
                     TextFormField(
                       enabled: false,
+                      style: TextStyle(color: Colors.grey),
                       initialValue: recipe.imageUrl,
                       decoration: InputDecoration(hintText: "Image Location"),
                       onChanged: (value) {
@@ -231,7 +233,7 @@ class _RecipeFormState extends State<RecipeForm> {
                 //       {_mutableRecipe.recipeInstructions = value},
                 // ),
                 ReorderableListFormField(
-                  title: "HENLO",
+                  title: "Recipe Instructions",
                   items: recipe.recipeInstructions,
                 ),
                 Container(
