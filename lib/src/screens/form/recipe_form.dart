@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
@@ -48,7 +49,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Name",
+                      translate('recipe.fields.name'),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -58,7 +59,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     TextFormField(
                       enabled: !(state is RecipeUpdateInProgress),
                       initialValue: recipe.name,
-                      decoration: InputDecoration(hintText: "Recipe Name"),
                       onChanged: (value) {
                         _mutableRecipe.name = value;
                       },
@@ -69,7 +69,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Description",
+                      translate('recipe.fields.description'),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -81,8 +81,6 @@ class _RecipeFormState extends State<RecipeForm> {
                       initialValue: recipe.description,
                       maxLines: 100,
                       minLines: 1,
-                      decoration:
-                          InputDecoration(hintText: "Recipe Description"),
                       onChanged: (value) {
                         _mutableRecipe.description = value;
                       },
@@ -93,7 +91,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Category",
+                      translate('recipe.fields.category'),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -103,7 +101,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     TextFormField(
                       enabled: !(state is RecipeUpdateInProgress),
                       initialValue: recipe.recipeCategory,
-                      decoration: InputDecoration(hintText: "Recipe Category"),
                       onChanged: (value) {
                         _mutableRecipe.recipeCategory = value;
                       },
@@ -114,7 +111,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Keywords",
+                      translate('recipe.fields.keywords'),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -124,7 +121,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     TextFormField(
                       enabled: !(state is RecipeUpdateInProgress),
                       initialValue: recipe.keywords,
-                      decoration: InputDecoration(hintText: "Recipe Keywords"),
                       onChanged: (value) {
                         _mutableRecipe.keywords = value;
                       },
@@ -135,7 +131,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "URL",
+                      translate('recipe.fields.source'),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -145,7 +141,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     TextFormField(
                       enabled: !(state is RecipeUpdateInProgress),
                       initialValue: recipe.url,
-                      decoration: InputDecoration(hintText: "Source URL"),
                       onChanged: (value) {
                         _mutableRecipe.url = value;
                       },
@@ -156,7 +151,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Image",
+                      translate('recipe.fields.image'),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -167,7 +162,6 @@ class _RecipeFormState extends State<RecipeForm> {
                       enabled: false,
                       style: TextStyle(color: Colors.grey),
                       initialValue: recipe.imageUrl,
-                      decoration: InputDecoration(hintText: "Image Location"),
                       onChanged: (value) {
                         _mutableRecipe.imageUrl = value;
                       },
@@ -178,7 +172,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Servings",
+                      translate('recipe.fields.servings'),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -188,44 +182,43 @@ class _RecipeFormState extends State<RecipeForm> {
                     IntegerTextFormField(
                       enabled: !(state is RecipeUpdateInProgress),
                       initialValue: recipe.recipeYield,
-                      decoration: InputDecoration(hintText: "Servings"),
                       onChanged: (value) => _mutableRecipe.recipeYield = value,
                       onSaved: (value) => _mutableRecipe.recipeYield = value,
                     ),
                   ],
                 ), // Servings
                 DurationFormField(
-                  title: "Preparation Time",
+                  title: translate('recipe.fields.time.prep'),
                   state: state,
                   duration: recipe.prepTime,
                   onChanged: (value) => {_mutableRecipe.prepTime = value},
                 ),
                 DurationFormField(
-                  title: "Cooking Time",
+                  title: translate('recipe.fields.time.cook'),
                   state: state,
                   duration: recipe.cookTime,
                   onChanged: (value) => {_mutableRecipe.cookTime = value},
                 ),
                 DurationFormField(
-                  title: "Total Time",
+                  title: translate('recipe.fields.time.total'),
                   state: state,
                   duration: recipe.totalTime,
                   onChanged: (value) => {_mutableRecipe.totalTime = value},
                 ),
                 ReorderableListFormField(
-                  title: "Recipe Tool",
+                  title: translate('recipe.fields.tools'),
                   items: recipe.tool,
                   state: state,
                   onSave: (value) => {_mutableRecipe.tool = value},
                 ),
                 ReorderableListFormField(
-                  title: "Recipe Ingredients",
+                  title: translate('recipe.fields.ingredients'),
                   items: recipe.recipeIngredient,
                   state: state,
                   onSave: (value) => {_mutableRecipe.recipeIngredient = value},
                 ),
                 ReorderableListFormField(
-                  title: "Recipe Instructions",
+                  title: translate('recipe.fields.instructions'),
                   items: recipe.recipeInstructions,
                   state: state,
                   onSave: (value) =>
@@ -247,9 +240,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       } else if (state is RecipeUpdateFailure ||
                           state is RecipeUpdateSuccess ||
                           state is RecipeLoadSuccess) {
-                        return Text("Update");
-                      } else {
-                        return Text("");
+                        return Text(translate('recipe_edit.button'));
                       }
                     }(),
                   ),
