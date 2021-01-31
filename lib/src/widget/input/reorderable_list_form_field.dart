@@ -3,12 +3,13 @@ import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 
 class ReorderableListFormField extends StatefulWidget {
   final String title;
+  final List<String> items;
 
-  ReorderableListFormField({Key key, this.title}) : super(key: key);
+  ReorderableListFormField({Key key, this.title, this.items}) : super(key: key);
 
   @override
   _ReorderableListFormFieldState createState() =>
-      _ReorderableListFormFieldState();
+      _ReorderableListFormFieldState(items);
 }
 
 class ItemData {
@@ -22,14 +23,11 @@ class ItemData {
 
 class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
   List<ItemData> _items;
-  _ReorderableListFormFieldState() {
+
+  _ReorderableListFormFieldState(List<String> items) {
     _items = List();
-    for (int i = 0; i < 500; ++i) {
-      String label = "List item $i";
-      if (i == 5) {
-        label += ". This item has a long label and will be wrapped.";
-      }
-      _items.add(ItemData(label, ValueKey(i)));
+    for (int i = 0; i < items.length; ++i) {
+      _items.add(ItemData(items[i], ValueKey(i)));
     }
   }
 
