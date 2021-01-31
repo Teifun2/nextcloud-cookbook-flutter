@@ -125,8 +125,8 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                               ),
                             );
                           }
-
                           return Item(
+                            key: UniqueKey(),
                             data: _items[index],
                             isFirst: index == 0,
                             isLast: index == _items.length - 1,
@@ -157,12 +157,14 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
 
 class Item extends StatefulWidget {
   Item(
-      {this.data,
+      {Key key,
+      this.data,
       this.isFirst,
       this.isLast,
       this.deleteItem,
       this.state,
-      this.onChange});
+      this.onChange})
+      : super(key: key);
 
   final ItemData data;
   final bool isFirst;
