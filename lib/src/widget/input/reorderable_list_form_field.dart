@@ -86,6 +86,11 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                         data: _items[index],
                         isFirst: index == 0,
                         isLast: index == _items.length - 1,
+                        deleteItem: () {
+                          setState(() {
+                            _items.removeAt(index);
+                          });
+                        },
                       );
                     },
                     childCount: _items.length,
@@ -101,15 +106,12 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
 }
 
 class Item extends StatelessWidget {
-  Item({
-    this.data,
-    this.isFirst,
-    this.isLast,
-  });
+  Item({this.data, this.isFirst, this.isLast, this.deleteItem});
 
   final ItemData data;
   final bool isFirst;
   final bool isLast;
+  final Function deleteItem;
 
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
     BoxDecoration decoration;
@@ -137,10 +139,21 @@ class Item extends StatelessWidget {
     // reordering; For android mode it will be just an empty container
     Widget dragHandle = ReorderableListener(
       child: Container(
-        padding: EdgeInsets.only(right: 18.0, left: 18.0),
+        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 7),
         color: Color(0x08000000),
         child: Center(
-          child: Icon(Icons.reorder, color: Color(0xFF888888)),
+          child: Icon(Icons.reorder, color: Colors.grey),
+        ),
+      ),
+    );
+
+    Widget delete = Container(
+      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 7),
+      color: Color(0x08000000),
+      child: Center(
+        child: IconButton(
+          icon: Icon(Icons.delete, color: Colors.red),
+          onPressed: deleteItem,
         ),
       ),
     );
@@ -176,6 +189,7 @@ class Item extends StatelessWidget {
                   ),
                   // Triggers the reordering
                   dragHandle,
+                  delete,
                 ],
               ),
             ),
