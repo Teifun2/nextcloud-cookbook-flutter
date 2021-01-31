@@ -82,6 +82,24 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
+                      if (index == _items.length) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons.add, color: Colors.black),
+                            onPressed: () {
+                              setState(() {
+                                _items
+                                    .add(ItemData("", ValueKey(_items.length)));
+                              });
+                            },
+                          ),
+                        );
+                      }
+
                       return Item(
                         data: _items[index],
                         isFirst: index == 0,
@@ -93,7 +111,7 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                         },
                       );
                     },
-                    childCount: _items.length,
+                    childCount: _items.length + 1,
                   ),
                 ),
               ),
@@ -148,7 +166,6 @@ class Item extends StatelessWidget {
     );
 
     Widget delete = Container(
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 7),
       color: Color(0x08000000),
       child: Center(
         child: IconButton(
