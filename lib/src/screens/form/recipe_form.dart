@@ -212,26 +212,18 @@ class _RecipeFormState extends State<RecipeForm> {
                   duration: recipe.totalTime,
                   onChanged: (value) => {_mutableRecipe.totalTime = value},
                 ),
-                // ListFormField(
-                //   state: state,
-                //   list: recipe.tool,
-                //   title: "Tools",
-                //   onChanged: (value) => {_mutableRecipe.tool = value},
-                // ),
-                // ListFormField(
-                //   state: state,
-                //   list: recipe.recipeIngredient,
-                //   title: "Ingredients",
-                //   onChanged: (value) =>
-                //       {_mutableRecipe.recipeIngredient = value},
-                // ),
-                // ListFormField(
-                //   state: state,
-                //   list: recipe.recipeInstructions,
-                //   title: "Instructions",
-                //   onChanged: (value) =>
-                //       {_mutableRecipe.recipeInstructions = value},
-                // ),
+                ReorderableListFormField(
+                  title: "Recipe Tool",
+                  items: recipe.tool,
+                  state: state,
+                  onSave: (value) => {_mutableRecipe.tool = value},
+                ),
+                ReorderableListFormField(
+                  title: "Recipe Ingredients",
+                  items: recipe.recipeIngredient,
+                  state: state,
+                  onSave: (value) => {_mutableRecipe.recipeIngredient = value},
+                ),
                 ReorderableListFormField(
                   title: "Recipe Instructions",
                   items: recipe.recipeInstructions,
