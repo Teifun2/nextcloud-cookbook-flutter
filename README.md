@@ -15,10 +15,10 @@ It works best with an Nextcloud installation >= 19 and a Cookbook plugin version
 Current Features:
 - View all recipes by Category
 - Search Recipes by Name
+- Recipe Editing
 
 Planned Features:
-- Recipe Editing *
-- Recipe Creating
+- Recipe Creating *
 - Recipe Import
 - Darkmode
 - Offline Usage (Caching)
@@ -34,7 +34,8 @@ https://www.transifex.com/nextcloud/nextcloud/cookbook_flutter/
 
 <img src="https://user-images.githubusercontent.com/7461832/106359784-0c7e5100-6315-11eb-809b-975ad55dd3eb.png" alt="Login Screen" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359789-0e481480-6315-11eb-9631-c5d919dfe197.png" alt="Categories" width="300px" />
 <img src="https://user-images.githubusercontent.com/7461832/106359788-0daf7e00-6315-11eb-8604-7abbc541e344.png" alt="Search" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359787-0daf7e00-6315-11eb-88a4-b305b796d512.png" alt="Category Recipes" width="300px" />
-<img src="https://user-images.githubusercontent.com/7461832/106359786-0d16e780-6315-11eb-830a-3454551e3a07.png" alt="Recipe" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359785-0d16e780-6315-11eb-9099-0c33aa8943be.png" alt="Recipe Details" width="300px" /> 
+<img src="https://user-images.githubusercontent.com/7461832/106396792-8a705400-640a-11eb-9d81-8ca421a689f2.png" alt="Recipe" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106359785-0d16e780-6315-11eb-9099-0c33aa8943be.png" alt="Recipe Details" width="300px" /> 
+<img src="https://user-images.githubusercontent.com/7461832/106396793-8c3a1780-640a-11eb-9324-7a9d26205814.png" alt="Recipe Edit 1" width="300px" /> <img src="https://user-images.githubusercontent.com/7461832/106396794-8c3a1780-640a-11eb-8d64-5eb4fc90faa9.png" alt="Recipe Edit 2" width="300px" /> 
 
 
   

@@ -58,9 +58,14 @@
   "recipe": {
     "title": "Recipe:",
     "fields": {
+      "name": "Recipe Name:",
+      "description": "Recipe Description:",
+      "keywords": "Keywords:",
+      "category": "Category:",
       "servings": "Servings:",
       "source": "Source:",
       "source_button": "Source",
+      "image": "Image:",
       "time": {
         "prep": "Preparation time:",
         "cook": "Cooking time:",
@@ -76,6 +81,7 @@
   },
   "recipe_edit": {
     "title": "Edit Recipe",
+    "button": "Update Recipe",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
     }

@@ -9,16 +9,17 @@ Current Features:
 
     View all recipes by Category
     Search Recipes by Name
+    Recipe Editing
 
 
 Planned Features:
 
-    Recipe Editing *
     Recipe Creating
     Recipe Import
-    Darkmode
+    Darkmode *
     Offline Usage (Caching)
-    * Currently worked on!
+
+* Currently worked on!
 
 Translation
 To help the translation of the app visit: https://www.transifex.com/nextcloud/nextcloud/cookbook_flutter/

@@ -19,6 +19,7 @@ class Recipe extends Equatable {
   final String keywords;
   final String image;
   final String url;
+  final Map<String, dynamic> remainingData;
 
   const Recipe._(
       this.id,
@@ -35,7 +36,8 @@ class Recipe extends Equatable {
       this.totalTime,
       this.keywords,
       this.image,
-      this.url);
+      this.url,
+      this.remainingData);
 
   factory Recipe(String jsonString) {
     Map<String, dynamic> data = json.decode(jsonString);
@@ -65,41 +67,69 @@ class Recipe extends Equatable {
     String image = data["image"];
     String url = data["url"];
 
+    data.remove("id");
+    data.remove("name");
+    data.remove("imageUrl");
+    data.remove("recipeCategory");
+    data.remove("description");
+    data.remove("recipeIngredient");
+    data.remove("recipeInstructions");
+    data.remove("tool");
+    data.remove("recipeYield");
+    data.remove("prepTime");
+    data.remove("cookTime");
+    data.remove("totalTime");
+    data.remove("keywords");
+    data.remove("image");
+    data.remove("url");
+
+    data.remove("dateModified");
+
     return Recipe._(
-        id,
-        name,
-        imageUrl,
-        recipeCategory,
-        description,
-        recipeIngredient,
-        recipeInstructions,
-        tool,
-        recipeYield,
-        prepTime,
-        cookTime,
-        totalTime,
-        keywords,
-        image,
-        url);
+      id,
+      name,
+      imageUrl,
+      recipeCategory,
+      description,
+      recipeIngredient,
+      recipeInstructions,
+      tool,
+      recipeYield,
+      prepTime,
+      cookTime,
+      totalTime,
+      keywords,
+      image,
+      url,
+      data,
+    );
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'imageUrl': imageUrl,
-        'recipeCategory': recipeCategory,
-        'description': description,
-        'recipeIngredient': recipeIngredient,
-        'recipeInstructions': recipeInstructions,
-        'tool': tool,
-        'recipeYield': recipeYield,
-        'prepTime': prepTime,
-        'cookTime': cookTime,
-        'totalTime': totalTime,
-        'keywords': keywords,
-        'image': image,
-        'url': url
-      };
+  String toJson() {
+    Map<String, dynamic> updatedData = {
+      'id': id,
+      'name': name,
+      'imageUrl': imageUrl,
+      'recipeCategory': recipeCategory,
+      'description': description,
+      'recipeIngredient': recipeIngredient,
+      'recipeInstructions': recipeInstructions,
+      'tool': tool,
+      'recipeYield': recipeYield,
+      'prepTime': _durationToIso(prepTime),
+      'cookTime': _durationToIso(cookTime),
+      'totalTime': _durationToIso(totalTime),
+      'keywords': keywords,
+      'image': image,
+      'url': url,
+      'dateModified': DateTime.now().toIso8601String()
+    };
+
+    // Add all the data points that are not handled by the app!
+    remainingData.addAll(updatedData);
+
+    return jsonEncode(remainingData);
+  }
 
   MutableRecipe toMutableRecipe() {
     MutableRecipe mutableRecipe = MutableRecipe();
@@ -111,16 +141,25 @@ class Recipe extends Equatable {
     mutableRecipe.description = this.description;
     mutableRecipe.recipeIngredient = this.recipeIngredient;
     mutableRecipe.recipeInstructions = this.recipeInstructions;
+    mutableRecipe.tool = this.tool;
     mutableRecipe.recipeYield = this.recipeYield;
     mutableRecipe.prepTime = this.prepTime;
     mutableRecipe.cookTime = this.cookTime;
     mutableRecipe.totalTime = this.totalTime;
+    mutableRecipe.keywords = this.keywords;
+    mutableRecipe.image = this.image;
+    mutableRecipe.url = this.url;
+    mutableRecipe.remainingData = this.remainingData;
 
     return mutableRecipe;
   }
 
   @override
   List<Object> get props => [id];
+
+  String _durationToIso(Duration duration) {
+    return "PT${duration.inHours}H${duration.inMinutes % 60}M";
+  }
 }
 
 class MutableRecipe {
@@ -139,23 +178,26 @@ class MutableRecipe {
   String keywords;
   String image;
   String url;
+  Map<String, dynamic> remainingData;
 
   Recipe toRecipe() {
     return Recipe._(
-        id,
-        name,
-        imageUrl,
-        recipeCategory,
-        description,
-        recipeIngredient,
-        recipeInstructions,
-        tool,
-        recipeYield,
-        prepTime,
-        cookTime,
-        totalTime,
-        keywords,
-        image,
-        url);
+      id,
+      name,
+      imageUrl,
+      recipeCategory,
+      description,
+      recipeIngredient,
+      recipeInstructions,
+      tool,
+      recipeYield,
+      prepTime,
+      cookTime,
+      totalTime,
+      keywords,
+      image,
+      url,
+      remainingData,
+    );
   }
 }
