@@ -6,8 +6,10 @@ class ReorderableListFormField extends StatefulWidget {
   final String title;
   final List<String> items;
   final RecipeState state;
+  final Function(List<String> value) onSave;
 
-  ReorderableListFormField({Key key, this.title, this.items, this.state})
+  ReorderableListFormField(
+      {Key key, this.title, this.items, this.state, this.onSave})
       : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class ReorderableListFormField extends StatefulWidget {
 class ItemData {
   ItemData(this.title, this.key);
 
-  final String title;
+  String title;
 
   // Each item in reorderable list needs stable and unique key
   final Key key;
@@ -60,71 +62,93 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
   //
 
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      childrenPadding: EdgeInsets.zero,
-      tilePadding: EdgeInsets.zero,
-      title: Text(
-        widget.title,
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-      ),
+    return Column(
       children: [
-        ReorderableList(
-          onReorder: this._reorderCallback,
-          onReorderDone: this._reorderDone,
-          child: CustomScrollView(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            slivers: <Widget>[
-              SliverPadding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      if (index == _items.length) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[400],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: IconButton(
-                            enableFeedback:
-                                !(widget.state is RecipeUpdateInProgress),
-                            icon: Icon(Icons.add, color: Colors.black),
-                            onPressed: () {
-                              setState(() {
-                                if (!(widget.state is RecipeUpdateInProgress)) {
-                                  _items.add(
-                                      ItemData("", ValueKey(_items.length)));
-                                }
-                              });
-                            },
-                          ),
-                        );
-                      }
-
-                      return Item(
-                        data: _items[index],
-                        isFirst: index == 0,
-                        isLast: index == _items.length - 1,
-                        deleteItem: () {
-                          setState(() {
-                            _items.removeAt(index);
-                          });
-                        },
-                        state: widget.state,
-                      );
-                    },
-                    childCount: _items.length + 1,
-                  ),
+        ExpansionTile(
+          childrenPadding: EdgeInsets.zero,
+          tilePadding: EdgeInsets.zero,
+          title: Row(
+            children: [
+              Text(
+                widget.title,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Container(
+                width: 1,
+                child: TextFormField(
+                  initialValue: "",
+                  enabled: false,
+                  onSaved: (_) {
+                    widget.onSave(_items.map((e) => e.title).toList());
+                  },
                 ),
               ),
             ],
           ),
+          children: [
+            ReorderableList(
+              onReorder: this._reorderCallback,
+              onReorderDone: this._reorderDone,
+              child: CustomScrollView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          if (index == _items.length) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: IconButton(
+                                enableFeedback:
+                                    !(widget.state is RecipeUpdateInProgress),
+                                icon: Icon(Icons.add, color: Colors.black),
+                                onPressed: () {
+                                  setState(() {
+                                    if (!(widget.state
+                                        is RecipeUpdateInProgress)) {
+                                      _items.add(ItemData(
+                                          "", ValueKey(_items.length)));
+                                    }
+                                  });
+                                },
+                              ),
+                            );
+                          }
+
+                          return Item(
+                            data: _items[index],
+                            isFirst: index == 0,
+                            isLast: index == _items.length - 1,
+                            deleteItem: () {
+                              setState(() {
+                                _items.removeAt(index);
+                              });
+                            },
+                            state: widget.state,
+                            onChange: (String value) {
+                              _items[index].title = value;
+                            },
+                          );
+                        },
+                        childCount: _items.length + 1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -132,12 +156,19 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
 }
 
 class Item extends StatefulWidget {
-  Item({this.data, this.isFirst, this.isLast, this.deleteItem, this.state});
+  Item(
+      {this.data,
+      this.isFirst,
+      this.isLast,
+      this.deleteItem,
+      this.state,
+      this.onChange});
 
   final ItemData data;
   final bool isFirst;
   final bool isLast;
   final Function deleteItem;
+  final Function(String value) onChange;
   final RecipeState state;
 
   @override
@@ -150,7 +181,12 @@ class Item extends StatefulWidget {
 }
 
 class _ItemState extends State<Item> {
-  _ItemState({this.data, this.isFirst, this.isLast, this.deleteItem});
+  _ItemState({
+    this.data,
+    this.isFirst,
+    this.isLast,
+    this.deleteItem,
+  });
 
   final ItemData data;
   final bool isFirst;
@@ -230,6 +266,7 @@ class _ItemState extends State<Item> {
                         maxLines: 10000,
                         minLines: 1,
                         initialValue: data.title,
+                        onChanged: widget.onChange,
                       ),
                       // child: Text(
                       //   data.title,

@@ -46,7 +46,6 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
       controller: controller,
       decoration: widget.decoration,
       keyboardType: TextInputType.number,
-      onSaved: (value) => widget.onSaved(_ensureMinMax(_parseValue(value))),
     );
   }
 

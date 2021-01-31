@@ -236,12 +236,15 @@ class _RecipeFormState extends State<RecipeForm> {
                   title: "Recipe Instructions",
                   items: recipe.recipeInstructions,
                   state: state,
+                  onSave: (value) =>
+                      {_mutableRecipe.recipeInstructions = value},
                 ),
                 Container(
                   width: 150,
                   child: RaisedButton(
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
                         BlocProvider.of<RecipeBloc>(context)
                             .add(RecipeUpdated(_mutableRecipe.toRecipe()));
                       }
