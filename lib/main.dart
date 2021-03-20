@@ -31,9 +31,11 @@ void main() async {
       'nl',
       'pl',
       'pt_BR',
+      'sc',
       'sl',
       'tr',
-      'zh_CN'
+      'zh_CN',
+      'zh_HK'
     ],
   );
   runApp(
