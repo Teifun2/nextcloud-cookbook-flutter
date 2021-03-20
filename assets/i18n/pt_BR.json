@@ -26,15 +26,15 @@
     },
     "button": "Entrar",
     "errors": {
-      "not_reachable": "Cannot reach: {server_url}\n{error_msg}",
-      "certificate_failed": "The Certificate of the server could not be verified: {server_url}\n{error_msg}",
-      "request_failed": "AppPassword request failed:\n{error_msg}",
-      "parse_failed": "Cannot parse the App Password response!\n{error_msg}",
-      "parse_missing": "Cannot find App Password in response!\n{error_msg}",
+      "not_reachable": "Não pode alcançar:  {server_url}\n{error_msg}",
+      "certificate_failed": "O certificado do servidor não pôde ser verificado:  {server_url}\n{error_msg}",
+      "request_failed": "Falha na solicitação de senha de aplicativo: \n{error_msg}",
+      "parse_failed": "Não é possível analisar a resposta da senha do app!\n{error_msg}",
+      "parse_missing": "Não é possível encontrar a senha do app em resposta! \n{error_msg}",
       "auth_failed": "Usuário e/ou senha incorretos!",
       "authentication_not_found": "Nenhuma autenticação encontrada no Armazenamento",
-      "failed_remove_remote": "Failed to remove remote App Password!",
-      "failure": "Login Process could not finish properly.\n{status_code}\n{status_message}",
+      "failed_remove_remote": "Falha ao remover a senha do app remoto! ",
+      "failure": "O processo de login não pôde terminar corretamente. \n{status_code}\n{status_message}",
       "credentials_invalid": "As credenciais armazenadas não eram mais válidas e você foi desconectado!"
     }
   },
@@ -46,7 +46,7 @@
       "load_failed": "Falha ao carregar categoria: {error_msg}",
       "load_no_response": "Não foi possível recuperar as categorias a partir do servidor.",
       "api_version_check_failed": "Falha ao verificar a versão da API do servidor:\n{error_msg}",
-      "api_version_above_confirmed": "A versão da API do servidor foi atualizada. Alguns recursos podem não funcionar como esperado. Aguarde uma atualização!\n{version}"
+      "api_version_above_confirmed": "A versão API do servidor foi atualizada. Alguns recursos podem não funcionar como esperado. Por favor, espere por uma atualização! \n{version}"
     }
   },
   "recipe_list": {

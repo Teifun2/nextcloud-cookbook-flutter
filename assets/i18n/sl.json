@@ -28,7 +28,7 @@
     "errors": {
       "not_reachable": "Povezava s strežnikom ni mogoča: {server_url} \n {error_msg}",
       "certificate_failed": "Potrdila strežnika ni mogoče preveriti {server_url} \n{error_msg}",
-      "request_failed": "Zahteva za geslo programa je spodletela:\n{error_msg}",
+      "request_failed": "App Password request failed:\n{error_msg}",
       "parse_failed": "Ni mogoče razčleniti odziva gesla programa!\n {error_msg}",
       "parse_missing": "V odzivu ni mogoče najti odziva gesla programa!\n{error_msg}",
       "auth_failed": "Uporabniško ime ali geslo ni veljavno!",
@@ -46,7 +46,7 @@
       "load_failed": "Nalaganje kategorije je spodletelo: {error_msg}",
       "load_no_response": "Ni mogoče pridobiti kategorij s strežnika.",
       "api_version_check_failed": "Preverjanje različice API strežnika je spodletelo:\n {error_msg}",
-      "api_version_above_confirmed": "Različica vmesnika API strežnika je posodobljena. Nekatere zmožnosti morda ne bodo delovale pravilno. Počakajte na posodobitev!\n{version}"
+      "api_version_above_confirmed": "The API version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n{version}"
     }
   },
   "recipe_list": {

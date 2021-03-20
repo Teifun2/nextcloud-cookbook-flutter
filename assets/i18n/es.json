@@ -28,7 +28,7 @@
     "errors": {
       "not_reachable": "No se puede alcanzar: {server_url} \n {error_msg}",
       "certificate_failed": "No puede verificar el Certificado del servidor: {server_url} \n {error_msg}",
-      "request_failed": "Falló la consulta a la App Password {error_msg}",
+      "request_failed": "Falló la consulta a la App Password:\n{error_msg}",
       "parse_failed": "¡No se pudo analizar la respuesta de App Password!\n{error_msg}",
       "parse_missing": "¡No se pudo encontrar la respuesta de App Password!\n{error_msg}",
       "auth_failed": "¡Usuario y/o contraseña incorrectos!",

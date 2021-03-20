@@ -1,0 +1,87 @@
+{
+  "app_bar": {
+    "search": "搜尋",
+    "refresh": "刷新",
+    "logout": "登出"
+  },
+  "login": {
+    "title": "登入",
+    "server_url": {
+      "field": "伺服器 URL",
+      "validator": {
+        "empty": "請輸入您Nextcloud的URL。",
+        "pattern": "請輸入有效 URL"
+      }
+    },
+    "username": {
+      "field": "用戶名"
+    },
+    "password": {
+      "field": "密碼"
+    },
+    "settings": {
+      "title": "高級設置",
+      "app_password": "使用自行生成的應用程式密碼。\n具有2FA的賬戶需要。",
+      "self_signed_certificate": "忽略無效的證書。\n需要自簽名證書。\n（使用風險自負！）"
+    },
+    "button": "登入",
+    "errors": {
+      "not_reachable": "無法到達：{server_url}\n{error_msg}",
+      "certificate_failed": "無法驗證伺服器證書: {server_url}\n{error_msg}",
+      "request_failed": "應用程式密碼請求失敗:\n{error_msg}",
+      "parse_failed": "無法解析應用程式密碼回應！\n{error_msg}",
+      "parse_missing": "在回應中找不到應用程式密碼！\n{error_msg}",
+      "auth_failed": "用戶名稱或密碼不正確",
+      "authentication_not_found": "在存儲中找不到身分驗證",
+      "failed_remove_remote": "無法刪除遠端應用程式密碼！",
+      "failure": "登入過程無法正確完成。\n{status_code}\n{status_message}",
+      "credentials_invalid": "存儲的身分驗證不再有效，系統已註銷您！"
+    }
+  },
+  "categories": {
+    "title": "食譜",
+    "all_categories": "全部",
+    "errors": {
+      "unknown": "處於未知狀態的分類",
+      "load_failed": "載入分類失敗：{error_msg}",
+      "load_no_response": "無法從伺服器獲得分類",
+      "api_version_check_failed": "無法檢查伺服器 API 的版本：\n{error_msg}",
+      "api_version_above_confirmed": "伺服器的API版本已更新。某些功能可能無法正常工作。請等待更新！\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "分類：{category}",
+    "errors": {
+      "load_failed": "Failed to load Recipes Short!"
+    }
+  },
+  "recipe": {
+    "title": "食譜:",
+    "fields": {
+      "servings": "份量：",
+      "source": "來源：",
+      "source_button": "來源",
+      "time": {
+        "prep": "準備時間：",
+        "cook": "烹調時間：",
+        "total": "總時間："
+      },
+      "tools": "工具：",
+      "ingredients": "材料：",
+      "instructions": "說明："
+    },
+    "errors": {
+      "load_failed": "載入食譜失敗!"
+    }
+  },
+  "recipe_edit": {
+    "title": "編輯 食譜",
+    "errors": {
+      "update_failed": "更新失敗 {error_msg}"
+    }
+  },
+  "search": {
+    "title": "搜尋",
+    "nothing_found": "找不到食譜!"
+  }
+}

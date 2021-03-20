@@ -28,7 +28,7 @@
     "errors": {
       "not_reachable": "Sunucuya erişilemedi: {server_url}\n{error_msg}",
       "certificate_failed": "Sunucunun sertifikası doğrulanamadı: {server_url} \n{error_msg}",
-      "request_failed": "AppPassword isteği yapılamadı:\n {error_msg}",
+      "request_failed": "App Password isteği yapılamadı:\n{error_msg}",
       "parse_failed": "AppPassword yanıtı işlenemedi!\n{error_msg}",
       "parse_missing": "Yanıtta AppPassword bulunamadı!\n{error_msg}",
       "auth_failed": "Kullanıcı adı ya da parola geçersiz!",
