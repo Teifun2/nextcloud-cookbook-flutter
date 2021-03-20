@@ -1,0 +1,87 @@
+{
+  "app_bar": {
+    "search": "Chirca",
+    "refresh": "Agiorna",
+    "logout": "Essi·nche"
+  },
+  "login": {
+    "title": "Intra",
+    "server_url": {
+      "field": "Serbidore URL",
+      "validator": {
+        "empty": "Inserta s'URL in s'istàntzia tua de Nextcloud.",
+        "pattern": "Inserta un'URL vàlidu"
+      }
+    },
+    "username": {
+      "field": "Nùmene utente"
+    },
+    "password": {
+      "field": "Crae"
+    },
+    "settings": {
+      "title": "Impostatziones avantzadas",
+      "app_password": "Imprea sa crae de s'aplicatzione generada automaticamente.\nSerbit pro contos cun 2FA.",
+      "self_signed_certificate": "Non cunsideres su tzertificadu non vàlidu.\nSerbit pro tzertificados auto-firmados.\n(Sa responsabilidade de s'impreu est sa tua!)"
+    },
+    "button": "Intra",
+    "errors": {
+      "not_reachable": "Impossìbile lòmpere a: {server_url}\n{error_msg}",
+      "certificate_failed": "No at fatu a averguare su Tzertificadu de su serbidore: {server_url}\n{error_msg}",
+      "request_failed": "Rechesta de sa crae de s'aplicatzione faddida:\n{error_msg}",
+      "parse_failed": "Impossìbile analizare sa risposta de sa crae de s'aplicatzione!\n{error_msg}",
+      "parse_missing": "Impossìbile a agatare sa crae de s'aplicatzione in sa risposta!\n{error_msg}",
+      "auth_failed": "Su nùmene utente e / o sa crae no est curreta!",
+      "authentication_not_found": "Peruna autenticatzione agatada in Archiviatzione",
+      "failed_remove_remote": "No at fatu a nche bogare sa crae de s'aplicatzione remota!",
+      "failure": "Su atzessu no est agabbadu bene.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Is credentziales sarvadas non fiant prus vàlidas e t'ant fatu essire!"
+    }
+  },
+  "categories": {
+    "title": "Libru de retzetas",
+    "all_categories": "Totu",
+    "errors": {
+      "unknown": "Categorias in istadu non connotu",
+      "load_failed": "Carrigamentu de categoria faddidu: {error_msg}",
+      "load_no_response": "No at fatu a recuperare is Categorias dae su serbidore.",
+      "api_version_check_failed": "No at fatu a controllare sa versione API in su serbidore:\n{error_msg}",
+      "api_version_above_confirmed": "Sa versione API de su serbidore s'est agiornada. Carchi funtzionalidade diat podet funtzionare comente prevìdidu. Abeta pro un'agiornamentu!\n{versione}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Categoria: {categoria}",
+    "errors": {
+      "load_failed": "No at fatu a carrigare is retzetas!"
+    }
+  },
+  "recipe": {
+    "title": "Retzeta:",
+    "fields": {
+      "servings": "Portziones:",
+      "source": "Fonte:",
+      "source_button": "Fonte",
+      "time": {
+        "prep": "Tempus de preparatzione:",
+        "cook": "Tempus de cotura:",
+        "total": "Tempus totale:"
+      },
+      "tools": "Ainas:",
+      "ingredients": "Ingredientes:",
+      "instructions": "Inditos:"
+    },
+    "errors": {
+      "load_failed": "No at fatu a carrigare sa retzeta!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Modìfica retzeta",
+    "errors": {
+      "update_failed": "Agiornamentu faddidu {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Chirca",
+    "nothing_found": "Peruna retzeta agatada!"
+  }
+}

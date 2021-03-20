@@ -46,7 +46,7 @@
       "load_failed": "类别加载失败：{error_msg}",
       "load_no_response": "无法从服务器取得类别",
       "api_version_check_failed": "检查服务器的 API 版本失败：{error_msg}",
-      "api_version_above_confirmed": "服务器的 Api 版本已更新。有些功能可能不能像预期的那样工作。请等待更新！{version}"
+      "api_version_above_confirmed": "服务器的 API 版本已更新。一些功能可能不像预期得那样工作。请等待一个更新！{version}"
     }
   },
   "recipe_list": {

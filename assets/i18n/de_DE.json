@@ -10,7 +10,7 @@
       "field": "Server-URL",
       "validator": {
         "empty": "Bitte geben Sie die URL Ihrer Nextcloud an.",
-        "pattern": "Bitte eine gültige URL angeben"
+        "pattern": "Bitte eine gültige URL eingeben"
       }
     },
     "username": {
