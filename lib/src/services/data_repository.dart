@@ -43,6 +43,10 @@ class DataRepository {
     return recipeProvider.updateRecipe(recipe);
   }
 
+  Future<int> importRecipe(String url) {
+    return recipeProvider.importRecipe(url);
+  }
+
   Future<List<Category>> fetchCategories() {
     return categoriesProvider.fetchCategories();
   }
