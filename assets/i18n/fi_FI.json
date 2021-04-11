@@ -21,8 +21,8 @@
     },
     "settings": {
       "title": "Lisäasetukset",
-      "app_password": "Käytä itse luotua sovellussalasanaa,\njota tarvitaan tileillä, joilla on kaksivaiheisen tunnistautuminen (2FA) käytössä",
-      "self_signed_certificate": "Ohita virheellinen sertifikaatti\nTarvitaan itse allekirjoitetuille varmenteille\n(Käytä omalla vastuulla!) "
+      "app_password": "Käytä itse luotua sovellussalasanaa,\njota tarvitaan tileillä, joilla on kaksivaiheisen tunnistautuminen (2FA) käytössä.",
+      "self_signed_certificate": "Ohita virheellinen sertifikaatti.\nTarvitaan itse allekirjoitetuille varmenteille.\n(Käytä omalla vastuulla!) "
     },
     "button": "Kirjaudu sisään",
     "errors": {
@@ -56,18 +56,19 @@
     }
   },
   "recipe": {
-    "title": "Resepti",
+    "title": "Resepti:",
     "fields": {
       "servings": "Annoksia:",
-      "source": "Lähde",
+      "source": "Lähde:",
+      "source_button": "Lähde",
       "time": {
-        "prep": "Esivalmistelujen kesto",
-        "cook": "Valmistuksen kesto",
-        "total": "Kokonaiskesto"
+        "prep": "Esivalmistelujen kesto:",
+        "cook": "Valmistuksen kesto:",
+        "total": "Kokonaiskesto:"
       },
-      "tools": "Työvälineet",
-      "ingredients": "Ainesosat",
-      "instructions": "Ohjeet"
+      "tools": "Työvälineet:",
+      "ingredients": "Ainesosat:",
+      "instructions": "Ohjeet:"
     },
     "errors": {
       "load_failed": "Reseptin lataus epäonnistui!"

@@ -28,7 +28,7 @@
     "errors": {
       "not_reachable": "Kan {server_url} niet bereiken\n {error_msg}",
       "certificate_failed": "Het certificaat van de server kon niet worden geverifieerd: {server_url} \n {error_msg}",
-      "request_failed": "App-wachtwoord aanvraag mislukt:\n {error_msg}",
+      "request_failed": "App wachtwoord aanvraag mislukt:\n {error_msg}",
       "parse_failed": "Kan de App-wachtwoord reactie niet interpreteren!\n {error_msg}",
       "parse_missing": "Kan App wachtwoord niet vinden in de reactie!\n {error_msg}",
       "auth_failed": "Gebruikersnaam en / of wachtwoord onjuist!",
