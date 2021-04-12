@@ -14,10 +14,13 @@ description: A new Flutter application.
 version: 0.4.0+16
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
-  flutter: 1.22.4
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: 2.0.4
 
 dependencies:
+  flutter:
+    sdk: flutter
+
   flutter_translate:
     git:
       url: https://github.com/cornerman/flutter_translate
