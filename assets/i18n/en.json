@@ -41,6 +41,9 @@
   "categories": {
     "title": "Cookbook",
     "all_categories": "All",
+    "drawer": {
+      "import": "Import Recipe"
+    },
     "errors": {
       "unknown": "Categories in unknown state",
       "load_failed": "Category Load Failed: {error_msg}",
@@ -84,6 +87,15 @@
     "button": "Update Recipe",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Import Recipe",
+    "button": "Import",
+    "field": "URL to Recipe",
+    "clipboard": "Paste Clipboard",
+    "errors": {
+      "import_failed": "Import Failed {error_msg}"
     }
   },
   "search": {

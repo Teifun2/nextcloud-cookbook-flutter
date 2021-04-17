@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
@@ -14,6 +15,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield* _mapRecipeLoadedToState(event);
     } else if (event is RecipeUpdated) {
       yield* _mapRecipeUpdatedToState(event);
+    } else if (event is RecipeImported) {
+      yield* _mapRecipeImportedToState(event);
     }
   }
 
@@ -36,6 +39,17 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield RecipeUpdateSuccess(recipeId);
     } catch (_) {
       yield RecipeUpdateFailure(_.toString());
+    }
+  }
+
+  Stream<RecipeState> _mapRecipeImportedToState(
+      RecipeImported recipeImported) async* {
+    try {
+      yield RecipeImportInProgress();
+      Recipe recipe = await dataRepository.importRecipe(recipeImported.url);
+      yield RecipeImportSuccess(recipe.id);
+    } catch (_) {
+      yield RecipeImportFailure(_.toString());
     }
   }
 }
