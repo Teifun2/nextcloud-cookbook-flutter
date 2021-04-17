@@ -25,7 +25,7 @@ class RecipeEditScreen extends StatelessWidget {
           title: BlocListener<RecipeBloc, RecipeState>(
               listener: (BuildContext context, RecipeState state) {
                 if (state is RecipeUpdateFailure) {
-                  Scaffold.of(context).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(translate(
                           'recipe_edit.errors.update_failed',

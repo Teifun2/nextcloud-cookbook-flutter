@@ -34,7 +34,7 @@ class SearchScreen extends StatelessWidget {
               onTap: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RecipeScreen(recipeShort: item),
+                    builder: (context) => RecipeScreen(recipeId: item.recipeId),
                   )),
             );
           },
