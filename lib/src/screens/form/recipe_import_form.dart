@@ -16,7 +16,8 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, RecipeState>(
-      builder: (context, state) => SingleChildScrollView(
+        builder: (BuildContext context, RecipeState state) {
+      return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Form(
@@ -39,33 +40,35 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
                 ),
                 Center(
                   child: TextButton(
-                      onPressed: () => {
-                            BlocProvider.of<RecipeBloc>(context)
-                                .add(RecipeImported(_importUrlController.text))
-                          },
-                      child: () {
-                        if (state is RecipeLoadInProgress) {
-                          return SpinKitWave(color: Colors.blue, size: 30.0);
-                        } else {
-                          return Row(
-                            children: [
-                              Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 9.0),
-                                child: Text(translate("recipe_import.button")),
-                              ),
-                              Icon(Icons.cloud_download_outlined),
-                              Spacer(),
-                            ],
-                          );
-                        }
-                      }()),
+                    onPressed: () => {
+                      state is! RecipeImportInProgress
+                          ? BlocProvider.of<RecipeBloc>(context)
+                              .add(RecipeImported(_importUrlController.text))
+                          : null
+                    },
+                    child: () {
+                      return state is RecipeImportInProgress
+                          ? SpinKitWave(color: Colors.blue, size: 30.0)
+                          : Row(
+                              children: [
+                                Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 9.0),
+                                  child:
+                                      Text(translate("recipe_import.button")),
+                                ),
+                                Icon(Icons.cloud_download_outlined),
+                                Spacer(),
+                              ],
+                            );
+                    }(),
+                  ),
                 )
               ],
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
