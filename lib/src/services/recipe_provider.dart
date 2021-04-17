@@ -49,29 +49,16 @@ class RecipeProvider {
         UserRepository().getCurrentAppAuthentication();
 
     try {
-      var data = FormData.fromMap({
-        'url': url,
-      });
       var response = await client.post(
           "${appAuthentication.server}/index.php/apps/cookbook/import",
-          data: data,
+          data: {"url": url},
           options: new Options(
-            contentType: "application/x-www-form-urlencoded",
+            contentType: "application/json;charset=UTF-8",
           ));
 
-      if (response.statusCode == 500 &&
-          response.data.toString().contains("already exists")) {
-        var responseText = response.data as String;
-
-        if (responseText.contains("already exists")) {
-          // TODO: Needs Translation
-          throw Exception("Another recipe with that name already exists");
-        } else if (responseText.contains("Could not find")) {
-          // TODO: Needs Translation
-          throw Exception("Could not find recipe element");
-        }
-      }
       return Recipe(response.data);
+    } on DioError catch (e) {
+      throw Exception(e.response);
     } catch (e) {
       throw Exception(e);
     }
