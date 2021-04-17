@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
+import 'package:flutter_reorderable_list/flutter_reorderable_list.dart' as RL;
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 
 class ReorderableListFormField extends StatefulWidget {
@@ -90,7 +90,7 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
             ],
           ),
           children: [
-            ReorderableList(
+            RL.ReorderableList(
               onReorder: this._reorderCallback,
               onReorderDone: this._reorderDone,
               child: CustomScrollView(
@@ -195,15 +195,15 @@ class _ItemState extends State<Item> {
   final bool isLast;
   final Function deleteItem;
 
-  Widget _buildChild(BuildContext context, ReorderableItemState state) {
+  Widget _buildChild(BuildContext context, RL.ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy ||
-        state == ReorderableItemState.dragProxyFinished) {
+    if (state == RL.ReorderableItemState.dragProxy ||
+        state == RL.ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(color: Color(0xD0FFFFFF));
     } else {
-      bool placeholder = state == ReorderableItemState.placeholder;
+      bool placeholder = state == RL.ReorderableItemState.placeholder;
       decoration = BoxDecoration(
         border: Border(
           top: isFirst && !placeholder
@@ -219,7 +219,7 @@ class _ItemState extends State<Item> {
 
     // For iOS dragging mode, there will be drag handle on the right that triggers
     // reordering; For android mode it will be just an empty container
-    Widget dragHandle = ReorderableListener(
+    Widget dragHandle = RL.ReorderableListener(
       canStart: () => !(widget.state is RecipeUpdateInProgress),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 7),
@@ -252,7 +252,7 @@ class _ItemState extends State<Item> {
           bottom: false,
           child: Opacity(
             // hide content for placeholder
-            opacity: state == ReorderableItemState.placeholder ? 0.0 : 1.0,
+            opacity: state == RL.ReorderableItemState.placeholder ? 0.0 : 1.0,
             child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -290,7 +290,7 @@ class _ItemState extends State<Item> {
 
   @override
   Widget build(BuildContext context) {
-    return ReorderableItem(
+    return RL.ReorderableItem(
         key: data.key, //
         childBuilder: _buildChild);
   }

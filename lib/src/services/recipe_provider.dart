@@ -42,4 +42,25 @@ class RecipeProvider {
       throw Exception(e);
     }
   }
+
+  Future<Recipe> importRecipe(String url) async {
+    Dio client = UserRepository().getAuthenticatedClient();
+    AppAuthentication appAuthentication =
+        UserRepository().getCurrentAppAuthentication();
+
+    try {
+      var response = await client.post(
+          "${appAuthentication.server}/index.php/apps/cookbook/import",
+          data: {"url": url},
+          options: new Options(
+            contentType: "application/json;charset=UTF-8",
+          ));
+
+      return Recipe(response.data);
+    } on DioError catch (e) {
+      throw Exception(e.response);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

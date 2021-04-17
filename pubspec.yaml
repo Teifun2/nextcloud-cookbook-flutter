@@ -11,58 +11,61 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.4.0+16
+version: 0.5.0+17
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
-  flutter: 1.22.4
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: 2.0.4
 
 dependencies:
+  flutter:
+    sdk: flutter
+
   flutter_translate:
     git:
       url: https://github.com/cornerman/flutter_translate
       ref: fallback-missing-strings
 
   # For DNS punycode translation
-  punycode: 0.1.0
+  punycode: ^1.0.0
 
   #for app key
-  flutter_secure_storage: ^3.3.3
-  url_launcher: ^5.4.7
+  flutter_secure_storage: ^4.1.0
+  url_launcher: ^6.0.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.2
 
   # For HTTP Requests
-  http: 0.12.0+4
+  http: ^0.13.1
 
   # flutter_bloc for simpler bloc implementation
   bloc: ^4.0.0
   flutter_bloc: ^4.0.0
 
   # For easier handling without hand built hash comparison
-  equatable: ^1.0.0
+  equatable: ^2.0.0
 
   # Search
   flappy_search_bar: ^1.7.2
 
   # Form data HTTP Client
-  dio: 3.0.10
+  dio: ^4.0.0
 
-  extended_image: 1.5.0
-  xml: 4.5.1
+  extended_image: ^4.0.1
+  xml: ^5.1.0
 
-  flutter_spinkit: "^2.1.0"
-  validators: ^2.0.0
+  flutter_spinkit: ^5.0.0
+  validators: ^3.0.0
 
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.21.0+1
 
   # Reorderable List for Edit and Create Recipe
-  flutter_reorderable_list: 0.1.5
+  flutter_reorderable_list: ^1.0.0
 
 dev_dependencies:
-  flutter_launcher_icons: "^0.7.3"
+  flutter_launcher_icons: ^0.9.0
 
   flutter_test:
     sdk: flutter

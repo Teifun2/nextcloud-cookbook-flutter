@@ -4,6 +4,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
@@ -44,6 +45,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   onTap: () {
                     BlocProvider.of<AuthenticationBloc>(context)
                         .add(LoggedOut());
+                  },
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.cloud_download_outlined,
+                    semanticLabel: translate('categories.drawer.import'),
+                  ),
+                  title: Text(translate('categories.drawer.import')),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return RecipeImportScreen();
+                      }),
+                    );
                   },
                 ),
               ],

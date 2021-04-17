@@ -158,7 +158,11 @@ class Recipe extends Equatable {
   List<Object> get props => [id];
 
   String _durationToIso(Duration duration) {
-    return "PT${duration.inHours}H${duration.inMinutes % 60}M";
+    if (duration != null && duration.inMinutes != 0) {
+      return "PT${duration.inHours}H${duration.inMinutes % 60}M";
+    } else {
+      return "";
+    }
   }
 }
 

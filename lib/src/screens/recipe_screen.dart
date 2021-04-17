@@ -4,35 +4,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RecipeScreen extends StatefulWidget {
-  final RecipeShort recipeShort;
+  final int recipeId;
 
-  const RecipeScreen({Key key, @required this.recipeShort}) : super(key: key);
+  const RecipeScreen({Key key, @required this.recipeId}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => RecipeScreenState();
 }
 
 class RecipeScreenState extends State<RecipeScreen> {
-  RecipeShort recipeShort;
+  int recipeId;
 
   @override
   void initState() {
-    recipeShort = widget.recipeShort;
+    recipeId = widget.recipeId;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RecipeBloc>(
-      create: (context) =>
-          RecipeBloc()..add(RecipeLoaded(recipeId: recipeShort.recipeId)),
+      create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId: recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (BuildContext context, RecipeState state) {
         final recipeBloc = BlocProvider.of<RecipeBloc>(context);

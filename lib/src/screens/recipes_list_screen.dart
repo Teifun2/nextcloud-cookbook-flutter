@@ -93,7 +93,8 @@ class RecipesListScreenState extends State<RecipesListScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => RecipeScreen(recipeShort: recipeShort),
+              builder: (context) =>
+                  RecipeScreen(recipeId: recipeShort.recipeId),
             ));
       },
     );
