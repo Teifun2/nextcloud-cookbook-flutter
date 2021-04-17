@@ -10,12 +10,12 @@ Current Features:
     View all recipes by Category
     Search Recipes by Name
     Recipe Editing
+    Recipe Import
 
 
 Planned Features:
 
     Recipe Creating
-    Recipe Import
     Darkmode *
     Offline Usage (Caching)
 
