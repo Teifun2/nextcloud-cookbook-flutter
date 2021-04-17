@@ -43,7 +43,7 @@ class RecipeProvider {
     }
   }
 
-  Future<int> importRecipe(String url) async {
+  Future<Recipe> importRecipe(String url) async {
     Dio client = UserRepository().getAuthenticatedClient();
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
@@ -71,7 +71,7 @@ class RecipeProvider {
           throw Exception("Could not find recipe element");
         }
       }
-      return int.parse(response.data);
+      return Recipe(response.data);
     } catch (e) {
       throw Exception(e);
     }

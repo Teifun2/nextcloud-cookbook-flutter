@@ -43,7 +43,7 @@ class DataRepository {
     return recipeProvider.updateRecipe(recipe);
   }
 
-  Future<int> importRecipe(String url) {
+  Future<Recipe> importRecipe(String url) {
     return recipeProvider.importRecipe(url);
   }
 

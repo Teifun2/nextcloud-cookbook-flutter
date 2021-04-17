@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
@@ -45,8 +46,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       RecipeImported recipeImported) async* {
     try {
       yield RecipeImportInProgress();
-      int recipeId = await dataRepository.importRecipe(recipeImported.url);
-      yield RecipeImportSuccess(recipeId);
+      Recipe recipe = await dataRepository.importRecipe(recipeImported.url);
+      yield RecipeImportSuccess(recipe.id);
     } catch (_) {
       yield RecipeImportFailure(_.toString());
     }
