@@ -65,6 +65,8 @@ void main() async {
   );
 }
 
+const Color PRIMARY_COLOR = Colors.blue;
+
 class App extends StatelessWidget {
   final UserRepository userRepository = UserRepository();
 
@@ -72,15 +74,15 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.blue,
-        primarySwatch: Colors.blue,
-        accentColor: Colors.blue,
+        primaryColor: PRIMARY_COLOR,
+        primarySwatch: PRIMARY_COLOR,
+        accentColor: PRIMARY_COLOR,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData(
-        primaryColor: Colors.blue,
-        primarySwatch: Colors.blue,
-        accentColor: Colors.blue,
+        primaryColor: PRIMARY_COLOR,
+        primarySwatch: PRIMARY_COLOR,
+        accentColor: PRIMARY_COLOR,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
       ),

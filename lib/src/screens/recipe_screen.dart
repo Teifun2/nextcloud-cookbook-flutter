@@ -9,6 +9,8 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../main.dart';
+
 class RecipeScreen extends StatefulWidget {
   final int recipeId;
 
@@ -244,7 +246,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                                                 BorderSide(color: Colors.grey)),
                                         color: instructionsDone[index]
                                             ? Colors.green
-                                            : Colors.blue,
+                                            : PRIMARY_COLOR,
                                       ),
                                     ),
                                     Expanded(
