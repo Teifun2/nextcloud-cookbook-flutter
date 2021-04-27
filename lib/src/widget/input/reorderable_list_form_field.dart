@@ -72,7 +72,6 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
               Text(
                 widget.title,
                 style: TextStyle(
-                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),

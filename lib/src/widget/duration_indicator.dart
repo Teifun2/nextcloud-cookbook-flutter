@@ -24,7 +24,7 @@ class DurationIndicator extends StatelessWidget {
             ),
             height: 35,
             decoration: BoxDecoration(
-              color: Color(0xFFEDEDED),
+              color: Colors.blue,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(3),
                 topRight: Radius.circular(3),

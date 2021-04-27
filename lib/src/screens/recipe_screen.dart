@@ -127,7 +127,6 @@ class RecipeScreenState extends State<RecipeScreen> {
                           text: TextSpan(
                             text: translate('recipe.fields.servings'),
                             style: TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             children: <TextSpan>[
                               TextSpan(
