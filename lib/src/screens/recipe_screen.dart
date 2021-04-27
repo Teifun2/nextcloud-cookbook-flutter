@@ -243,7 +243,9 @@ class RecipeScreenState extends State<RecipeScreen> {
                                         shape: CircleBorder(
                                             side:
                                                 BorderSide(color: Colors.grey)),
-                                        color: Colors.grey[300],
+                                        color: instructionsDone[index]
+                                            ? Colors.green
+                                            : Colors.blue,
                                       ),
                                     ),
                                     Expanded(
