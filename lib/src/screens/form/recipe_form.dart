@@ -8,6 +8,8 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
+import '../../../main.dart';
+
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
 
@@ -50,7 +52,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.name'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -70,7 +71,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.description'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -92,7 +92,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.category'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -112,7 +111,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.keywords'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -132,7 +130,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.source'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -152,7 +149,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.image'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -173,7 +169,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.servings'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -235,7 +230,7 @@ class _RecipeFormState extends State<RecipeForm> {
                     },
                     child: () {
                       if (state is RecipeUpdateInProgress) {
-                        return SpinKitWave(color: Colors.blue, size: 30.0);
+                        return SpinKitWave(color: PRIMARY_COLOR, size: 30.0);
                       } else if (state is RecipeUpdateFailure ||
                           state is RecipeUpdateSuccess ||
                           state is RecipeLoadSuccess) {

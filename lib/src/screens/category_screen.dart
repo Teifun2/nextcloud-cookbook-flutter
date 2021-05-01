@@ -10,6 +10,8 @@ import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 
+import '../../main.dart';
+
 class CategoryScreen extends StatefulWidget {
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
@@ -33,7 +35,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ],
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: PRIMARY_COLOR,
                   ),
                 ),
                 ListTile(

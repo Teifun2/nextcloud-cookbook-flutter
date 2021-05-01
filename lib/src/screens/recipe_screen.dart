@@ -9,6 +9,8 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../main.dart';
+
 class RecipeScreen extends StatefulWidget {
   final int recipeId;
 
@@ -127,7 +129,6 @@ class RecipeScreenState extends State<RecipeScreen> {
                           text: TextSpan(
                             text: translate('recipe.fields.servings'),
                             style: TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             children: <TextSpan>[
                               TextSpan(
@@ -243,7 +244,9 @@ class RecipeScreenState extends State<RecipeScreen> {
                                         shape: CircleBorder(
                                             side:
                                                 BorderSide(color: Colors.grey)),
-                                        color: Colors.grey[300],
+                                        color: instructionsDone[index]
+                                            ? Colors.green
+                                            : PRIMARY_COLOR,
                                       ),
                                     ),
                                     Expanded(

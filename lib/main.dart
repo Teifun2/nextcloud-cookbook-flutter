@@ -65,12 +65,27 @@ void main() async {
   );
 }
 
+const Color PRIMARY_COLOR = Colors.blue;
+
 class App extends StatelessWidget {
   final UserRepository userRepository = UserRepository();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: PRIMARY_COLOR,
+        primarySwatch: PRIMARY_COLOR,
+        accentColor: PRIMARY_COLOR,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      darkTheme: ThemeData(
+        primaryColor: PRIMARY_COLOR,
+        primarySwatch: PRIMARY_COLOR,
+        accentColor: PRIMARY_COLOR,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        brightness: Brightness.dark,
+      ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationUninitialized) {
