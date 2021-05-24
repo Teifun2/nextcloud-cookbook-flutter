@@ -74,16 +74,21 @@ class Recipe extends Equatable {
         data["recipeInstructions"].cast<String>().toList();
     List<String> tool = data["tool"].cast<String>().toList();
     int recipeYield = data["recipeYield"];
-    Duration prepTime = data.containsKey("prepTime") && data["prepTime"] != ""
+    Duration prepTime = data.containsKey("prepTime") &&
+            data["prepTime"] != "" &&
+            data["prepTime"] != null
         ? IsoTimeFormat.toDuration(data["prepTime"])
         : null;
-    Duration cookTime = data.containsKey("cookTime") && data["cookTime"] != ""
+    Duration cookTime = data.containsKey("cookTime") &&
+            data["cookTime"] != "" &&
+            data["cookTime"] != null
         ? IsoTimeFormat.toDuration(data["cookTime"])
         : null;
-    Duration totalTime =
-        data.containsKey("totalTime") && data["totalTime"] != ""
-            ? IsoTimeFormat.toDuration(data["totalTime"])
-            : null;
+    Duration totalTime = data.containsKey("totalTime") &&
+            data["totalTime"] != "" &&
+            data["totalTime"] != null
+        ? IsoTimeFormat.toDuration(data["totalTime"])
+        : null;
     String keywords = data["keywords"];
     String image = data["image"];
     String url = data["url"];
