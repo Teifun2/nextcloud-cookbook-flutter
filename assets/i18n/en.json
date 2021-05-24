@@ -89,6 +89,13 @@
       "update_failed": "Update Failed {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Create Recipe",
+    "button": "Create Recipe",
+    "errors": {
+      "update_failed": "Create Failed {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Import Recipe",
     "button": "Import",

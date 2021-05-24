@@ -10,10 +10,15 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_for
 
 import '../../../main.dart';
 
+typedef RecipeFormSubmit = void Function(
+    MutableRecipe mutableRecipe, BuildContext context);
+
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
+  final String buttonSubmitKey;
+  final RecipeFormSubmit recipeFormSubmit;
 
-  const RecipeForm(this.recipe);
+  const RecipeForm(this.recipe, this.buttonSubmitKey, this.recipeFormSubmit);
 
   @override
   _RecipeFormState createState() => _RecipeFormState();
@@ -22,11 +27,13 @@ class RecipeForm extends StatefulWidget {
 class _RecipeFormState extends State<RecipeForm> {
   final _formKey = GlobalKey<FormState>();
   Recipe recipe;
+  String buttonSubmitKey;
   MutableRecipe _mutableRecipe;
 
   @override
   void initState() {
     recipe = widget.recipe;
+    buttonSubmitKey = widget.buttonSubmitKey;
     _mutableRecipe = recipe.toMutableRecipe();
 
     super.initState();
@@ -220,12 +227,11 @@ class _RecipeFormState extends State<RecipeForm> {
                 ),
                 Container(
                   width: 150,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
-                        BlocProvider.of<RecipeBloc>(context)
-                            .add(RecipeUpdated(_mutableRecipe.toRecipe()));
+                        widget.recipeFormSubmit(_mutableRecipe, context);
                       }
                     },
                     child: () {
@@ -233,8 +239,10 @@ class _RecipeFormState extends State<RecipeForm> {
                         return SpinKitWave(color: PRIMARY_COLOR, size: 30.0);
                       } else if (state is RecipeUpdateFailure ||
                           state is RecipeUpdateSuccess ||
-                          state is RecipeLoadSuccess) {
-                        return Text(translate('recipe_edit.button'));
+                          state is RecipeLoadSuccess ||
+                          state is RecipeCreateSuccess ||
+                          state is RecipeCreateFailure) {
+                        return Text(translate(buttonSubmitKey));
                       }
                     }(),
                   ),
