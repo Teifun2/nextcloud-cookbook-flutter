@@ -5,8 +5,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 
-import '../../../main.dart';
-
 class RecipeImportForm extends StatefulWidget {
   @override
   _RecipeImportFormState createState() => _RecipeImportFormState();
@@ -50,7 +48,8 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
                     },
                     child: () {
                       return state is RecipeImportInProgress
-                          ? SpinKitWave(color: PRIMARY_COLOR, size: 30.0)
+                          ? SpinKitWave(
+                              color: Theme.of(context).primaryColor, size: 30.0)
                           : Row(
                               children: [
                                 Spacer(),

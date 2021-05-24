@@ -8,8 +8,6 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
-import '../../../main.dart';
-
 typedef RecipeFormSubmit = void Function(
     MutableRecipe mutableRecipe, BuildContext context);
 
@@ -234,7 +232,8 @@ class _RecipeFormState extends State<RecipeForm> {
                     },
                     child: () {
                       if (state is RecipeUpdateInProgress) {
-                        return SpinKitWave(color: PRIMARY_COLOR, size: 30.0);
+                        return SpinKitWave(
+                            color: Theme.of(context).primaryColor, size: 30.0);
                       } else if (state is RecipeUpdateFailure ||
                           state is RecipeUpdateSuccess ||
                           state is RecipeLoadSuccess ||

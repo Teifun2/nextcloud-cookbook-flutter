@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
-
 class DurationIndicator extends StatelessWidget {
   final Duration duration;
   final String name;
@@ -26,13 +24,13 @@ class DurationIndicator extends StatelessWidget {
             ),
             height: 35,
             decoration: BoxDecoration(
-              color: PRIMARY_COLOR,
+              color: Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(3),
                 topRight: Radius.circular(3),
               ),
               border: Border.all(
-                color: Color(0xFFDBDBDB),
+                color: Theme.of(context).hintColor,
               ),
             ),
           ),
@@ -50,7 +48,7 @@ class DurationIndicator extends StatelessWidget {
                 bottomRight: Radius.circular(3),
               ),
               border: Border.all(
-                color: Color(0xFFDBDBDB),
+                color: Theme.of(context).hintColor,
               ),
             ),
           ),
