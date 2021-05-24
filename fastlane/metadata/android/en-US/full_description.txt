@@ -9,14 +9,15 @@ Current Features:
 
     View all recipes by Category
     Search Recipes by Name
+    Recipe Creating
     Recipe Editing
     Recipe Import
+    Darkmode (Thanks to SeineEloquenz)
 
 
 Planned Features:
 
-    Recipe Creating
-    Darkmode *
+    Settings Tab *
     Offline Usage (Caching)
 
 * Currently worked on!
