@@ -53,6 +53,21 @@ class RecipeUpdateSuccess extends RecipeState {
 
 class RecipeUpdateInProgress extends RecipeState {}
 
+class RecipeCreateFailure extends RecipeFailure {
+  RecipeCreateFailure(String errorMsg) : super(errorMsg);
+}
+
+class RecipeCreateSuccess extends RecipeState {
+  final int recipeId;
+
+  const RecipeCreateSuccess(this.recipeId);
+
+  @override
+  List<Object> get props => [recipeId];
+}
+
+class RecipeCreateInProgress extends RecipeState {}
+
 class RecipeImportSuccess extends RecipeState {
   final int recipeId;
 
