@@ -107,7 +107,7 @@
     }
   },
   "search": {
-    "title": "Search",
+    "title": "Search Recipe",
     "nothing_found": "No recipe found!"
   }
 }

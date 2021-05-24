@@ -11,8 +11,11 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 import 'package:search_page/search_page.dart';
+
+import 'recipe_screen.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
@@ -94,35 +97,50 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           context: context,
                           delegate: SearchPage<RecipeShort>(
                             items: recipeShortState.recipesShort,
-                            searchLabel: 'Search people',
+                            searchLabel: translate('search.title'),
                             suggestion: Center(
                                 // child: Text('Filter people by name, surname or age'),
                                 ),
                             failure: Center(
-                              child: Text('No person found :('),
+                              child: Text(translate('search.nothing_found')),
                             ),
                             filter: (recipe) => [
                               recipe.name,
                             ],
                             builder: (recipe) => ListTile(
                               title: Text(recipe.name),
-                              subtitle: Text("subtitle"),
-                              trailing: Text("wat"),
+                              trailing: Container(
+                                child: AuthenticationCachedNetworkImage(
+                                  recipeId: recipe.recipeId,
+                                  full: false,
+                                  width: 50,
+                                ),
+                              ),
+                              onTap: () =>
+                                  Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      RecipeScreen(recipeId: recipe.recipeId),
+                                ),
+                              ),
                             ),
                           ),
                         );
                       }
                     },
                     child: IconButton(
-                      icon: Icon((){
-                        if (recipeShortState is RecipesShortLoadAllInProgress) {
-                          return Icons.downloading;
-                        } else if (recipeShortState is RecipesShortLoadAllFailure) {
-                          return Icons.report_problem;
-                        } else {
-                          return Icons.search;
-                        }
-                      }(),
+                      icon: Icon(
+                        () {
+                          if (recipeShortState
+                              is RecipesShortLoadAllInProgress) {
+                            return Icons.downloading;
+                          } else if (recipeShortState
+                              is RecipesShortLoadAllFailure) {
+                            return Icons.report_problem;
+                          } else {
+                            return Icons.search;
+                          }
+                        }(),
                         semanticLabel: translate('app_bar.search'),
                       ),
                       onPressed: () async {
