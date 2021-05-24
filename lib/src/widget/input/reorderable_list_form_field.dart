@@ -103,24 +103,28 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
                           if (index == _items.length) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: IconButton(
-                                enableFeedback:
-                                    !(widget.state is RecipeUpdateInProgress),
-                                icon: Icon(Icons.add, color: Colors.black),
-                                onPressed: () {
-                                  setState(() {
-                                    if (!(widget.state
-                                        is RecipeUpdateInProgress)) {
-                                      _items.add(ItemData(
-                                          "", ValueKey(_items.length)));
-                                    }
-                                  });
-                                },
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).hintColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: IconButton(
+                                  enableFeedback:
+                                      !(widget.state is RecipeUpdateInProgress),
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    setState(() {
+                                      if (!(widget.state
+                                          is RecipeUpdateInProgress)) {
+                                        _items.add(ItemData(
+                                            "", ValueKey(_items.length)));
+                                      }
+                                    });
+                                  },
+                                ),
                               ),
                             );
                           }
@@ -200,7 +204,8 @@ class _ItemState extends State<Item> {
     if (state == RL.ReorderableItemState.dragProxy ||
         state == RL.ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
-      decoration = BoxDecoration(color: Color(0xD0FFFFFF));
+      decoration = BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8));
     } else {
       bool placeholder = state == RL.ReorderableItemState.placeholder;
       decoration = BoxDecoration(
@@ -212,7 +217,7 @@ class _ItemState extends State<Item> {
               ? BorderSide.none //
               : Divider.createBorderSide(context),
         ),
-        color: placeholder ? null : Colors.white,
+        color: placeholder ? null : Theme.of(context).scaffoldBackgroundColor,
       );
     }
 
@@ -224,7 +229,7 @@ class _ItemState extends State<Item> {
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 7),
         color: Color(0x08000000),
         child: Center(
-          child: Icon(Icons.reorder, color: Colors.grey),
+          child: Icon(Icons.reorder),
         ),
       ),
     );
