@@ -1,0 +1,105 @@
+{
+  "app_bar": {
+    "search": "Поиск",
+    "refresh": "Обновить",
+    "logout": "Выйти"
+  },
+  "login": {
+    "title": "Войти",
+    "server_url": {
+      "field": "URL сервера",
+      "validator": {
+        "empty": "Введите URL-адрес вашего сервера Nextcloud.",
+        "pattern": "Пожалуйста, введите правильный URL адрес"
+      }
+    },
+    "username": {
+      "field": "Имя пользователя"
+    },
+    "password": {
+      "field": "Пароль"
+    },
+    "settings": {
+      "title": "Расширенные настройки",
+      "app_password": "Используйте самостоятельно созданный пароль приложения.\nТребуется для аккаунтов с 2FA.",
+      "self_signed_certificate": "Игнорировать недействительный сертификат.\nТребуется для самоподписанных сертификатов.\n(Используйте на свой риск!)"
+    },
+    "button": "Войти",
+    "errors": {
+      "not_reachable": "Невозможно связаться: {server_url}\n{error_msg}",
+      "certificate_failed": "Не удалось проверить сертификат сервера: {server_url}\n{error_msg}",
+      "request_failed": "Ошибка запроса пароля приложения:\n{error_msg}",
+      "parse_failed": "Не удается разобрать ответ с паролем приложения!\n{error_msg}",
+      "parse_missing": "Не удается найти пароль приложения в ответе!\n{error_msg}",
+      "auth_failed": "Имя пользователя или пароль неверны!",
+      "authentication_not_found": "В хранилище не обнаружена аутентификация",
+      "failed_remove_remote": "Не удалось удалить пароль приложения!",
+      "failure": "Процесс входа не может завершиться должным образом.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Сохраненные учетные данные больше не действительны, и вы вышли из системы!"
+    }
+  },
+  "categories": {
+    "title": "Кулинарная книга",
+    "all_categories": "Все",
+    "drawer": {
+      "import": "Импортировать рецепт"
+    },
+    "errors": {
+      "unknown": "Категории в неизвестном состоянии",
+      "load_failed": "Ошибка загрузки категории: {error_msg}",
+      "load_no_response": "Не удалось получить категории с сервера.",
+      "api_version_check_failed": "Не удалось проверить версию API Сервера:\n{error_msg}",
+      "api_version_above_confirmed": "Обновлена версия API сервера. Некоторые функции могут работать не так, как ожидалось. Пожалуйста, подождите обновления!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Категория: {category}",
+    "errors": {
+      "load_failed": "Не удалось загрузить короткие рецепты!"
+    }
+  },
+  "recipe": {
+    "title": "Рецепт:",
+    "fields": {
+      "name": "Название рецепта:",
+      "description": "Описание рецепта:",
+      "keywords": "Ключевые слова:",
+      "category": "Категория:",
+      "servings": "Порции:",
+      "source": "Источник:",
+      "source_button": "Источник",
+      "image": "Изображение:",
+      "time": {
+        "prep": "Время на подготовку:",
+        "cook": "Время готовки:",
+        "total": "Общее время:"
+      },
+      "tools": "Инструменты:",
+      "ingredients": "Ингредиенты:",
+      "instructions": "Инструкции:"
+    },
+    "errors": {
+      "load_failed": "Не удалось загрузить рецепт!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Изменить рецепт",
+    "button": "Обновить рецепт",
+    "errors": {
+      "update_failed": "Ошибка обновления {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Импортировать рецепт",
+    "button": "Импортировать",
+    "field": "URL-адрес рецепта",
+    "clipboard": "Вставить буфер обмена",
+    "errors": {
+      "import_failed": "Ошибка импорта {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Поиск",
+    "nothing_found": "Рецепт не найден!"
+  }
+}

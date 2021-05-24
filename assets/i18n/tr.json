@@ -41,6 +41,9 @@
   "categories": {
     "title": "Yemek kitabı",
     "all_categories": "Tümü",
+    "drawer": {
+      "import": "İçe Tarif Aktar"
+    },
     "errors": {
       "unknown": "Durumu bilinmeyen kategoriler",
       "load_failed": "Kategori yüklenemedi: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Tarif:",
     "fields": {
+      "name": "Tarif Adı:",
+      "description": "Tarif Açıklaması:",
+      "keywords": "Anahtar Sözcükler:",
+      "category": "Kategori:",
       "servings": "Porsiyon:",
       "source": "Kaynak:",
       "source_button": "Kaynak",
+      "image": "Görsel:",
       "time": {
         "prep": "Hazırlama süresi:",
         "cook": "Pişirme süresi:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Tarifi Düzenle",
+    "button": "Tarifi Güncelle",
     "errors": {
       "update_failed": "Güncellenemedi {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "İçe Tarif Aktar",
+    "button": "İçe Aktar",
+    "field": "Tarif Adresi",
+    "clipboard": "Panodan Yapıştır",
+    "errors": {
+      "import_failed": "İçe aktarılamadı {error_msg}"
     }
   },
   "search": {

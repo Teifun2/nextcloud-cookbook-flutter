@@ -41,6 +41,9 @@
   "categories": {
     "title": "Keittokirja",
     "all_categories": "Kaikki",
+    "drawer": {
+      "import": "Import Recipe"
+    },
     "errors": {
       "unknown": "Luokat tuntemattomassa tilassa",
       "load_failed": "Luokan lataus epäonnistui: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Resepti:",
     "fields": {
+      "name": "Recipe Name:",
+      "description": "Recipe Description:",
+      "keywords": "Keywords:",
+      "category": "Category:",
       "servings": "Annoksia:",
       "source": "Lähde:",
       "source_button": "Lähde",
+      "image": "Image:",
       "time": {
         "prep": "Esivalmistelujen kesto:",
         "cook": "Valmistuksen kesto:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Muokkaa reseptiä",
+    "button": "Update Recipe",
     "errors": {
       "update_failed": "Päivitys epäonnistui {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Import Recipe",
+    "button": "Import",
+    "field": "URL to Recipe",
+    "clipboard": "Paste Clipboard",
+    "errors": {
+      "import_failed": "Import Failed {error_msg}"
     }
   },
   "search": {

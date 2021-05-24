@@ -41,6 +41,9 @@
   "categories": {
     "title": "Libro de cociña",
     "all_categories": "Todo",
+    "drawer": {
+      "import": "Import Recipe"
+    },
     "errors": {
       "unknown": "Categorías en estado descoñecido",
       "load_failed": "Produciuse un fallo ao cargar a categoría {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Receita:",
     "fields": {
+      "name": "Nome da receita:",
+      "description": "Descrición da receita:",
+      "keywords": "Palabras clave:",
+      "category": "Categoría:",
       "servings": "Racións:",
       "source": "Orixe:",
       "source_button": "Orixe",
+      "image": "Imaxe:",
       "time": {
         "prep": "Tempo de preparación:",
         "cook": "Tempo de cociñado:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Editar a receita",
+    "button": "Actualizar a receita",
     "errors": {
       "update_failed": "Produciuse un fallo ao actualizar {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Import Recipe",
+    "button": "Import",
+    "field": "URL to Recipe",
+    "clipboard": "Paste Clipboard",
+    "errors": {
+      "import_failed": "Import Failed {error_msg}"
     }
   },
   "search": {
