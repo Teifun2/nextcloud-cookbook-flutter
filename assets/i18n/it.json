@@ -41,6 +41,9 @@
   "categories": {
     "title": "Ricettario",
     "all_categories": "Tutte",
+    "drawer": {
+      "import": "Importa ricetta"
+    },
     "errors": {
       "unknown": "Categorie in stato sconosciuto",
       "load_failed": "Caricamento categoria non riuscito: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Ricetta:",
     "fields": {
+      "name": "Nome della ricetta:",
+      "description": "Descrizione della ricetta:",
+      "keywords": "Parole chiave:",
+      "category": "Categoria:",
       "servings": "Porzioni:",
       "source": "Fonte:",
       "source_button": "Fonte",
+      "image": "Immagine:",
       "time": {
         "prep": "Tempo di preparazione:",
         "cook": "Tempo di cottura:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Modifica ricetta",
+    "button": "Aggiorna la ricetta",
     "errors": {
       "update_failed": "Aggiornamento non riuscito {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importa ricetta",
+    "button": "Importa",
+    "field": "URL della ricetta",
+    "clipboard": "Incolla gli appunti",
+    "errors": {
+      "import_failed": "Importazione non riuscita {error_msg}"
     }
   },
   "search": {

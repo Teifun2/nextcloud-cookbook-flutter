@@ -1,0 +1,105 @@
+{
+  "app_bar": {
+    "search": "Keresés",
+    "refresh": "Frissítés",
+    "logout": "Kijelentkezés"
+  },
+  "login": {
+    "title": "Bejelentkezés",
+    "server_url": {
+      "field": "Szerver URL",
+      "validator": {
+        "empty": "Kérem adja meg a Nextcloud példány URL-jét.",
+        "pattern": "Kérem, érvényes URL-t adjon meg"
+      }
+    },
+    "username": {
+      "field": "Felhasználónév"
+    },
+    "password": {
+      "field": "Jelszó"
+    },
+    "settings": {
+      "title": "Haladó beállítások",
+      "app_password": "Használja az önmaga által generált alkalmazásjelszót.\n2FA-val rendelkező fiókhoz szükséges.",
+      "self_signed_certificate": "Az érvénytelen tanúsítvány figyelmen kívül hagyása.\nSaját aláírású tanúsítványokhoz szükséges.\n(Használat csak saját felelősségre!)"
+    },
+    "button": "Bejelentkezés",
+    "errors": {
+      "not_reachable": "Nem érhető el: {server_url}\n{error_msg}",
+      "certificate_failed": "A szerver tanúsítványát nem sikerült ellenőrizni: {server_url}\n{error_msg}",
+      "request_failed": "Az alkalmazásjelszó kérése nem sikerült:\n{error_msg}",
+      "parse_failed": "Nem elemezhető az Alkalmazásjelszó válasz!\n{error_msg}",
+      "parse_missing": "A válaszban nem található az alkalmazásjelszó!\n{error_msg}",
+      "auth_failed": "A felhasználónév és / vagy jelszó helytelen",
+      "authentication_not_found": "Nem található hitelesítés a tárolóban",
+      "failed_remove_remote": "Nem sikerült eltávolítani a távoli alkalmazásjelszót!",
+      "failure": "A bejelentkezési folyamat nem fejeződött be megfelelően.\n{status_code}\n{állapotüzenet}",
+      "credentials_invalid": "A tárolt hitelesítő adatok nem érvényesek többé így kijelentkeztettük!"
+    }
+  },
+  "categories": {
+    "title": "Cookbook",
+    "all_categories": "Mind",
+    "drawer": {
+      "import": "Import Recipe"
+    },
+    "errors": {
+      "unknown": "Kategóriák ismeretlen állapotban",
+      "load_failed": "Kategória betöltése sikertelen: \n{error_msg}",
+      "load_no_response": "A kategóriákat nem sikerült lekérni  a szerverről.",
+      "api_version_check_failed": "Nem sikerült ellenőrizni a kiszolgáló API verzióját:\n{error_msg}",
+      "api_version_above_confirmed": "A kiszolgáló API-verziója frissült. Lehet, hogy egyes funkciók nem a várt módon működnek. Kérjük várjon frissítésre!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategória: {category}",
+    "errors": {
+      "load_failed": "Nem sikerült betölteni a rövid receptet!"
+    }
+  },
+  "recipe": {
+    "title": "Receptek",
+    "fields": {
+      "name": "Recept neve:",
+      "description": "Recept leírása:",
+      "keywords": "Kulcsszavak:",
+      "category": "Kategória:",
+      "servings": "Adagok:",
+      "source": "Forrás:",
+      "source_button": "Forrás",
+      "image": "Kép:",
+      "time": {
+        "prep": "Elkészítési idő:",
+        "cook": "Főzési idő:",
+        "total": "Teljes idő:"
+      },
+      "tools": "Eszközök:",
+      "ingredients": "Hozzávalók:",
+      "instructions": "Leírások:"
+    },
+    "errors": {
+      "load_failed": "Nem sikerült betölteni a receptet!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Recept szerkesztése",
+    "button": "Recept frissítése",
+    "errors": {
+      "update_failed": "Sikertelen frissítés {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Import Recipe",
+    "button": "Import",
+    "field": "URL to Recipe",
+    "clipboard": "Paste Clipboard",
+    "errors": {
+      "import_failed": "Import Failed {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Keresés",
+    "nothing_found": "Nincs recept!"
+  }
+}

@@ -41,6 +41,9 @@
   "categories": {
     "title": "Livro de receitas",
     "all_categories": "Tudo",
+    "drawer": {
+      "import": "Importar Receita"
+    },
     "errors": {
       "unknown": "Categorias em estado desconhecido",
       "load_failed": "Falha ao carregar categoria: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Receita:",
     "fields": {
+      "name": "Nome da receita:",
+      "description": "Descrição da receita:",
+      "keywords": "Palavras chave:",
+      "category": "Categoria:",
       "servings": "Porções:",
       "source": "Origem:",
       "source_button": "Origem",
+      "image": "Imagem:",
       "time": {
         "prep": "Tempo de preparo:",
         "cook": "Tempo de cozimento:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Editar receita",
+    "button": "Atualizar Receita",
     "errors": {
       "update_failed": "Erro na atualização {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importar Receita",
+    "button": "Importar",
+    "field": "URL para Receita",
+    "clipboard": "Colar área de transferência",
+    "errors": {
+      "import_failed": "Importar Falhou {error_msg}"
     }
   },
   "search": {

@@ -1,0 +1,105 @@
+{
+  "app_bar": {
+    "search": "Bilatu",
+    "refresh": "Freskatu",
+    "logout": "Amaitu saioa"
+  },
+  "login": {
+    "title": "Hasi saioa",
+    "server_url": {
+      "field": "Zerbitzariaren URLa",
+      "validator": {
+        "empty": "Sartu zure Nextcloud instantziarako URLa.",
+        "pattern": "Sartu baliozko URL bat"
+      }
+    },
+    "username": {
+      "field": "Erabiltzaile-izena"
+    },
+    "password": {
+      "field": "Pasahitza"
+    },
+    "settings": {
+      "title": "Ezarpen aurreratuak",
+      "app_password": "Erabili auto-sortutako aplikazio-pasahitza.\n2FA duten kontuetarako beharrezkoa.",
+      "self_signed_certificate": "Ez ikusi egin ziurtagiri baliogabeari.\nAuto-sinatutako ziurtagirietarako beharrezkoa.\n(Erabili zure ardurapean!)"
+    },
+    "button": "Hasi saioa",
+    "errors": {
+      "not_reachable": "Ezin da honekin harremanetan jarri:{server_url}\n{error_msg}",
+      "certificate_failed": "Ezin izan da zerbitzariaren ziurtagiria egiaztatu: {server_url}\n{error_msg}",
+      "request_failed": "Aplikazioaren pasahitz eskaerak huts egin du:\n{error_msg}",
+      "parse_failed": "Ezin da aplikazioaren pasahitzaren erantzuna aztertu!\n{error_msg}",
+      "parse_missing": "Ezin duzu aplikazioaren pasahitza aurkitu erantzuteko!\n{error_msg}",
+      "auth_failed": "Erabiltzaile izena eta / edo pasahitza okerrak dira!",
+      "authentication_not_found": "Ez da autentifikaziorik aurkitu Biltegian",
+      "failed_remove_remote": "Ezin izan da urruneko aplikazio-pasahitza kendu!",
+      "failure": "Saioa hasteko prozesua ezin izan da behar bezala amaitu.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Gordetako kredentzialak jada ez dira baliozkoak eta saioa amaitu zaizu!"
+    }
+  },
+  "categories": {
+    "title": "Sukaldaritza-liburua",
+    "all_categories": "Denak",
+    "drawer": {
+      "import": "Inportatu errezeta"
+    },
+    "errors": {
+      "unknown": "Egoera ezezaguneko kategoriak",
+      "load_failed": "Kategorien kargatzeak huts egin du: {error_msg}",
+      "load_no_response": "Ezin izan da kategoriak zerbitzaritik berreskuratu.",
+      "api_version_check_failed": "Ezin izan da zerbitzariaren API bertsioa egiaztatu:\n{error_msg}",
+      "api_version_above_confirmed": "Zerbitzariaren API bertsioa eguneratu zen. Baliteke zenbait funtziok espero ez bezala funtzionatzea. Mesedez, itxaron eguneratze bat!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategoria: {category}",
+    "errors": {
+      "load_failed": "Errezetak labur kargatzeak huts egin du!"
+    }
+  },
+  "recipe": {
+    "title": "Errezeta:",
+    "fields": {
+      "name": "Errezetaren izena:",
+      "description": "Errezetaren deskribapena:",
+      "keywords": "Hitz gakoak:",
+      "category": "Kategoria:",
+      "servings": "Errazioak:",
+      "source": "Iturburua:",
+      "source_button": "Iturburua",
+      "image": "Irudia:",
+      "time": {
+        "prep": "Prestatzeko denbora:",
+        "cook": "Janaria prestatzeko denbora:",
+        "total": "Denbora guztira:"
+      },
+      "tools": "Tresnak:",
+      "ingredients": "Osagaiak:",
+      "instructions": "Jarraibideak:"
+    },
+    "errors": {
+      "load_failed": "Errezeta kargatzeak hust egin du!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Editatu errezeta",
+    "button": "Eguneratu errezeta",
+    "errors": {
+      "update_failed": "Eguneratzeak huts egin du {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Inportatu errezeta",
+    "button": "Inportatu",
+    "field": "Errezetaren URLa",
+    "clipboard": "Itsatsi arbela",
+    "errors": {
+      "import_failed": "Inportazioak huts egin du {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Bilatu",
+    "nothing_found": "Ez da errezetarik aurkitu!"
+  }
+}
