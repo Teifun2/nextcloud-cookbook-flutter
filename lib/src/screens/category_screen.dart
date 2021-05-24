@@ -125,8 +125,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ],
               );
             } else if (categoriesState is CategoriesLoadFailure) {
-              return Text(translate('categories.errors.load_failed',
-                  args: {'error_msg': categoriesState.errorMsg}));
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      translate('categories.errors.plugin_missing'),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Divider(),
+                    Text(translate('categories.errors.load_failed',
+                        args: {'error_msg': categoriesState.errorMsg})),
+                  ],
+                ),
+              );
             } else {
               return Text(translate('categories.errors.unknown'));
             }
