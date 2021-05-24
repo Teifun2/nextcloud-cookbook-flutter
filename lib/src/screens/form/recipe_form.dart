@@ -15,10 +15,10 @@ typedef RecipeFormSubmit = void Function(
 
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
-  final String buttonSubmitKey;
+  final String buttonSubmitText;
   final RecipeFormSubmit recipeFormSubmit;
 
-  const RecipeForm(this.recipe, this.buttonSubmitKey, this.recipeFormSubmit);
+  const RecipeForm(this.recipe, this.buttonSubmitText, this.recipeFormSubmit);
 
   @override
   _RecipeFormState createState() => _RecipeFormState();
@@ -27,13 +27,11 @@ class RecipeForm extends StatefulWidget {
 class _RecipeFormState extends State<RecipeForm> {
   final _formKey = GlobalKey<FormState>();
   Recipe recipe;
-  String buttonSubmitKey;
   MutableRecipe _mutableRecipe;
 
   @override
   void initState() {
     recipe = widget.recipe;
-    buttonSubmitKey = widget.buttonSubmitKey;
     _mutableRecipe = recipe.toMutableRecipe();
 
     super.initState();
@@ -241,8 +239,9 @@ class _RecipeFormState extends State<RecipeForm> {
                           state is RecipeUpdateSuccess ||
                           state is RecipeLoadSuccess ||
                           state is RecipeCreateSuccess ||
-                          state is RecipeCreateFailure) {
-                        return Text(translate(buttonSubmitKey));
+                          state is RecipeCreateFailure ||
+                          state is RecipeInitial) {
+                        return Text(widget.buttonSubmitText);
                       }
                     }(),
                   ),
