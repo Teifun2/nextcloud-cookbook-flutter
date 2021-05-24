@@ -8,7 +8,6 @@ import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/checkbox_form_field.dart';
 import 'package:punycode/punycode.dart';
 
-import '../../../main.dart';
 import '../../blocs/login/login.dart';
 
 class LoginForm extends StatefulWidget {
@@ -209,7 +208,8 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                     ),
                     Container(
                       child: state is LoginLoading
-                          ? SpinKitWave(color: PRIMARY_COLOR, size: 50.0)
+                          ? SpinKitWave(
+                              color: Theme.of(context).primaryColor, size: 50.0)
                           : null,
                     ),
                   ],

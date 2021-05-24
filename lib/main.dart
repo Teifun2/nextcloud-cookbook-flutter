@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -65,8 +66,6 @@ void main() async {
   );
 }
 
-const Color PRIMARY_COLOR = Colors.blue;
-
 class App extends StatelessWidget {
   final UserRepository userRepository = UserRepository();
 
@@ -74,17 +73,13 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: PRIMARY_COLOR,
-        primarySwatch: PRIMARY_COLOR,
-        accentColor: PRIMARY_COLOR,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        brightness: Brightness.light,
+        hintColor: Colors.grey,
+        backgroundColor: Colors.grey[400],
       ),
       darkTheme: ThemeData(
-        primaryColor: PRIMARY_COLOR,
-        primarySwatch: PRIMARY_COLOR,
-        accentColor: PRIMARY_COLOR,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
+        hintColor: Colors.grey,
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
