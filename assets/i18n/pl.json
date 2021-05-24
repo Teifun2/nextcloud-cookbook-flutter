@@ -41,6 +41,9 @@
   "categories": {
     "title": "Książka kucharska",
     "all_categories": "Wszystkie",
+    "drawer": {
+      "import": "Importuj przepis"
+    },
     "errors": {
       "unknown": "Kategorie o nieznanym statusie",
       "load_failed": "Ładowanie kategorii nie powiodło się: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Przepis:",
     "fields": {
+      "name": "Nazwa przepisu:",
+      "description": "Opis przepisu:",
+      "keywords": "Słowa kluczowe:",
+      "category": "Kategoria:",
       "servings": "Porcje:",
       "source": "Źródło:",
       "source_button": "Źródło",
+      "image": "Obraz:",
       "time": {
         "prep": "Czas przygotowania:",
         "cook": "Czas gotowania:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Edytuj przepis",
+    "button": "Zaktualizuj przepis",
     "errors": {
       "update_failed": "Aktualizacja nie powiodła się {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importuj przepis",
+    "button": "Importuj",
+    "field": "Adres URL do przepisu",
+    "clipboard": "Wklej ze schowka",
+    "errors": {
+      "import_failed": "Import nieudany {error_msg}"
     }
   },
   "search": {

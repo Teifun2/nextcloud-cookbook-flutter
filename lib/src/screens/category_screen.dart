@@ -3,12 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
+import 'package:search_page/search_page.dart';
+
+import 'recipe_screen.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
@@ -21,6 +28,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, categoriesState) {
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return RecipeCreateScreen(Recipe.empty());
+                  },
+                ),
+              );
+            },
+            child: Icon(Icons.add),
+          ),
           drawer: Drawer(
             child: ListView(
               // Important: Remove any padding from the ListView.
@@ -33,7 +53,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ],
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 ListTile(
@@ -68,17 +88,77 @@ class _CategoryScreenState extends State<CategoryScreen> {
           appBar: AppBar(
             title: Text(translate('categories.title')),
             actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.search,
-                  semanticLabel: translate('app_bar.search'),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SearchScreen();
+              BlocBuilder<RecipesShortBloc, RecipesShortState>(
+                builder: (context, recipeShortState) {
+                  return BlocListener<RecipesShortBloc, RecipesShortState>(
+                    listener: (context, recipeShortState) {
+                      if (recipeShortState is RecipesShortLoadAllSuccess) {
+                        showSearch(
+                          context: context,
+                          delegate: SearchPage<RecipeShort>(
+                            items: recipeShortState.recipesShort,
+                            searchLabel: translate('search.title'),
+                            suggestion: Center(
+                                // child: Text('Filter people by name, surname or age'),
+                                ),
+                            failure: Center(
+                              child: Text(translate('search.nothing_found')),
+                            ),
+                            filter: (recipe) => [
+                              recipe.name,
+                            ],
+                            builder: (recipe) => ListTile(
+                              title: Text(recipe.name),
+                              trailing: Container(
+                                child: AuthenticationCachedNetworkImage(
+                                  recipeId: recipe.recipeId,
+                                  full: false,
+                                  width: 50,
+                                ),
+                              ),
+                              onTap: () =>
+                                  Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      RecipeScreen(recipeId: recipe.recipeId),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      } else if (recipeShortState
+                          is RecipesShortLoadAllFailure) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              translate(
+                                'search.errors.search_failed',
+                                args: {"error_msg": recipeShortState.errorMsg},
+                              ),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
+                    child: IconButton(
+                      icon: Icon(
+                        () {
+                          if (recipeShortState
+                              is RecipesShortLoadAllInProgress) {
+                            return Icons.downloading;
+                          } else if (recipeShortState
+                              is RecipesShortLoadAllFailure) {
+                            return Icons.report_problem;
+                          } else {
+                            return Icons.search;
+                          }
+                        }(),
+                        semanticLabel: translate('app_bar.search'),
+                      ),
+                      onPressed: () async {
+                        BlocProvider.of<RecipesShortBloc>(context)
+                            .add(RecipesShortLoadedAll());
                       },
                     ),
                   );
@@ -110,8 +190,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ],
               );
             } else if (categoriesState is CategoriesLoadFailure) {
-              return Text(translate('categories.errors.load_failed',
-                  args: {'error_msg': categoriesState.errorMsg}));
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      translate('categories.errors.plugin_missing'),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Divider(),
+                    Text(translate('categories.errors.load_failed',
+                        args: {'error_msg': categoriesState.errorMsg})),
+                  ],
+                ),
+              );
             } else {
               return Text(translate('categories.errors.unknown'));
             }

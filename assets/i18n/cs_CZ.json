@@ -28,7 +28,7 @@
     "errors": {
       "not_reachable": "Nelze se připojit k: {server_url}\n{error_msg}",
       "certificate_failed": "Certifikát serveru se nepodařilo ověřit: {server_url}\n{error_msg}",
-      "request_failed": "Žádost o heslo generované aplikací selhala:\n{error_msg}",
+      "request_failed": "Žádost o heslo pro aplikaci se nezdařila:\n{error_msg}",
       "parse_failed": "Nedaří se zpracovat heslo pro aplikaci!\n{error_msg}",
       "parse_missing": "V odpovědi se nedaří najít heslo aplikace:\n{error_msg}",
       "auth_failed": "Uživatelské jméno a / nebo heslo není správné!",
@@ -41,6 +41,9 @@
   "categories": {
     "title": "Kuchařka",
     "all_categories": "Všechno",
+    "drawer": {
+      "import": "Importovat recept"
+    },
     "errors": {
       "unknown": "Kategorie v neznámém stavu",
       "load_failed": "Načítání kategorie se nezdařilo: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Recept:",
     "fields": {
+      "name": "Název receptu:",
+      "description": "Popis receptu:",
+      "keywords": "Klíčová slova:",
+      "category": "Kategorie:",
       "servings": "Porcí:",
       "source": "Zdroj:",
       "source_button": "Zdroj",
+      "image": "Obrázek:",
       "time": {
         "prep": "Doba přípravy:",
         "cook": "Doba vaření:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Upravit recept",
+    "button": "Aktualizovat recept",
     "errors": {
       "update_failed": "Aktualizace se nezdařila: {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importovat recept",
+    "button": "Importovat",
+    "field": "URL adresa receptu",
+    "clipboard": "Vložit obsah schránky",
+    "errors": {
+      "import_failed": "Import se nezdařil {error_msg}"
     }
   },
   "search": {

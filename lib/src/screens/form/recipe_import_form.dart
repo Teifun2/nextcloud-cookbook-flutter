@@ -48,7 +48,8 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
                     },
                     child: () {
                       return state is RecipeImportInProgress
-                          ? SpinKitWave(color: Colors.blue, size: 30.0)
+                          ? SpinKitWave(
+                              color: Theme.of(context).primaryColor, size: 30.0)
                           : Row(
                               children: [
                                 Spacer(),

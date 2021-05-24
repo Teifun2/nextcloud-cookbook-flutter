@@ -8,10 +8,15 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
+typedef RecipeFormSubmit = void Function(
+    MutableRecipe mutableRecipe, BuildContext context);
+
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
+  final String buttonSubmitText;
+  final RecipeFormSubmit recipeFormSubmit;
 
-  const RecipeForm(this.recipe);
+  const RecipeForm(this.recipe, this.buttonSubmitText, this.recipeFormSubmit);
 
   @override
   _RecipeFormState createState() => _RecipeFormState();
@@ -50,7 +55,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.name'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -70,7 +74,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.description'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -92,7 +95,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.category'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -112,7 +114,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.keywords'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -132,7 +133,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.source'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -152,7 +152,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.image'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -173,7 +172,6 @@ class _RecipeFormState extends State<RecipeForm> {
                     Text(
                       translate('recipe.fields.servings'),
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -225,21 +223,24 @@ class _RecipeFormState extends State<RecipeForm> {
                 ),
                 Container(
                   width: 150,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
-                        BlocProvider.of<RecipeBloc>(context)
-                            .add(RecipeUpdated(_mutableRecipe.toRecipe()));
+                        widget.recipeFormSubmit(_mutableRecipe, context);
                       }
                     },
                     child: () {
                       if (state is RecipeUpdateInProgress) {
-                        return SpinKitWave(color: Colors.blue, size: 30.0);
+                        return SpinKitWave(
+                            color: Theme.of(context).primaryColor, size: 30.0);
                       } else if (state is RecipeUpdateFailure ||
                           state is RecipeUpdateSuccess ||
-                          state is RecipeLoadSuccess) {
-                        return Text(translate('recipe_edit.button'));
+                          state is RecipeLoadSuccess ||
+                          state is RecipeCreateSuccess ||
+                          state is RecipeCreateFailure ||
+                          state is RecipeInitial) {
+                        return Text(widget.buttonSubmitText);
                       }
                     }(),
                   ),

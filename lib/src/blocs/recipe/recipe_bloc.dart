@@ -17,6 +17,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield* _mapRecipeUpdatedToState(event);
     } else if (event is RecipeImported) {
       yield* _mapRecipeImportedToState(event);
+    } else if (event is RecipeCreated) {
+      yield* _mapRecipeCreatedToState(event);
     }
   }
 
@@ -39,6 +41,17 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield RecipeUpdateSuccess(recipeId);
     } catch (_) {
       yield RecipeUpdateFailure(_.toString());
+    }
+  }
+
+  Stream<RecipeState> _mapRecipeCreatedToState(
+      RecipeCreated recipeCreated) async* {
+    try {
+      yield RecipeCreateInProgress();
+      int recipeId = await dataRepository.createRecipe(recipeCreated.recipe);
+      yield RecipeCreateSuccess(recipeId);
+    } catch (_) {
+      yield RecipeCreateFailure(_.toString());
     }
   }
 

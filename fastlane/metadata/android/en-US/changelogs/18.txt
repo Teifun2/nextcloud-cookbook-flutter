@@ -1,0 +1,3 @@
+- Recipe Creation was added
+- Recipe Search overhauled
+- Dark mode (Thanks to SeineEloquenz)

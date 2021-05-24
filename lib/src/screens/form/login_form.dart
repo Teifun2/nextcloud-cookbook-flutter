@@ -208,7 +208,8 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                     ),
                     Container(
                       child: state is LoginLoading
-                          ? SpinKitWave(color: Colors.blue, size: 50.0)
+                          ? SpinKitWave(
+                              color: Theme.of(context).primaryColor, size: 50.0)
                           : null,
                     ),
                   ],

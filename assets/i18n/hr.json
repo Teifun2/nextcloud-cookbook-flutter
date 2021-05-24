@@ -1,0 +1,105 @@
+{
+  "app_bar": {
+    "search": "Traži",
+    "refresh": "Osvježi",
+    "logout": "Odjava"
+  },
+  "login": {
+    "title": "Prijava",
+    "server_url": {
+      "field": "URL poslužitelja",
+      "validator": {
+        "empty": "Unesite URL za svoju instancu Nextclouda.",
+        "pattern": "Unesite važeći URL"
+      }
+    },
+    "username": {
+      "field": "Korisničko ime"
+    },
+    "password": {
+      "field": "Zaporka"
+    },
+    "settings": {
+      "title": "Napredne postavke",
+      "app_password": "Upotrijebite automatski generiranu zaporku za aplikaciju.\nPotrebno za račune s autentifikacijom 2FA.",
+      "self_signed_certificate": "Zanemarite nevažeću vjerodajnicu.\nPotrebno za samopotpisane vjerodajnice.\n(Koristite na vlastiti rizik!)"
+    },
+    "button": "Prijava",
+    "errors": {
+      "not_reachable": "Pristup nije moguć: {server_url}\n{error_msg}",
+      "certificate_failed": "Nije moguće provjeriti vjerodajnicu poslužitelja: {server_url}\n{error_msg}",
+      "request_failed": "Neuspješan zahtjev servisa App Password:\n{error_msg}",
+      "parse_failed": "Nije moguće parsirati odgovor servisa App Password!\n{error_msg}",
+      "parse_missing": "Nije moguće pronaći App Password u odgovoru!\n{error_msg}",
+      "auth_failed": "Netočno korisničko ime i/ili zaporka!",
+      "authentication_not_found": "Nijedna autentikacija nije pronađena u Pohrani",
+      "failed_remove_remote": "Uklanjanje udaljenog servisa App Password nije uspjelo!",
+      "failure": "Postupak prijave nije pravilno završen.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Pohranjene vjerodajnice više nisu važeće i odjavljeni ste!"
+    }
+  },
+  "categories": {
+    "title": "Kuharica",
+    "all_categories": "Sve",
+    "drawer": {
+      "import": "Import Recipe"
+    },
+    "errors": {
+      "unknown": "Kategorije u nepoznatom stanju",
+      "load_failed": "Učitavanje kategorije nije uspjelo: {error_msg}",
+      "load_no_response": "Nije moguće dohvatiti kategorije s poslužitelja.",
+      "api_version_check_failed": "Provjera verzije API-ja poslužitelja nije uspjela:\n{error_msg}",
+      "api_version_above_confirmed": "Ažurirana je verzija API-ja poslužitelja. Neke značajke možda neće raditi kako je očekivano. Pričekajte ažuriranje!\n{version}"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategorija: {category}",
+    "errors": {
+      "load_failed": "Učitavanje kratkog recepta nije uspjelo!"
+    }
+  },
+  "recipe": {
+    "title": "Recept:",
+    "fields": {
+      "name": "Naziv recepta:",
+      "description": "Opis recepta:",
+      "keywords": "Ključne riječi:",
+      "category": "Kategorija:",
+      "servings": "Obroci:",
+      "source": "Izvor:",
+      "source_button": "Izvor",
+      "image": "Slika:",
+      "time": {
+        "prep": "Vrijeme pripreme:",
+        "cook": "Vrijeme kuhanja:",
+        "total": "Ukupno vrijeme:"
+      },
+      "tools": "Alati:",
+      "ingredients": "Sastojci:",
+      "instructions": "Upute:"
+    },
+    "errors": {
+      "load_failed": "Učitavanje recepta nije uspjelo!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Uredi recept",
+    "button": "Ažuriraj recept",
+    "errors": {
+      "update_failed": "Ažuriranje nije uspjelo {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Import Recipe",
+    "button": "Import",
+    "field": "URL to Recipe",
+    "clipboard": "Paste Clipboard",
+    "errors": {
+      "import_failed": "Import Failed {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Traži",
+    "nothing_found": "Nije pronađen nijedan recept!"
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -24,13 +25,17 @@ void main() async {
       'de_DE',
       'en',
       'es',
+      'eu',
       'fi_FI',
       'gl',
       'he',
+      'hr',
+      'hu_HU',
       'it',
       'nl',
       'pl',
       'pt_BR',
+      'ru',
       'sc',
       'sl',
       'tr',
@@ -71,6 +76,15 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        brightness: Brightness.light,
+        hintColor: Colors.grey,
+        backgroundColor: Colors.grey[400],
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        hintColor: Colors.grey,
+      ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationUninitialized) {

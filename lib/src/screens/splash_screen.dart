@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SplashPage extends StatelessWidget {
@@ -8,7 +7,7 @@ class SplashPage extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: SpinKitWave(
-        color: Colors.blue,
+        color: Theme.of(context).primaryColor,
         size: 50.0,
       )),
     );

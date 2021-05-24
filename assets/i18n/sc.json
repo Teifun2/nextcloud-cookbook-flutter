@@ -7,7 +7,7 @@
   "login": {
     "title": "Intra",
     "server_url": {
-      "field": "Serbidore URL",
+      "field": "URL de su serbidore",
       "validator": {
         "empty": "Inserta s'URL in s'istàntzia tua de Nextcloud.",
         "pattern": "Inserta un'URL vàlidu"
@@ -41,16 +41,19 @@
   "categories": {
     "title": "Libru de retzetas",
     "all_categories": "Totu",
+    "drawer": {
+      "import": "Import Recipe"
+    },
     "errors": {
       "unknown": "Categorias in istadu non connotu",
       "load_failed": "Carrigamentu de categoria faddidu: {error_msg}",
       "load_no_response": "No at fatu a recuperare is Categorias dae su serbidore.",
       "api_version_check_failed": "No at fatu a controllare sa versione API in su serbidore:\n{error_msg}",
-      "api_version_above_confirmed": "Sa versione API de su serbidore s'est agiornada. Carchi funtzionalidade diat podet funtzionare comente prevìdidu. Abeta pro un'agiornamentu!\n{versione}"
+      "api_version_above_confirmed": "Sa versione API de su serbidore s'est agiornada. Carchi funtzionalidade diat podet funtzionare comente prevìdidu. Abeta pro un'agiornamentu!\n{version}"
     }
   },
   "recipe_list": {
-    "title_category": "Categoria: {categoria}",
+    "title_category": "Categoria: {category}",
     "errors": {
       "load_failed": "No at fatu a carrigare is retzetas!"
     }
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Retzeta:",
     "fields": {
+      "name": "Recipe Name:",
+      "description": "Recipe Description:",
+      "keywords": "Keywords:",
+      "category": "Category:",
       "servings": "Portziones:",
       "source": "Fonte:",
       "source_button": "Fonte",
+      "image": "Image:",
       "time": {
         "prep": "Tempus de preparatzione:",
         "cook": "Tempus de cotura:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Modìfica retzeta",
+    "button": "Update Recipe",
     "errors": {
       "update_failed": "Agiornamentu faddidu {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Import Recipe",
+    "button": "Import",
+    "field": "URL to Recipe",
+    "clipboard": "Paste Clipboard",
+    "errors": {
+      "import_failed": "Import Failed {error_msg}"
     }
   },
   "search": {

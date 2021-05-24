@@ -126,9 +126,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                         RichText(
                           text: TextSpan(
                             text: translate('recipe.fields.servings'),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                             children: <TextSpan>[
                               TextSpan(
                                 text: " " + recipe.recipeYield.toString(),
@@ -141,7 +139,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                         ),
                         Spacer(),
                         if (recipe.url.isNotEmpty)
-                          RaisedButton(
+                          ElevatedButton(
+                            style: ButtonStyle(),
                             onPressed: () async {
                               if (await canLaunch(recipe.url)) {
                                 await launch(recipe.url);
@@ -243,7 +242,9 @@ class RecipeScreenState extends State<RecipeScreen> {
                                         shape: CircleBorder(
                                             side:
                                                 BorderSide(color: Colors.grey)),
-                                        color: Colors.grey[300],
+                                        color: instructionsDone[index]
+                                            ? Colors.green
+                                            : Theme.of(context).backgroundColor,
                                       ),
                                     ),
                                     Expanded(

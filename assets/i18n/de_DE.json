@@ -41,6 +41,9 @@
   "categories": {
     "title": "Kochbuch",
     "all_categories": "Alle",
+    "drawer": {
+      "import": "Rezept importieren"
+    },
     "errors": {
       "unknown": "Kategorien sind in unbekanntem Zustand",
       "load_failed": "Laden der Kategorien ist fehlgeschlagen: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Rezept:",
     "fields": {
+      "name": "Rezept-Name:",
+      "description": "Rezept-Beschreibung:",
+      "keywords": "Schlüsselwörter:",
+      "category": "Kategorie:",
       "servings": "Portionen:",
       "source": "Quelle:",
       "source_button": "Quelle",
+      "image": "Bild:",
       "time": {
         "prep": "Vorbereitungsdauer:",
         "cook": "Kochdauer:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Rezept bearbeiten",
+    "button": "Rezept aktualisieren",
     "errors": {
       "update_failed": "Aktualisierung fehlgeschlagen {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Rezept importieren",
+    "button": "Importieren",
+    "field": "URL zum Rezept",
+    "clipboard": "Zwischenablage einfügen",
+    "errors": {
+      "import_failed": "Import fehlgeschlagen {error_msg}"
     }
   },
   "search": {
