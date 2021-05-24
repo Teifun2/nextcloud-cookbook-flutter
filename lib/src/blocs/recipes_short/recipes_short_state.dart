@@ -36,6 +36,13 @@ class RecipesShortLoadAllSuccess extends RecipesShortState {
   String toString() => 'RecipesShortLoadAllSuccess { recipes: $recipesShort }';
 }
 
-class RecipesShortLoadAllFailure extends RecipesShortState {}
+class RecipesShortLoadAllFailure extends RecipesShortState {
+  final String errorMsg;
+
+  const RecipesShortLoadAllFailure(this.errorMsg);
+
+  @override
+  List<Object> get props => [errorMsg];
+}
 
 class RecipesShortLoadAllInProgress extends RecipesShortState {}

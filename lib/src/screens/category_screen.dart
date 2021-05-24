@@ -126,6 +126,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                           ),
                         );
+                      } else if (recipeShortState
+                          is RecipesShortLoadAllFailure) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              translate(
+                                'search.errors.search_failed',
+                                args: {"error_msg": recipeShortState.errorMsg},
+                              ),
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
                       }
                     },
                     child: IconButton(

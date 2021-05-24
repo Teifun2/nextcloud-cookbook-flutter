@@ -35,8 +35,8 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
       yield RecipesShortLoadAllInProgress();
       final recipesShort = await dataRepository.fetchAllRecipes();
       yield RecipesShortLoadAllSuccess(recipesShort);
-    } catch (_) {
-      yield RecipesShortLoadAllFailure();
+    } catch (e) {
+      yield RecipesShortLoadAllFailure(e.toString());
     }
   }
 }

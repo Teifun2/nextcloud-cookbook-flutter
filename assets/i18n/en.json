@@ -108,6 +108,9 @@
   },
   "search": {
     "title": "Search Recipe",
-    "nothing_found": "No recipe found!"
+    "nothing_found": "No recipe found!",
+    "errors": {
+      "search_failed": "Unable to load all Recipes!\n{error_msg}"
+    }
   }
 }
