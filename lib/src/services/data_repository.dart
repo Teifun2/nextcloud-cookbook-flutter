@@ -81,14 +81,7 @@ class DataRepository {
     return category;
   }
 
-  Future<void> fetchSearchRecipes() async {
-    _allRecipesShort = fetchRecipesShort(category: "All");
-  }
-
-  Future<List<RecipeShort>> searchRecipes(String pattern) async {
-    return (await _allRecipesShort)
-        .where((element) =>
-            element.name.toLowerCase().contains(pattern.toLowerCase()))
-        .toList();
+  Future<List<RecipeShort>> fetchAllRecipes() async {
+    return await fetchRecipesShort(category: "All");
   }
 }

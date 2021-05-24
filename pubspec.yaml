@@ -47,8 +47,11 @@ dependencies:
   # For easier handling without hand built hash comparison
   equatable: ^2.0.0
 
+  # Search Field (For Category & Tags)
+  searchfield: ^0.5.2
+
   # Search
-  flappy_search_bar: ^1.7.2
+  search_page: ^2.0.0
 
   # Form data HTTP Client
   dio: ^4.0.0

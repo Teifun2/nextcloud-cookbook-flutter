@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_translate/flutter_translate.dart';
 
 abstract class RecipesShortEvent extends Equatable {
   const RecipesShortEvent();
@@ -17,8 +16,4 @@ class RecipesShortLoaded extends RecipesShortEvent {
   List<Object> get props => [category];
 }
 
-// TODO: Implement Recipe Deletion
-class RecipesShortDeleted extends RecipesShortEvent {}
-
-// TODO: Implement Recipe Update (maybe to favorite / un-favorite?)
-class RecipesShortUpdated extends RecipesShortEvent {}
+class RecipesShortLoadedAll extends RecipesShortEvent {}

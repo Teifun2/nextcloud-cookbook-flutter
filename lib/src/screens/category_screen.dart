@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
+import 'package:search_page/search_page.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
@@ -83,17 +85,49 @@ class _CategoryScreenState extends State<CategoryScreen> {
           appBar: AppBar(
             title: Text(translate('categories.title')),
             actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.search,
-                  semanticLabel: translate('app_bar.search'),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SearchScreen();
+              BlocBuilder<RecipesShortBloc, RecipesShortState>(
+                builder: (context, recipeShortState) {
+                  return BlocListener<RecipesShortBloc, RecipesShortState>(
+                    listener: (context, recipeShortState) {
+                      if (recipeShortState is RecipesShortLoadAllSuccess) {
+                        showSearch(
+                          context: context,
+                          delegate: SearchPage<RecipeShort>(
+                            items: recipeShortState.recipesShort,
+                            searchLabel: 'Search people',
+                            suggestion: Center(
+                                // child: Text('Filter people by name, surname or age'),
+                                ),
+                            failure: Center(
+                              child: Text('No person found :('),
+                            ),
+                            filter: (recipe) => [
+                              recipe.name,
+                            ],
+                            builder: (recipe) => ListTile(
+                              title: Text(recipe.name),
+                              subtitle: Text("subtitle"),
+                              trailing: Text("wat"),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: IconButton(
+                      icon: Icon((){
+                        if (recipeShortState is RecipesShortLoadAllInProgress) {
+                          return Icons.downloading;
+                        } else if (recipeShortState is RecipesShortLoadAllFailure) {
+                          return Icons.report_problem;
+                        } else {
+                          return Icons.search;
+                        }
+                      }(),
+                        semanticLabel: translate('app_bar.search'),
+                      ),
+                      onPressed: () async {
+                        BlocProvider.of<RecipesShortBloc>(context)
+                            .add(RecipesShortLoadedAll());
                       },
                     ),
                   );
