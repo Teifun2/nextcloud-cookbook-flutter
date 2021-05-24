@@ -43,6 +43,24 @@ class RecipeProvider {
     }
   }
 
+  Future<int> createRecipe(Recipe recipe) async {
+    Dio client = UserRepository().getAuthenticatedClient();
+    AppAuthentication appAuthentication =
+        UserRepository().getCurrentAppAuthentication();
+
+    try {
+      var response = await client.put(
+          "${appAuthentication.server}/index.php/apps/cookbook/api/recipes",
+          data: recipe.toJson(),
+          options: new Options(
+            contentType: "application/json;charset=UTF-8",
+          ));
+      return int.parse(response.data);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Recipe> importRecipe(String url) async {
     Dio client = UserRepository().getAuthenticatedClient();
     AppAuthentication appAuthentication =
