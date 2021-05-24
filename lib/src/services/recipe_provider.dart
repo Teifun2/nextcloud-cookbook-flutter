@@ -49,7 +49,7 @@ class RecipeProvider {
         UserRepository().getCurrentAppAuthentication();
 
     try {
-      var response = await client.put(
+      var response = await client.post(
           "${appAuthentication.server}/index.php/apps/cookbook/api/recipes",
           data: recipe.toJson(),
           options: new Options(

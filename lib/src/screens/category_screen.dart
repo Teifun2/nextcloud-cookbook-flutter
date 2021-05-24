@@ -4,6 +4,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/search_screen.dart';
@@ -23,6 +25,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, categoriesState) {
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return RecipeCreateScreen(Recipe.empty());
+                  },
+                ),
+              );
+            },
+            child: Icon(Icons.add),
+          ),
           drawer: Drawer(
             child: ListView(
               // Important: Remove any padding from the ListView.

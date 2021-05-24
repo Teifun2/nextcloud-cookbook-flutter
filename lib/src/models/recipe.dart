@@ -39,6 +39,27 @@ class Recipe extends Equatable {
       this.url,
       this.remainingData);
 
+  factory Recipe.empty() {
+    return Recipe._(
+      0,
+      '',
+      '',
+      '',
+      '',
+      List<String>.empty(),
+      List<String>.empty(),
+      List<String>.empty(),
+      1,
+      Duration.zero,
+      Duration.zero,
+      Duration.zero,
+      '',
+      '',
+      '',
+      Map<String, dynamic>(),
+    );
+  }
+
   factory Recipe(String jsonString) {
     Map<String, dynamic> data = json.decode(jsonString);
 
