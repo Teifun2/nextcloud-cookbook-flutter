@@ -27,8 +27,8 @@
     "button": "登入",
     "errors": {
       "not_reachable": "無法到達：{server_url}\n{error_msg}",
-      "certificate_failed": "無法驗證伺服器證書: {server_url}\n{error_msg}",
-      "request_failed": "應用程式密碼請求失敗:\n{error_msg}",
+      "certificate_failed": "無法驗證伺服器證書： {server_url}\n{error_msg}",
+      "request_failed": "應用程式密碼請求失敗：\n{error_msg}",
       "parse_failed": "無法解析應用程式密碼回應！\n{error_msg}",
       "parse_missing": "在回應中找不到應用程式密碼！\n{error_msg}",
       "auth_failed": "用戶名稱或密碼不正確",
@@ -41,6 +41,9 @@
   "categories": {
     "title": "食譜",
     "all_categories": "全部",
+    "drawer": {
+      "import": "導入食譜"
+    },
     "errors": {
       "unknown": "處於未知狀態的分類",
       "load_failed": "載入分類失敗：{error_msg}",
@@ -52,15 +55,20 @@
   "recipe_list": {
     "title_category": "分類：{category}",
     "errors": {
-      "load_failed": "Failed to load Recipes Short!"
+      "load_failed": "無法加載食譜！"
     }
   },
   "recipe": {
-    "title": "食譜:",
+    "title": "食譜：",
     "fields": {
+      "name": "食譜名稱：",
+      "description": "食譜描述：",
+      "keywords": "關鍵詞：",
+      "category": "分類：",
       "servings": "份量：",
       "source": "來源：",
       "source_button": "來源",
+      "image": "圖像：",
       "time": {
         "prep": "準備時間：",
         "cook": "烹調時間：",
@@ -68,16 +76,26 @@
       },
       "tools": "工具：",
       "ingredients": "材料：",
-      "instructions": "說明："
+      "instructions": "製法："
     },
     "errors": {
       "load_failed": "載入食譜失敗!"
     }
   },
   "recipe_edit": {
-    "title": "編輯 食譜",
+    "title": "編輯食譜",
+    "button": "更新食譜",
     "errors": {
       "update_failed": "更新失敗 {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "導入食譜",
+    "button": "導入",
+    "field": "食譜 URL",
+    "clipboard": "從剪貼板粘貼",
+    "errors": {
+      "import_failed": "導入失敗 {error_msg}"
     }
   },
   "search": {

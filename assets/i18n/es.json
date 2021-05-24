@@ -21,32 +21,35 @@
     },
     "settings": {
       "title": "Configuración avanzada",
-      "app_password": "Use una contraseña autogenerada por App Password.\nNecesaria para cuentas con doble factor de autenticación, 2FA.",
-      "self_signed_certificate": "Ignorar certificados inválidos.\nNecesario para certificados auto firmados.\n(¡Uselo bajo su propio riesgo!)"
+      "app_password": "Use una contraseña de aplicación autogenerada.\nNecesaria para cuentas con doble factor de autenticación, 2FA.",
+      "self_signed_certificate": "Ignorar certificados no válidos.\nNecesario para certificados autofirmados.\n(¡Úselo bajo su propio riesgo!)"
     },
     "button": "Iniciar sesión",
     "errors": {
       "not_reachable": "No se puede alcanzar: {server_url} \n {error_msg}",
       "certificate_failed": "No puede verificar el Certificado del servidor: {server_url} \n {error_msg}",
-      "request_failed": "Falló la consulta a la App Password:\n{error_msg}",
-      "parse_failed": "¡No se pudo analizar la respuesta de App Password!\n{error_msg}",
-      "parse_missing": "¡No se pudo encontrar la respuesta de App Password!\n{error_msg}",
+      "request_failed": "Fallo al solicitar la contraseña de aplicación:\n{error_msg}",
+      "parse_failed": "¡No se ha podido analizar la respuesta de contraseña de aplicación!\n{error_msg}",
+      "parse_missing": "¡No se ha podido encontrar la contraseña de aplicación en la respuesta!\n{error_msg}",
       "auth_failed": "¡Usuario y/o contraseña incorrectos!",
-      "authentication_not_found": "No se ha encontrado autenticación en Storage",
-      "failed_remove_remote": "¡Fallo al eliminar la App Password remota!",
-      "failure": "El proceso de Inicio de sesión no se ha completado adecuadamente.\n{status_code}\n{status_message}",
-      "credentials_invalid": "¡Las credenciales almacenados ya no son válidas y has sido desconectado!"
+      "authentication_not_found": "No se ha encontrado autenticación en el almacenamiento",
+      "failed_remove_remote": "¡Fallo al eliminar la contaseña de aplicación remota!",
+      "failure": "El proceso de inicio de sesión no se ha completado adecuadamente.\n{status_code}\n{status_message}",
+      "credentials_invalid": "¡Las credenciales almacenadas ya no son válidas y has sido desconectado!"
     }
   },
   "categories": {
-    "title": "Recetario",
+    "title": "Cookbook",
     "all_categories": "Todo",
+    "drawer": {
+      "import": "Importar receta"
+    },
     "errors": {
       "unknown": "Categorías en estado desconocido",
-      "load_failed": "Fallo al Cargar Categorías: {error_msg}",
-      "load_no_response": "No se pudieron recuperar las Categorías desde el servidor.",
-      "api_version_check_failed": "Fallo al comprobar la versión API del Servidor:\n{error_msg}",
-      "api_version_above_confirmed": "Se ha actualizado la Version API del Servidor. Algunas caracteristicas puede que no funcionen como se espera. ¡Por favor espere a una actualización!\n{version}"
+      "load_failed": "Fallo al cargar categorías: {error_msg}",
+      "load_no_response": "No se han podido recuperar las Categorías desde el servidor.",
+      "api_version_check_failed": "Fallo al comprobar la versión API del servidor:\n{error_msg}",
+      "api_version_above_confirmed": "Se ha actualizado la versión de la API del servidor. Algunas características puede que no funcionen como se espera. ¡Por favor, espere a una actualización!\n{version}"
     }
   },
   "recipe_list": {
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Receta:",
     "fields": {
+      "name": "Nombre de la receta:",
+      "description": "Descripción de la receta:",
+      "keywords": "Palabras clave:",
+      "category": "Categoría:",
       "servings": "Porciones:",
       "source": "Origen:",
       "source_button": "Origen",
+      "image": "Imagen:",
       "time": {
         "prep": "Tiempo de preparación:",
         "cook": "Tiempo de cocción:",
@@ -71,13 +79,23 @@
       "instructions": "Instrucciones:"
     },
     "errors": {
-      "load_failed": "¡Fallo al cargar la Receta!"
+      "load_failed": "¡Fallo al cargar la receta!"
     }
   },
   "recipe_edit": {
     "title": "Editar receta",
+    "button": "Actualizar receta",
     "errors": {
       "update_failed": "La actualización falló {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Impotar receta",
+    "button": "Importar",
+    "field": "URL  de la receta",
+    "clipboard": "Pegar del portapapeles",
+    "errors": {
+      "import_failed": "Fallo al importar: {error_msg}"
     }
   },
   "search": {

@@ -41,6 +41,9 @@
   "categories": {
     "title": "Cookbook",
     "all_categories": "所有",
+    "drawer": {
+      "import": "导入菜谱"
+    },
     "errors": {
       "unknown": "处于未知状态的类别",
       "load_failed": "类别加载失败：{error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "菜谱：",
     "fields": {
+      "name": "菜谱名：",
+      "description": "菜谱描述：",
+      "keywords": "关键词：",
+      "category": "类别：",
       "servings": "份数：",
       "source": "原材料：",
       "source_button": "来源",
+      "image": "图片：",
       "time": {
         "prep": "准备时间：",
         "cook": "烹饪时间",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "编辑菜谱",
+    "button": "更新菜谱",
     "errors": {
       "update_failed": "更新失败 {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "导入菜谱",
+    "button": "导入",
+    "field": "菜谱URL",
+    "clipboard": "粘贴剪贴板",
+    "errors": {
+      "import_failed": "导入失败 {error_msg}"
     }
   },
   "search": {

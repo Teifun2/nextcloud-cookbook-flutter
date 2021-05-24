@@ -41,6 +41,9 @@
   "categories": {
     "title": "Kookboek",
     "all_categories": "Alle",
+    "drawer": {
+      "import": "Importeren recept"
+    },
     "errors": {
       "unknown": "Categorieën met onbekende status",
       "load_failed": "Laden categorie mislukt: {error_msg}",
@@ -58,9 +61,14 @@
   "recipe": {
     "title": "Recept:",
     "fields": {
+      "name": "Receptnaam:",
+      "description": "Receptbeschrijving",
+      "keywords": "Sleutelwoorden:",
+      "category": "Categorie:",
       "servings": "Porties:",
       "source": "Bron:",
       "source_button": "Bron",
+      "image": "Afbeelding:",
       "time": {
         "prep": "Voorbereidingstijd:",
         "cook": "Kooktijd:",
@@ -76,8 +84,18 @@
   },
   "recipe_edit": {
     "title": "Bewerk recept",
+    "button": "Bijwerken recept",
     "errors": {
       "update_failed": "Bijwerken mislukt {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importeren recept",
+    "button": "Import",
+    "field": "URL naar recept",
+    "clipboard": "Plakken klembord",
+    "errors": {
+      "import_failed": "Import mislukt {error_msg}"
     }
   },
   "search": {
