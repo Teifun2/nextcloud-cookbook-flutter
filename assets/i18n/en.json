@@ -50,7 +50,7 @@
       "load_no_response": "Could not retrieve the Categories from the server.",
       "api_version_check_failed": "Failed to check the API version of the Server:\n{error_msg}",
       "api_version_above_confirmed": "The API version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
+      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this Nextcloud instance!"
     }
   },
   "recipe_list": {
