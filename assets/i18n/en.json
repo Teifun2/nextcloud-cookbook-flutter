@@ -61,6 +61,9 @@
   },
   "recipe": {
     "title": "Recipe:",
+    "prep": "Preparation time",
+    "cook": "Cooking time",
+    "total": "Total time",
     "fields": {
       "name": "Recipe Name:",
       "description": "Recipe Description:",

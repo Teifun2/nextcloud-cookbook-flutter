@@ -162,15 +162,15 @@ class RecipeScreenState extends State<RecipeScreen> {
                         if (recipe.prepTime != null)
                           DurationIndicator(
                               duration: recipe.prepTime,
-                              name: translate('recipe.fields.time.prep')),
+                              name: translate('recipe.prep')),
                         if (recipe.cookTime != null)
                           DurationIndicator(
                               duration: recipe.cookTime,
-                              name: translate('recipe.fields.time.cook')),
+                              name: translate('recipe.cook')),
                         if (recipe.totalTime != null)
                           DurationIndicator(
                               duration: recipe.totalTime,
-                              name: translate('recipe.fields.time.total')),
+                              name: translate('recipe.total')),
                       ],
                     ),
                   ),
