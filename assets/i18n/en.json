@@ -88,14 +88,14 @@
   },
   "recipe_edit": {
     "title": "Edit Recipe",
-    "button": "Update Recipe",
+    "button": "Edit",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Create Recipe",
-    "button": "Create Recipe",
+    "button": "Create",
     "errors": {
       "update_failed": "Create Failed {error_msg}"
     }
