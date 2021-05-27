@@ -55,6 +55,7 @@ dependencies:
 
   # Settings Page
   flutter_settings_screens: ^0.2.2+1
+  theme_mode_handler: ^3.0.0
 
   # Form data HTTP Client
   dio: ^4.0.0

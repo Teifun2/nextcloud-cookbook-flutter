@@ -116,5 +116,14 @@
     "errors": {
       "search_failed": "Unable to load all Recipes!\n{error_msg}"
     }
+  },
+  "settings": {
+    "title": "Application Settings",
+    "dark_mode": {
+      "title": "Dark Mode",
+      "system": "System Default",
+      "dark": "Always",
+      "light": "Never"
+    }
   }
 }

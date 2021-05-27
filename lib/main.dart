@@ -8,6 +8,8 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart'
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/my_theme_mode_manager.dart';
+import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './src/screens/login_screen.dart';
 import './src/screens/splash_screen.dart';
@@ -78,38 +80,43 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        brightness: Brightness.light,
-        hintColor: Colors.grey,
-        backgroundColor: Colors.grey[400],
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        hintColor: Colors.grey,
-      ),
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is AuthenticationUninitialized) {
-            return SplashPage();
-          } else if (state is AuthenticationAuthenticated) {
-            if (BlocProvider.of<CategoriesBloc>(context).state
-                is CategoriesInitial) {
-              BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
+    return ThemeModeHandler(
+      manager: MyThemeModeManager(),
+      builder: (ThemeMode themeMode) => MaterialApp(
+        themeMode: themeMode,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          hintColor: Colors.grey,
+          backgroundColor: Colors.grey[400],
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          hintColor: Colors.grey,
+        ),
+        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is AuthenticationUninitialized) {
+              return SplashPage();
+            } else if (state is AuthenticationAuthenticated) {
+              if (BlocProvider.of<CategoriesBloc>(context).state
+                  is CategoriesInitial) {
+                BlocProvider.of<CategoriesBloc>(context)
+                    .add(CategoriesLoaded());
+              }
+              return CategoryScreen();
+            } else if (state is AuthenticationUnauthenticated) {
+              return LoginScreen();
+            } else if (state is AuthenticationInvalid) {
+              return LoginScreen(
+                invalidCredentials: true,
+              );
+            } else if (state is AuthenticationLoading) {
+              return LoadingScreen();
+            } else {
+              return LoadingScreen();
             }
-            return CategoryScreen();
-          } else if (state is AuthenticationUnauthenticated) {
-            return LoginScreen();
-          } else if (state is AuthenticationInvalid) {
-            return LoginScreen(
-              invalidCredentials: true,
-            );
-          } else if (state is AuthenticationLoading) {
-            return LoadingScreen();
-          } else {
-            return LoadingScreen();
-          }
-        },
+          },
+        ),
       ),
     );
   }

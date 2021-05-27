@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
@@ -200,9 +201,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
             } else if (categoriesState is CategoriesLoadInProgress ||
                 categoriesState is CategoriesInitial) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Center(
+                    child: SpinKitWave(
+                      color: Theme.of(context).primaryColor,
+                      size: 50.0,
+                    ),
+                  ),
                   ApiVersionWarning(),
-                  Center(child: CircularProgressIndicator()),
                 ],
               );
             } else if (categoriesState is CategoriesLoadFailure) {
