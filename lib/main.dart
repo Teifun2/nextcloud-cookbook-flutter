@@ -15,7 +15,7 @@ import 'src/blocs/authentication/authentication.dart';
 import 'src/blocs/simple_bloc_delegatae.dart';
 
 void main() async {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  Bloc.observer = SimpleBlocDelegate();
   var delegate = await LocalizationDelegate.create(
     basePath: 'assets/i18n/',
     fallbackLocale: 'en',
@@ -43,6 +43,7 @@ void main() async {
       'zh_HK'
     ],
   );
+
   runApp(
     LocalizedApp(
       delegate,

@@ -6,8 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   final DataRepository dataRepository = DataRepository();
 
-  @override
-  CategoriesState get initialState => CategoriesInitial();
+  CategoriesBloc() : super(CategoriesInitial());
 
   @override
   Stream<CategoriesState> mapEventToState(CategoriesEvent event) async* {

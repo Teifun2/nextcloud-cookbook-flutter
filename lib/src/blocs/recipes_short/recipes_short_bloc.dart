@@ -6,8 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
   final DataRepository dataRepository = DataRepository();
 
-  @override
-  RecipesShortState get initialState => RecipesShortLoadInProgress();
+  RecipesShortBloc() : super(RecipesShortLoadInProgress());
 
   @override
   Stream<RecipesShortState> mapEventToState(RecipesShortEvent event) async* {
