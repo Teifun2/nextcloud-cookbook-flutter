@@ -7,6 +7,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/my_settings_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
@@ -78,6 +79,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       context,
                       MaterialPageRoute(builder: (context) {
                         return RecipeImportScreen();
+                      }),
+                    );
+                  },
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.settings,
+                    semanticLabel: translate('categories.drawer.settings'),
+                  ),
+                  title: Text(translate('categories.drawer.settings')),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return MySettingsScreen();
                       }),
                     );
                   },

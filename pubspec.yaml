@@ -53,6 +53,9 @@ dependencies:
   # Search
   search_page: ^2.0.0
 
+  # Settings Page
+  flutter_settings_screens: ^0.2.2+1
+
   # Form data HTTP Client
   dio: ^4.0.0
 

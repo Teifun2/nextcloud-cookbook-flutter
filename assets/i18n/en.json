@@ -42,7 +42,8 @@
     "title": "Cookbook",
     "all_categories": "All",
     "drawer": {
-      "import": "Import Recipe"
+      "import": "Import Recipe",
+      "settings": "Settings"
     },
     "errors": {
       "unknown": "Categories in unknown state",
