@@ -118,7 +118,7 @@
     }
   },
   "settings": {
-    "title": "Application Settings",
+    "title": "App Settings",
     "dark_mode": {
       "title": "Dark Mode",
       "system": "System Default",
