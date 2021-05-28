@@ -1,13 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_translate/global.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
-class MySettingsScreen extends StatelessWidget {
+class MySettingsScreen extends StatefulWidget {
   const MySettingsScreen({Key key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => _MySettingsScreenState();
+}
+
+class _MySettingsScreenState extends State<MySettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return SettingsScreen(
@@ -30,6 +39,27 @@ class MySettingsScreen extends StatelessWidget {
             ThemeModeHandler.of(context).saveThemeMode(theme);
           },
         ),
+        DropDownSettingsTile(
+          title: "Lanugage",
+          settingKey: describeEnum(SettingKeys.language),
+          selected: Settings.getValue<String>(
+            describeEnum(SettingKeys.language),
+            'default',
+          ),
+          values: Map.from(
+            <String, String>{
+              'default': 'System Default',
+            },
+          )..addAll(SupportedLocales.locales),
+          onChange: (value) {
+            if (value == 'default') {
+              changeLocale(context, Platform.localeName);
+            } else {
+              changeLocale(context, value);
+            }
+            setState(() {});
+          },
+        )
       ],
     );
   }

@@ -90,13 +90,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     semanticLabel: translate('categories.drawer.settings'),
                   ),
                   title: Text(translate('categories.drawer.settings')),
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
                         return MySettingsScreen();
                       }),
                     );
+                    setState(() {});
                   },
                 ),
               ],

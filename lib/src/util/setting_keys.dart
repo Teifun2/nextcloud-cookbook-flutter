@@ -1,1 +1,4 @@
-enum SettingKeys { dark_mode }
+enum SettingKeys {
+  dark_mode,
+  language,
+}

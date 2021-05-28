@@ -9,6 +9,8 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/screens/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/my_theme_mode_manager.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/translate_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './src/screens/login_screen.dart';
@@ -22,29 +24,8 @@ void main() async {
   var delegate = await LocalizationDelegate.create(
     basePath: 'assets/i18n/',
     fallbackLocale: 'en',
-    supportedLocales: [
-      'cs_CZ',
-      'de',
-      'de_DE',
-      'en',
-      'es',
-      'eu',
-      'fi_FI',
-      'gl',
-      'he',
-      'hr',
-      'hu_HU',
-      'it',
-      'nl',
-      'pl',
-      'pt_BR',
-      'ru',
-      'sc',
-      'sl',
-      'tr',
-      'zh_CN',
-      'zh_HK'
-    ],
+    supportedLocales: SupportedLocales.locales.keys.toList(),
+    preferences: TranslatePreferences(),
   );
   // Wait for Settings to be ready
   await Settings.init();
