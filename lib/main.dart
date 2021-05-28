@@ -8,8 +8,8 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart'
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/util/my_theme_mode_manager.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_mode_manager.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/translate_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
@@ -62,7 +62,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ThemeModeHandler(
-      manager: MyThemeModeManager(),
+      manager: ThemeModeManager(),
       builder: (ThemeMode themeMode) => MaterialApp(
         themeMode: themeMode,
         theme: ThemeData(

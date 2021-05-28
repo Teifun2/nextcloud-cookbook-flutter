@@ -4,7 +4,7 @@ import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:theme_mode_handler/theme_mode_manager_interface.dart';
 
-class MyThemeModeManager implements IThemeModeManager {
+class ThemeModeManager implements IThemeModeManager {
   @override
   Future<String> loadThemeMode() {
     return Future.value(
