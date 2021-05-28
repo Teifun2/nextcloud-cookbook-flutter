@@ -124,6 +124,13 @@
       "system": "System Default",
       "dark": "Always",
       "light": "Never"
+    },
+    "language": {
+      "title": "Language"
+    },
+    "stay_awake": {
+      "title": "Stay Awake",
+      "subtitle": "Screen will stay on while on the recipe screen."
     }
   }
 }

@@ -40,7 +40,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
           },
         ),
         DropDownSettingsTile(
-          title: "Lanugage",
+          title: translate("settings.language.title"),
           settingKey: describeEnum(SettingKeys.language),
           selected: Settings.getValue<String>(
             describeEnum(SettingKeys.language),
@@ -48,7 +48,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
           ),
           values: Map.from(
             <String, String>{
-              'default': 'System Default',
+              'default': translate("settings.dark_mode.system"),
             },
           )..addAll(SupportedLocales.locales),
           onChange: (value) {
@@ -61,11 +61,11 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
           },
         ),
         CheckboxSettingsTile(
-          title: "Stay Awake",
+          title: translate("settings.stay_awake.title"),
           settingKey: describeEnum(
             SettingKeys.stay_awake,
           ),
-          subtitle: "Screen will stay on while on the recipe screen.",
+          subtitle: translate("settings.stay_awake.subtitle"),
         )
       ],
     );
