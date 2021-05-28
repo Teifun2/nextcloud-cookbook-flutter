@@ -1,13 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wakelock/wakelock.dart';
 
 class RecipeScreen extends StatefulWidget {
   final int recipeId;
@@ -21,8 +25,23 @@ class RecipeScreen extends StatefulWidget {
 class RecipeScreenState extends State<RecipeScreen> {
   int recipeId;
 
+  Future<bool> _disableWakelock() async {
+    bool wakelockEnabled = await Wakelock.enabled;
+    if (wakelockEnabled) {
+      Wakelock.disable();
+    }
+    return Future.value(true);
+  }
+
+  void _enableWakelock() {
+    if (Settings.getValue<bool>(describeEnum(SettingKeys.stay_awake), false)) {
+      Wakelock.enable();
+    }
+  }
+
   @override
   void initState() {
+    _enableWakelock();
     recipeId = widget.recipeId;
     super.initState();
   }
@@ -34,44 +53,49 @@ class RecipeScreenState extends State<RecipeScreen> {
       child: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (BuildContext context, RecipeState state) {
         final recipeBloc = BlocProvider.of<RecipeBloc>(context);
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(translate('recipe.title')),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
+        return WillPopScope(
+          onWillPop: () => _disableWakelock(),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(translate('recipe.title')),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                if (state is RecipeLoadSuccess) {
+                  _disableWakelock();
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return BlocProvider.value(
+                            value: recipeBloc,
+                            child: RecipeEditScreen(state.recipe));
+                      },
+                    ),
+                  );
+                  _enableWakelock();
+                }
+              },
+              child: Icon(Icons.edit),
+            ),
+            body: () {
               if (state is RecipeLoadSuccess) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return BlocProvider.value(
-                          value: recipeBloc,
-                          child: RecipeEditScreen(state.recipe));
-                    },
-                  ),
+                return _buildRecipeScreen(state.recipe);
+              } else if (state is RecipeLoadInProgress) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is RecipeFailure) {
+                return Center(
+                  child: Text(state.errorMsg),
+                );
+              } else {
+                return Center(
+                  child: Text("FAILED"),
                 );
               }
-            },
-            child: Icon(Icons.edit),
+            }(),
           ),
-          body: () {
-            if (state is RecipeLoadSuccess) {
-              return _buildRecipeScreen(state.recipe);
-            } else if (state is RecipeLoadInProgress) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is RecipeFailure) {
-              return Center(
-                child: Text(state.errorMsg),
-              );
-            } else {
-              return Center(
-                child: Text("FAILED"),
-              );
-            }
-          }(),
         );
       }),
     );

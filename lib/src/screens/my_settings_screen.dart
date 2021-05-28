@@ -59,6 +59,13 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             }
             setState(() {});
           },
+        ),
+        CheckboxSettingsTile(
+          title: "Stay Awake",
+          settingKey: describeEnum(
+            SettingKeys.stay_awake,
+          ),
+          subtitle: "Screen will stay on while on the recipe screen.",
         )
       ],
     );

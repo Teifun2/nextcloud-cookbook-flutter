@@ -60,6 +60,9 @@ dependencies:
   # Form data HTTP Client
   dio: ^4.0.0
 
+  # Screen always on
+  wakelock: ^0.5.2
+
   extended_image: ^4.0.1
   xml: ^5.1.0
 
