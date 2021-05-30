@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -52,7 +55,10 @@ class CategoryCard extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: Settings.getValue<double>(
+                  foundation.describeEnum(SettingKeys.category_font_size),
+                  16,
+                ),
               ),
             ),
           ),

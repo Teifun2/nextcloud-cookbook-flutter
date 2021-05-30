@@ -3,4 +3,5 @@ enum SettingKeys {
   language,
   stay_awake,
   recipe_font_size,
+  category_font_size,
 }

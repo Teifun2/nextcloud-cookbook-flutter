@@ -135,6 +135,10 @@
     "recipe_font_size": {
       "title": "Recipe Font Size",
       "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Category Font Size",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
     }
   }
 }

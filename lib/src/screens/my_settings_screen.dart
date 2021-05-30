@@ -38,6 +38,15 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
           eagerUpdate: false,
           subtitle: translate("settings.recipe_font_size.subtitle"),
         ),
+        SliderSettingsTile(
+          title: translate("settings.category_font_size.title"),
+          settingKey: describeEnum(SettingKeys.category_font_size),
+          defaultValue: 16,
+          min: 10,
+          max: 20,
+          eagerUpdate: false,
+          subtitle: translate("settings.category_font_size.subtitle"),
+        ),
         DropDownSettingsTile<String>(
           title: translate("settings.dark_mode.title"),
           settingKey: describeEnum(SettingKeys.dark_mode),
