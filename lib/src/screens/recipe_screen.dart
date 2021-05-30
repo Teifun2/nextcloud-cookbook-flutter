@@ -232,6 +232,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: ExpansionTile(
                         title: Text(translate('recipe.fields.ingredients')),
+                        initiallyExpanded: true,
                         children: <Widget>[
                           Align(
                             alignment: Alignment.centerLeft,
