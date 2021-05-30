@@ -131,6 +131,10 @@
     "stay_awake": {
       "title": "Stay Awake",
       "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Recipe Font Size",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
     }
   }
 }

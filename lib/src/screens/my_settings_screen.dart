@@ -22,6 +22,22 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
     return SettingsScreen(
       title: translate("settings.title"),
       children: [
+        SwitchSettingsTile(
+          title: translate("settings.stay_awake.title"),
+          settingKey: describeEnum(
+            SettingKeys.stay_awake,
+          ),
+          subtitle: translate("settings.stay_awake.subtitle"),
+        ),
+        SliderSettingsTile(
+          title: translate("settings.recipe_font_size.title"),
+          settingKey: describeEnum(SettingKeys.recipe_font_size),
+          defaultValue: Theme.of(context).textTheme.bodyText2.fontSize,
+          min: 10,
+          max: 20,
+          eagerUpdate: false,
+          subtitle: translate("settings.recipe_font_size.subtitle"),
+        ),
         DropDownSettingsTile<String>(
           title: translate("settings.dark_mode.title"),
           settingKey: describeEnum(SettingKeys.dark_mode),
@@ -59,13 +75,6 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             }
             setState(() {});
           },
-        ),
-        CheckboxSettingsTile(
-          title: translate("settings.stay_awake.title"),
-          settingKey: describeEnum(
-            SettingKeys.stay_awake,
-          ),
-          subtitle: translate("settings.stay_awake.subtitle"),
         )
       ],
     );

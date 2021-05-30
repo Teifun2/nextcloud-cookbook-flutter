@@ -107,6 +107,13 @@ class RecipeScreenState extends State<RecipeScreen> {
 
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
+        TextStyle settingsBasedTextStyle = TextStyle(
+          fontSize: Settings.getValue<double>(
+            describeEnum(SettingKeys.recipe_font_size),
+            Theme.of(context).textTheme.bodyText2.fontSize,
+          ),
+        );
+
         return ListView(
           children: <Widget>[
             Container(
@@ -208,8 +215,13 @@ class RecipeScreenState extends State<RecipeScreen> {
                             alignment: Alignment.centerLeft,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(recipe.tool.fold(
-                                  "", (p, e) => p + "-  " + e.trim() + "\n")),
+                              child: Text(
+                                recipe.tool.fold(
+                                  "",
+                                  (p, e) => p + "-  " + e.trim() + "\n",
+                                ),
+                                style: settingsBasedTextStyle,
+                              ),
                             ),
                           ),
                         ],
@@ -225,8 +237,13 @@ class RecipeScreenState extends State<RecipeScreen> {
                             alignment: Alignment.centerLeft,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(recipe.recipeIngredient.fold(
-                                  "", (p, e) => p + "-  " + e.trim() + "\n")),
+                              child: Text(
+                                recipe.recipeIngredient.fold(
+                                  "",
+                                  (p, e) => p + "-  " + e.trim() + "\n",
+                                ),
+                                style: settingsBasedTextStyle,
+                              ),
                             ),
                           ),
                         ],
@@ -273,7 +290,9 @@ class RecipeScreenState extends State<RecipeScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                          recipe.recipeInstructions[index]),
+                                        recipe.recipeInstructions[index],
+                                        style: settingsBasedTextStyle,
+                                      ),
                                     ),
                                   ],
                                 ),
