@@ -20,6 +20,7 @@ class RecipeScreen extends StatefulWidget {
 
 class RecipeScreenState extends State<RecipeScreen> {
   int recipeId;
+  bool isLargeScreen = false;
 
   @override
   void initState() {
@@ -29,6 +30,12 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery
+        .of(context)
+        .size
+        .width > 600) {
+      this.isLargeScreen = true;
+    }
     return BlocProvider<RecipeBloc>(
       create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId: recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
@@ -78,8 +85,6 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   Widget _buildRecipeScreen(Recipe recipe) {
-    List<bool> instructionsDone =
-        List.filled(recipe.recipeInstructions.length, false);
 
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
@@ -191,83 +196,120 @@ class RecipeScreenState extends State<RecipeScreen> {
                         ],
                       ),
                     ),
-                  if (recipe.recipeIngredient.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: ExpansionTile(
-                        title: Text(translate('recipe.fields.ingredients')),
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(recipe.recipeIngredient.fold(
-                                  "", (p, e) => p + "-  " + e.trim() + "\n")),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: ExpansionTile(
-                      title: Text(translate('recipe.fields.instructions')),
-                      initiallyExpanded: true,
-                      children: <Widget>[
+                    if (this.isLargeScreen && recipe.recipeIngredient.isNotEmpty)
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    instructionsDone[index] =
-                                        !instructionsDone[index];
-                                  });
-                                },
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 40,
-                                      height: 40,
-                                      margin:
-                                          EdgeInsets.only(right: 15, top: 10),
-                                      child: instructionsDone[index]
-                                          ? Icon(Icons.check)
-                                          : Center(child: Text("${index + 1}")),
-                                      decoration: ShapeDecoration(
-                                        shape: CircleBorder(
-                                            side:
-                                                BorderSide(color: Colors.grey)),
-                                        color: instructionsDone[index]
-                                            ? Colors.green
-                                            : Theme.of(context).backgroundColor,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                          recipe.recipeInstructions[index]),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            separatorBuilder: (c, i) => SizedBox(height: 10),
-                            itemCount: recipe.recipeInstructions.length,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 5,
+                                child: this._buildRecipeIngredient(recipe)
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: this._buildRecipeInstructions(recipe)
+                              ),
+                            ]
+                          )
+                        )
+                  else
+                      Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Column(
+                              children: <Widget>[
+                                if (recipe.recipeIngredient.isNotEmpty)
+                                  this._buildRecipeIngredient(recipe),
+                                this._buildRecipeInstructions(recipe),
+                              ]
+                          )
+                      )
                 ],
               ),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildRecipeIngredient(Recipe recipe) {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: ExpansionTile(
+          title: Text(translate('recipe.fields.ingredients')),
+          initiallyExpanded: true,
+          children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Text(recipe.recipeIngredient.fold(
+               "", (p, e) => p + "-  " + e.trim() + "\n")),
+              ),
+            ),
+          ],
+        )
+    );
+  }
+
+  Widget _buildRecipeInstructions(Recipe recipe) {
+    List<bool> instructionsDone =
+    List.filled(recipe.recipeInstructions.length, false);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: ExpansionTile(
+        title: Text(translate('recipe.fields.instructions')),
+        initiallyExpanded: true,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      instructionsDone[index] =
+                      !instructionsDone[index];
+                    });
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: 40,
+                        height: 40,
+                        margin:
+                        EdgeInsets.only(right: 15, top: 10),
+                        child: instructionsDone[index]
+                            ? Icon(Icons.check)
+                            : Center(child: Text("${index + 1}")),
+                        decoration: ShapeDecoration(
+                          shape: CircleBorder(
+                              side:
+                              BorderSide(color: Colors.grey)),
+                          color: instructionsDone[index]
+                              ? Colors.green
+                              : Theme.of(context).backgroundColor,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                            recipe.recipeInstructions[index]),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (c, i) => SizedBox(height: 10),
+              itemCount: recipe.recipeInstructions.length,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
