@@ -10,6 +10,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/timer_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
@@ -55,6 +56,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                   ),
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.alarm_add_outlined,
+                    // TODO
+                    semanticLabel: "Timer",
+                  ),
+                  title: Text("Timer"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return TimerScreen();
+                      }),
+                    );
+
+                  },
                 ),
                 ListTile(
                   trailing: Icon(

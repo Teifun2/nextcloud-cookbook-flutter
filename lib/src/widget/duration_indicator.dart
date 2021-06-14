@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
 class DurationIndicator extends StatelessWidget {
   final Duration duration;
   final String name;
+  final bool timer;
 
-  const DurationIndicator({@required this.duration, @required this.name});
+  const DurationIndicator({@required this.duration, @required this.name, this.timer = false});
 
   @override
   Widget build(BuildContext context) {

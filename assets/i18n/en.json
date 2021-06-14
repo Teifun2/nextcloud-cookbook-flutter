@@ -115,5 +115,9 @@
     "errors": {
       "search_failed": "Unable to load all Recipes!\n{error_msg}"
     }
+  },
+  "timer": {
+    "started": "Timer started.",
+    "finished": " is finished."
   }
 }

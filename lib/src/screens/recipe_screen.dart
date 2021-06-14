@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../util/notification_service.dart';
 
 class RecipeScreen extends StatefulWidget {
   final int recipeId;
@@ -171,7 +175,20 @@ class RecipeScreenState extends State<RecipeScreen> {
                         if (recipe.cookTime != null)
                           DurationIndicator(
                               duration: recipe.cookTime,
-                              name: translate('recipe.cook')),
+                              name: translate('recipe.cook'),
+                              timer: true
+                          ),
+                        if (recipe.cookTime != null && recipe.cookTime > Duration.zero)
+                          IconButton(
+                            icon: const Icon(Icons.access_alarm),
+                            tooltip: 'Start timer',
+                            onPressed: () {
+                              var timer = new Timer(recipe.id, recipe.name, recipe.name + translate('timer.finished'), recipe.cookTime);
+                              timer.show();
+                              final snackBar = SnackBar(content: Text(translate('timer.started')));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            },
+                          ),
                         if (recipe.totalTime != null)
                           DurationIndicator(
                               duration: recipe.totalTime,
@@ -313,3 +330,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     );
   }
 }
+
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
