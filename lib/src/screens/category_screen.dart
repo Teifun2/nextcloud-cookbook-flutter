@@ -61,9 +61,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   trailing: Icon(
                     Icons.alarm_add_outlined,
                     // TODO
-                    semanticLabel: "Timer",
+                    semanticLabel: translate('timer.running'),
                   ),
-                  title: Text("Timer"),
+                  title: Text(translate('timer.running')),
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(

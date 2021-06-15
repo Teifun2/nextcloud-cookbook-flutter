@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
-import 'package:search_page/search_page.dart';
+
 
 class TimerScreen extends StatefulWidget {
   @override
@@ -22,32 +10,6 @@ class TimerScreen extends StatefulWidget {
 }
 
 class _TimerScreen extends State<TimerScreen> {
-  @override
-  Widget build(BuildContext context) {
-
-    /*BlocProvider.of<RecipesShortBloc>(context)
-        .add(RecipesShortLoaded(category: "All"));
-
-    return BlocBuilder<RecipesShortBloc, RecipesShortState>(
-        builder: (context, recipesShortState) {
-          if (recipesShortState is RecipesShortLoadSuccess) {
-            return TimerListView();
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        });
-
-     */
-    return TimerListView();
-  }
-}
-
-class TimerListView extends StatefulWidget {
-  @override
-  _TimerListView createState() => _TimerListView();
-}
-
-class _TimerListView extends State<TimerListView> {
   List<Timer> _list;
   bool _running = true;
 
@@ -60,12 +22,10 @@ class _TimerListView extends State<TimerListView> {
     if (_running)
       Future.delayed(Duration(seconds: 60)).then((_) {
         setState(() {
-
         });
         this._timer();
       });
   }
-
 
   @override
   void dispose() {
@@ -80,15 +40,13 @@ class _TimerListView extends State<TimerListView> {
 
     return Scaffold(
         appBar: AppBar(
-          // TODO translate
-          title: Text("Timer"),
+          title: Text(translate('timer.running')),
           actions: <Widget>[
             // action button
             IconButton(
               icon: Icon(
                 Icons.clear_all,
-                // TODO
-                semanticLabel: translate('app_bar.refresh'),
+                semanticLabel: translate('app_bar.clear_all'),
               ),
               onPressed: () {
                 TimerList().clear();

@@ -175,8 +175,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                         if (recipe.cookTime != null)
                           DurationIndicator(
                               duration: recipe.cookTime,
-                              name: translate('recipe.cook'),
-                              timer: true
+                              name: translate('recipe.cook')
                           ),
                         if (recipe.cookTime != null && recipe.cookTime > Duration.zero)
                           IconButton(
