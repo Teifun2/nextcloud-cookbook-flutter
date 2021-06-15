@@ -11,8 +11,6 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../util/notification_service.dart';
-
 class RecipeScreen extends StatefulWidget {
   final int recipeId;
 
@@ -41,24 +39,32 @@ class RecipeScreenState extends State<RecipeScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(translate('recipe.title')),
+            actions: <Widget>[
+              // action button
+              IconButton(
+                icon: Icon(
+                  Icons.edit,
+                ),
+                onPressed: () {
+                  if (state is RecipeLoadSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return BlocProvider.value(
+                              value: recipeBloc,
+                              child: RecipeEditScreen(state.recipe));
+                        },
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              if (state is RecipeLoadSuccess) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return BlocProvider.value(
-                          value: recipeBloc,
-                          child: RecipeEditScreen(state.recipe));
-                    },
-                  ),
-                );
-              }
-            },
-            child: Icon(Icons.edit),
-          ),
+
+          floatingActionButton: state is RecipeLoadSuccess ? _buildFabButton(state.recipe)
+             : null,
           body: () {
             if (state is RecipeLoadSuccess) {
               return _buildRecipeScreen(state.recipe);
@@ -78,6 +84,31 @@ class RecipeScreenState extends State<RecipeScreen> {
           }(),
         );
       }),
+    );
+  }
+
+  FloatingActionButton _buildFabButton(Recipe recipe) {
+    var enabled = recipe.cookTime != null && recipe.cookTime > Duration.zero;
+    return FloatingActionButton(
+      onPressed: () {
+        {
+          if (enabled) {
+            var timer = new Timer(recipe.id, recipe.name,
+                recipe.name + translate('timer.finished'),
+                recipe.cookTime);
+            timer.show();
+            final snackBar = SnackBar(content: Text(translate(
+                'timer.started')));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+          else {
+            final snackBar = SnackBar(content: Text("You need to set the cookingtime to use a timer."));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        }
+      },
+      child: Icon(Icons.access_alarm),
+      backgroundColor: enabled ? Colors.blueAccent : Colors.grey,
     );
   }
 
@@ -171,17 +202,6 @@ class RecipeScreenState extends State<RecipeScreen> {
                           DurationIndicator(
                               duration: recipe.cookTime,
                               name: translate('recipe.cook')
-                          ),
-                        if (recipe.cookTime != null && recipe.cookTime > Duration.zero)
-                          IconButton(
-                            icon: const Icon(Icons.access_alarm),
-                            tooltip: 'Start timer',
-                            onPressed: () {
-                              var timer = new Timer(recipe.id, recipe.name, recipe.name + translate('timer.finished'), recipe.cookTime);
-                              timer.show();
-                              final snackBar = SnackBar(content: Text(translate('timer.started')));
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            },
                           ),
                         if (recipe.totalTime != null)
                           DurationIndicator(
