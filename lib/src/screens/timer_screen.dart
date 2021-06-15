@@ -25,7 +25,7 @@ class _TimerScreen extends State<TimerScreen> {
   @override
   Widget build(BuildContext context) {
 
-    BlocProvider.of<RecipesShortBloc>(context)
+    /*BlocProvider.of<RecipesShortBloc>(context)
         .add(RecipesShortLoaded(category: "All"));
 
     return BlocBuilder<RecipesShortBloc, RecipesShortState>(
@@ -36,6 +36,9 @@ class _TimerScreen extends State<TimerScreen> {
             return Center(child: CircularProgressIndicator());
           }
         });
+
+     */
+    return TimerListView();
   }
 }
 
@@ -44,25 +47,30 @@ class TimerListView extends StatefulWidget {
   _TimerListView createState() => _TimerListView();
 }
 
-class _TimerListView extends State<TimerListView> with TickerProviderStateMixin {
-  AnimationController controller;
+class _TimerListView extends State<TimerListView> {
   List<Timer> _list;
+  bool _running = true;
 
   @override
   void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    )..addListener(() {
-      setState(() {});
-    });
-    controller.repeat(reverse: true);
+   this._timer();
     super.initState();
   }
+  void _timer() {
+    if (_running)
+      Future.delayed(Duration(seconds: 60)).then((_) {
+        setState(() {
+
+        });
+        this._timer();
+      });
+  }
+
 
   @override
   void dispose() {
-    controller.dispose();
+    //controller.dispose();
+    _running = false;
     super.dispose();
   }
 
@@ -112,12 +120,12 @@ class _TimerListView extends State<TimerListView> with TickerProviderStateMixin 
 
   ListTile _buildListItem(Timer timer) {
     return ListTile(
-      /*leading: AuthenticationCachedNetworkImage(
+      leading: AuthenticationCachedNetworkImage(
         recipeId: timer.recipeId,
         full: false,
         width: 60,
         height: 60,
-      ),*/
+      ),
       title: Text(timer.title),
       subtitle: timer.completed() > 0 ?
         Container(
