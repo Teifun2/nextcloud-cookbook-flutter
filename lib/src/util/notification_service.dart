@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 import '../models/timer.dart';
 
@@ -41,7 +39,8 @@ class NotificationService {
 
     // Notification was triggered and the user clicked on it
     Future selectNotification(String payload) async {
-      Map<String, dynamic> data = jsonDecode(payload);
+      // Map<String, dynamic> data = jsonDecode(payload);
+      // We could e.g. show the recipe
     }
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);

@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Search",
     "refresh": "Refresh",
-    "logout": "Logout"
+    "logout": "Logout",
+    "clear_all": "Clear all"
   },
   "login": {
     "title": "Login",
@@ -117,6 +118,7 @@
     }
   },
   "timer": {
+    "running": "Your timers",
     "started": "Timer started.",
     "finished": " is finished."
   }
