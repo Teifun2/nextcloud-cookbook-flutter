@@ -19,12 +19,12 @@ class _TimerScreen extends State<TimerScreen> {
     super.initState();
   }
   void _timer() {
-    if (_running)
-      Future.delayed(Duration(seconds: 60)).then((_) {
-        setState(() {
-        });
+    Future.delayed(Duration(seconds: 60)).then((_) {
+      if (_running) {
+        setState(() {});
         this._timer();
-      });
+      }
+    });
   }
 
   @override
