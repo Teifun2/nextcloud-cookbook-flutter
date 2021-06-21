@@ -108,7 +108,7 @@ class RecipeScreenState extends State<RecipeScreen> {
         }
       },
       child: Icon(Icons.access_alarm),
-      backgroundColor: enabled ? Colors.blueAccent : Colors.grey,
+      backgroundColor: enabled ? Theme.of(context).accentColor : Theme.of(context).disabledColor,
     );
   }
 
