@@ -60,7 +60,7 @@ class Timer {
   };
 
   show() async {
-    NotificationService().show(this);
+    NotificationService().start(this);
   }
 
   // cancel the timer
@@ -70,13 +70,17 @@ class Timer {
   }
 
   // calculate progress
-  double completed() {
+  double progress() {
     Duration left = this.done.difference(tz.TZDateTime.now(tz.local));
     return left.inMinutes > 0 ? 1 - (left.inMinutes / this.duration.inMinutes) : 0.0;
   }
 
   String remaining() {
     Duration left = this.done.difference(tz.TZDateTime.now(tz.local));
-    return "${left.inHours}:${left.inMinutes % 60 < 10 ? "0" : ""}${left.inMinutes % 60}";
+    return "${left.inHours}:${left.inMinutes % 60 < 10 ? "0" : ""}${left.inMinutes % 60} h";
+  }
+
+  String endingTime() {
+    return done.hour.toString() + ":" + done.minute.toString().padLeft(2, "0");
   }
 }

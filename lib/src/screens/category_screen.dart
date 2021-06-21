@@ -60,10 +60,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ListTile(
                   trailing: Icon(
                     Icons.alarm_add_outlined,
-                    // TODO
-                    semanticLabel: translate('timer.running'),
+                    semanticLabel: translate('timer.title'),
                   ),
-                  title: Text(translate('timer.running')),
+                  title: Text(translate('timer.title')),
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(
@@ -93,6 +92,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                   title: Text(translate('categories.drawer.import')),
                   onTap: () {
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {

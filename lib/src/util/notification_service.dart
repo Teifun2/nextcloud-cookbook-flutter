@@ -65,7 +65,7 @@ class NotificationService {
     });
   }
 
-  int show(Timer timer) {
+  int start(Timer timer) {
     this.curId++;
     timer.id = this.curId;
     flutterLocalNotificationsPlugin.zonedSchedule(

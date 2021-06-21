@@ -118,7 +118,7 @@
     }
   },
   "timer": {
-    "running": "Your timers",
+    "title": "Your timers",
     "started": "Timer started.",
     "finished": " is finished."
   }

@@ -40,7 +40,7 @@ class _TimerScreen extends State<TimerScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(translate('timer.running')),
+          title: Text(translate('timer.title')),
           actions: <Widget>[
             // action button
             IconButton(
@@ -85,7 +85,7 @@ class _TimerScreen extends State<TimerScreen> {
         height: 60,
       ),
       title: Text(timer.title),
-      subtitle: timer.completed() > 0 ?
+      subtitle: timer.progress() > 0 ?
         Container(
           child: Column(
           children: [
@@ -93,11 +93,11 @@ class _TimerScreen extends State<TimerScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(timer.remaining() + " h"),
-                Text(timer.done.hour.toString() + ":" + timer.done.minute.toString().padLeft(2, "0")),
+                Text(timer.endingTime()),
               ]
             ),
             LinearProgressIndicator(
-              value: timer.completed(),
+              value: timer.progress(),
               semanticsLabel: timer.title,
             ),
           ]),
