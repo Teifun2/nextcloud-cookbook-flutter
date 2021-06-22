@@ -14,6 +14,15 @@ class TimerList {
 
   TimerList._internal();
 
+  List<Timer> get(int recipeId) {
+    List<Timer> l = <Timer>[];
+    for (var value in this.timers) {
+      if (value.recipeId == recipeId)
+        l.add(value);
+    }
+    return l;
+  }
+
   clear() {
     this.timers.clear();
     NotificationService().cancelAll();

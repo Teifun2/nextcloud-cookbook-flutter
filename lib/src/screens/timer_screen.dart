@@ -92,7 +92,7 @@ class _TimerScreen extends State<TimerScreen> {
             Row (
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(timer.remaining() + " h"),
+                Text(timer.remaining()),
                 Text(timer.endingTime()),
               ]
             ),

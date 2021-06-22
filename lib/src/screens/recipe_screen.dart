@@ -22,12 +22,23 @@ class RecipeScreen extends StatefulWidget {
 
 class RecipeScreenState extends State<RecipeScreen> {
   int recipeId;
+  bool _running = true;
   bool isLargeScreen = false;
 
   @override
   void initState() {
     recipeId = widget.recipeId;
+    this._timer();
     super.initState();
+  }
+
+  void _timer() {
+    Future.delayed(Duration(seconds: 60)).then((_) {
+      if (_running) {
+        setState(() {});
+        this._timer();
+      }
+    });
   }
 
   @override
@@ -104,6 +115,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                 recipe.name + translate('timer.finished'),
                 recipe.cookTime);
             timer.show();
+            setState((){
+            });
             final snackBar = SnackBar(content: Text(translate(
                 'timer.started')));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -215,6 +228,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                       ],
                     ),
                   ),
+                  _showTimers(recipe),
                   if (recipe.tool.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
@@ -348,8 +362,57 @@ class RecipeScreenState extends State<RecipeScreen> {
       ),
     );
   }
+  Widget _showTimers(Recipe recipe) {
+    List<Timer> l = TimerList().get(recipe.id);
+    if (l.length > 0) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: l.length,
+              itemBuilder: (context, index) {
+                return _buildTimerListItem(l[index]);
+              },
+            )
+          ]
+        ),
+      );
+    }
+    return SizedBox.shrink();
+  }
+
+  ListTile _buildTimerListItem(Timer timer) {
+    return ListTile(
+      title: timer.progress() > 0 ?
+      Container(
+        child: Column(
+            children: [
+              Row (
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(timer.remaining()),
+                    Text(timer.endingTime()),
+                  ]
+              ),
+              LinearProgressIndicator(
+                value: timer.progress(),
+                semanticsLabel: timer.title,
+              ),
+            ]),
+      )
+          : Container(
+          child: Text("Done")
+      ),
+      trailing: IconButton(
+          icon: Icon(Icons.cancel),
+          onPressed: () {
+            timer.cancel();
+            setState((){
+            });
+          }
+      ),
+    );
+  }
 }
-
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
