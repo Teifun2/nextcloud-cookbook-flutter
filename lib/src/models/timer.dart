@@ -1,7 +1,7 @@
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../util/notification_service.dart';
+import '../services/notification_provider.dart';
 
 class TimerList {
   static final TimerList _timerList =
