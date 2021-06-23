@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
@@ -206,6 +207,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   semanticLabel: translate('app_bar.refresh'),
                 ),
                 onPressed: () {
+                  DefaultCacheManager().emptyCache();
                   BlocProvider.of<CategoriesBloc>(context)
                       .add(CategoriesLoaded());
                 },

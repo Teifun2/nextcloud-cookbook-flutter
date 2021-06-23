@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
@@ -45,6 +46,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                   semanticLabel: translate('app_bar.refresh'),
                 ),
                 onPressed: () {
+                  DefaultCacheManager().emptyCache();
                   BlocProvider.of<RecipesShortBloc>(context)
                       .add(RecipesShortLoaded(category: category));
                 },
