@@ -33,7 +33,7 @@ class NotificationService {
 
   Future<void> init() async {
     final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('icon');
+        AndroidInitializationSettings('notification_icon');
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
