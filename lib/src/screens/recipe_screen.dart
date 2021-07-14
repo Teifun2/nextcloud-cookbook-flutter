@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
@@ -26,6 +27,12 @@ class RecipeScreenState extends State<RecipeScreen> {
   void initState() {
     recipeId = widget.recipeId;
     super.initState();
+  }
+
+  Future<void> _refresh() async {
+    DefaultCacheManager().emptyCache();
+    this.setState(() {
+    });
   }
 
   @override
@@ -62,23 +69,29 @@ class RecipeScreenState extends State<RecipeScreen> {
             },
             child: Icon(Icons.edit),
           ),
-          body: () {
-            if (state is RecipeLoadSuccess) {
-              return _buildRecipeScreen(state.recipe);
-            } else if (state is RecipeLoadInProgress) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is RecipeFailure) {
-              return Center(
-                child: Text(state.errorMsg),
-              );
-            } else {
-              return Center(
-                child: Text("FAILED"),
-              );
-            }
-          }(),
+          body: RefreshIndicator(
+              onRefresh: _refresh,
+              child: () {
+                if (state is RecipeLoadSuccess) {
+                  return _buildRecipeScreen(state.recipe);
+                }
+                else if (state is RecipeLoadInProgress) {
+                  return Center(
+                   child: CircularProgressIndicator(),
+                );
+                }
+                else if (state is RecipeFailure) {
+                  return Center(
+                    child: Text(state.errorMsg),
+                  );
+                }
+                else {
+                  return Center(
+                    child: Text("FAILED"),
+                  );
+                }
+              }(),
+          )
         );
       }),
     );
