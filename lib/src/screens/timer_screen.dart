@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
-
 
 class TimerScreen extends StatefulWidget {
   @override
@@ -15,10 +15,12 @@ class _TimerScreen extends State<TimerScreen> {
 
   @override
   void initState() {
-   this._timer();
+    this._timer();
     super.initState();
   }
+
   void _timer() {
+    // Refreshes Screen all 60 seconds to update timers.
     Future.delayed(Duration(seconds: 60)).then((_) {
       if (_running) {
         setState(() {});
@@ -29,7 +31,6 @@ class _TimerScreen extends State<TimerScreen> {
 
   @override
   void dispose() {
-    //controller.dispose();
     _running = false;
     super.dispose();
   }
@@ -85,44 +86,36 @@ class _TimerScreen extends State<TimerScreen> {
         height: 60,
       ),
       title: Text(timer.title),
-      subtitle: timer.progress() > 0 ?
-        Container(
-          child: Column(
-          children: [
-            Row (
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(timer.remaining()),
-                Text(timer.endingTime()),
-              ]
-            ),
-            LinearProgressIndicator(
-              value: timer.progress(),
-              semanticsLabel: timer.title,
-            ),
-          ]),
-        )
-        : Container(
-            child: Text("Done")
-      ),
+      subtitle: timer.progress() > 0
+          ? Container(
+              child: Column(children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(timer.remaining()),
+                      Text(timer.endingTime()),
+                    ]),
+                LinearProgressIndicator(
+                  value: timer.progress(),
+                  semanticsLabel: timer.title,
+                ),
+              ]),
+            )
+          : Container(child: Text(translate('timer.done'))),
       isThreeLine: true,
       trailing: IconButton(
-        icon: Icon(Icons.cancel),
-        onPressed: () {
-          timer.cancel();
-          setState((){
-          });
-        }
-      ),
-    onTap: ()
-        {
-        /*Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  //RecipeScreen(recipeId: recipeShort.recipeId),
-            )
-        );*/
+          icon: Icon(Icons.cancel),
+          onPressed: () {
+            timer.cancel();
+            setState(() {});
+          }),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeScreen(recipeId: timer.recipeId),
+          ),
+        );
       },
     );
   }

@@ -308,7 +308,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     List.filled(recipe.recipeInstructions.length, false);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 40.0),
       child: ExpansionTile(
         title: Text(translate('recipe.fields.instructions')),
         initiallyExpanded: true,

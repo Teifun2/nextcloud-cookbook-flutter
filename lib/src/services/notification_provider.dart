@@ -1,23 +1,28 @@
 import 'dart:convert';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../models/timer.dart';
 
-const NotificationDetails platformChannelSpecifics =
-NotificationDetails(android: androidPlatformChannelSpecifics);
-
-const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-  '1', 'Cookbook', 'Timer for the Cookbook',
+const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+  '1',
+  'Cookbook',
+  'Timer for the Cookbook',
   importance: Importance.high,
   priority: Priority.high,
   showWhen: false,
 );
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class NotificationService {
   static final NotificationService _notificationService =
-  NotificationService._internal();
+      NotificationService._internal();
   int curId = 0;
 
   factory NotificationService() {
@@ -28,14 +33,14 @@ class NotificationService {
 
   Future<void> init() async {
     final AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('icon');
+        AndroidInitializationSettings('notification_icon');
 
     final InitializationSettings initializationSettings =
-    InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: null,
-        macOS: null
-    );
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: null,
+            macOS: null
+        );
 
     // Notification was triggered and the user clicked on it
     Future selectNotification(String payload) async {
@@ -47,13 +52,13 @@ class NotificationService {
 
     // Loading pending notifications an rebuild timers
     final List<PendingNotificationRequest> pendingNotificationRequests =
-    await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
     pendingNotificationRequests.forEach((PendingNotificationRequest element) {
       Map<String, dynamic> data = jsonDecode(element.payload);
       Timer timer = Timer.fromJson(data, element.id);
-      if (timer.id > this.curId)
-        this.curId = timer.id;
+      if (timer.id > this.curId) this.curId = timer.id;
     });
+
   }
 
   int start(Timer timer) {

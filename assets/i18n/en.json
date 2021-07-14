@@ -120,6 +120,7 @@
   "timer": {
     "title": "Your timers",
     "started": "Timer started.",
-    "finished": " is finished."
+    "finished": " is finished.",
+    "done": "Timer is done."
   }
 }
