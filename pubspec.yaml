@@ -67,6 +67,9 @@ dependencies:
   # Reorderable List for Edit and Create Recipe
   flutter_reorderable_list: ^1.0.0
 
+  # Timer for cooking time
+  flutter_local_notifications: ^4.0.0
+
 dev_dependencies:
   flutter_launcher_icons: ^0.9.0
 

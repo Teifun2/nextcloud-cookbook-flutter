@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
@@ -20,12 +21,23 @@ class RecipeScreen extends StatefulWidget {
 
 class RecipeScreenState extends State<RecipeScreen> {
   int recipeId;
+  bool _running = true;
   bool isLargeScreen = false;
 
   @override
   void initState() {
     recipeId = widget.recipeId;
+    this._timer();
     super.initState();
+  }
+
+  void _timer() {
+    Future.delayed(Duration(seconds: 60)).then((_) {
+      if (_running) {
+        setState(() {});
+        this._timer();
+      }
+    });
   }
 
   @override
@@ -44,24 +56,32 @@ class RecipeScreenState extends State<RecipeScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(translate('recipe.title')),
+            actions: <Widget>[
+              // action button
+              IconButton(
+                icon: Icon(
+                  Icons.edit,
+                ),
+                onPressed: () {
+                  if (state is RecipeLoadSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return BlocProvider.value(
+                              value: recipeBloc,
+                              child: RecipeEditScreen(state.recipe));
+                        },
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              if (state is RecipeLoadSuccess) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return BlocProvider.value(
-                          value: recipeBloc,
-                          child: RecipeEditScreen(state.recipe));
-                    },
-                  ),
-                );
-              }
-            },
-            child: Icon(Icons.edit),
-          ),
+
+          floatingActionButton: state is RecipeLoadSuccess ? _buildFabButton(state.recipe)
+             : null,
           body: () {
             if (state is RecipeLoadSuccess) {
               return _buildRecipeScreen(state.recipe);
@@ -81,6 +101,34 @@ class RecipeScreenState extends State<RecipeScreen> {
           }(),
         );
       }),
+    );
+  }
+
+  FloatingActionButton _buildFabButton(Recipe recipe) {
+    var enabled = recipe.cookTime != null && recipe.cookTime > Duration.zero;
+    return FloatingActionButton(
+      onPressed: () {
+        {
+          if (enabled) {
+            Timer timer = new Timer(recipe.id, recipe.name,
+                recipe.name + translate('timer.finished'),
+                recipe.cookTime);
+            timer.show();
+            TimerList().timers.add(timer);
+            setState((){
+            });
+            final snackBar = SnackBar(content: Text(translate(
+                'timer.started')));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+          else {
+            final snackBar = SnackBar(content: Text("You need to set the cooking time to use a timer."));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        }
+      },
+      child: Icon(Icons.access_alarm),
+      backgroundColor: enabled ? Theme.of(context).accentColor : Theme.of(context).disabledColor,
     );
   }
 
@@ -171,7 +219,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                         if (recipe.cookTime != null)
                           DurationIndicator(
                               duration: recipe.cookTime,
-                              name: translate('recipe.cook')),
+                              name: translate('recipe.cook')
+                          ),
                         if (recipe.totalTime != null)
                           DurationIndicator(
                               duration: recipe.totalTime,
@@ -179,6 +228,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                       ],
                     ),
                   ),
+                  _showTimers(recipe),
                   if (recipe.tool.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
@@ -258,7 +308,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     List.filled(recipe.recipeInstructions.length, false);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 40.0),
       child: ExpansionTile(
         title: Text(translate('recipe.fields.instructions')),
         initiallyExpanded: true,
@@ -309,6 +359,59 @@ class RecipeScreenState extends State<RecipeScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+  Widget _showTimers(Recipe recipe) {
+    List<Timer> l = TimerList().get(recipe.id);
+    if (l.length > 0) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: l.length,
+              itemBuilder: (context, index) {
+                return _buildTimerListItem(l[index]);
+              },
+            )
+          ]
+        ),
+      );
+    }
+    return SizedBox.shrink();
+  }
+
+  ListTile _buildTimerListItem(Timer timer) {
+    return ListTile(
+      title: timer.progress() > 0 ?
+      Container(
+        child: Column(
+            children: [
+              Row (
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(timer.remaining()),
+                    Text(timer.endingTime()),
+                  ]
+              ),
+              LinearProgressIndicator(
+                value: timer.progress(),
+                semanticsLabel: timer.title,
+              ),
+            ]),
+      )
+          : Container(
+          child: Text("Done")
+      ),
+      trailing: IconButton(
+          icon: Icon(Icons.cancel),
+          onPressed: () {
+            timer.cancel();
+            setState((){
+            });
+          }
       ),
     );
   }
