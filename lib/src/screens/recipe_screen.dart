@@ -33,6 +33,7 @@ class RecipeScreenState extends State<RecipeScreen> {
     DefaultCacheManager().emptyCache();
     this.setState(() {
     });
+    return Future.value(true);
   }
 
   @override

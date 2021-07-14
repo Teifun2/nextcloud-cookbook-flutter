@@ -53,13 +53,21 @@ class RecipesListScreenState extends State<RecipesListScreen> {
               ),
             ],
           ),
-          body: (() {
-            if (recipesShortState is RecipesShortLoadSuccess) {
-              return _buildRecipesShortScreen(recipesShortState.recipesShort);
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          }()),
+          body: RefreshIndicator(
+            onRefresh: () {
+              DefaultCacheManager().emptyCache();
+              BlocProvider.of<RecipesShortBloc>(context)
+                  .add(RecipesShortLoaded(category: category));
+              return Future.value(true);
+            },
+            child:(() {
+              if (recipesShortState is RecipesShortLoadSuccess) {
+                return _buildRecipesShortScreen(recipesShortState.recipesShort);
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            }()),
+          ),
         );
       },
     );
