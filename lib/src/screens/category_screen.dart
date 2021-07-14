@@ -214,44 +214,51 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ],
           ),
-          body: (() {
-            if (categoriesState is CategoriesLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesImageLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesLoadInProgress ||
-                categoriesState is CategoriesInitial) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
+          body: RefreshIndicator(
+            onRefresh: () {
+              DefaultCacheManager().emptyCache();
+              BlocProvider.of<CategoriesBloc>(context)
+                .add(CategoriesLoaded());
+              return;
+            },
+            child: () {
+              if (categoriesState is CategoriesLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesImageLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesLoadInProgress ||
+                  categoriesState is CategoriesInitial) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,children: [
+                    Center(
                     child: SpinKitWave(
                       color: Theme.of(context).primaryColor,
                       size: 50.0,
                     ),
                   ),
                   ApiVersionWarning(),
-                ],
-              );
-            } else if (categoriesState is CategoriesLoadFailure) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Text(
-                      translate('categories.errors.plugin_missing'),
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Divider(),
-                    Text(translate('categories.errors.load_failed',
-                        args: {'error_msg': categoriesState.errorMsg})),
                   ],
-                ),
-              );
-            } else {
-              return Text(translate('categories.errors.unknown'));
-            }
-          }()),
+                );
+              } else if (categoriesState is CategoriesLoadFailure) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        translate('categories.errors.plugin_missing'),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Divider(),
+                      Text(translate('categories.errors.load_failed',
+                          args: {'error_msg': categoriesState.errorMsg})),
+                    ],
+                  ),
+                );
+              } else {
+                return Text(translate('categories.errors.unknown'));
+              }
+            }()
+          ),
         );
       },
     );
