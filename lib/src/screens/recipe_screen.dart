@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
@@ -20,6 +21,7 @@ class RecipeScreen extends StatefulWidget {
 
 class RecipeScreenState extends State<RecipeScreen> {
   int recipeId;
+  bool isLargeScreen = false;
 
   @override
   void initState() {
@@ -27,8 +29,21 @@ class RecipeScreenState extends State<RecipeScreen> {
     super.initState();
   }
 
+  Future<void> _refresh() async {
+    DefaultCacheManager().emptyCache();
+    this.setState(() {
+    });
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery
+        .of(context)
+        .size
+        .width > 600) {
+      this.isLargeScreen = true;
+    }
     return BlocProvider<RecipeBloc>(
       create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId: recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
@@ -55,31 +70,35 @@ class RecipeScreenState extends State<RecipeScreen> {
             },
             child: Icon(Icons.edit),
           ),
-          body: () {
-            if (state is RecipeLoadSuccess) {
-              return _buildRecipeScreen(state.recipe);
-            } else if (state is RecipeLoadInProgress) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is RecipeFailure) {
-              return Center(
-                child: Text(state.errorMsg),
-              );
-            } else {
-              return Center(
-                child: Text("FAILED"),
-              );
-            }
-          }(),
+          body: RefreshIndicator(
+              onRefresh: _refresh,
+              child: () {
+                if (state is RecipeLoadSuccess) {
+                  return _buildRecipeScreen(state.recipe);
+                }
+                else if (state is RecipeLoadInProgress) {
+                  return Center(
+                   child: CircularProgressIndicator(),
+                );
+                }
+                else if (state is RecipeFailure) {
+                  return Center(
+                    child: Text(state.errorMsg),
+                  );
+                }
+                else {
+                  return Center(
+                    child: Text("FAILED"),
+                  );
+                }
+              }(),
+          )
         );
       }),
     );
   }
 
   Widget _buildRecipeScreen(Recipe recipe) {
-    List<bool> instructionsDone =
-        List.filled(recipe.recipeInstructions.length, false);
 
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
@@ -162,15 +181,15 @@ class RecipeScreenState extends State<RecipeScreen> {
                         if (recipe.prepTime != null)
                           DurationIndicator(
                               duration: recipe.prepTime,
-                              name: translate('recipe.fields.time.prep')),
+                              name: translate('recipe.prep')),
                         if (recipe.cookTime != null)
                           DurationIndicator(
                               duration: recipe.cookTime,
-                              name: translate('recipe.fields.time.cook')),
+                              name: translate('recipe.cook')),
                         if (recipe.totalTime != null)
                           DurationIndicator(
                               duration: recipe.totalTime,
-                              name: translate('recipe.fields.time.total')),
+                              name: translate('recipe.total')),
                       ],
                     ),
                   ),
@@ -191,83 +210,120 @@ class RecipeScreenState extends State<RecipeScreen> {
                         ],
                       ),
                     ),
-                  if (recipe.recipeIngredient.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: ExpansionTile(
-                        title: Text(translate('recipe.fields.ingredients')),
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(recipe.recipeIngredient.fold(
-                                  "", (p, e) => p + "-  " + e.trim() + "\n")),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: ExpansionTile(
-                      title: Text(translate('recipe.fields.instructions')),
-                      initiallyExpanded: true,
-                      children: <Widget>[
+                    if (this.isLargeScreen && recipe.recipeIngredient.isNotEmpty)
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    instructionsDone[index] =
-                                        !instructionsDone[index];
-                                  });
-                                },
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 40,
-                                      height: 40,
-                                      margin:
-                                          EdgeInsets.only(right: 15, top: 10),
-                                      child: instructionsDone[index]
-                                          ? Icon(Icons.check)
-                                          : Center(child: Text("${index + 1}")),
-                                      decoration: ShapeDecoration(
-                                        shape: CircleBorder(
-                                            side:
-                                                BorderSide(color: Colors.grey)),
-                                        color: instructionsDone[index]
-                                            ? Colors.green
-                                            : Theme.of(context).backgroundColor,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                          recipe.recipeInstructions[index]),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            separatorBuilder: (c, i) => SizedBox(height: 10),
-                            itemCount: recipe.recipeInstructions.length,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 5,
+                                child: this._buildRecipeIngredient(recipe)
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: this._buildRecipeInstructions(recipe)
+                              ),
+                            ]
+                          )
+                        )
+                  else
+                      Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Column(
+                              children: <Widget>[
+                                if (recipe.recipeIngredient.isNotEmpty)
+                                  this._buildRecipeIngredient(recipe),
+                                this._buildRecipeInstructions(recipe),
+                              ]
+                          )
+                      )
                 ],
               ),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildRecipeIngredient(Recipe recipe) {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: ExpansionTile(
+          title: Text(translate('recipe.fields.ingredients')),
+          initiallyExpanded: true,
+          children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Text(recipe.recipeIngredient.fold(
+               "", (p, e) => p + "-  " + e.trim() + "\n")),
+              ),
+            ),
+          ],
+        )
+    );
+  }
+
+  Widget _buildRecipeInstructions(Recipe recipe) {
+    List<bool> instructionsDone =
+    List.filled(recipe.recipeInstructions.length, false);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: ExpansionTile(
+        title: Text(translate('recipe.fields.instructions')),
+        initiallyExpanded: true,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      instructionsDone[index] =
+                      !instructionsDone[index];
+                    });
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: 40,
+                        height: 40,
+                        margin:
+                        EdgeInsets.only(right: 15, top: 10),
+                        child: instructionsDone[index]
+                            ? Icon(Icons.check)
+                            : Center(child: Text("${index + 1}")),
+                        decoration: ShapeDecoration(
+                          shape: CircleBorder(
+                              side:
+                              BorderSide(color: Colors.grey)),
+                          color: instructionsDone[index]
+                              ? Colors.green
+                              : Theme.of(context).backgroundColor,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                            recipe.recipeInstructions[index]),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (c, i) => SizedBox(height: 10),
+              itemCount: recipe.recipeInstructions.length,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

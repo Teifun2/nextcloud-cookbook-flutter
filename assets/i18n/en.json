@@ -46,11 +46,11 @@
     },
     "errors": {
       "unknown": "Categories in unknown state",
-      "load_failed": "Category Load Failed: {error_msg}",
+      "load_failed": "Category load failed: {error_msg}",
       "load_no_response": "Could not retrieve the Categories from the server.",
-      "api_version_check_failed": "Failed to check the API version of the Server:\n{error_msg}",
-      "api_version_above_confirmed": "The API version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
+      "api_version_check_failed": "Failed to check the API version of the server:\n{error_msg}",
+      "api_version_above_confirmed": "The API version of the server was updated. Some features might not work as expected. Please wait for an update!\n{version}",
+      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
     }
   },
   "recipe_list": {
@@ -61,6 +61,9 @@
   },
   "recipe": {
     "title": "Recipe:",
+    "prep": "Preparation time",
+    "cook": "Cooking time",
+    "total": "Total time",
     "fields": {
       "name": "Recipe Name:",
       "description": "Recipe Description:",
@@ -85,14 +88,14 @@
   },
   "recipe_edit": {
     "title": "Edit Recipe",
-    "button": "Update Recipe",
+    "button": "Edit",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Create Recipe",
-    "button": "Create Recipe",
+    "button": "Create",
     "errors": {
       "update_failed": "Create Failed {error_msg}"
     }

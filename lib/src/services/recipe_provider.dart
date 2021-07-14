@@ -1,27 +1,23 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
+import 'network.dart';
+
 class RecipeProvider {
   Future<Recipe> fetchRecipe(int id) async {
-    Dio client = UserRepository().getAuthenticatedClient();
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
 
-    final response = await client.get(
-      "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/$id",
-    );
-
-    if (response.statusCode == 200) {
-      try {
-        return Recipe(response.data);
-      } catch (e) {
-        throw Exception(e);
-      }
-    } else {
-      throw Exception(translate('recipe.errors.load_failed'));
+    final String url = "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/$id";
+    // Parse categories
+    try {
+      String contents = await Network().get(url);
+      return Recipe(contents);
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
@@ -31,12 +27,15 @@ class RecipeProvider {
         UserRepository().getCurrentAppAuthentication();
 
     try {
+      final String url = "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/${recipe.id}";
       var response = await client.put(
-          "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/${recipe.id}",
+          url,
           data: recipe.toJson(),
           options: new Options(
             contentType: "application/json;charset=UTF-8",
           ));
+      // Refresh recipe in the cache
+      DefaultCacheManager().downloadFile(url);
       return int.parse(response.data);
     } catch (e) {
       throw Exception(e);
