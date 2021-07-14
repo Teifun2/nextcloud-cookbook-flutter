@@ -219,7 +219,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               DefaultCacheManager().emptyCache();
               BlocProvider.of<CategoriesBloc>(context)
                 .add(CategoriesLoaded());
-              return;
+              return Future.value(true);
             },
             child: () {
               if (categoriesState is CategoriesLoadSuccess) {
