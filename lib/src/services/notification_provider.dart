@@ -7,7 +7,7 @@ const NotificationDetails platformChannelSpecifics =
 NotificationDetails(android: androidPlatformChannelSpecifics);
 
 const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-  '132245', 'Cookbook', 'Timer for the Cookbook',
+  '1', 'Cookbook', 'Timer for the Cookbook',
   importance: Importance.high,
   priority: Priority.high,
   showWhen: false,
@@ -53,15 +53,6 @@ class NotificationService {
       Timer timer = Timer.fromJson(data, element.id);
       if (timer.id > this.curId)
         this.curId = timer.id;
-    });
-
-    final List<ActiveNotification> activeNotifications =
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
-        ?.getActiveNotifications();
-    activeNotifications.forEach((ActiveNotification element) {
-
     });
   }
 

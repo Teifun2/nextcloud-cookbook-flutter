@@ -111,10 +111,11 @@ class RecipeScreenState extends State<RecipeScreen> {
       onPressed: () {
         {
           if (enabled) {
-            var timer = new Timer(recipe.id, recipe.name,
+            Timer timer = new Timer(recipe.id, recipe.name,
                 recipe.name + translate('timer.finished'),
                 recipe.cookTime);
             timer.show();
+            TimerList().timers.add(timer);
             setState((){
             });
             final snackBar = SnackBar(content: Text(translate(

@@ -40,16 +40,14 @@ class Timer {
   Timer(this.recipeId, this.title, this.body, this.duration, [tz.TZDateTime done]) {
     tz.initializeTimeZones();
     this.done = tz.TZDateTime.now(tz.local).add(this.duration);
-    TimerList().timers.add(this);
   }
 
   // Restore Timer fom pending notification
-  Timer.restore(this.recipeId, this.title, this.body, this.duration, this.done, this.id) {
-    TimerList().timers.add(this);
-  }
+  Timer.restore(this.recipeId, this.title, this.body, this.duration, this.done, this.id);
+
   factory Timer.fromJson(Map<String, dynamic> json, int id) {
     tz.initializeTimeZones();
-    return Timer.restore(
+    Timer timer = Timer.restore(
         json['recipeId'],
         json['title'],
         json['body'],
@@ -57,6 +55,8 @@ class Timer {
         tz.TZDateTime.fromMicrosecondsSinceEpoch(tz.local, json['done']),
         id
     );
+    TimerList().timers.add(timer);
+    return timer;
   }
 
   Map<String, dynamic> toJson() => {
