@@ -49,7 +49,8 @@
       "load_failed": "Ładowanie kategorii nie powiodło się: {error_msg}",
       "load_no_response": "Nie można pobrać kategorii z serwera.",
       "api_version_check_failed": "Nie udało się sprawdzić wersji API serwera:\n{error_msg}",
-      "api_version_above_confirmed": "Zaktualizowano wersję API serwera. Niektóre funkcje mogą nie działać zgodnie z oczekiwaniami. Czekaj na aktualizację!\n{version}"
+      "api_version_above_confirmed": "Zaktualizowano wersję API serwera. Niektóre funkcje mogą nie działać zgodnie z oczekiwaniami. Czekaj na aktualizację!\n{version}",
+      "plugin_missing": "Nie udało się załadować kategorii. Upewnij się, że wtyczka Cookbook jest zainstalowana w instancji Nextcloud!"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "Aktualizacja nie powiodła się {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Utwórz przepis",
+    "button": "Utwórz przepis",
+    "errors": {
+      "update_failed": "Utworzenie nie powiodło się {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Importuj przepis",
     "button": "Importuj",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "Szukaj",
-    "nothing_found": "Nie znaleziono przepisu!"
+    "title": "Szukaj przepisu",
+    "nothing_found": "Nie znaleziono przepisu!",
+    "errors": {
+      "search_failed": "Nie można załadować wszystkich przepisów!\n{error_msg}"
+    }
   }
 }

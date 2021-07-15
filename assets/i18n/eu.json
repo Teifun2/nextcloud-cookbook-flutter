@@ -49,7 +49,8 @@
       "load_failed": "Kategorien kargatzeak huts egin du: {error_msg}",
       "load_no_response": "Ezin izan da kategoriak zerbitzaritik berreskuratu.",
       "api_version_check_failed": "Ezin izan da zerbitzariaren API bertsioa egiaztatu:\n{error_msg}",
-      "api_version_above_confirmed": "Zerbitzariaren API bertsioa eguneratu zen. Baliteke zenbait funtziok espero ez bezala funtzionatzea. Mesedez, itxaron eguneratze bat!\n{version}"
+      "api_version_above_confirmed": "Zerbitzariaren API bertsioa eguneratu zen. Baliteke zenbait funtziok espero ez bezala funtzionatzea. Mesedez, itxaron eguneratze bat!\n{version}",
+      "plugin_missing": "Ezin izan dira kategoriak kargatu. Ziurtatu sukaldaritza liburuaren plugina nextcloud instantzia honetan instalatuta dagoela!"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "Eguneratzeak huts egin du {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Sortu errezeta",
+    "button": "Sortu errezeta",
+    "errors": {
+      "update_failed": "Huts egin du sortzean {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Inportatu errezeta",
     "button": "Inportatu",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "Bilatu",
-    "nothing_found": "Ez da errezetarik aurkitu!"
+    "title": "Bilatu errezeta",
+    "nothing_found": "Ez da errezetarik aurkitu!",
+    "errors": {
+      "search_failed": "Ezin dira errezeta guztiak kargatu!\n{error_msg}"
+    }
   }
 }

@@ -49,7 +49,8 @@
       "load_failed": "Načítání kategorie se nezdařilo: {error_msg}",
       "load_no_response": "Nepodařilo se získat kategorie ze serveru.",
       "api_version_check_failed": "Nepovedlo se zjistit verzi API rozhraní serveru:\n{error_msg}",
-      "api_version_above_confirmed": "Verze API serveru byla updatována. Některé služby nemusí fungovat, tak jak se očekává. Počkejte prosím na update!\n{version}"
+      "api_version_above_confirmed": "Verze aplikačního program. rozhraní (API) serveru byla aktualizována. Některé funkce nemusí fungovat, tak jak se očekává. Počkejte prosím na aktualizaci aplikace!\n{version}",
+      "plugin_missing": "Kategorie se nepodařilo načíst. Ověřte, že je na této instanci Nextcloud nainstalován zásuvný modul kuchařka!"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "Aktualizace se nezdařila: {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Vytvořit recept",
+    "button": "Vytvořit recept",
+    "errors": {
+      "update_failed": "Vytvoření se nezdařilo {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Importovat recept",
     "button": "Importovat",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "Hledat",
-    "nothing_found": "Nenalezen žádný recept!"
+    "title": "Hledat recept",
+    "nothing_found": "Nenalezen žádný recept!",
+    "errors": {
+      "search_failed": "Nedaří se načíst veškeré recepty!\n{error_msg}"
+    }
   }
 }

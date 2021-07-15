@@ -49,7 +49,8 @@
       "load_failed": "載入分類失敗：{error_msg}",
       "load_no_response": "無法從伺服器獲得分類",
       "api_version_check_failed": "無法檢查伺服器 API 的版本：\n{error_msg}",
-      "api_version_above_confirmed": "伺服器的API版本已更新。某些功能可能無法正常工作。請等待更新！\n{version}"
+      "api_version_above_confirmed": "伺服器的API版本已更新。某些功能可能無法正常工作。請等待更新！\n{version}",
+      "plugin_missing": "無法加載類別。確保在該 Nextcloud 實例上安裝了 Cookbook 插件！"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "更新失敗 {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "創建食譜",
+    "button": "創建食譜",
+    "errors": {
+      "update_failed": "創建失敗 {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "導入食譜",
     "button": "導入",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "搜尋",
-    "nothing_found": "找不到食譜!"
+    "title": "搜尋食譜",
+    "nothing_found": "找不到食譜!",
+    "errors": {
+      "search_failed": "無法加載所有食譜！\n{error_msg}"
+    }
   }
 }

@@ -42,14 +42,15 @@
     "title": "Keittokirja",
     "all_categories": "Kaikki",
     "drawer": {
-      "import": "Import Recipe"
+      "import": "Tuo resepti"
     },
     "errors": {
       "unknown": "Luokat tuntemattomassa tilassa",
       "load_failed": "Luokan lataus epäonnistui: {error_msg}",
       "load_no_response": "Luokkien haku palvelimelta ei onnistunut.",
       "api_version_check_failed": "Palvelimen API-version varmistus epäonnistui:\n {error_msg}",
-      "api_version_above_confirmed": "Palvelimen API-versio on päivitetty. Jotkin ominaisuudet eivät välttämättä toimi odotetusti. Odota sovelluksen päivitystä!\n {version}"
+      "api_version_above_confirmed": "Palvelimen API-versio on päivitetty. Jotkin ominaisuudet eivät välttämättä toimi odotetusti. Odota sovelluksen päivitystä!\n {version}",
+      "plugin_missing": "Kategorioita ei voitu ladata. Varmista, että Keittokirja-sovellus on asennettuna Nextcloud-serverillä!"
     }
   },
   "recipe_list": {
@@ -61,14 +62,14 @@
   "recipe": {
     "title": "Resepti:",
     "fields": {
-      "name": "Recipe Name:",
-      "description": "Recipe Description:",
-      "keywords": "Keywords:",
-      "category": "Category:",
+      "name": "Reseptin nimi:",
+      "description": "Reseptin kuvaus:",
+      "keywords": "Avainsanat:",
+      "category": "Kategoria:",
       "servings": "Annoksia:",
       "source": "Lähde:",
       "source_button": "Lähde",
-      "image": "Image:",
+      "image": "Kuva:",
       "time": {
         "prep": "Esivalmistelujen kesto:",
         "cook": "Valmistuksen kesto:",
@@ -84,22 +85,32 @@
   },
   "recipe_edit": {
     "title": "Muokkaa reseptiä",
-    "button": "Update Recipe",
+    "button": "Päivitä resepti",
     "errors": {
       "update_failed": "Päivitys epäonnistui {error_msg}"
     }
   },
-  "recipe_import": {
-    "title": "Import Recipe",
-    "button": "Import",
-    "field": "URL to Recipe",
-    "clipboard": "Paste Clipboard",
+  "recipe_create": {
+    "title": "Luo resepti",
+    "button": "Luo resepti",
     "errors": {
-      "import_failed": "Import Failed {error_msg}"
+      "update_failed": "Luonti epäonnistui {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Tuo resepti",
+    "button": "Tuo",
+    "field": "Reseptin URL",
+    "clipboard": "Liitä leikepöydältä",
+    "errors": {
+      "import_failed": "Tuonti epäonnistui {error_msg}"
     }
   },
   "search": {
-    "title": "Etsi",
-    "nothing_found": "Reseptiä ei löytynyt!"
+    "title": "Search Recipe",
+    "nothing_found": "Reseptiä ei löytynyt!",
+    "errors": {
+      "search_failed": "Reseptien lataus ei onnistunut!\n{error_msg}"
+    }
   }
 }

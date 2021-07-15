@@ -49,7 +49,8 @@
       "load_failed": "Učitavanje kategorije nije uspjelo: {error_msg}",
       "load_no_response": "Nije moguće dohvatiti kategorije s poslužitelja.",
       "api_version_check_failed": "Provjera verzije API-ja poslužitelja nije uspjela:\n{error_msg}",
-      "api_version_above_confirmed": "Ažurirana je verzija API-ja poslužitelja. Neke značajke možda neće raditi kako je očekivano. Pričekajte ažuriranje!\n{version}"
+      "api_version_above_confirmed": "Ažurirana je verzija API-ja poslužitelja. Neke značajke možda neće raditi kako je očekivano. Pričekajte ažuriranje!\n{version}",
+      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "Ažuriranje nije uspjelo {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Create Recipe",
+    "button": "Create Recipe",
+    "errors": {
+      "update_failed": "Create Failed {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Import Recipe",
     "button": "Import",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "Traži",
-    "nothing_found": "Nije pronađen nijedan recept!"
+    "title": "Search Recipe",
+    "nothing_found": "Nije pronađen nijedan recept!",
+    "errors": {
+      "search_failed": "Unable to load all Recipes!\n{error_msg}"
+    }
   }
 }

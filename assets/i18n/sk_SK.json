@@ -1,0 +1,116 @@
+{
+  "app_bar": {
+    "search": "Hľadať",
+    "refresh": "Obnoviť",
+    "logout": "Odhlásiť"
+  },
+  "login": {
+    "title": "Prihlásenie",
+    "server_url": {
+      "field": "URL servera",
+      "validator": {
+        "empty": "Prosím zadajte URL k vašej inštancii Nextcloudu.",
+        "pattern": "Zadajte prosím platnú URL"
+      }
+    },
+    "username": {
+      "field": "Užívateľské meno"
+    },
+    "password": {
+      "field": "Heslo"
+    },
+    "settings": {
+      "title": "Rozšírené nastavenia",
+      "app_password": "Použiť vygenerované heslo Aplikácie.\nPotrebné pre účty s 2FA.",
+      "self_signed_certificate": "Ignorovať neplatný certifikát.\nPotrebné pre certifikáty typu self signed.\n(Používať na vlastné nebezpečie!)"
+    },
+    "button": "Prihlásiť sa",
+    "errors": {
+      "not_reachable": "Nemôžem nájisť: {server_url}\n{error_msg}",
+      "certificate_failed": "Certifikát servera nemohol byť overený: {server_url}\n{error_msg}",
+      "request_failed": "Požiadavka na Heslo aplikácie zlyhala:\n{error_msg}",
+      "parse_failed": "Nemôžem prečítať odpoveď na Heslo aplikácie !\n{error_msg}",
+      "parse_missing": "Nemôžem nájisť Heslo aplikácie v odpovedi!\n{error_msg}",
+      "auth_failed": "Uživateľské meno a / alebo Heslo je nesprávne!",
+      "authentication_not_found": "Žiadne overenie nenájdené v úložisku.",
+      "failed_remove_remote": "Vymazanie hesla vzdialenej Aplikácie zlyhalo!",
+      "failure": "Prihlasovací proces nemohol byť korektne ukončený.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Uložené prihlasovacie údaje nie sú naďalej platné a budete odhlásený!"
+    }
+  },
+  "categories": {
+    "title": "Kuchárska kniha",
+    "all_categories": "Všetko",
+    "drawer": {
+      "import": "Importovať Recept"
+    },
+    "errors": {
+      "unknown": "Kategórie sú v neznámom stave",
+      "load_failed": "Načítanie kategórie zlyhalo: {error_msg}",
+      "load_no_response": "Nemôžem načítať Kategórie zo servera.",
+      "api_version_check_failed": "Zlyhala kontrola verzie API na serveri:\n{error_msg}",
+      "api_version_above_confirmed": "API servera bolo aktualizované. Niektoré vlastnosti nemusia fungovať správne. Prosím počkajte na aktualizáciu!\n{version}",
+      "plugin_missing": "Kategórie nemohli byť načítané. Skontrolujte že zásuvný modul cookbook je nainštalovaný v tejto inštancii nextcloudu!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategória: {category}",
+    "errors": {
+      "load_failed": "Nepodarilo sa načítať Skratky Receptov!"
+    }
+  },
+  "recipe": {
+    "title": "Recept:",
+    "fields": {
+      "name": "Názov receptu:",
+      "description": "Popis receptu:",
+      "keywords": "Kľúčové slová:",
+      "category": "Kategória:",
+      "servings": "Počet porcií:",
+      "source": "Zdroj:",
+      "source_button": "Zdroj",
+      "image": "Obrázok:",
+      "time": {
+        "prep": "Doba prípravy:",
+        "cook": "Doba varenia:",
+        "total": "Celkový čas:"
+      },
+      "tools": "Nástroje:",
+      "ingredients": "Prísady:",
+      "instructions": "Postup:"
+    },
+    "errors": {
+      "load_failed": "Nepodarilo sa načítať Recept!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Upraviť recept",
+    "button": "Aktualizovať Recept",
+    "errors": {
+      "update_failed": "Aktualizácia zlyhala {error_msg}"
+    }
+  },
+  "recipe_create": {
+    "title": "Vytvoriť Recept",
+    "button": "Vytvoriť Recept",
+    "errors": {
+      "update_failed": "Vytváranie zlyhalo {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importovať Recept",
+    "button": "Import",
+    "field": "URL k Receptu",
+    "clipboard": "Vložiť zo schránky",
+    "errors": {
+      "import_failed": "Aktualizácia zlyhala {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Vyhľadať Recept",
+    "nothing_found": "Nenašiel sa žiadny recept!",
+    "errors": {
+      "search_failed": "Nie je možné načítať všetky Recepty!\n{error_msg}"
+    }
+  }
+}
