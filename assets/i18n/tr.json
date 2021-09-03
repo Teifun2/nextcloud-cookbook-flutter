@@ -1,30 +1,30 @@
 {
   "app_bar": {
-    "search": "Arama",
+    "search": "Ara",
     "refresh": "Yenlle",
-    "logout": "Oturumu Kapat"
+    "logout": "Oturumu kapat"
   },
   "login": {
-    "title": "Oturum Aç",
+    "title": "Oturum aç",
     "server_url": {
-      "field": "Sunucu Adresi",
+      "field": "Sunucu adresi",
       "validator": {
         "empty": "Lütfen Nextcloud kopyanızın adresini yazın.",
         "pattern": "Lütfen geçerli bir adres yazın"
       }
     },
     "username": {
-      "field": "Kullanıcı Adı"
+      "field": "Kullanıcı adı"
     },
     "password": {
       "field": "Parola"
     },
     "settings": {
-      "title": "Gelişmiş Ayarlar",
+      "title": "Gelişmiş ayarlar",
       "app_password": "Otomatik oluşturulan AppPassword kullanılsın.\nİki aşamalı kimlik doğrulaması kullanan hesaplar için gereklidir",
       "self_signed_certificate": "Hatalı sertifika yok sayılsın\nKendinden imzalı sertifikalar için gereklidir\n(Kullanımdan doğacak riskler size aittir!)"
     },
-    "button": "Oturum Aç",
+    "button": "Oturum aç",
     "errors": {
       "not_reachable": "Sunucuya erişilemedi: {server_url}\n{error_msg}",
       "certificate_failed": "Sunucunun sertifikası doğrulanamadı: {server_url} \n{error_msg}",
@@ -42,14 +42,15 @@
     "title": "Yemek kitabı",
     "all_categories": "Tümü",
     "drawer": {
-      "import": "İçe Tarif Aktar"
+      "import": "İçe tarif aktar"
     },
     "errors": {
       "unknown": "Durumu bilinmeyen kategoriler",
       "load_failed": "Kategori yüklenemedi: {error_msg}",
       "load_no_response": "Sunucudan kategoriler alınamadı.",
       "api_version_check_failed": "Sunucunun API sürümü denetlenemedi:\n{error_msg}",
-      "api_version_above_confirmed": "Sunucunun API sürümü güncellendi. Bazı özellikler beklendiği gibi çalışmayabilir. Lütfen bir güncelleme bekleyin!\n{version}"
+      "api_version_above_confirmed": "Sunucunun API sürümü güncellendi. Bazı özellikler beklendiği gibi çalışmayabilir. Lütfen bir güncelleme bekleyin!\n{version}",
+      "plugin_missing": "Kategoriler yüklenemedi. Yemek kitabı eklentisinin bu Nextcloud kopyası üzerine kurulmuş olduğundan emin olun!"
     }
   },
   "recipe_list": {
@@ -61,9 +62,9 @@
   "recipe": {
     "title": "Tarif:",
     "fields": {
-      "name": "Tarif Adı:",
-      "description": "Tarif Açıklaması:",
-      "keywords": "Anahtar Sözcükler:",
+      "name": "Tarif adı:",
+      "description": "Tarif açıklaması:",
+      "keywords": "Anahtar sözcükler:",
       "category": "Kategori:",
       "servings": "Porsiyon:",
       "source": "Kaynak:",
@@ -83,23 +84,33 @@
     }
   },
   "recipe_edit": {
-    "title": "Tarifi Düzenle",
-    "button": "Tarifi Güncelle",
+    "title": "Tarifi düzenle",
+    "button": "Tarifi güncelle",
     "errors": {
       "update_failed": "Güncellenemedi {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Yemek tarifi oluştur",
+    "button": "Yemek tarifi oluştur",
+    "errors": {
+      "update_failed": "Oluşturulamadı {error_msg}"
+    }
+  },
   "recipe_import": {
-    "title": "İçe Tarif Aktar",
-    "button": "İçe Aktar",
-    "field": "Tarif Adresi",
-    "clipboard": "Panodan Yapıştır",
+    "title": "İçe tarif aktar",
+    "button": "İçe aktar",
+    "field": "Tarif adresi",
+    "clipboard": "Panodan yapıştır",
     "errors": {
       "import_failed": "İçe aktarılamadı {error_msg}"
     }
   },
   "search": {
-    "title": "Arama",
-    "nothing_found": "Herhangi bir tarif bulunamadı!"
+    "title": "Yemek tarifi ara",
+    "nothing_found": "Herhangi bir tarif bulunamadı!",
+    "errors": {
+      "search_failed": "Tüm yemek tarifleri yüklenemedi!\n{error_msg}"
+    }
   }
 }

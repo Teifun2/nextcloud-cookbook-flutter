@@ -49,7 +49,8 @@
       "load_failed": "Laden categorie mislukt: {error_msg}",
       "load_no_response": "Kon geen categorieën van de server ophalen.",
       "api_version_check_failed": "Kon de API-versie van de server niet verifiëren:\n {error_msg}",
-      "api_version_above_confirmed": "De Api-versie van de server is bijgewerkt. Sommige functies werken mogelijk niet zoals verwacht. Wacht op een update!\n{version}"
+      "api_version_above_confirmed": "De Api-versie van de server is bijgewerkt. Sommige functies werken mogelijk niet zoals verwacht. Wacht op een update!\n{version}",
+      "plugin_missing": "Categorieën kunnen niet worden geladen. Zorg ervoor dat de kookboek-plug-in is geïnstalleerd op deze nextcloud-instantie!"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "Bijwerken mislukt {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Maak een recept",
+    "button": "Maak een recept",
+    "errors": {
+      "update_failed": "Aanmaken mislukt {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Importeren recept",
     "button": "Import",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "Zoeken",
-    "nothing_found": "Geen recept gevonden!"
+    "title": "Zoek recept",
+    "nothing_found": "Geen recept gevonden!",
+    "errors": {
+      "search_failed": "Kon niet alle recepten niet laden!\n{error_msg}"
+    }
   }
 }
