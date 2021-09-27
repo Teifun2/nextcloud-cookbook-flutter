@@ -357,6 +357,7 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   ListTile _buildTimerListItem(Timer timer) {
     return ListTile(
+      key: UniqueKey(),
       title: AnimatedTimeProgressBar(
         timer: timer,
       ),

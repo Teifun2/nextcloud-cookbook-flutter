@@ -62,6 +62,7 @@ class _TimerScreen extends State<TimerScreen> {
 
   ListTile _buildListItem(Timer timer) {
     return ListTile(
+      key: UniqueKey(),
       leading: AuthenticationCachedNetworkImage(
         recipeId: timer.recipeId,
         full: false,
