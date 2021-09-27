@@ -6,6 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,23 +22,12 @@ class RecipeScreen extends StatefulWidget {
 
 class RecipeScreenState extends State<RecipeScreen> {
   int recipeId;
-  bool _running = true;
   bool isLargeScreen = false;
 
   @override
   void initState() {
     recipeId = widget.recipeId;
-    this._timer();
     super.initState();
-  }
-
-  void _timer() {
-    Future.delayed(Duration(seconds: 60)).then((_) {
-      if (this.mounted && _running) {
-        setState(() {});
-        this._timer();
-      }
-    });
   }
 
   @override
@@ -108,7 +98,7 @@ class RecipeScreenState extends State<RecipeScreen> {
           if (enabled) {
             Timer timer = new Timer(recipe.id, recipe.name,
                 recipe.name + translate('timer.finished'), recipe.cookTime);
-            timer.show();
+            timer.start();
             TimerList().timers.add(timer);
             setState(() {});
             final snackBar =
@@ -367,22 +357,9 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   ListTile _buildTimerListItem(Timer timer) {
     return ListTile(
-      title: timer.progress() > 0
-          ? Container(
-              child: Column(children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(timer.remaining()),
-                      Text(timer.endingTime()),
-                    ]),
-                LinearProgressIndicator(
-                  value: timer.progress(),
-                  semanticsLabel: timer.title,
-                ),
-              ]),
-            )
-          : Container(child: Text("Done")),
+      title: AnimatedTimeProgressBar(
+        timer: timer,
+      ),
       trailing: IconButton(
           icon: Icon(Icons.cancel),
           onPressed: () {

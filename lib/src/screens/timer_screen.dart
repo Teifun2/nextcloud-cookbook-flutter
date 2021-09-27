@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class TimerScreen extends StatefulWidget {
@@ -11,28 +12,10 @@ class TimerScreen extends StatefulWidget {
 
 class _TimerScreen extends State<TimerScreen> {
   List<Timer> _list;
-  bool _running = true;
 
   @override
   void initState() {
-    this._timer();
     super.initState();
-  }
-
-  void _timer() {
-    // Refreshes Screen all 60 seconds to update timers.
-    Future.delayed(Duration(seconds: 60)).then((_) {
-      if (_running) {
-        setState(() {});
-        this._timer();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _running = false;
-    super.dispose();
   }
 
   @override
@@ -40,26 +23,26 @@ class _TimerScreen extends State<TimerScreen> {
     this._list = TimerList().timers;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(translate('timer.title')),
-          actions: <Widget>[
-            // action button
-            IconButton(
-              icon: Icon(
-                Icons.clear_all,
-                semanticLabel: translate('app_bar.clear_all'),
-              ),
-              onPressed: () {
-                TimerList().clear();
-                setState(() {});
-              },
+      appBar: AppBar(
+        title: Text(translate('timer.title')),
+        actions: <Widget>[
+          // action button
+          IconButton(
+            icon: Icon(
+              Icons.clear_all,
+              semanticLabel: translate('app_bar.clear_all'),
             ),
-          ],
-        ),
-        body: (() {
-          return _buildTimerScreen(this._list);
-        }()),
-      );
+            onPressed: () {
+              TimerList().clear();
+              setState(() {});
+            },
+          ),
+        ],
+      ),
+      body: (() {
+        return _buildTimerScreen(this._list);
+      }()),
+    );
   }
 
   Widget _buildTimerScreen(List<Timer> data) {
@@ -86,22 +69,9 @@ class _TimerScreen extends State<TimerScreen> {
         height: 60,
       ),
       title: Text(timer.title),
-      subtitle: timer.progress() > 0
-          ? Container(
-              child: Column(children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(timer.remaining()),
-                      Text(timer.endingTime()),
-                    ]),
-                LinearProgressIndicator(
-                  value: timer.progress(),
-                  semanticsLabel: timer.title,
-                ),
-              ]),
-            )
-          : Container(child: Text(translate('timer.done'))),
+      subtitle: AnimatedTimeProgressBar(
+        timer: timer,
+      ),
       isThreeLine: true,
       trailing: IconButton(
           icon: Icon(Icons.cancel),
