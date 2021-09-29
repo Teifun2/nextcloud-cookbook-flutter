@@ -1,4 +1,3 @@
-import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../services/notification_provider.dart';
@@ -42,7 +41,6 @@ class Timer {
     this.duration, [
     tz.TZDateTime done,
   ]) {
-    tz.initializeTimeZones();
     this.done = tz.TZDateTime.now(tz.local).add(this.duration);
   }
 
@@ -57,7 +55,6 @@ class Timer {
   );
 
   factory Timer.fromJson(Map<String, dynamic> json, int id) {
-    tz.initializeTimeZones();
     Timer timer = Timer.restore(
         json['recipeId'],
         json['title'],
