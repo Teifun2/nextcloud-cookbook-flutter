@@ -10,13 +10,13 @@ import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 
 import './src/screens/login_screen.dart';
 import './src/screens/splash_screen.dart';
-import './src/services/user_repository.dart';
 import './src/services/notification_provider.dart';
+import './src/services/user_repository.dart';
 import 'src/blocs/authentication/authentication.dart';
 import 'src/blocs/simple_bloc_delegatae.dart';
 
 void main() async {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  Bloc.observer = SimpleBlocDelegate();
   var delegate = await LocalizationDelegate.create(
     basePath: 'assets/i18n/',
     fallbackLocale: 'en',
