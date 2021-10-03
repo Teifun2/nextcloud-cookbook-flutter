@@ -23,7 +23,7 @@ dependencies:
 
   flutter_translate:
     git:
-      url: https://github.com/cornerman/flutter_translate
+      url: git@github.com:cornerman/flutter_translate.git
       ref: fallback-missing-strings
 
   # For DNS punycode translation
