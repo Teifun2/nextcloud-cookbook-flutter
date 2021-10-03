@@ -10,6 +10,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/timer_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
@@ -58,6 +59,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
                 ListTile(
                   trailing: Icon(
+                    Icons.alarm_add_outlined,
+                    semanticLabel: translate('timer.title'),
+                  ),
+                  title: Text(translate('timer.title')),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return TimerScreen();
+                      }),
+                    );
+
+                  },
+                ),
+                ListTile(
+                  trailing: Icon(
                     Icons.exit_to_app,
                     semanticLabel: translate('app_bar.logout'),
                   ),
@@ -74,6 +92,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                   title: Text(translate('categories.drawer.import')),
                   onTap: () {
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
