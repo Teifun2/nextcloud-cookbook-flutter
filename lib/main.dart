@@ -15,6 +15,7 @@ import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './src/screens/login_screen.dart';
 import './src/screens/splash_screen.dart';
+import './src/services/notification_provider.dart';
 import './src/services/user_repository.dart';
 import 'src/blocs/authentication/authentication.dart';
 import 'src/blocs/simple_bloc_delegatae.dart';
@@ -29,6 +30,8 @@ void main() async {
   );
   // Wait for Settings to be ready
   await Settings.init();
+  // Wait for Notifications to be ready
+  await NotificationService().init();
   runApp(
     LocalizedApp(
       delegate,

@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Search",
     "refresh": "Refresh",
-    "logout": "Logout"
+    "logout": "Logout",
+    "clear_all": "Clear all"
   },
   "login": {
     "title": "Login",
@@ -116,6 +117,12 @@
     "errors": {
       "search_failed": "Unable to load all Recipes!\n{error_msg}"
     }
+  },
+  "timer": {
+    "title": "Your timers",
+    "started": "Timer started.",
+    "finished": " is finished.",
+    "done": "Timer is done."
   },
   "settings": {
     "title": "App Settings",
