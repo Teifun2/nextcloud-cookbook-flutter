@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -45,38 +48,38 @@ class CategoryCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  category.name,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16),
+            child: Text(
+              category.name,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.fade,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: Settings.getValue<double>(
+                  foundation.describeEnum(SettingKeys.category_font_size),
+                  16,
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.deepOrange,
-                        border: Border.all(
-                            color: Colors.deepOrangeAccent, width: 2),
-                      ),
-                      child: Center(
-                          child: Text(
-                        category.recipeCount.toString(),
-                        style: TextStyle(color: Colors.white),
-                      )),
-                    ),
-                  ),
-                )
-              ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.deepOrange,
+                  border: Border.all(color: Colors.deepOrangeAccent, width: 2),
+                ),
+                child: Center(
+                    child: Text(
+                  category.recipeCount.toString(),
+                  style: TextStyle(color: Colors.white),
+                )),
+              ),
             ),
           ),
         ],

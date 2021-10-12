@@ -49,7 +49,8 @@
       "load_failed": "Fallo al cargar categorías: {error_msg}",
       "load_no_response": "No se han podido recuperar las Categorías desde el servidor.",
       "api_version_check_failed": "Fallo al comprobar la versión API del servidor:\n{error_msg}",
-      "api_version_above_confirmed": "Se ha actualizado la versión de la API del servidor. Algunas características puede que no funcionen como se espera. ¡Por favor, espere a una actualización!\n{version}"
+      "api_version_above_confirmed": "Se ha actualizado la versión de la API del servidor. Algunas características puede que no funcionen como se espera. ¡Por favor, espere a una actualización!\n{version}",
+      "plugin_missing": "No se han podido cargar las categorías. ¡Asegúrate que el plugin cookbook está instalado en esta instancia de Nextcloud!"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "La actualización falló {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Crear receta",
+    "button": "Crear receta",
+    "errors": {
+      "update_failed": "Fallo al crear  {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Impotar receta",
     "button": "Importar",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "Buscar",
-    "nothing_found": "¡No se ha encontrado la receta!"
+    "title": "Buscar receta",
+    "nothing_found": "¡No se ha encontrado la receta!",
+    "errors": {
+      "search_failed": "¡No es posible cargar todas las recetas!\n{error_msg}"
+    }
   }
 }

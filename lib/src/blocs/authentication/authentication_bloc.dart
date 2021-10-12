@@ -9,8 +9,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository = UserRepository();
 
-  @override
-  AuthenticationState get initialState => AuthenticationUninitialized();
+  AuthenticationBloc() : super(AuthenticationUninitialized());
 
   @override
   Stream<AuthenticationState> mapEventToState(

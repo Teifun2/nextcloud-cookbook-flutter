@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Search",
     "refresh": "Refresh",
-    "logout": "Logout"
+    "logout": "Logout",
+    "clear_all": "Clear all"
   },
   "login": {
     "title": "Login",
@@ -42,15 +43,16 @@
     "title": "Cookbook",
     "all_categories": "All",
     "drawer": {
-      "import": "Import Recipe"
+      "import": "Import Recipe",
+      "settings": "Settings"
     },
     "errors": {
       "unknown": "Categories in unknown state",
-      "load_failed": "Category Load Failed: {error_msg}",
+      "load_failed": "Category load failed: {error_msg}",
       "load_no_response": "Could not retrieve the Categories from the server.",
-      "api_version_check_failed": "Failed to check the API version of the Server:\n{error_msg}",
-      "api_version_above_confirmed": "The API version of the Server was Updated. Some features might not work as expected. Please wait for an update!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
+      "api_version_check_failed": "Failed to check the API version of the server:\n{error_msg}",
+      "api_version_above_confirmed": "The API version of the server was updated. Some features might not work as expected. Please wait for an update!\n{version}",
+      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Recipe:",
+    "prep": "Preparation time",
+    "cook": "Cooking time",
+    "total": "Total time",
     "fields": {
       "name": "Recipe Name:",
       "description": "Recipe Description:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Edit Recipe",
-    "button": "Update Recipe",
+    "button": "Edit",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Create Recipe",
-    "button": "Create Recipe",
+    "button": "Create",
     "errors": {
       "update_failed": "Create Failed {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "No recipe found!",
     "errors": {
       "search_failed": "Unable to load all Recipes!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Your timers",
+    "started": "Timer started.",
+    "finished": " is finished.",
+    "done": "Timer is done."
+  },
+  "settings": {
+    "title": "App Settings",
+    "dark_mode": {
+      "title": "Dark Mode",
+      "system": "System Default",
+      "dark": "Always",
+      "light": "Never"
+    },
+    "language": {
+      "title": "Language"
+    },
+    "stay_awake": {
+      "title": "Stay Awake",
+      "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Recipe Font Size",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Category Font Size",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
     }
   }
 }

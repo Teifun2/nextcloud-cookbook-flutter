@@ -49,7 +49,8 @@
       "load_failed": "类别加载失败：{error_msg}",
       "load_no_response": "无法从服务器取得类别",
       "api_version_check_failed": "检查服务器的 API 版本失败：{error_msg}",
-      "api_version_above_confirmed": "服务器的 API 版本已更新。一些功能可能不像预期得那样工作。请等待一个更新！{version}"
+      "api_version_above_confirmed": "服务器的 API 版本已更新。一些功能可能不像预期得那样工作。请等待一个更新！{version}",
+      "plugin_missing": "无法加载类别。确保 cookbook 插件已安装在这个 nextcloud 实例上!"
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "更新失败 {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "创建食谱",
+    "button": "创建食谱",
+    "errors": {
+      "update_failed": "创建失败 {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "导入菜谱",
     "button": "导入",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "搜索",
-    "nothing_found": "未找到菜谱！"
+    "title": "搜索食谱",
+    "nothing_found": "未找到菜谱！",
+    "errors": {
+      "search_failed": "无法加载所有食谱 ！\n{error_msg}"
+    }
   }
 }

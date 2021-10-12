@@ -14,9 +14,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({
     @required this.authenticationBloc,
-  }) : assert(authenticationBloc != null);
-
-  LoginState get initialState => LoginInitial();
+  }) : super(LoginInitial()) {
+    assert(authenticationBloc != null);
+  }
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
