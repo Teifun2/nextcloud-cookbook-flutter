@@ -73,18 +73,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         return TimerScreen();
                       }),
                     );
-
-                  },
-                ),
-                ListTile(
-                  trailing: Icon(
-                    Icons.exit_to_app,
-                    semanticLabel: translate('app_bar.logout'),
-                  ),
-                  title: Text(translate('app_bar.logout')),
-                  onTap: () {
-                    BlocProvider.of<AuthenticationBloc>(context)
-                        .add(LoggedOut());
                   },
                 ),
                 ListTile(
@@ -117,6 +105,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       }),
                     );
                     setState(() {});
+                  },
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.exit_to_app,
+                    semanticLabel: translate('app_bar.logout'),
+                  ),
+                  title: Text(translate('app_bar.logout')),
+                  onTap: () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(LoggedOut());
                   },
                 ),
               ],
