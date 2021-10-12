@@ -42,14 +42,15 @@
     "title": "Libru de retzetas",
     "all_categories": "Totu",
     "drawer": {
-      "import": "Import Recipe"
+      "import": "Importa retzeta"
     },
     "errors": {
       "unknown": "Categorias in istadu non connotu",
       "load_failed": "Carrigamentu de categoria faddidu: {error_msg}",
       "load_no_response": "No at fatu a recuperare is Categorias dae su serbidore.",
       "api_version_check_failed": "No at fatu a controllare sa versione API in su serbidore:\n{error_msg}",
-      "api_version_above_confirmed": "Sa versione API de su serbidore s'est agiornada. Carchi funtzionalidade diat podet funtzionare comente prevìdidu. Abeta pro un'agiornamentu!\n{version}"
+      "api_version_above_confirmed": "Sa versione API de su serbidore s'est agiornada. Carchi funtzionalidade diat podet funtzionare comente prevìdidu. Abeta pro un'agiornamentu!\n{version}",
+      "plugin_missing": "No at fatu a carrigare is categorias. Segura·ti chi s'estensione de su libru de retzetas siat installadu in custa istàntzia de Nextcloud!"
     }
   },
   "recipe_list": {
@@ -61,14 +62,14 @@
   "recipe": {
     "title": "Retzeta:",
     "fields": {
-      "name": "Recipe Name:",
-      "description": "Recipe Description:",
-      "keywords": "Keywords:",
-      "category": "Category:",
+      "name": "Nùmene de sa retzeta:",
+      "description": "Descritzione de sa retzeta:",
+      "keywords": "Faeddos crae:",
+      "category": "Categoria:",
       "servings": "Portziones:",
       "source": "Fonte:",
       "source_button": "Fonte",
-      "image": "Image:",
+      "image": "Imàgine:",
       "time": {
         "prep": "Tempus de preparatzione:",
         "cook": "Tempus de cotura:",
@@ -84,22 +85,32 @@
   },
   "recipe_edit": {
     "title": "Modìfica retzeta",
-    "button": "Update Recipe",
+    "button": "Agiorna retzeta",
     "errors": {
       "update_failed": "Agiornamentu faddidu {error_msg}"
     }
   },
-  "recipe_import": {
-    "title": "Import Recipe",
-    "button": "Import",
-    "field": "URL to Recipe",
-    "clipboard": "Paste Clipboard",
+  "recipe_create": {
+    "title": "Crea una retzeta",
+    "button": "Crea una retzeta",
     "errors": {
-      "import_failed": "Import Failed {error_msg}"
+      "update_failed": "Creatzione faddida {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importa retzeta",
+    "button": "Importa",
+    "field": "URL a sa retzeta",
+    "clipboard": "Apitziga punta de billete",
+    "errors": {
+      "import_failed": "Importatzione faddida {error_msg}"
     }
   },
   "search": {
-    "title": "Chirca",
-    "nothing_found": "Peruna retzeta agatada!"
+    "title": "Chirca una retzeta",
+    "nothing_found": "Peruna retzeta agatada!",
+    "errors": {
+      "search_failed": "No at fatu a carrigare tout is retzetas!\n{error_msg}"
+    }
   }
 }

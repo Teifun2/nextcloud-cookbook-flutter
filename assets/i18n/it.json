@@ -49,7 +49,8 @@
       "load_failed": "Caricamento categoria non riuscito: {error_msg}",
       "load_no_response": "Impossibile recuperare le categorie dal server.",
       "api_version_check_failed": "Controllo della versione di API del server non riuscito:\n{error_msg}",
-      "api_version_above_confirmed": "La versione di API del server è stata aggiornata. Alcune funzionalità potrebbero non funzionare come previsto. Attendi un aggiornamento!\n{version}"
+      "api_version_above_confirmed": "La versione di API del server è stata aggiornata. Alcune funzionalità potrebbero non funzionare come previsto. Attendi un aggiornamento!\n{version}",
+      "plugin_missing": "Impossibile caricare le categorie. Assicurati che l'estensione del ricettario sia installata su questa istanza Nextcloud! "
     }
   },
   "recipe_list": {
@@ -89,6 +90,13 @@
       "update_failed": "Aggiornamento non riuscito {error_msg}"
     }
   },
+  "recipe_create": {
+    "title": "Crea ricetta",
+    "button": "Crea ricetta",
+    "errors": {
+      "update_failed": "Creazione non riuscita {error_msg}"
+    }
+  },
   "recipe_import": {
     "title": "Importa ricetta",
     "button": "Importa",
@@ -99,7 +107,10 @@
     }
   },
   "search": {
-    "title": "Cerca",
-    "nothing_found": "Nessuna ricetta trovata"
+    "title": "Cerca ricetta",
+    "nothing_found": "Nessuna ricetta trovata",
+    "errors": {
+      "search_failed": "Impossibile caricare tutte le ricette!\n{error_msg}"
+    }
   }
 }

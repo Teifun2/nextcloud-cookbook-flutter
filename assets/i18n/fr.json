@@ -1,0 +1,116 @@
+{
+  "app_bar": {
+    "search": "Rechercher",
+    "refresh": "Actualiser",
+    "logout": "Se déconnecter"
+  },
+  "login": {
+    "title": "S'identifier",
+    "server_url": {
+      "field": "URL du serveur",
+      "validator": {
+        "empty": "Veuillez saisir l'URL de votre instance Nextcloud.",
+        "pattern": "Veuillez saisir une URL valide"
+      }
+    },
+    "username": {
+      "field": "Nom d'utilisateur"
+    },
+    "password": {
+      "field": "Mot de passe"
+    },
+    "settings": {
+      "title": "Paramètres avancés",
+      "app_password": "Use self generated App Password.\nNeeded for accounts with 2FA.",
+      "self_signed_certificate": "Ignorer les certificats invalides.\nNécessaire pour les certificats autosignés.\n(À utiliser à vos risques et périls !)"
+    },
+    "button": "S'identifier",
+    "errors": {
+      "not_reachable": "Impossible d'atteindre : {server_url} \n {error_msg}",
+      "certificate_failed": "Le certificat du serveur ne peut pas être vérifié : {server_url}\n{error_msg}",
+      "request_failed": "App Password request failed:\n{error_msg}",
+      "parse_failed": "Cannot parse the App Password response!\n{error_msg}",
+      "parse_missing": "Cannot find App Password in response!\n{error_msg}",
+      "auth_failed": "Nom d’utilisateur et / ou mot de passe incorrect !",
+      "authentication_not_found": "Aucune authentification trouvée dans l'espace de stockage",
+      "failed_remove_remote": "Failed to remove remote App Password!",
+      "failure": "L'opération de connexion ne sait pas terminée correctement.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Les informations d'identification stockées ne sont plus valables et vous avez été déconnecté !"
+    }
+  },
+  "categories": {
+    "title": "Livre de recettes",
+    "all_categories": "Tout",
+    "drawer": {
+      "import": "Importer une recette"
+    },
+    "errors": {
+      "unknown": "Categories in unknown state",
+      "load_failed": "Le chargement de la catégorie a échoué : {error_msg}",
+      "load_no_response": "Impossible de récupérer les catégories depuis le serveur.",
+      "api_version_check_failed": "La vérification de la version API du serveur a échoué :\n{error_msg}",
+      "api_version_above_confirmed": "La version API du serveur a été mise à jour. Certaines fonctionnalités peuvent ne pas fonctionner comme prévu. Veuillez attendre une mise à jour !\n{version}",
+      "plugin_missing": "Les catégories ne peuvent pas être chargées. Vérifiez que l'extension cookbook est installée sur votre instance Nextcloud !"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Catégorie : {category}",
+    "errors": {
+      "load_failed": "Failed to load Recipes Short!"
+    }
+  },
+  "recipe": {
+    "title": "Recette :",
+    "fields": {
+      "name": "Titre de la recette : ",
+      "description": "Description de la recette : ",
+      "keywords": "Mots-clés : ",
+      "category": "Catégorie : ",
+      "servings": "Portions :",
+      "source": "Source :",
+      "source_button": "Source",
+      "image": "Image : ",
+      "time": {
+        "prep": "Temps de préparation :",
+        "cook": "Temps de cuisson :",
+        "total": "Temps total : "
+      },
+      "tools": "Ustensiles :",
+      "ingredients": "Ingrédients :",
+      "instructions": "Instructions :"
+    },
+    "errors": {
+      "load_failed": "Impossible de charger la recette !"
+    }
+  },
+  "recipe_edit": {
+    "title": "Editer la recette",
+    "button": "Mettre à jour la recette",
+    "errors": {
+      "update_failed": "Échec de mise à jour {error_msg}"
+    }
+  },
+  "recipe_create": {
+    "title": "Créer une recette",
+    "button": "Créer une recette",
+    "errors": {
+      "update_failed": "La création a échoué {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Importer une recette",
+    "button": "Importer",
+    "field": "Adresse de la recette",
+    "clipboard": "Coller le presse-papier",
+    "errors": {
+      "import_failed": "L'importation a échoué {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Rechercher une recette",
+    "nothing_found": "Aucune recette trouvée",
+    "errors": {
+      "search_failed": "Impossible de charger toutes les recettes !\n{error_msg}"
+    }
+  }
+}
