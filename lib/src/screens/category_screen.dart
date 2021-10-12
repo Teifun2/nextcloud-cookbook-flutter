@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
@@ -7,6 +8,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/my_settings_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
@@ -71,18 +73,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         return TimerScreen();
                       }),
                     );
-
-                  },
-                ),
-                ListTile(
-                  trailing: Icon(
-                    Icons.exit_to_app,
-                    semanticLabel: translate('app_bar.logout'),
-                  ),
-                  title: Text(translate('app_bar.logout')),
-                  onTap: () {
-                    BlocProvider.of<AuthenticationBloc>(context)
-                        .add(LoggedOut());
                   },
                 ),
                 ListTile(
@@ -99,6 +89,33 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         return RecipeImportScreen();
                       }),
                     );
+                  },
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.settings,
+                    semanticLabel: translate('categories.drawer.settings'),
+                  ),
+                  title: Text(translate('categories.drawer.settings')),
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return MySettingsScreen();
+                      }),
+                    );
+                    setState(() {});
+                  },
+                ),
+                ListTile(
+                  trailing: Icon(
+                    Icons.exit_to_app,
+                    semanticLabel: translate('app_bar.logout'),
+                  ),
+                  title: Text(translate('app_bar.logout')),
+                  onTap: () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(LoggedOut());
                   },
                 ),
               ],
@@ -203,9 +220,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
             } else if (categoriesState is CategoriesLoadInProgress ||
                 categoriesState is CategoriesInitial) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Center(
+                    child: SpinKitWave(
+                      color: Theme.of(context).primaryColor,
+                      size: 50.0,
+                    ),
+                  ),
                   ApiVersionWarning(),
-                  Center(child: CircularProgressIndicator()),
                 ],
               );
             } else if (categoriesState is CategoriesLoadFailure) {

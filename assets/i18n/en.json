@@ -43,7 +43,8 @@
     "title": "Cookbook",
     "all_categories": "All",
     "drawer": {
-      "import": "Import Recipe"
+      "import": "Import Recipe",
+      "settings": "Settings"
     },
     "errors": {
       "unknown": "Categories in unknown state",
@@ -122,5 +123,29 @@
     "started": "Timer started.",
     "finished": " is finished.",
     "done": "Timer is done."
+  },
+  "settings": {
+    "title": "App Settings",
+    "dark_mode": {
+      "title": "Dark Mode",
+      "system": "System Default",
+      "dark": "Always",
+      "light": "Never"
+    },
+    "language": {
+      "title": "Language"
+    },
+    "stay_awake": {
+      "title": "Stay Awake",
+      "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Recipe Font Size",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Category Font Size",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
+    }
   }
 }

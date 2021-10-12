@@ -232,8 +232,7 @@ class _RecipeFormState extends State<RecipeForm> {
                     },
                     child: () {
                       if (state is RecipeUpdateInProgress) {
-                        return SpinKitWave(
-                            color: Theme.of(context).primaryColor, size: 30.0);
+                        return SpinKitWave(color: Colors.white, size: 30.0);
                       } else if (state is RecipeUpdateFailure ||
                           state is RecipeUpdateSuccess ||
                           state is RecipeLoadSuccess ||
