@@ -1,0 +1,3 @@
+- Timers added
+- Settings (Darkmode, StayAwake, Language)
+- Better support for tablets
