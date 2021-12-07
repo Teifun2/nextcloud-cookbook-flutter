@@ -74,60 +74,44 @@ class RecipeScreenState extends State<RecipeScreen> {
       child: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (BuildContext context, RecipeState state) {
         final recipeBloc = BlocProvider.of<RecipeBloc>(context);
-        return WillPopScope(
-          onWillPop: () => _disableWakelock(),
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(translate('recipe.title')),
-              actions: <Widget>[
-                // action button
-                IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                  ),
-                  onPressed: () async {
-                    if (state is RecipeLoadSuccess) {
-                      _disableWakelock();
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return BlocProvider.value(
-                                value: recipeBloc,
-                                child: RecipeEditScreen(state.recipe));
-                          },
-                        ),
-                      );
-                      _enableWakelock();
-                    }
-                  },
-                ),
-              ],
-            ),
-            floatingActionButton: state is RecipeLoadSuccess
-                ? _buildFabButton(state.recipe)
-                : null,
-            body:  RefreshIndicator(
-              onRefresh: _refresh,
-              child: () {
-                if (state is RecipeLoadSuccess) {
-                  return _buildRecipeScreen(state.recipe);
-                } else if (state is RecipeLoadInProgress) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is RecipeFailure) {
-                return Center(
-                    child: Text(state.errorMsg),
-                  );
-                } else {
-                  return Center(
-                    child: Text("FAILED"),
-                  );
-                }
-              }(),
-            ),
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(translate('recipe.title')),
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              if (state is RecipeLoadSuccess) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BlocProvider.value(
+                          value: recipeBloc,
+                          child: RecipeEditScreen(state.recipe));
+                    },
+                  ),
+                );
+              }
+            },
+            child: Icon(Icons.edit),
+          ),
+          body: () {
+            if (state is RecipeLoadSuccess) {
+              return _buildRecipeScreen(state.recipe);
+            } else if (state is RecipeLoadInProgress) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is RecipeFailure) {
+              return Center(
+                child: Text(state.errorMsg),
+              );
+            } else {
+              return Center(
+                child: Text("FAILED"),
+              );
+            }
+          }(),
         );
       }),
     );
