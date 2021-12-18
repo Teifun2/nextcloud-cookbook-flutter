@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
@@ -32,9 +33,18 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
       httpHeaders: {
         "authorization": appAuthentication.basicAuth,
       },
-      imageUrl: '${appAuthentication.server}/index.php/apps/cookbook/recipes/$recipeId/image?size=$settings',
+      imageUrl:
+          '${appAuthentication.server}/index.php/apps/cookbook/recipes/$recipeId/image?size=$settings',
       placeholder: (context, url) => CircularProgressIndicator(),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => Container(
+        width: width,
+        height: height,
+        color: Colors.grey[400],
+        child: SvgPicture.asset(
+          'assets/icon.svg',
+          color: Colors.grey[600],
+        ),
+      ),
     );
   }
 }
