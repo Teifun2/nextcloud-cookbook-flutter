@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
@@ -206,50 +207,58 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   semanticLabel: translate('app_bar.refresh'),
                 ),
                 onPressed: () {
+                  DefaultCacheManager().emptyCache();
                   BlocProvider.of<CategoriesBloc>(context)
                       .add(CategoriesLoaded());
                 },
               ),
             ],
           ),
-          body: (() {
-            if (categoriesState is CategoriesLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesImageLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesLoadInProgress ||
-                categoriesState is CategoriesInitial) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
+          body: RefreshIndicator(
+            onRefresh: () {
+              DefaultCacheManager().emptyCache();
+              BlocProvider.of<CategoriesBloc>(context)
+                .add(CategoriesLoaded());
+              return Future.value(true);
+            },
+            child: () {
+              if (categoriesState is CategoriesLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesImageLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesLoadInProgress ||
+                  categoriesState is CategoriesInitial) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,children: [
+                    Center(
                     child: SpinKitWave(
                       color: Theme.of(context).primaryColor,
                       size: 50.0,
                     ),
                   ),
                   ApiVersionWarning(),
-                ],
-              );
-            } else if (categoriesState is CategoriesLoadFailure) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Text(
-                      translate('categories.errors.plugin_missing'),
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Divider(),
-                    Text(translate('categories.errors.load_failed',
-                        args: {'error_msg': categoriesState.errorMsg})),
                   ],
-                ),
-              );
-            } else {
-              return Text(translate('categories.errors.unknown'));
-            }
-          }()),
+                );
+              } else if (categoriesState is CategoriesLoadFailure) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        translate('categories.errors.plugin_missing'),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Divider(),
+                      Text(translate('categories.errors.load_failed',
+                          args: {'error_msg': categoriesState.errorMsg})),
+                    ],
+                  ),
+                );
+              } else {
+                return Text(translate('categories.errors.unknown'));
+              }
+            }()
+          ),
         );
       },
     );

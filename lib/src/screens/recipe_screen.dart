@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
@@ -49,6 +50,13 @@ class RecipeScreenState extends State<RecipeScreen> {
     super.initState();
   }
 
+  Future<void> _refresh() async {
+    DefaultCacheManager().emptyCache();
+    this.setState(() {
+    });
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     TextStyle settingsBasedTextStyle = TextStyle(
@@ -66,57 +74,44 @@ class RecipeScreenState extends State<RecipeScreen> {
       child: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (BuildContext context, RecipeState state) {
         final recipeBloc = BlocProvider.of<RecipeBloc>(context);
-        return WillPopScope(
-          onWillPop: () => _disableWakelock(),
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(translate('recipe.title')),
-              actions: <Widget>[
-                // action button
-                IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                  ),
-                  onPressed: () async {
-                    if (state is RecipeLoadSuccess) {
-                      _disableWakelock();
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return BlocProvider.value(
-                                value: recipeBloc,
-                                child: RecipeEditScreen(state.recipe));
-                          },
-                        ),
-                      );
-                      _enableWakelock();
-                    }
-                  },
-                ),
-              ],
-            ),
-            floatingActionButton: state is RecipeLoadSuccess
-                ? _buildFabButton(state.recipe)
-                : null,
-            body: () {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(translate('recipe.title')),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
               if (state is RecipeLoadSuccess) {
-                return _buildRecipeScreen(state.recipe);
-              } else if (state is RecipeLoadInProgress) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is RecipeFailure) {
-                return Center(
-                  child: Text(state.errorMsg),
-                );
-              } else {
-                return Center(
-                  child: Text("FAILED"),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BlocProvider.value(
+                          value: recipeBloc,
+                          child: RecipeEditScreen(state.recipe));
+                    },
+                  ),
                 );
               }
-            }(),
+            },
+            child: Icon(Icons.edit),
           ),
+          body: () {
+            if (state is RecipeLoadSuccess) {
+              return _buildRecipeScreen(state.recipe);
+            } else if (state is RecipeLoadInProgress) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is RecipeFailure) {
+              return Center(
+                child: Text(state.errorMsg),
+              );
+            } else {
+              return Center(
+                child: Text("FAILED"),
+              );
+            }
+          }(),
         );
       }),
     );
