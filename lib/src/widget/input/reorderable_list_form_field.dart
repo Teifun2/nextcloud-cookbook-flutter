@@ -273,6 +273,7 @@ class _ItemState extends State<Item> {
                         minLines: 1,
                         initialValue: data.text,
                         onChanged: widget.onChange,
+                        autofocus: data.text.isEmpty,
                       ),
                       // child: Text(
                       //   data.title,
