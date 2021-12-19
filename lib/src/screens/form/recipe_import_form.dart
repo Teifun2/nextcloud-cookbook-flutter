@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -6,12 +7,29 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 
 class RecipeImportForm extends StatefulWidget {
+  final String importUrl;
+
+  RecipeImportForm([this.importUrl = '']);
+
   @override
   _RecipeImportFormState createState() => _RecipeImportFormState();
 }
 
 class _RecipeImportFormState extends State<RecipeImportForm> {
   var _importUrlController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _importUrlController.text = widget.importUrl;
+    if (widget.importUrl.isNotEmpty) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        BlocProvider.of<RecipeBloc>(context)
+            .add(RecipeImported(_importUrlController.text));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
