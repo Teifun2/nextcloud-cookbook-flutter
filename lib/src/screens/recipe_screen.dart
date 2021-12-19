@@ -52,8 +52,7 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   Future<void> _refresh() async {
     DefaultCacheManager().emptyCache();
-    this.setState(() {
-    });
+    this.setState(() {});
     return Future.value(true);
   }
 
@@ -123,8 +122,11 @@ class RecipeScreenState extends State<RecipeScreen> {
       onPressed: () {
         {
           if (enabled) {
-            Timer timer = new Timer(recipe.id, recipe.name,
-                recipe.name + translate('timer.finished'), recipe.cookTime);
+            Timer timer = new Timer(
+                recipe.id,
+                recipe.name,
+                recipe.name + " " + translate('timer.finished'),
+                recipe.cookTime);
             timer.start();
             TimerList().timers.add(timer);
             setState(() {});
