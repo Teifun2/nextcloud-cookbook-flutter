@@ -15,4 +15,13 @@ class AuthenticationUnauthenticated extends AuthenticationState {}
 
 class AuthenticationInvalid extends AuthenticationState {}
 
+class AuthenticationError extends AuthenticationState {
+  final String errorMsg;
+
+  const AuthenticationError(this.errorMsg);
+
+  @override
+  List<Object> get props => [errorMsg];
+}
+
 class AuthenticationLoading extends AuthenticationState {}

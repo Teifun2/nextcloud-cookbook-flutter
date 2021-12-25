@@ -116,7 +116,8 @@ class _AppState extends State<App> {
               return LoginScreen(
                 invalidCredentials: true,
               );
-            } else if (state is AuthenticationLoading) {
+            } else if (state is AuthenticationLoading ||
+                state is AuthenticationError) {
               return LoadingScreen();
             } else {
               return LoadingScreen();

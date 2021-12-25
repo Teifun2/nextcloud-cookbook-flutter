@@ -26,6 +26,8 @@
       "self_signed_certificate": "Ignore invalid certificate.\nNeeded for self signed certificates.\n(Use at your own risk!)"
     },
     "button": "Login",
+    "retry": "Retry Login!",
+    "reset": "Reset Credentials!",
     "errors": {
       "not_reachable": "Cannot reach: {server_url}\n{error_msg}",
       "certificate_failed": "The Certificate of the server could not be verified: {server_url}\n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "No authentication found in Storage",
       "failed_remove_remote": "Failed to remove remote App Password!",
       "failure": "Login Process could not finish properly.\n{status_code}\n{status_message}",
-      "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!"
+      "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!",
+      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
