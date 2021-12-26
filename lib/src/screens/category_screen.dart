@@ -14,8 +14,10 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/timer_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 import 'package:search_page/search_page.dart';
 
@@ -53,7 +55,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 DrawerHeader(
                   child: Column(
                     children: [
-                      Text('Coming soon!'),
+                      ClipOval(
+                        child: AuthenticationCachedNetworkImage(
+                          url: DataRepository().getUserAvatarUrl(),
+                          boxFit: BoxFit.fill,
+                        ),
+                      ),
                     ],
                   ),
                   decoration: BoxDecoration(
@@ -147,7 +154,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             builder: (recipe) => ListTile(
                               title: Text(recipe.name),
                               trailing: Container(
-                                child: AuthenticationCachedNetworkImage(
+                                child: AuthenticationCachedNetworkRecipeImage(
                                   recipeId: recipe.recipeId,
                                   full: false,
                                   width: 50,
@@ -214,51 +221,48 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ],
           ),
-          body: RefreshIndicator(
-            onRefresh: () {
-              DefaultCacheManager().emptyCache();
-              BlocProvider.of<CategoriesBloc>(context)
-                .add(CategoriesLoaded());
-              return Future.value(true);
-            },
-            child: () {
-              if (categoriesState is CategoriesLoadSuccess) {
-                return _buildCategoriesScreen(categoriesState.categories);
-              } else if (categoriesState is CategoriesImageLoadSuccess) {
-                return _buildCategoriesScreen(categoriesState.categories);
-              } else if (categoriesState is CategoriesLoadInProgress ||
-                  categoriesState is CategoriesInitial) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,children: [
-                    Center(
+          body: RefreshIndicator(onRefresh: () {
+            DefaultCacheManager().emptyCache();
+            BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
+            return Future.value(true);
+          }, child: () {
+            if (categoriesState is CategoriesLoadSuccess) {
+              return _buildCategoriesScreen(categoriesState.categories);
+            } else if (categoriesState is CategoriesImageLoadSuccess) {
+              return _buildCategoriesScreen(categoriesState.categories);
+            } else if (categoriesState is CategoriesLoadInProgress ||
+                categoriesState is CategoriesInitial) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
                     child: SpinKitWave(
                       color: Theme.of(context).primaryColor,
                       size: 50.0,
                     ),
                   ),
                   ApiVersionWarning(),
+                ],
+              );
+            } else if (categoriesState is CategoriesLoadFailure) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      translate('categories.errors.plugin_missing'),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Divider(),
+                    Text(translate('categories.errors.load_failed',
+                        args: {'error_msg': categoriesState.errorMsg})),
                   ],
-                );
-              } else if (categoriesState is CategoriesLoadFailure) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        translate('categories.errors.plugin_missing'),
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Divider(),
-                      Text(translate('categories.errors.load_failed',
-                          args: {'error_msg': categoriesState.errorMsg})),
-                    ],
-                  ),
-                );
-              } else {
-                return Text(translate('categories.errors.unknown'));
-              }
-            }()
-          ),
+                ),
+              );
+            } else {
+              return Text(translate('categories.errors.unknown'));
+            }
+          }()),
         );
       },
     );

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
@@ -8,11 +7,11 @@ import 'network.dart';
 
 class CategoriesProvider {
   Future<List<Category>> fetchCategories() async {
-    Dio client = UserRepository().getAuthenticatedClient();
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
 
-    final String url = "${appAuthentication.server}/index.php/apps/cookbook/categories";
+    final String url =
+        "${appAuthentication.server}/index.php/apps/cookbook/categories";
 
     // Parse categories
     try {
@@ -23,10 +22,8 @@ class CategoriesProvider {
         0,
         Category(
           translate('categories.all_categories'),
-          categories.fold(
-              0,
-                  (previousValue, element) =>
-              previousValue + element.recipeCount),
+          categories.fold(0,
+              (previousValue, element) => previousValue + element.recipeCount),
         ),
       );
       return categories;
