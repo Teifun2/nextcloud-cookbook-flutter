@@ -2,9 +2,9 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/api/nextcloud_metadata_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/categories_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/category_recipes_short_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/net/nextcloud_metadata_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipe_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 
