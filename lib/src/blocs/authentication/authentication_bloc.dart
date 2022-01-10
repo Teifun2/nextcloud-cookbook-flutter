@@ -20,7 +20,13 @@ class AuthenticationBloc
       if (hasToken) {
         yield AuthenticationLoading();
         await userRepository.loadAppAuthentication();
-        bool validCredentials = await userRepository.checkAppAuthentication();
+        bool validCredentials = false;
+        try {
+          validCredentials = await userRepository.checkAppAuthentication();
+        } catch (e) {
+          yield AuthenticationError(e);
+          return;
+        }
         if (validCredentials) {
           await userRepository.fetchApiVersion();
           yield AuthenticationAuthenticated();

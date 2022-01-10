@@ -4,6 +4,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/categories_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/category_recipes_short_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/net/nextcloud_metadata_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipe_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 
@@ -21,6 +22,7 @@ class DataRepository {
       CategoryRecipesShortProvider();
   RecipeProvider recipeProvider = RecipeProvider();
   CategoriesProvider categoriesProvider = CategoriesProvider();
+  NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
   static Future<List<RecipeShort>> _allRecipesShort;
@@ -83,5 +85,9 @@ class DataRepository {
 
   Future<List<RecipeShort>> fetchAllRecipes() async {
     return await fetchRecipesShort(category: "All");
+  }
+
+  String getUserAvatarUrl() {
+    return _nextcloudMetadataApi.getUserAvatarUrl();
   }
 }

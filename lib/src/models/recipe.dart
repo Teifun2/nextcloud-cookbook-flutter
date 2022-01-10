@@ -68,11 +68,30 @@ class Recipe extends Equatable {
     String imageUrl = data["imageUrl"];
     String recipeCategory = data["recipeCategory"];
     String description = data["description"];
-    List<String> recipeIngredient =
-        data["recipeIngredient"].cast<String>().toList();
-    List<String> recipeInstructions =
-        data["recipeInstructions"].cast<String>().toList();
-    List<String> tool = data["tool"].cast<String>().toList();
+
+    List<String> recipeIngredient = [];
+    if (data["recipeIngredient"] is Map) {
+      data["recipeIngredient"]
+          .forEach((k, v) => recipeIngredient.add(v as String));
+    } else {
+      recipeIngredient = data["recipeIngredient"].cast<String>().toList();
+    }
+
+    List<String> recipeInstructions = [];
+    if (data["recipeInstructions"] is Map) {
+      data["recipeInstructions"]
+          .forEach((k, v) => recipeInstructions.add(v as String));
+    } else {
+      recipeInstructions = data["recipeInstructions"].cast<String>().toList();
+    }
+
+    List<String> tool = [];
+    if (data["tool"] is Map) {
+      data["tool"].forEach((k, v) => tool.add(v as String));
+    } else {
+      tool = data["tool"].cast<String>().toList();
+    }
+
     int recipeYield = data["recipeYield"];
     Duration prepTime = data.containsKey("prepTime") &&
             data["prepTime"] != "" &&

@@ -5,7 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 
 class RecipesListScreen extends StatefulWidget {
   final String category;
@@ -60,7 +60,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                   .add(RecipesShortLoaded(category: category));
               return Future.value(true);
             },
-            child:(() {
+            child: (() {
               if (recipesShortState is RecipesShortLoadSuccess) {
                 return _buildRecipesShortScreen(recipesShortState.recipesShort);
               } else {
@@ -92,7 +92,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     return ListTile(
       title: Text(recipeShort.name),
       trailing: Container(
-        child: AuthenticationCachedNetworkImage(
+        child: AuthenticationCachedNetworkRecipeImage(
           recipeId: recipeShort.recipeId,
           full: false,
           width: 60,

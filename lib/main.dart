@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -8,6 +9,8 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart'
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/intent_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/lifecycle_event_handler.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/theme_mode_manager.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/translate_preferences.dart';
@@ -59,14 +62,32 @@ void main() async {
   );
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   final UserRepository userRepository = UserRepository();
+
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addObserver(
+      LifecycleEventHandler(
+        resumeCallBack: () async => setState(() {
+          IntentRepository().handleIntent();
+        }),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return ThemeModeHandler(
       manager: ThemeModeManager(),
       builder: (ThemeMode themeMode) => MaterialApp(
+        navigatorKey: IntentRepository().getNavigationKey(),
         themeMode: themeMode,
         theme: ThemeData(
           brightness: Brightness.light,
@@ -82,6 +103,7 @@ class App extends StatelessWidget {
             if (state is AuthenticationUninitialized) {
               return SplashPage();
             } else if (state is AuthenticationAuthenticated) {
+              IntentRepository().handleIntent();
               if (BlocProvider.of<CategoriesBloc>(context).state
                   is CategoriesInitial) {
                 BlocProvider.of<CategoriesBloc>(context)
@@ -94,7 +116,8 @@ class App extends StatelessWidget {
               return LoginScreen(
                 invalidCredentials: true,
               );
-            } else if (state is AuthenticationLoading) {
+            } else if (state is AuthenticationLoading ||
+                state is AuthenticationError) {
               return LoadingScreen();
             } else {
               return LoadingScreen();

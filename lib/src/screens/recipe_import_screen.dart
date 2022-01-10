@@ -6,6 +6,10 @@ import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_import_form.d
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 
 class RecipeImportScreen extends StatelessWidget {
+  final String importUrl;
+
+  RecipeImportScreen([this.importUrl = '']);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RecipeBloc>(
@@ -35,7 +39,7 @@ class RecipeImportScreen extends StatelessWidget {
             },
           ),
         ),
-        body: RecipeImportForm(),
+        body: RecipeImportForm(importUrl),
       ),
     );
   }

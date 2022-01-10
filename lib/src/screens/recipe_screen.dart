@@ -11,7 +11,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
@@ -52,8 +52,7 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   Future<void> _refresh() async {
     DefaultCacheManager().emptyCache();
-    this.setState(() {
-    });
+    this.setState(() {});
     return Future.value(true);
   }
 
@@ -123,8 +122,11 @@ class RecipeScreenState extends State<RecipeScreen> {
       onPressed: () {
         {
           if (enabled) {
-            Timer timer = new Timer(recipe.id, recipe.name,
-                recipe.name + translate('timer.finished'), recipe.cookTime);
+            Timer timer = new Timer(
+                recipe.id,
+                recipe.name,
+                recipe.name + " " + translate('timer.finished'),
+                recipe.cookTime);
             timer.start();
             TimerList().timers.add(timer);
             setState(() {});
@@ -160,7 +162,7 @@ class RecipeScreenState extends State<RecipeScreen> {
           children: <Widget>[
             Container(
               child: Center(
-                child: AuthenticationCachedNetworkImage(
+                child: AuthenticationCachedNetworkRecipeImage(
                   recipeId: recipe.id,
                   full: true,
                   width: double.infinity,
