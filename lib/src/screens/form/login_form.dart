@@ -100,119 +100,126 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
               child: Form(
                 // Build a Form widget using the _formKey created above.
                 key: _formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: translate('login.server_url.field'),
-                      ),
-                      controller: _serverUrl,
-                      keyboardType: TextInputType.url,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return translate('login.server_url.validator.empty');
-                        }
-                        var urlPattern =
-                            r"^(?:http(s)?:\/\/)?[\w.-]+(?:(?:\.[\w\.-]+)|(?:\:\d+))+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]*$";
-                        bool _match =
-                            new RegExp(urlPattern, caseSensitive: false)
-                                .hasMatch(_punyEncodeUrl(value));
-                        if (!_match) {
-                          return translate(
-                              'login.server_url.validator.pattern');
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: translate('login.username.field'),
-                      ),
-                      controller: _username,
-                      textInputAction: TextInputAction.next,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: translate('login.password.field'),
-                      ),
-                      controller: _password,
-                      obscureText: true,
-                      onFieldSubmitted: (val) {
-                        if (state is! LoginLoading) {
-                          _onLoginButtonPressed();
-                        }
-                      },
-                      textInputAction: TextInputAction.done,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: ExpansionPanelList(
-                        expandedHeaderPadding: const EdgeInsets.all(0),
-                        expansionCallback: (int index, bool isExpanded) {
-                          setState(() {
-                            advancedSettingsExpanded = !isExpanded;
-                          });
+                child: AutofillGroup(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: translate('login.server_url.field'),
+                        ),
+                        controller: _serverUrl,
+                        keyboardType: TextInputType.url,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return translate(
+                                'login.server_url.validator.empty');
+                          }
+                          var urlPattern =
+                              r"^(?:http(s)?:\/\/)?[\w.-]+(?:(?:\.[\w\.-]+)|(?:\:\d+))+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]*$";
+                          bool _match =
+                              new RegExp(urlPattern, caseSensitive: false)
+                                  .hasMatch(_punyEncodeUrl(value));
+                          if (!_match) {
+                            return translate(
+                                'login.server_url.validator.pattern');
+                          }
+                          return null;
                         },
-                        children: [
-                          ExpansionPanel(
-                            isExpanded: advancedSettingsExpanded,
-                            body: Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: Column(
-                                children: [
-                                  CheckboxFormField(
-                                    initialValue: advancedIsAppPassword,
-                                    onSaved: (bool checked) => {
-                                      setState(() {
-                                        advancedIsAppPassword = checked;
-                                      })
-                                    },
-                                    title: Text(translate(
-                                        'login.settings.app_password')),
-                                  ),
-                                  CheckboxFormField(
-                                    initialValue:
-                                        advancedIsSelfSignedCertificate,
-                                    onSaved: (bool checked) => {
-                                      setState(() {
-                                        advancedIsSelfSignedCertificate =
-                                            checked;
-                                      })
-                                    },
-                                    title: Text(translate(
-                                        'login.settings.self_signed_certificate')),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            headerBuilder:
-                                (BuildContext context, bool isExpanded) {
-                              return Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 16.0),
-                                  child:
-                                      Text(translate('login.settings.title')),
-                                ),
-                              );
-                            },
-                          )
-                        ],
+                        textInputAction: TextInputAction.next,
                       ),
-                    ),
-                    RaisedButton(
-                      onPressed:
-                          state is! LoginLoading ? _onLoginButtonPressed : null,
-                      child: Text(translate('login.button')),
-                    ),
-                    Container(
-                      child: state is LoginLoading
-                          ? SpinKitWave(
-                              color: Theme.of(context).primaryColor, size: 50.0)
-                          : null,
-                    ),
-                  ],
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: translate('login.username.field'),
+                        ),
+                        controller: _username,
+                        textInputAction: TextInputAction.next,
+                        autofillHints: [AutofillHints.username],
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: translate('login.password.field'),
+                        ),
+                        controller: _password,
+                        obscureText: true,
+                        onFieldSubmitted: (val) {
+                          if (state is! LoginLoading) {
+                            _onLoginButtonPressed();
+                          }
+                        },
+                        textInputAction: TextInputAction.done,
+                        autofillHints: [AutofillHints.password],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: ExpansionPanelList(
+                          expandedHeaderPadding: const EdgeInsets.all(0),
+                          expansionCallback: (int index, bool isExpanded) {
+                            setState(() {
+                              advancedSettingsExpanded = !isExpanded;
+                            });
+                          },
+                          children: [
+                            ExpansionPanel(
+                              isExpanded: advancedSettingsExpanded,
+                              body: Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: Column(
+                                  children: [
+                                    CheckboxFormField(
+                                      initialValue: advancedIsAppPassword,
+                                      onSaved: (bool checked) => {
+                                        setState(() {
+                                          advancedIsAppPassword = checked;
+                                        })
+                                      },
+                                      title: Text(translate(
+                                          'login.settings.app_password')),
+                                    ),
+                                    CheckboxFormField(
+                                      initialValue:
+                                          advancedIsSelfSignedCertificate,
+                                      onSaved: (bool checked) => {
+                                        setState(() {
+                                          advancedIsSelfSignedCertificate =
+                                              checked;
+                                        })
+                                      },
+                                      title: Text(translate(
+                                          'login.settings.self_signed_certificate')),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              headerBuilder:
+                                  (BuildContext context, bool isExpanded) {
+                                return Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 16.0),
+                                    child:
+                                        Text(translate('login.settings.title')),
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                      RaisedButton(
+                        onPressed: state is! LoginLoading
+                            ? _onLoginButtonPressed
+                            : null,
+                        child: Text(translate('login.button')),
+                      ),
+                      Container(
+                        child: state is LoginLoading
+                            ? SpinKitWave(
+                                color: Theme.of(context).primaryColor,
+                                size: 50.0)
+                            : null,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

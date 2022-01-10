@@ -71,7 +71,7 @@ dependencies:
   flutter_svg: ^0.22.0
 
   # Reorderable List for Edit and Create Recipe
-  flutter_reorderable_list: ^1.1.0
+  flutter_reorderable_list: 1.1.0
 
   # Timer for cooking time
   flutter_local_notifications: ^8.2.0

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
@@ -30,7 +30,7 @@ class CategoryCard extends StatelessWidget {
             child: (category.firstRecipeId != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: AuthenticationCachedNetworkImage(
+                    child: AuthenticationCachedNetworkRecipeImage(
                       recipeId: category.firstRecipeId,
                       full: false,
                       boxFit: BoxFit.cover,
