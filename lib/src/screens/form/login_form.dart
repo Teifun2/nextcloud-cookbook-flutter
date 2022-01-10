@@ -126,6 +126,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                           return null;
                         },
                         textInputAction: TextInputAction.next,
+                        autofillHints: [AutofillHints.url, AutofillHints.name],
                       ),
                       TextFormField(
                         decoration: InputDecoration(
