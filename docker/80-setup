@@ -4,6 +4,7 @@
 occ maintenance:install --database \
     "sqlite" --database-name "nextcloud"  --database-user "root" --database-pass \
     "password" --admin-user "admin" --admin-pass "password"
+sed -i "s/'localhost'/'*'/g" /config/www/nextcloud/config/config.php
 
 # Install Cookbook Plugin
 wget https://github.com/nextcloud/cookbook/releases/download/v"${COOKBOOK}"/Cookbook-"${COOKBOOK}".tar.gz -P /config/www/nextcloud/apps
