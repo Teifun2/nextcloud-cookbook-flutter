@@ -9,6 +9,7 @@ class Recipe extends Equatable {
   final String imageUrl;
   final String recipeCategory;
   final String description;
+  final Map<String, String> nutrition;
   final List<String> recipeIngredient;
   final List<String> recipeInstructions;
   final List<String> tool;
@@ -27,6 +28,7 @@ class Recipe extends Equatable {
       this.imageUrl,
       this.recipeCategory,
       this.description,
+      this.nutrition,
       this.recipeIngredient,
       this.recipeInstructions,
       this.tool,
@@ -46,6 +48,7 @@ class Recipe extends Equatable {
       '',
       '',
       '',
+      Map<String, String>(),
       List<String>.empty(),
       List<String>.empty(),
       List<String>.empty(),
@@ -68,6 +71,11 @@ class Recipe extends Equatable {
     String imageUrl = data["imageUrl"];
     String recipeCategory = data["recipeCategory"];
     String description = data["description"];
+
+    Map<String, String> recipeNutrition = {};
+    if (data["nutrition"] is Map) {
+      recipeNutrition = Map<String, String>.from(data["nutrition"]);
+    }
 
     List<String> recipeIngredient = [];
     if (data["recipeIngredient"] is Map) {
@@ -117,6 +125,7 @@ class Recipe extends Equatable {
     data.remove("imageUrl");
     data.remove("recipeCategory");
     data.remove("description");
+    data.remove("nutrition");
     data.remove("recipeIngredient");
     data.remove("recipeInstructions");
     data.remove("tool");
@@ -136,6 +145,7 @@ class Recipe extends Equatable {
       imageUrl,
       recipeCategory,
       description,
+      recipeNutrition,
       recipeIngredient,
       recipeInstructions,
       tool,
@@ -157,6 +167,7 @@ class Recipe extends Equatable {
       'imageUrl': imageUrl,
       'recipeCategory': recipeCategory,
       'description': description,
+      'nutrition': nutrition,
       'recipeIngredient': recipeIngredient,
       'recipeInstructions': recipeInstructions,
       'tool': tool,
@@ -184,6 +195,7 @@ class Recipe extends Equatable {
     mutableRecipe.imageUrl = this.imageUrl;
     mutableRecipe.recipeCategory = this.recipeCategory;
     mutableRecipe.description = this.description;
+    mutableRecipe.nutrition = this.nutrition;
     mutableRecipe.recipeIngredient = this.recipeIngredient;
     mutableRecipe.recipeInstructions = this.recipeInstructions;
     mutableRecipe.tool = this.tool;
@@ -217,6 +229,7 @@ class MutableRecipe {
   String imageUrl;
   String recipeCategory;
   String description;
+  Map<String, String> nutrition;
   List<String> recipeIngredient;
   List<String> recipeInstructions;
   List<String> tool;
@@ -236,6 +249,7 @@ class MutableRecipe {
       imageUrl,
       recipeCategory,
       description,
+      nutrition,
       recipeIngredient,
       recipeInstructions,
       tool,

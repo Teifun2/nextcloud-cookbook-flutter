@@ -280,6 +280,10 @@ class RecipeScreenState extends State<RecipeScreen> {
                             children: <Widget>[
                               Expanded(
                                   flex: 5,
+                                  child: this._buildRecipeNutrition(
+                                      recipe, settingsBasedTextStyle)),
+                              Expanded(
+                                  flex: 5,
                                   child: this._buildRecipeIngredient(
                                       recipe, settingsBasedTextStyle)),
                               Expanded(
@@ -291,6 +295,9 @@ class RecipeScreenState extends State<RecipeScreen> {
                     Padding(
                         padding: const EdgeInsets.only(bottom: 10.0),
                         child: Column(children: <Widget>[
+                          if (recipe.nutrition.isNotEmpty)
+                            this._buildRecipeNutrition(
+                                recipe, settingsBasedTextStyle),
                           if (recipe.recipeIngredient.isNotEmpty)
                             this._buildRecipeIngredient(
                                 recipe, settingsBasedTextStyle),
@@ -304,6 +311,29 @@ class RecipeScreenState extends State<RecipeScreen> {
         );
       },
     );
+  }
+
+  Widget _buildRecipeNutrition(
+      Recipe recipe, TextStyle settingsBasedTextStyle) {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: ExpansionTile(
+          title: Text(translate('recipe.fields.nutrition')),
+          initiallyExpanded: true,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: Text(
+                  recipe.nutrition.entries
+                      .fold("", (e, m) => e + "-  " + m.value.trim() + "\n"),
+                  style: settingsBasedTextStyle,
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 
   Widget _buildRecipeIngredient(
