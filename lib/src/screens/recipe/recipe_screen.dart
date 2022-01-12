@@ -8,6 +8,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/instruction_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/nutrition_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
@@ -294,9 +295,9 @@ class RecipeScreenState extends State<RecipeScreen> {
                               ),
                               Expanded(
                                 flex: 5,
-                                child: this._buildRecipeInstructions(
+                                child: InstructionList(
                                     recipe, settingsBasedTextStyle),
-                              ),
+                              )
                             ]))
                   else
                     Padding(
@@ -307,8 +308,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                           if (recipe.recipeIngredient.isNotEmpty)
                             this._buildRecipeIngredient(
                                 recipe, settingsBasedTextStyle),
-                          this._buildRecipeInstructions(
-                              recipe, settingsBasedTextStyle),
+                          InstructionList(recipe, settingsBasedTextStyle)
                         ]))
                 ],
               ),
@@ -343,69 +343,6 @@ class RecipeScreenState extends State<RecipeScreen> {
             ],
           ),
         ));
-  }
-
-  Widget _buildRecipeInstructions(
-      Recipe recipe, TextStyle settingsBasedTextStyle) {
-    List<bool> instructionsDone =
-        List.filled(recipe.recipeInstructions.length, false);
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 40.0),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          title: Text(translate('recipe.fields.instructions')),
-          initiallyExpanded: true,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        instructionsDone[index] = !instructionsDone[index];
-                      });
-                    },
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 40,
-                          height: 40,
-                          margin: EdgeInsets.only(right: 15, top: 10),
-                          child: instructionsDone[index]
-                              ? Icon(Icons.check)
-                              : Center(child: Text("${index + 1}")),
-                          decoration: ShapeDecoration(
-                            shape: CircleBorder(
-                                side: BorderSide(color: Colors.grey)),
-                            color: instructionsDone[index]
-                                ? Colors.green
-                                : Theme.of(context).backgroundColor,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            recipe.recipeInstructions[index],
-                            style: settingsBasedTextStyle,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (c, i) => SizedBox(height: 10),
-                itemCount: recipe.recipeInstructions.length,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _showTimers(Recipe recipe) {
