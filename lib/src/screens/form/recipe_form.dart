@@ -203,12 +203,6 @@ class _RecipeFormState extends State<RecipeForm> {
                   onChanged: (value) => {_mutableRecipe.totalTime = value},
                 ),
                 ReorderableListFormField(
-                  title: translate('recipe.fields.total'),
-                  items: recipe.nutrition.entries.map((e) => e.value).toList(),
-                  state: state,
-                  onSave: (value) => {_mutableRecipe.tool = value},
-                ),
-                ReorderableListFormField(
                   title: translate('recipe.fields.tools'),
                   items: recipe.tool,
                   state: state,

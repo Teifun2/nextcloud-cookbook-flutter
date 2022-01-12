@@ -84,6 +84,23 @@
         "cook": "Cooking time:",
         "total": "Total time:"
       },
+      "nutrition": {
+        "title": "Nutrition Information",
+        "items": {
+          "calories": "Energy",
+          "carbohydrateContent": "Carbohydrate",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Fat total",
+          "fiberContent": "Fiber",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Saturated Fat",
+          "servingSize": "Serving size",
+          "sodiumContent": "Sodium",
+          "sugarContent": "Sugar",
+          "transFatContent": "Trans-fat content",
+          "unsaturatedFatContent": "Unsaturated-fat content"
+        }
+      },
       "tools": "Tools:",
       "ingredients": "Ingredients:",
       "instructions": "Instructions:"

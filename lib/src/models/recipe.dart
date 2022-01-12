@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/iso_time_format.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/nutrition_utilty.dart';
 
 class Recipe extends Equatable {
   final int id;
@@ -73,8 +74,14 @@ class Recipe extends Equatable {
     String description = data["description"];
 
     Map<String, String> recipeNutrition = {};
+
     if (data["nutrition"] is Map) {
-      recipeNutrition = Map<String, String>.from(data["nutrition"]);
+      recipeNutrition = Map<String, String>.from(data["nutrition"])
+        ..removeWhere((key, value) =>
+            !NutritionUtility.nutritionProperties.contains(key));
+      data["nutrition"] = Map.from(data["nutrition"])
+        ..removeWhere(
+            (key, value) => NutritionUtility.nutritionProperties.contains(key));
     }
 
     List<String> recipeIngredient = [];
@@ -125,7 +132,7 @@ class Recipe extends Equatable {
     data.remove("imageUrl");
     data.remove("recipeCategory");
     data.remove("description");
-    data.remove("nutrition");
+    // Nutrition items are filtered at the point of parsing
     data.remove("recipeIngredient");
     data.remove("recipeInstructions");
     data.remove("tool");
