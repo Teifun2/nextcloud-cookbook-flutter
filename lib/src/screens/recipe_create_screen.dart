@@ -5,7 +5,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 
-import 'recipe_screen.dart';
+import 'recipe/recipe_screen.dart';
 
 class RecipeCreateScreen extends StatelessWidget {
   final Recipe recipe;

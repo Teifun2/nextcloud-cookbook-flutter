@@ -21,7 +21,7 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 import 'package:search_page/search_page.dart';
 
-import '../recipe_screen.dart';
+import '../recipe/recipe_screen.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
