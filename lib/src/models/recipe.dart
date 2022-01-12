@@ -174,7 +174,6 @@ class Recipe extends Equatable {
       'imageUrl': imageUrl,
       'recipeCategory': recipeCategory,
       'description': description,
-      'nutrition': nutrition,
       'recipeIngredient': recipeIngredient,
       'recipeInstructions': recipeInstructions,
       'tool': tool,
@@ -190,6 +189,8 @@ class Recipe extends Equatable {
 
     // Add all the data points that are not handled by the app!
     remainingData.addAll(updatedData);
+
+    (remainingData['nutrition'] as Map).addAll(nutrition);
 
     return jsonEncode(remainingData);
   }
