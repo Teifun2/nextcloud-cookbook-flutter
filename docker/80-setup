@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+# Default Setup
+occ maintenance:install --database \
+    "sqlite" --database-name "nextcloud"  --database-user "root" --database-pass \
+    "password" --admin-user "admin" --admin-pass "password"
+sed -i "s/'localhost'/'*'/g" /config/www/nextcloud/config/config.php
+
+# Install Cookbook Plugin
+wget https://github.com/nextcloud/cookbook/releases/download/v"${COOKBOOK}"/Cookbook-"${COOKBOOK}".tar.gz -P /config/www/nextcloud/apps
+tar -zxf /config/www/nextcloud/apps/Cookbook-"${COOKBOOK}".tar.gz -C /config/www/nextcloud/apps
+rm /config/www/nextcloud/apps/Cookbook-"${COOKBOOK}".tar.gz
+occ app:enable cookbook
+
+# Setup Cookbook Library
+rm -R /config/www/nextcloud/data/admin/files
+cp -R /config/www/nextcloud/data/preset /config/www/nextcloud/data/admin/files
+chown abc:users -R /config/www/nextcloud/data/admin/files/
+occ files:scan admin

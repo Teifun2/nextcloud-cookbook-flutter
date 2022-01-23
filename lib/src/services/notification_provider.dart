@@ -35,6 +35,11 @@ class NotificationService {
   NotificationService._internal();
 
   Future<void> init() async {
+    // initialize Timezone Database
+    tz.initializeTimeZones();
+    tz.setLocalLocation(
+        tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()));
+
     final AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('notification_icon');
 
@@ -58,11 +63,6 @@ class NotificationService {
       Timer timer = Timer.fromJson(data, element.id);
       if (timer.id > this.curId) this.curId = timer.id;
     });
-
-    // initialize Timezone Database
-    tz.initializeTimeZones();
-    tz.setLocalLocation(
-        tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()));
   }
 
   int start(Timer timer) {

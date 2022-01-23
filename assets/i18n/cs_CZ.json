@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Hledat",
     "refresh": "Načíst znovu",
-    "logout": "Odhlásit"
+    "logout": "Odhlásit",
+    "clear_all": "Vyčistit vše"
   },
   "login": {
     "title": "Přihlásit",
@@ -42,7 +43,8 @@
     "title": "Kuchařka",
     "all_categories": "Všechno",
     "drawer": {
-      "import": "Importovat recept"
+      "import": "Importovat recept",
+      "settings": "Nastavení"
     },
     "errors": {
       "unknown": "Kategorie v neznámém stavu",
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Recept:",
+    "prep": "Doba přípravy",
+    "cook": "Doba vaření",
+    "total": "Celková doba",
     "fields": {
       "name": "Název receptu:",
       "description": "Popis receptu:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Upravit recept",
-    "button": "Aktualizovat recept",
+    "button": "Upravit",
     "errors": {
       "update_failed": "Aktualizace se nezdařila: {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Vytvořit recept",
-    "button": "Vytvořit recept",
+    "button": "Vytvořit",
     "errors": {
       "update_failed": "Vytvoření se nezdařilo {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Nenalezen žádný recept!",
     "errors": {
       "search_failed": "Nedaří se načíst veškeré recepty!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Vaše minutky",
+    "started": "Minutka spuštěna.",
+    "finished": "je dokončeno.",
+    "done": "Minutka zvonila."
+  },
+  "settings": {
+    "title": "Nastavení aplikace",
+    "dark_mode": {
+      "title": "Tmavý režim",
+      "system": "Systémový výchozí",
+      "dark": "Vždy",
+      "light": "Nikdy"
+    },
+    "language": {
+      "title": "Jazyk"
+    },
+    "stay_awake": {
+      "title": "Buďte bdělí",
+      "subtitle": "Při zobrazování receptu se obrazovka nevypne."
+    },
+    "recipe_font_size": {
+      "title": "Velikost písma receptů",
+      "subtitle": "Změní velikost písma nástrojů receptu, přísad a pokynů tak, aby bylo lépe čitelné."
+    },
+    "category_font_size": {
+      "title": "Velikost písma kategorií",
+      "subtitle": "Změní velikost písma nadpisu kategorie. To se může hodit v případě dlouhých názvů kategorií."
     }
   }
 }

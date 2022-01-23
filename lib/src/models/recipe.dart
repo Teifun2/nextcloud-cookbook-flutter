@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/iso_time_format.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/nutrition_utilty.dart';
 
 class Recipe extends Equatable {
   final int id;
@@ -9,6 +10,7 @@ class Recipe extends Equatable {
   final String imageUrl;
   final String recipeCategory;
   final String description;
+  final Map<String, String> nutrition;
   final List<String> recipeIngredient;
   final List<String> recipeInstructions;
   final List<String> tool;
@@ -27,6 +29,7 @@ class Recipe extends Equatable {
       this.imageUrl,
       this.recipeCategory,
       this.description,
+      this.nutrition,
       this.recipeIngredient,
       this.recipeInstructions,
       this.tool,
@@ -46,6 +49,7 @@ class Recipe extends Equatable {
       '',
       '',
       '',
+      Map<String, String>(),
       List<String>.empty(),
       List<String>.empty(),
       List<String>.empty(),
@@ -68,11 +72,41 @@ class Recipe extends Equatable {
     String imageUrl = data["imageUrl"];
     String recipeCategory = data["recipeCategory"];
     String description = data["description"];
-    List<String> recipeIngredient =
-        data["recipeIngredient"].cast<String>().toList();
-    List<String> recipeInstructions =
-        data["recipeInstructions"].cast<String>().toList();
-    List<String> tool = data["tool"].cast<String>().toList();
+
+    Map<String, String> recipeNutrition = {};
+
+    if (data["nutrition"] is Map) {
+      recipeNutrition = Map<String, String>.from(data["nutrition"])
+        ..removeWhere((key, value) =>
+            !NutritionUtility.nutritionProperties.contains(key));
+      data["nutrition"] = Map.from(data["nutrition"])
+        ..removeWhere(
+            (key, value) => NutritionUtility.nutritionProperties.contains(key));
+    }
+
+    List<String> recipeIngredient = [];
+    if (data["recipeIngredient"] is Map) {
+      data["recipeIngredient"]
+          .forEach((k, v) => recipeIngredient.add(v as String));
+    } else {
+      recipeIngredient = data["recipeIngredient"].cast<String>().toList();
+    }
+
+    List<String> recipeInstructions = [];
+    if (data["recipeInstructions"] is Map) {
+      data["recipeInstructions"]
+          .forEach((k, v) => recipeInstructions.add(v as String));
+    } else {
+      recipeInstructions = data["recipeInstructions"].cast<String>().toList();
+    }
+
+    List<String> tool = [];
+    if (data["tool"] is Map) {
+      data["tool"].forEach((k, v) => tool.add(v as String));
+    } else {
+      tool = data["tool"].cast<String>().toList();
+    }
+
     int recipeYield = data["recipeYield"];
     Duration prepTime = data.containsKey("prepTime") &&
             data["prepTime"] != "" &&
@@ -98,6 +132,7 @@ class Recipe extends Equatable {
     data.remove("imageUrl");
     data.remove("recipeCategory");
     data.remove("description");
+    // Nutrition items are filtered at the point of parsing
     data.remove("recipeIngredient");
     data.remove("recipeInstructions");
     data.remove("tool");
@@ -117,6 +152,7 @@ class Recipe extends Equatable {
       imageUrl,
       recipeCategory,
       description,
+      recipeNutrition,
       recipeIngredient,
       recipeInstructions,
       tool,
@@ -154,6 +190,8 @@ class Recipe extends Equatable {
     // Add all the data points that are not handled by the app!
     remainingData.addAll(updatedData);
 
+    (remainingData['nutrition'] as Map).addAll(nutrition);
+
     return jsonEncode(remainingData);
   }
 
@@ -165,6 +203,7 @@ class Recipe extends Equatable {
     mutableRecipe.imageUrl = this.imageUrl;
     mutableRecipe.recipeCategory = this.recipeCategory;
     mutableRecipe.description = this.description;
+    mutableRecipe.nutrition = this.nutrition;
     mutableRecipe.recipeIngredient = this.recipeIngredient;
     mutableRecipe.recipeInstructions = this.recipeInstructions;
     mutableRecipe.tool = this.tool;
@@ -198,6 +237,7 @@ class MutableRecipe {
   String imageUrl;
   String recipeCategory;
   String description;
+  Map<String, String> nutrition;
   List<String> recipeIngredient;
   List<String> recipeInstructions;
   List<String> tool;
@@ -217,6 +257,7 @@ class MutableRecipe {
       imageUrl,
       recipeCategory,
       description,
+      nutrition,
       recipeIngredient,
       recipeInstructions,
       tool,

@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Szukaj",
     "refresh": "Odśwież",
-    "logout": "Wyloguj"
+    "logout": "Wyloguj",
+    "clear_all": "Wyczyść wszystko"
   },
   "login": {
     "title": "Zaloguj",
@@ -42,15 +43,16 @@
     "title": "Książka kucharska",
     "all_categories": "Wszystkie",
     "drawer": {
-      "import": "Importuj przepis"
+      "import": "Importuj przepis",
+      "settings": "Ustawienia"
     },
     "errors": {
       "unknown": "Kategorie o nieznanym statusie",
-      "load_failed": "Ładowanie kategorii nie powiodło się: {error_msg}",
+      "load_failed": "Nie udało się wczytać kategorii: {error_msg}",
       "load_no_response": "Nie można pobrać kategorii z serwera.",
       "api_version_check_failed": "Nie udało się sprawdzić wersji API serwera:\n{error_msg}",
       "api_version_above_confirmed": "Zaktualizowano wersję API serwera. Niektóre funkcje mogą nie działać zgodnie z oczekiwaniami. Czekaj na aktualizację!\n{version}",
-      "plugin_missing": "Nie udało się załadować kategorii. Upewnij się, że wtyczka Cookbook jest zainstalowana w instancji Nextcloud!"
+      "plugin_missing": "Nie udało się wczytać kategorii. Upewnij się, że wtyczka Cookbook jest zainstalowana w tej instancji Nextcloud!"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Przepis:",
+    "prep": "Czas przygotowania",
+    "cook": "Czas gotowania",
+    "total": "Czas całkowity",
     "fields": {
       "name": "Nazwa przepisu:",
       "description": "Opis przepisu:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Edytuj przepis",
-    "button": "Zaktualizuj przepis",
+    "button": "Edytuj",
     "errors": {
       "update_failed": "Aktualizacja nie powiodła się {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Utwórz przepis",
-    "button": "Utwórz przepis",
+    "button": "Utwórz",
     "errors": {
       "update_failed": "Utworzenie nie powiodło się {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Nie znaleziono przepisu!",
     "errors": {
       "search_failed": "Nie można załadować wszystkich przepisów!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Twój czas",
+    "started": "Uruchomiony minutnik.",
+    "finished": "zakończone.",
+    "done": "Minutnik jest gotowy."
+  },
+  "settings": {
+    "title": "Ustawienia aplikacji",
+    "dark_mode": {
+      "title": "Tryb ciemny",
+      "system": "Domyślne ustawienia systemu",
+      "dark": "Zawsze",
+      "light": "Nigdy"
+    },
+    "language": {
+      "title": "Język"
+    },
+    "stay_awake": {
+      "title": "Nie usypiaj",
+      "subtitle": "Ekran pozostanie włączony podczas wyświetlania ekranu przepisu."
+    },
+    "recipe_font_size": {
+      "title": "Rozmiar czcionki przepisu",
+      "subtitle": "Zmienia rozmiar czcionki narzędzi do przepisów, składników i instrukcji, aby zapewnić lepszą czytelność."
+    },
+    "category_font_size": {
+      "title": "Rozmiar czcionki kategorii",
+      "subtitle": "Zmienia rozmiar czcionki tytułu kategorii. Może to być przydatne, jeśli masz długie nazwy kategorii."
     }
   }
 }

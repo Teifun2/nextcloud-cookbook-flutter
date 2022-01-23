@@ -140,7 +140,23 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                             },
                             state: widget.state,
                             onChange: (String value) {
-                              _items[index].text = value;
+                              // Mass import with newline separated list
+                              if (value.contains("\n")) {
+                                var newItems = List.of(value.split("\n"));
+                                _items[index].text = newItems[0];
+
+                                var newItemData = List.of(
+                                        newItems.getRange(1, newItems.length))
+                                    .asMap()
+                                    .entries
+                                    .map((e) => ItemData(e.value,
+                                        ValueKey(_items.length + e.key)));
+                                setState(() {
+                                  _items.insertAll(index + 1, newItemData);
+                                });
+                              } else {
+                                _items[index].text = value;
+                              }
                             },
                           );
                         },
@@ -273,11 +289,8 @@ class _ItemState extends State<Item> {
                         minLines: 1,
                         initialValue: data.text,
                         onChanged: widget.onChange,
+                        autofocus: data.text.isEmpty,
                       ),
-                      // child: Text(
-                      //   data.title,
-                      //   style: Theme.of(context).textTheme.subtitle1,
-                      // ),
                     ),
                   ),
                   // Triggers the reordering

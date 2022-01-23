@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:22.2.3
+    container_name: plugin_development
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - COOKBOOK=0.9.8
+    volumes:
+        - /config
+        - /data
+        - ./docker/data:/config/www/nextcloud/data/preset
+        - ./docker/80-setup:/etc/cont-init.d/80-setup
+    ports:
+      - 443:443
+      - 80:80

@@ -188,7 +188,9 @@ class AuthenticationProvider {
         ),
       );
     } on dio.DioError catch (e) {
-      throw e;
+      throw (translate("login.errors.no_internet", args: {
+        "error_msg": e.message,
+      }));
     }
 
     if (response.statusCode == 401) {
@@ -196,9 +198,9 @@ class AuthenticationProvider {
     } else if (response.statusCode == 200) {
       return true;
     } else {
-      throw 'Authentication check was not successful. \n'
-          'Maybe there is no internet connection? \n'
-          'Status code: ${response.statusCode}';
+      throw (translate("login.errors.wrong_status", args: {
+        "error_msg": response.statusCode,
+      }));
     }
   }
 

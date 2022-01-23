@@ -2,15 +2,16 @@
   "app_bar": {
     "search": "Keresés",
     "refresh": "Frissítés",
-    "logout": "Kijelentkezés"
+    "logout": "Kijelentkezés",
+    "clear_all": "Összes törlése"
   },
   "login": {
     "title": "Bejelentkezés",
     "server_url": {
-      "field": "Szerver URL",
+      "field": "Kiszolgáló URL",
       "validator": {
-        "empty": "Kérem adja meg a Nextcloud példány URL-jét.",
-        "pattern": "Kérem, érvényes URL-t adjon meg"
+        "empty": "Adja meg a Nextcloud példány URL-jét.",
+        "pattern": "Érvényes URL-t adjon meg"
       }
     },
     "username": {
@@ -20,37 +21,38 @@
       "field": "Jelszó"
     },
     "settings": {
-      "title": "Haladó beállítások",
-      "app_password": "Használja az önmaga által generált alkalmazásjelszót.\n2FA-val rendelkező fiókhoz szükséges.",
-      "self_signed_certificate": "Az érvénytelen tanúsítvány figyelmen kívül hagyása.\nSaját aláírású tanúsítványokhoz szükséges.\n(Használat csak saját felelősségre!)"
+      "title": "Speciális beállítások",
+      "app_password": "Az alkalmazás által előállított alkalmazásjelszó használata.\nA kétfaktoros hitelesítéssel rendelkező fiókokhoz szükséges.",
+      "self_signed_certificate": "Érvénytelen tanúsítvány figyelmen kívül hagyása.\nA saját aláírású tanúsítványokhoz szükséges.\n(Csak a saját felelősségére használja!)"
     },
     "button": "Bejelentkezés",
     "errors": {
       "not_reachable": "Nem érhető el: {server_url}\n{error_msg}",
-      "certificate_failed": "A szerver tanúsítványát nem sikerült ellenőrizni: {server_url}\n{error_msg}",
+      "certificate_failed": "A kiszolgáló tanúsítványát nem sikerült ellenőrizni: {server_url}\n{error_msg}",
       "request_failed": "Az alkalmazásjelszó kérése nem sikerült:\n{error_msg}",
-      "parse_failed": "Nem elemezhető az Alkalmazásjelszó válasz!\n{error_msg}",
+      "parse_failed": "Az alkalmazásjelszó válasz nem értelmezhető!\n{error_msg}",
       "parse_missing": "A válaszban nem található az alkalmazásjelszó!\n{error_msg}",
-      "auth_failed": "A felhasználónév és / vagy jelszó helytelen",
-      "authentication_not_found": "Nem található hitelesítés a tárolóban",
+      "auth_failed": "A felhasználónév vagy jelszó helytelen!",
+      "authentication_not_found": "Nem található hitelesítési adat a tárolóban",
       "failed_remove_remote": "Nem sikerült eltávolítani a távoli alkalmazásjelszót!",
-      "failure": "A bejelentkezési folyamat nem fejeződött be megfelelően.\n{status_code}\n{állapotüzenet}",
-      "credentials_invalid": "A tárolt hitelesítő adatok nem érvényesek többé így kijelentkeztettük!"
+      "failure": "A bejelentkezési folyamat nem fejeződött be megfelelően.\n{status_code}\n{status_message}",
+      "credentials_invalid": "A tárolt hitelesítő adatok már nem érvényesek, így ki lett jelentkeztetve!"
     }
   },
   "categories": {
-    "title": "Cookbook",
+    "title": "Receptkönyv",
     "all_categories": "Mind",
     "drawer": {
-      "import": "Import Recipe"
+      "import": "Recept importálása",
+      "settings": "Beállítások"
     },
     "errors": {
-      "unknown": "Kategóriák ismeretlen állapotban",
-      "load_failed": "Kategória betöltése sikertelen: \n{error_msg}",
-      "load_no_response": "A kategóriákat nem sikerült lekérni  a szerverről.",
+      "unknown": "Ismeretlen állapotú kategóriák",
+      "load_failed": "Kategória betöltése sikertelen: {error_msg}",
+      "load_no_response": "A kategóriákat nem sikerült lekérni a kiszolgálóról.",
       "api_version_check_failed": "Nem sikerült ellenőrizni a kiszolgáló API verzióját:\n{error_msg}",
-      "api_version_above_confirmed": "A kiszolgáló API-verziója frissült. Lehet, hogy egyes funkciók nem a várt módon működnek. Kérjük várjon frissítésre!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
+      "api_version_above_confirmed": "A kiszolgáló API-verziója frissült. Lehet, hogy egyes funkciók nem a várt módon működnek. Várjon a frissítésre!\n{version}",
+      "plugin_missing": "A kategóriák nem tölthetők be. Győződjön meg róla, hogy a receptkönyv bővítmény telepítve van-e a Nextcloud példányra!"
     }
   },
   "recipe_list": {
@@ -60,7 +62,10 @@
     }
   },
   "recipe": {
-    "title": "Receptek",
+    "title": "Recept:",
+    "prep": "Előkészítési idő",
+    "cook": "Főzési idő",
+    "total": "Teljes idő",
     "fields": {
       "name": "Recept neve:",
       "description": "Recept leírása:",
@@ -85,32 +90,62 @@
   },
   "recipe_edit": {
     "title": "Recept szerkesztése",
-    "button": "Recept frissítése",
+    "button": "Szerkesztés",
     "errors": {
       "update_failed": "Sikertelen frissítés {error_msg}"
     }
   },
   "recipe_create": {
-    "title": "Create Recipe",
-    "button": "Create Recipe",
+    "title": "Recept létrehozása",
+    "button": "Létrehozás",
     "errors": {
-      "update_failed": "Create Failed {error_msg}"
+      "update_failed": "Sikertelen létrehozás {error_msg}"
     }
   },
   "recipe_import": {
-    "title": "Import Recipe",
-    "button": "Import",
-    "field": "URL to Recipe",
-    "clipboard": "Paste Clipboard",
+    "title": "Recept importálása",
+    "button": "Importálás",
+    "field": "Recept URL-je",
+    "clipboard": "Vágólap beillesztése",
     "errors": {
-      "import_failed": "Import Failed {error_msg}"
+      "import_failed": "Sikertelen importálás {error_msg}"
     }
   },
   "search": {
-    "title": "Search Recipe",
-    "nothing_found": "Nincs recept!",
+    "title": "Recept keresése",
+    "nothing_found": "Nem található recept!",
     "errors": {
-      "search_failed": "Unable to load all Recipes!\n{error_msg}"
+      "search_failed": "Nem tölthető be az összes recept!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Saját időzítők",
+    "started": "Az időzítő elindult.",
+    "finished": " befejeződött.",
+    "done": "Az időzítő kész."
+  },
+  "settings": {
+    "title": "Alkalmazásbeállítások",
+    "dark_mode": {
+      "title": "Sötét mód",
+      "system": "Rendszer alapértelmezése",
+      "dark": "Mindig",
+      "light": "Soha"
+    },
+    "language": {
+      "title": "Nyelv"
+    },
+    "stay_awake": {
+      "title": "Ébren tartás",
+      "subtitle": "A kijelző ébren marad, míg a recept képernyőn van."
+    },
+    "recipe_font_size": {
+      "title": "Recept betűmérete",
+      "subtitle": "Módosítja a recepteszközök, hozzávalók és utasítások betűméretét a jobb olvashatóság érdekében."
+    },
+    "category_font_size": {
+      "title": "Kategória betűmérete",
+      "subtitle": "Módosítja a kategóriacím betűméretét. Ez akkor lehet hasznos, ha hosszú kategórianevei vannak."
     }
   }
 }

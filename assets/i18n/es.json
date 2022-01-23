@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Buscar",
     "refresh": "Actualizar",
-    "logout": "Desconectar"
+    "logout": "Desconectar",
+    "clear_all": "Borrar todo"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -42,7 +43,8 @@
     "title": "Cookbook",
     "all_categories": "Todo",
     "drawer": {
-      "import": "Importar receta"
+      "import": "Importar receta",
+      "settings": "Ajustes"
     },
     "errors": {
       "unknown": "Categorías en estado desconocido",
@@ -50,7 +52,7 @@
       "load_no_response": "No se han podido recuperar las Categorías desde el servidor.",
       "api_version_check_failed": "Fallo al comprobar la versión API del servidor:\n{error_msg}",
       "api_version_above_confirmed": "Se ha actualizado la versión de la API del servidor. Algunas características puede que no funcionen como se espera. ¡Por favor, espere a una actualización!\n{version}",
-      "plugin_missing": "No se han podido cargar las categorías. ¡Asegúrate que el plugin cookbook está instalado en esta instancia de Nextcloud!"
+      "plugin_missing": "No se han podido cargar las categorías. ¡Asegúrate de que el plugin Cookbook está instalado en esta instancia de Nextcloud!"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Receta:",
+    "prep": "Tiempo de preparación",
+    "cook": "Tiempo de cocción",
+    "total": "Tiempo total",
     "fields": {
       "name": "Nombre de la receta:",
       "description": "Descripción de la receta:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Editar receta",
-    "button": "Actualizar receta",
+    "button": "Editar",
     "errors": {
       "update_failed": "La actualización falló {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Crear receta",
-    "button": "Crear receta",
+    "button": "Crear",
     "errors": {
       "update_failed": "Fallo al crear  {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "¡No se ha encontrado la receta!",
     "errors": {
       "search_failed": "¡No es posible cargar todas las recetas!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Tus temporizadores",
+    "started": "Temporizador iniciado.",
+    "finished": "ha terminado.",
+    "done": "El temporizador ha terminado."
+  },
+  "settings": {
+    "title": "Ajustes de la Aplicación",
+    "dark_mode": {
+      "title": "Modo Oscuro",
+      "system": "Predeterminado del sistema",
+      "dark": "Siempre",
+      "light": "Nunca"
+    },
+    "language": {
+      "title": "Idioma"
+    },
+    "stay_awake": {
+      "title": "Mantener Encendido",
+      "subtitle": "La pantalla se quedará encendida mientrás estés en la pantalla de la receta."
+    },
+    "recipe_font_size": {
+      "title": "Tamaño de Fuente en Recetas",
+      "subtitle": "Cambia el tamaño de la fuente de las herramientas, ingredientes e instrucciones de la receta para mejorar la legibilidad."
+    },
+    "category_font_size": {
+      "title": "Tamaño de Fuente de Categorías",
+      "subtitle": "Cambia el tamaño de la fuente del título de categoría. Esto puede ser útil si tienes categorías con nombres largos."
     }
   }
 }

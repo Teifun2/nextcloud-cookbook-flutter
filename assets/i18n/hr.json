@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Traži",
     "refresh": "Osvježi",
-    "logout": "Odjava"
+    "logout": "Odjava",
+    "clear_all": "Izbriši sve"
   },
   "login": {
     "title": "Prijava",
@@ -42,15 +43,16 @@
     "title": "Kuharica",
     "all_categories": "Sve",
     "drawer": {
-      "import": "Uvezi recept"
+      "import": "Uvezi recept",
+      "settings": "Postavke"
     },
     "errors": {
       "unknown": "Kategorije u nepoznatom stanju",
       "load_failed": "Učitavanje kategorije nije uspjelo: {error_msg}",
       "load_no_response": "Nije moguće dohvatiti kategorije s poslužitelja.",
-      "api_version_check_failed": "Provjera verzije API-ja poslužitelja nije uspjela:\n{error_msg}",
-      "api_version_above_confirmed": "Ažurirana je verzija API-ja poslužitelja. Neke značajke možda neće raditi kako je očekivano. Pričekajte ažuriranje!\n{version}",
-      "plugin_missing": "Učitavanje kategorija nije uspjelo. Provjerite je li dodatak za kuharicu instaliran na ovoj instanci Nextclouda!"
+      "api_version_check_failed": "Provjera inačice API-ja poslužitelja nije uspjela:\n{error_msg}",
+      "api_version_above_confirmed": "Ažurirana je inačica API-ja poslužitelja. Neke značajke možda neće raditi kako je očekivano. Pričekajte ažuriranje!\n{version}",
+      "plugin_missing": "Učitavanje kategorija nije uspjelo. Provjerite je li dodatak Cookbook instaliran na ovoj instanci Nextclouda!"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Recept:",
+    "prep": "Vrijeme pripreme",
+    "cook": "Vrijeme kuhanja",
+    "total": "Ukupno vrijeme",
     "fields": {
       "name": "Naziv recepta:",
       "description": "Opis recepta:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Uredi recept",
-    "button": "Ažuriraj recept",
+    "button": "Uredi",
     "errors": {
       "update_failed": "Ažuriranje nije uspjelo {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Stvori recept",
-    "button": "Stvori recept",
+    "button": "Stvori",
     "errors": {
       "update_failed": "Stvaranje nije uspjelo {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Nije pronađen nijedan recept!",
     "errors": {
       "search_failed": "Nije moguće učitati sve recepte!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Vaši brojači vremena",
+    "started": "Brojač vremena je pokrenut.",
+    "finished": " je završio.",
+    "done": "Brojač vremena je završio."
+  },
+  "settings": {
+    "title": "Postavke aplikacije",
+    "dark_mode": {
+      "title": "Tamni način rada",
+      "system": "Zadana postavka sustava",
+      "dark": "Uvijek",
+      "light": "Nikad"
+    },
+    "language": {
+      "title": "Jezik"
+    },
+    "stay_awake": {
+      "title": "Ostani budan",
+      "subtitle": "Zaslon će ostati uključen dok je na zaslonu recepta."
+    },
+    "recipe_font_size": {
+      "title": "Veličina fonta recepta",
+      "subtitle": "Mijenja veličinu fonta alata za recepte, sastojaka i uputa radi bolje čitljivosti."
+    },
+    "category_font_size": {
+      "title": "Veličina fonta kategorije",
+      "subtitle": "Mijenja veličinu fonta naslova kategorije. To može biti korisno ako imate duge nazive kategorija."
     }
   }
 }

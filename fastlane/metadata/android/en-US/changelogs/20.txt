@@ -1,0 +1,4 @@
+- Improved Caching for better performance
+- Added nutrition to recipe view
+- URL Import
+- Small Improvements

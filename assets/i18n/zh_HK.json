@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "搜尋",
     "refresh": "刷新",
-    "logout": "登出"
+    "logout": "登出",
+    "clear_all": "清除全部"
   },
   "login": {
     "title": "登入",
@@ -28,7 +29,7 @@
     "errors": {
       "not_reachable": "無法到達：{server_url}\n{error_msg}",
       "certificate_failed": "無法驗證伺服器證書： {server_url}\n{error_msg}",
-      "request_failed": "應用程式密碼請求失敗：\n{error_msg}",
+      "request_failed": "索取應用程式密碼失敗：\n{error_msg}",
       "parse_failed": "無法解析應用程式密碼回應！\n{error_msg}",
       "parse_missing": "在回應中找不到應用程式密碼！\n{error_msg}",
       "auth_failed": "用戶名稱或密碼不正確",
@@ -42,7 +43,8 @@
     "title": "食譜",
     "all_categories": "全部",
     "drawer": {
-      "import": "導入食譜"
+      "import": "導入食譜",
+      "settings": "設定"
     },
     "errors": {
       "unknown": "處於未知狀態的分類",
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "食譜：",
+    "prep": "準備時間",
+    "cook": "烹調時間",
+    "total": "總時間",
     "fields": {
       "name": "食譜名稱：",
       "description": "食譜描述：",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "編輯食譜",
-    "button": "更新食譜",
+    "button": "編輯",
     "errors": {
       "update_failed": "更新失敗 {error_msg}"
     }
   },
   "recipe_create": {
     "title": "創建食譜",
-    "button": "創建食譜",
+    "button": "創建",
     "errors": {
       "update_failed": "創建失敗 {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "找不到食譜!",
     "errors": {
       "search_failed": "無法加載所有食譜！\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "你的計時器",
+    "started": "計時器已啟動。",
+    "finished": "已完成。",
+    "done": "計時结束。"
+  },
+  "settings": {
+    "title": "應用程式設定",
+    "dark_mode": {
+      "title": "深色模式",
+      "system": "系統默認值",
+      "dark": "一律",
+      "light": "從不"
+    },
+    "language": {
+      "title": "語言"
+    },
+    "stay_awake": {
+      "title": "保持清醒",
+      "subtitle": "顯示食譜時屏幕將保持亮起。"
+    },
+    "recipe_font_size": {
+      "title": "食譜字體大小",
+      "subtitle": "更改食譜工具、配料和烹調說明的字體大小，以提高可讀性。"
+    },
+    "category_font_size": {
+      "title": "分類字體大小",
+      "subtitle": "更改類別標題的字體大小。 這對於長類別名稱很有用。"
     }
   }
 }
