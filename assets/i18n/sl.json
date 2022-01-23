@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Poišči",
     "refresh": "Osveži",
-    "logout": "Odjava"
+    "logout": "Odjava",
+    "clear_all": "Počisti vse"
   },
   "login": {
     "title": "Prijava",
@@ -42,7 +43,8 @@
     "title": "Kuhar'ca",
     "all_categories": "Vse",
     "drawer": {
-      "import": "Uvozi recept"
+      "import": "Uvozi recept",
+      "settings": "Nastavitve"
     },
     "errors": {
       "unknown": "Kategorije v neznanem stanju",
@@ -50,7 +52,7 @@
       "load_no_response": "Ni mogoče pridobiti kategorij s strežnika.",
       "api_version_check_failed": "Preverjanje različice API strežnika je spodletelo:\n {error_msg}",
       "api_version_above_confirmed": "Različica vmesnika API strežnika je posodobljena. Nekatere zmožnosti morda ne bodo delovale pravilno. Počakajte na posodobitev!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
+      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Recept:",
+    "prep": "Čas priprave",
+    "cook": "Čas kuhanja",
+    "total": "Skupni čas",
     "fields": {
       "name": "Naslov recepta:",
       "description": "Opis recepta:",
@@ -85,16 +90,16 @@
   },
   "recipe_edit": {
     "title": "Uredi recept",
-    "button": "Posodobi recept",
+    "button": "Uredi",
     "errors": {
       "update_failed": "Posodobitev je spodletela {error_msg}"
     }
   },
   "recipe_create": {
-    "title": "Create Recipe",
-    "button": "Create Recipe",
+    "title": "Ustvari recept",
+    "button": "Ustvari",
     "errors": {
-      "update_failed": "Create Failed {error_msg}"
+      "update_failed": "Ustvarjanje je spodletelo {error_msg}"
     }
   },
   "recipe_import": {
@@ -107,10 +112,40 @@
     }
   },
   "search": {
-    "title": "Search Recipe",
+    "title": "Poišči recept",
     "nothing_found": "Ni najdenih receptov",
     "errors": {
-      "search_failed": "Unable to load all Recipes!\n{error_msg}"
+      "search_failed": "Ni mogoče naložiti receptov!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Your timers",
+    "started": "Časomer je zagnan.",
+    "finished": " is finished.",
+    "done": "Časomer je ustavljen."
+  },
+  "settings": {
+    "title": "Nastavitve programa",
+    "dark_mode": {
+      "title": "Temni način",
+      "system": "Sistemsko privzeto",
+      "dark": "Vedno",
+      "light": "Nikoli"
+    },
+    "language": {
+      "title": "Jezik"
+    },
+    "stay_awake": {
+      "title": "Ostanite budni",
+      "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Velikost pisave receptov",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Velikost pisave kategorije",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
     }
   }
 }

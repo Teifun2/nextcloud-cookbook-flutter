@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Suche",
     "refresh": "Aktualisieren",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "clear_all": "Alles löschen"
   },
   "login": {
     "title": "Anmelden",
@@ -42,13 +43,14 @@
     "title": "Kochbuch",
     "all_categories": "Alle",
     "drawer": {
-      "import": "Rezept importieren"
+      "import": "Rezept importieren",
+      "settings": "Einstellungen"
     },
     "errors": {
       "unknown": "Kategorien sind in unbekanntem Zustand",
       "load_failed": "Laden der Kategorien ist fehlgeschlagen: {error_msg}",
       "load_no_response": "Kategorien konnten vom Server nicht abgerufen werden.",
-      "api_version_check_failed": "API-Version auf dem Server konnte nicht geprüft werden:\n{error_msg}",
+      "api_version_check_failed": "API-Version des Servers konnte nicht geprüft werden:\n{error_msg}",
       "api_version_above_confirmed": "Die API-Version des Servers wurde aktualisiert. Einige Funktionen funktionieren möglicherweise nicht wie erwartet. Bitte warten Sie auf eine Aktualisierung!\n{version}",
       "plugin_missing": "Kategorien konnten nicht geladen werden. Stellen Sie sicher, dass das Kochbuch-Plugin auf dieser Nextcloud installiert ist!"
     }
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Rezept:",
+    "prep": "Vorbereitungsdauer",
+    "cook": "Kochdauer",
+    "total": "Gesamtzeit",
     "fields": {
       "name": "Rezept-Name:",
       "description": "Rezept-Beschreibung:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Rezept bearbeiten",
-    "button": "Rezept aktualisieren",
+    "button": "Bearbeiten",
     "errors": {
       "update_failed": "Aktualisierung fehlgeschlagen {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Rezept erstellen",
-    "button": "Rezept erstellen",
+    "button": "Erstellen",
     "errors": {
       "update_failed": "Erstellung fehlgeschlagen {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Kein Rezept gefunden!",
     "errors": {
       "search_failed": "Es konnten nicht alle Rezepte geladen werden!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Ihre Timer",
+    "started": "Timer gestartet.",
+    "finished": "ist abgeschlossen.",
+    "done": "Timer ist fertig."
+  },
+  "settings": {
+    "title": "App-Einstellungen",
+    "dark_mode": {
+      "title": "Dunkelmodus",
+      "system": "Systemstandard",
+      "dark": "Immer",
+      "light": "Niemals"
+    },
+    "language": {
+      "title": "Sprache"
+    },
+    "stay_awake": {
+      "title": "Wach bleiben",
+      "subtitle": "Der Bildschirm bleibt eingeschaltet, während das Rezept angezeigt wird."
+    },
+    "recipe_font_size": {
+      "title": "Rezept Schriftgröße",
+      "subtitle": "Ändert die Schriftgröße von Rezeptwerkzeugen, Zutaten und Anweisungen für eine bessere Lesbarkeit."
+    },
+    "category_font_size": {
+      "title": "Kategorie Schriftgröße",
+      "subtitle": "Ändert die Schriftgröße des Kategorietitels. Dies kann nützlich sein, wenn Sie lange Kategorienamen haben."
     }
   }
 }

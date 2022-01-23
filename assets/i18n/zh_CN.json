@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "搜索",
     "refresh": "刷新",
-    "logout": "注销"
+    "logout": "注销",
+    "clear_all": "清除全部"
   },
   "login": {
     "title": "登录",
@@ -42,15 +43,16 @@
     "title": "Cookbook",
     "all_categories": "所有",
     "drawer": {
-      "import": "导入菜谱"
+      "import": "导入菜谱",
+      "settings": "设置"
     },
     "errors": {
       "unknown": "处于未知状态的类别",
-      "load_failed": "类别加载失败：{error_msg}",
+      "load_failed": "分类加载失败：{error_msg}",
       "load_no_response": "无法从服务器取得类别",
-      "api_version_check_failed": "检查服务器的 API 版本失败：{error_msg}",
-      "api_version_above_confirmed": "服务器的 API 版本已更新。一些功能可能不像预期得那样工作。请等待一个更新！{version}",
-      "plugin_missing": "无法加载类别。确保 cookbook 插件已安装在这个 nextcloud 实例上!"
+      "api_version_check_failed": "检查服务器的 API 版本失败：\n{error_msg}",
+      "api_version_above_confirmed": "已更新服务器的 API 版本。有些功能可能不能如预期的那样工作。请等待更新！\n{version}",
+      "plugin_missing": "类别无法加载。请确保在这个 Nextcloud 实例上安装了 Cookbook 插件！"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "菜谱：",
+    "prep": "准备时间",
+    "cook": "烹饪时间",
+    "total": "总时间",
     "fields": {
       "name": "菜谱名：",
       "description": "菜谱描述：",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "编辑菜谱",
-    "button": "更新菜谱",
+    "button": "编辑",
     "errors": {
       "update_failed": "更新失败 {error_msg}"
     }
   },
   "recipe_create": {
     "title": "创建食谱",
-    "button": "创建食谱",
+    "button": "创建",
     "errors": {
       "update_failed": "创建失败 {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "未找到菜谱！",
     "errors": {
       "search_failed": "无法加载所有食谱 ！\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "你的计时器",
+    "started": "计时开始",
+    "finished": "已完成",
+    "done": "计时结束"
+  },
+  "settings": {
+    "title": "应用设置",
+    "dark_mode": {
+      "title": "深色模式",
+      "system": "系统默认",
+      "dark": "始终",
+      "light": "永不"
+    },
+    "language": {
+      "title": "语言"
+    },
+    "stay_awake": {
+      "title": "屏幕保持开启",
+      "subtitle": "在菜谱屏上时，屏幕将保持开启。"
+    },
+    "recipe_font_size": {
+      "title": "菜谱字体大小",
+      "subtitle": "更改食谱工具、配料和说明的字体大小以提高可读性。"
+    },
+    "category_font_size": {
+      "title": "类别字体大小",
+      "subtitle": "更改类别标题的字体大小。如果您的类别名称很长，这将非常有用。"
     }
   }
 }

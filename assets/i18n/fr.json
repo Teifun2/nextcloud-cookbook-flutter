@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Rechercher",
     "refresh": "Actualiser",
-    "logout": "Se déconnecter"
+    "logout": "Se déconnecter",
+    "clear_all": "Effacer tout"
   },
   "login": {
     "title": "S'identifier",
@@ -21,19 +22,19 @@
     },
     "settings": {
       "title": "Paramètres avancés",
-      "app_password": "Use self generated App Password.\nNeeded for accounts with 2FA.",
+      "app_password": "Utiliser un mot de passe d'application.\nNécessaire pour les comptes avec 2FA.",
       "self_signed_certificate": "Ignorer les certificats invalides.\nNécessaire pour les certificats autosignés.\n(À utiliser à vos risques et périls !)"
     },
     "button": "S'identifier",
     "errors": {
       "not_reachable": "Impossible d'atteindre : {server_url} \n {error_msg}",
       "certificate_failed": "Le certificat du serveur ne peut pas être vérifié : {server_url}\n{error_msg}",
-      "request_failed": "App Password request failed:\n{error_msg}",
-      "parse_failed": "Cannot parse the App Password response!\n{error_msg}",
-      "parse_missing": "Cannot find App Password in response!\n{error_msg}",
+      "request_failed": "La demande du mot de passe de l'application a échoué :\n{error_msg}",
+      "parse_failed": "Impossible de lire la réponse du mot de passe d'application\n{error_msg}",
+      "parse_missing": "Impossible de trouver le mot de passe de l'application dans la réponse\n{error_msg}",
       "auth_failed": "Nom d’utilisateur et / ou mot de passe incorrect !",
       "authentication_not_found": "Aucune authentification trouvée dans l'espace de stockage",
-      "failed_remove_remote": "Failed to remove remote App Password!",
+      "failed_remove_remote": "Impossible de supprimer le mot de passe d'application distant",
       "failure": "L'opération de connexion ne sait pas terminée correctement.\n{status_code}\n{status_message}",
       "credentials_invalid": "Les informations d'identification stockées ne sont plus valables et vous avez été déconnecté !"
     }
@@ -42,15 +43,16 @@
     "title": "Livre de recettes",
     "all_categories": "Tout",
     "drawer": {
-      "import": "Importer une recette"
+      "import": "Importer une recette",
+      "settings": "Settings"
     },
     "errors": {
-      "unknown": "Categories in unknown state",
+      "unknown": "Catégories dans un état inconnu",
       "load_failed": "Le chargement de la catégorie a échoué : {error_msg}",
       "load_no_response": "Impossible de récupérer les catégories depuis le serveur.",
-      "api_version_check_failed": "La vérification de la version API du serveur a échoué :\n{error_msg}",
-      "api_version_above_confirmed": "La version API du serveur a été mise à jour. Certaines fonctionnalités peuvent ne pas fonctionner comme prévu. Veuillez attendre une mise à jour !\n{version}",
-      "plugin_missing": "Les catégories ne peuvent pas être chargées. Vérifiez que l'extension cookbook est installée sur votre instance Nextcloud !"
+      "api_version_check_failed": "Impossible de vérifier la version de l'API du serveur :\n{error_msg}",
+      "api_version_above_confirmed": "La version de l'API du serveur a été mise à jour. Quelques fonctionnalités pourraient ne pas fonctionner comme prévu. Merci d'attendre une mise à jour !\n{version}",
+      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Recette :",
+    "prep": "Preparation time",
+    "cook": "Cooking time",
+    "total": "Temps total",
     "fields": {
       "name": "Titre de la recette : ",
       "description": "Description de la recette : ",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Editer la recette",
-    "button": "Mettre à jour la recette",
+    "button": "Modifier",
     "errors": {
       "update_failed": "Échec de mise à jour {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Créer une recette",
-    "button": "Créer une recette",
+    "button": "Créer",
     "errors": {
       "update_failed": "La création a échoué {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Aucune recette trouvée",
     "errors": {
       "search_failed": "Impossible de charger toutes les recettes !\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Your timers",
+    "started": "Timer started.",
+    "finished": "est terminé.",
+    "done": "Timer is done."
+  },
+  "settings": {
+    "title": "App Settings",
+    "dark_mode": {
+      "title": "Thème sombre",
+      "system": "System Default",
+      "dark": "Toujours",
+      "light": "Jamais"
+    },
+    "language": {
+      "title": "Langue"
+    },
+    "stay_awake": {
+      "title": "Stay Awake",
+      "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Recipe Font Size",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Category Font Size",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
     }
   }
 }
