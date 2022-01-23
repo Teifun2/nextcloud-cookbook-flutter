@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Etsi",
     "refresh": "Päivitä",
-    "logout": "Kirjaudu ulos"
+    "logout": "Kirjaudu ulos",
+    "clear_all": "Tyhjennä kaikki"
   },
   "login": {
     "title": "Kirjaudu sisään",
@@ -42,15 +43,16 @@
     "title": "Keittokirja",
     "all_categories": "Kaikki",
     "drawer": {
-      "import": "Tuo resepti"
+      "import": "Tuo resepti",
+      "settings": "Asetukset"
     },
     "errors": {
       "unknown": "Luokat tuntemattomassa tilassa",
-      "load_failed": "Luokan lataus epäonnistui: {error_msg}",
+      "load_failed": "Luokan lataaminen epäonnistui: {error_msg}",
       "load_no_response": "Luokkien haku palvelimelta ei onnistunut.",
-      "api_version_check_failed": "Palvelimen API-version varmistus epäonnistui:\n {error_msg}",
-      "api_version_above_confirmed": "Palvelimen API-versio on päivitetty. Jotkin ominaisuudet eivät välttämättä toimi odotetusti. Odota sovelluksen päivitystä!\n {version}",
-      "plugin_missing": "Kategorioita ei voitu ladata. Varmista, että Keittokirja-sovellus on asennettuna Nextcloud-serverillä!"
+      "api_version_check_failed": "Palvelimen rajapintaversion tarkistus epäonnistui:\n{error_msg}",
+      "api_version_above_confirmed": "The API version of the server was updated. Some features might not work as expected. Please wait for an update!\n{version}",
+      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
     }
   },
   "recipe_list": {
@@ -61,11 +63,14 @@
   },
   "recipe": {
     "title": "Resepti:",
+    "prep": "Valmisteluaika",
+    "cook": "Kokkausaika",
+    "total": "Kokonaiskesto",
     "fields": {
       "name": "Reseptin nimi:",
       "description": "Reseptin kuvaus:",
       "keywords": "Avainsanat:",
-      "category": "Kategoria:",
+      "category": "Luokka:",
       "servings": "Annoksia:",
       "source": "Lähde:",
       "source_button": "Lähde",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Muokkaa reseptiä",
-    "button": "Päivitä resepti",
+    "button": "Muokkaa",
     "errors": {
       "update_failed": "Päivitys epäonnistui {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Luo resepti",
-    "button": "Luo resepti",
+    "button": "Luo",
     "errors": {
       "update_failed": "Luonti epäonnistui {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Reseptiä ei löytynyt!",
     "errors": {
       "search_failed": "Reseptien lataus ei onnistunut!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Ajastimesi",
+    "started": "Ajastin käynnistyi.",
+    "finished": "valmistui.",
+    "done": "Ajastin valmistui."
+  },
+  "settings": {
+    "title": "Sovelluksen asetukset",
+    "dark_mode": {
+      "title": "Tumma tila",
+      "system": "Järjestelmän oletus",
+      "dark": "Aina",
+      "light": "Ei koskaan"
+    },
+    "language": {
+      "title": "Kieli"
+    },
+    "stay_awake": {
+      "title": "Pysy hereillä",
+      "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Reseptin fontin koko",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Luokan fontin koko",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
     }
   }
 }

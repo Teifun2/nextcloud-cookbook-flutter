@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Hľadať",
     "refresh": "Obnoviť",
-    "logout": "Odhlásiť"
+    "logout": "Odhlásiť",
+    "clear_all": "Vyčistiť všetko"
   },
   "login": {
     "title": "Prihlásenie",
@@ -42,7 +43,8 @@
     "title": "Kuchárska kniha",
     "all_categories": "Všetko",
     "drawer": {
-      "import": "Importovať Recept"
+      "import": "Importovať Recept",
+      "settings": "Nastavenia"
     },
     "errors": {
       "unknown": "Kategórie sú v neznámom stave",
@@ -50,7 +52,7 @@
       "load_no_response": "Nemôžem načítať Kategórie zo servera.",
       "api_version_check_failed": "Zlyhala kontrola verzie API na serveri:\n{error_msg}",
       "api_version_above_confirmed": "API servera bolo aktualizované. Niektoré vlastnosti nemusia fungovať správne. Prosím počkajte na aktualizáciu!\n{version}",
-      "plugin_missing": "Kategórie nemohli byť načítané. Skontrolujte že zásuvný modul cookbook je nainštalovaný v tejto inštancii nextcloudu!"
+      "plugin_missing": "Kategórie nemohli byť načítané. Skontrolujte že zásuvný modul Cookbook je nainštalovaný v tejto inštancii nextcloudu!"
     }
   },
   "recipe_list": {
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Recept:",
+    "prep": "Doba prípravy",
+    "cook": "Čas varenia",
+    "total": "Celkový čas",
     "fields": {
       "name": "Názov receptu:",
       "description": "Popis receptu:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Upraviť recept",
-    "button": "Aktualizovať Recept",
+    "button": "Upraviť",
     "errors": {
       "update_failed": "Aktualizácia zlyhala {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Vytvoriť Recept",
-    "button": "Vytvoriť Recept",
+    "button": "Vytvoriť",
     "errors": {
       "update_failed": "Vytváranie zlyhalo {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Nenašiel sa žiadny recept!",
     "errors": {
       "search_failed": "Nie je možné načítať všetky Recepty!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Vaše budíky",
+    "started": "Budík spustený.",
+    "finished": "skončilo.",
+    "done": "Budík skončil."
+  },
+  "settings": {
+    "title": "Nastavenia Aplikácie",
+    "dark_mode": {
+      "title": "Tmavý vzhľad",
+      "system": "Predvolené systémom",
+      "dark": "Vždy",
+      "light": "Nikdy"
+    },
+    "language": {
+      "title": "Jazyk"
+    },
+    "stay_awake": {
+      "title": "Zostať hore",
+      "subtitle": "Obrazovka ostane zapnutá pokiaľ bude aktivovaná obrazovka receptu."
+    },
+    "recipe_font_size": {
+      "title": "Veľkosť písma Receptu",
+      "subtitle": "Zmeniť veľkosť písma nástrojov receptov, prísad a pokynov, aby boli čitateľnejšie."
+    },
+    "category_font_size": {
+      "title": "Veľkosť písma Kategórií",
+      "subtitle": "Zmeniť veľkosť písma názvu kategórie. To môže byť užitočné, ak máte dlhé názvy kategórií."
     }
   }
 }

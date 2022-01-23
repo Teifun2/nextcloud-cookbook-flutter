@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Bilatu",
     "refresh": "Freskatu",
-    "logout": "Amaitu saioa"
+    "logout": "Amaitu saioa",
+    "clear_all": "Garbitu dena"
   },
   "login": {
     "title": "Hasi saioa",
@@ -42,14 +43,15 @@
     "title": "Sukaldaritza-liburua",
     "all_categories": "Denak",
     "drawer": {
-      "import": "Inportatu errezeta"
+      "import": "Inportatu errezeta",
+      "settings": "Ezarpenak"
     },
     "errors": {
       "unknown": "Egoera ezezaguneko kategoriak",
-      "load_failed": "Kategorien kargatzeak huts egin du: {error_msg}",
+      "load_failed": "Kategoria kargatzeak huts egin du: {error_msg}",
       "load_no_response": "Ezin izan da kategoriak zerbitzaritik berreskuratu.",
       "api_version_check_failed": "Ezin izan da zerbitzariaren API bertsioa egiaztatu:\n{error_msg}",
-      "api_version_above_confirmed": "Zerbitzariaren API bertsioa eguneratu zen. Baliteke zenbait funtziok espero ez bezala funtzionatzea. Mesedez, itxaron eguneratze bat!\n{version}",
+      "api_version_above_confirmed": "Zerbitzariaren API bertsioa eguneratu egin da. Baliteke zenbait funtzio espero ez bezala funtzionatzea. Mesedez, itxaron eguneratze bati!\n{version}",
       "plugin_missing": "Ezin izan dira kategoriak kargatu. Ziurtatu sukaldaritza liburuaren plugina nextcloud instantzia honetan instalatuta dagoela!"
     }
   },
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Errezeta:",
+    "prep": "Prestatzeko denbora",
+    "cook": "Janaria prestatzeko denbora",
+    "total": "Denbora guztira",
     "fields": {
       "name": "Errezetaren izena:",
       "description": "Errezetaren deskribapena:",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Editatu errezeta",
-    "button": "Eguneratu errezeta",
+    "button": "Editatu",
     "errors": {
       "update_failed": "Eguneratzeak huts egin du {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Sortu errezeta",
-    "button": "Sortu errezeta",
+    "button": "Sortu",
     "errors": {
       "update_failed": "Huts egin du sortzean {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Ez da errezetarik aurkitu!",
     "errors": {
       "search_failed": "Ezin dira errezeta guztiak kargatu!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Zure tenporizadoreak",
+    "started": "Tenporizadorea hasita.",
+    "finished": "amaituta dago.",
+    "done": "Tenporizadorea bukatu da."
+  },
+  "settings": {
+    "title": "Aplikazioaren ezarpenak",
+    "dark_mode": {
+      "title": "Modu iluna",
+      "system": "Sistemaren lehenetsia",
+      "dark": "Beti",
+      "light": "Inoiz ez"
+    },
+    "language": {
+      "title": "Hizkuntza"
+    },
+    "stay_awake": {
+      "title": "Mantendu aktibo",
+      "subtitle": "Pantaila aktibo mantenduko da errezeta-pantailan."
+    },
+    "recipe_font_size": {
+      "title": "Errezetaren letra-tipo tamaina",
+      "subtitle": "Errezeta, tresna, osagai eta jarraibideen letra-tipo tamaina aldatzen da, hobeto irakurtzeko."
+    },
+    "category_font_size": {
+      "title": "Kategoriaren letra-tipo tamaina",
+      "subtitle": "Kategoriaren izenburuaren tamaina aldatzen du. Hau baliagarria izan daiteke kategoria izen luzeak badituzu."
     }
   }
 }

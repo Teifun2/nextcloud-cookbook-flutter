@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Ara",
     "refresh": "Yenlle",
-    "logout": "Oturumu kapat"
+    "logout": "Oturumu kapat",
+    "clear_all": "Tümünü temizle"
   },
   "login": {
     "title": "Oturum aç",
@@ -42,7 +43,8 @@
     "title": "Yemek kitabı",
     "all_categories": "Tümü",
     "drawer": {
-      "import": "İçe tarif aktar"
+      "import": "İçe tarif aktar",
+      "settings": "Ayarlar"
     },
     "errors": {
       "unknown": "Durumu bilinmeyen kategoriler",
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Tarif:",
+    "prep": "Hazırlama süresi",
+    "cook": "Pişirme süresi",
+    "total": "Toplam süre",
     "fields": {
       "name": "Tarif adı:",
       "description": "Tarif açıklaması:",
@@ -85,16 +90,16 @@
   },
   "recipe_edit": {
     "title": "Tarifi düzenle",
-    "button": "Tarifi güncelle",
+    "button": "Düzenle",
     "errors": {
       "update_failed": "Güncellenemedi {error_msg}"
     }
   },
   "recipe_create": {
-    "title": "Yemek tarifi oluştur",
-    "button": "Yemek tarifi oluştur",
+    "title": "Yemek tarifi ekle",
+    "button": "Ekle",
     "errors": {
-      "update_failed": "Oluşturulamadı {error_msg}"
+      "update_failed": "Eklenemedi {error_msg}"
     }
   },
   "recipe_import": {
@@ -111,6 +116,36 @@
     "nothing_found": "Herhangi bir tarif bulunamadı!",
     "errors": {
       "search_failed": "Tüm yemek tarifleri yüklenemedi!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Zamanlayıcılarınız",
+    "started": "Zamanlayıcı başlatıldı.",
+    "finished": "tamamlandı.",
+    "done": "Zamanlayıcı tamamlandı."
+  },
+  "settings": {
+    "title": "Uygulama ayarları",
+    "dark_mode": {
+      "title": "Koyu kip",
+      "system": "Sistem varsayılanı",
+      "dark": "Her zaman",
+      "light": "Asla"
+    },
+    "language": {
+      "title": "Dil"
+    },
+    "stay_awake": {
+      "title": "Uyanık kalınsın",
+      "subtitle": "Yemek tarifi ekranındayken ekran uykuya dalmaz"
+    },
+    "recipe_font_size": {
+      "title": "Yemek tarifi yazı boyutu",
+      "subtitle": "Daha iyi okunabilirlik için tarif araçlarının, malzemelerin ve yönergelerin yazı boyutunu değiştirir."
+    },
+    "category_font_size": {
+      "title": "Kategori yazı boyutu",
+      "subtitle": "Kategori başlığının yazı boyutunu değiştirir. Uzun kategori adlarınız varsa yararlı olabilir."
     }
   }
 }
