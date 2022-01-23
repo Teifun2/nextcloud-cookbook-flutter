@@ -216,11 +216,15 @@ class RecipeScreenState extends State<RecipeScreen> {
                         RichText(
                           text: TextSpan(
                             text: translate('recipe.fields.servings'),
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                             children: <TextSpan>[
                               TextSpan(
                                 text: " " + recipe.recipeYield.toString(),
                                 style: TextStyle(
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w400,
                                 ),
                               )
