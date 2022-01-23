@@ -23,10 +23,14 @@ Current Features:
 - Recipe Editing
 - Recipe Import
 - Darkmode (Thanks to SeineEloquenz)
+- Timer (Thanks to fab920)
+- Stay awake on recipe screen
+- Settings Tab
 
 Planned Features:
-- Settings Tab *
-- Offline Usage (Caching)
+- Offline Usage
+- Image Upload
+- Integrate new values of nextcloud plugin
 
 \* Currently worked on!
 

@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Zoeken",
     "refresh": "Verversen",
-    "logout": "Uitloggen"
+    "logout": "Uitloggen",
+    "clear_all": "Wis alles"
   },
   "login": {
     "title": "Inloggen",
@@ -42,13 +43,14 @@
     "title": "Kookboek",
     "all_categories": "Alle",
     "drawer": {
-      "import": "Importeren recept"
+      "import": "Importeren recept",
+      "settings": "Instellingen"
     },
     "errors": {
       "unknown": "Categorieën met onbekende status",
       "load_failed": "Laden categorie mislukt: {error_msg}",
       "load_no_response": "Kon geen categorieën van de server ophalen.",
-      "api_version_check_failed": "Kon de API-versie van de server niet verifiëren:\n {error_msg}",
+      "api_version_check_failed": "Kon de API-versie van de server niet controleren:\n {error_msg}",
       "api_version_above_confirmed": "De Api-versie van de server is bijgewerkt. Sommige functies werken mogelijk niet zoals verwacht. Wacht op een update!\n{version}",
       "plugin_missing": "Categorieën kunnen niet worden geladen. Zorg ervoor dat de kookboek-plug-in is geïnstalleerd op deze nextcloud-instantie!"
     }
@@ -61,6 +63,9 @@
   },
   "recipe": {
     "title": "Recept:",
+    "prep": "Voorbereidingstijd",
+    "cook": "Kooktijd",
+    "total": "Totale tijd",
     "fields": {
       "name": "Receptnaam:",
       "description": "Receptbeschrijving",
@@ -85,14 +90,14 @@
   },
   "recipe_edit": {
     "title": "Bewerk recept",
-    "button": "Bijwerken recept",
+    "button": "Bewerken",
     "errors": {
       "update_failed": "Bijwerken mislukt {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Maak een recept",
-    "button": "Maak een recept",
+    "button": "Creëren",
     "errors": {
       "update_failed": "Aanmaken mislukt {error_msg}"
     }
@@ -111,6 +116,36 @@
     "nothing_found": "Geen recept gevonden!",
     "errors": {
       "search_failed": "Kon niet alle recepten niet laden!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Jouw timers",
+    "started": "Timer gestart.",
+    "finished": "is klaar.",
+    "done": "Timer is klaar."
+  },
+  "settings": {
+    "title": "App Instellingen",
+    "dark_mode": {
+      "title": "Donkere Modus",
+      "system": "Systeem Standaard",
+      "dark": "Altijd",
+      "light": "Nooit"
+    },
+    "language": {
+      "title": "Taal"
+    },
+    "stay_awake": {
+      "title": "Blijf Wakker",
+      "subtitle": "Scherm zal aan blijven zolang het recept op het scherm staat."
+    },
+    "recipe_font_size": {
+      "title": "Recept Lettertype Grootte",
+      "subtitle": "Veranderingen in lettertype grootte van recept gereedschappen, ingrediënten en instructies voor betere leesbaarheid."
+    },
+    "category_font_size": {
+      "title": "Categorie Lettertype Grootte",
+      "subtitle": "Veranderingen in de lettertype grootte van de categorie titel. Dit kan handig zijn als je lange categorienamen hebt."
     }
   }
 }
