@@ -67,9 +67,7 @@ class RecipeScreenState extends State<RecipeScreen> {
       ),
     );
 
-    if (MediaQuery.of(context).size.width > 600) {
-      this.isLargeScreen = true;
-    }
+    this.isLargeScreen = MediaQuery.of(context).size.width > 600;
     return BlocProvider<RecipeBloc>(
       create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId: recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
