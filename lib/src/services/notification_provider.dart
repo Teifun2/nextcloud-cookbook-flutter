@@ -11,7 +11,7 @@ const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
   '1',
   'Cookbook',
-  'Timer for the Cookbook',
+  channelDescription: 'Timer for the Cookbook',
   importance: Importance.high,
   priority: Priority.high,
   showWhen: false,
