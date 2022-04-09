@@ -5,6 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
@@ -105,7 +106,8 @@ class _RecipeFormState extends State<RecipeForm> {
                         controller: this.categoryController,
                       ),
                       suggestionsCallback: (pattern) async {
-                        return ['A', 'B', 'C'];
+                        return await DataRepository()
+                            .getMatchingCategoryNames(pattern);
                       },
                       itemBuilder: (context, String suggestion) {
                         return ListTile(
