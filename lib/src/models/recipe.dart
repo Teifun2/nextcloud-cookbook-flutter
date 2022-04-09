@@ -190,7 +190,11 @@ class Recipe extends Equatable {
     // Add all the data points that are not handled by the app!
     remainingData.addAll(updatedData);
 
-    (remainingData['nutrition'] as Map).addAll(nutrition);
+    if (remainingData['nutrition'] is Map) {
+      (remainingData['nutrition'] as Map).addAll(nutrition);
+    } else {
+      remainingData['nutrition'] = nutrition;
+    }
 
     return jsonEncode(remainingData);
   }
