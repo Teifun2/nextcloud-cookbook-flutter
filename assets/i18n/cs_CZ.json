@@ -26,6 +26,8 @@
       "self_signed_certificate": "Ignorovat neplatný certifikát.\nPotřebné pro certifikáty podepsané samotnou organizací.\n(Používejte na vlastní riziko!)"
     },
     "button": "Přihlásit",
+    "retry": "Zkusit se znovu přihlásit!",
+    "reset": "Resetovat přihlašovací údaje!",
     "errors": {
       "not_reachable": "Nelze se připojit k: {server_url}\n{error_msg}",
       "certificate_failed": "Certifikát serveru se nepodařilo ověřit: {server_url}\n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "V úložišti nebyla nalezena autentifikace",
       "failed_remove_remote": "Nepovedlo se odstranit heslo pro externí aplikaci!",
       "failure": "Proces přihlašování se nepodařilo dokončit.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Uložené přihlašovací údaje už nebyly platné a proto jste byli odhlášeni!"
+      "credentials_invalid": "Uložené přihlašovací údaje už nebyly platné a proto jste byli odhlášeni!",
+      "no_internet": "Kontrola ověření se nebyla úspěšná.\nMožná není k dispozici připojení k Internetu?\nHlášení chyby: {error_msg}",
+      "wrong_status": "Kontrola ověření se nebyla úspěšná.\nMožná není správně zadaný hostitelský server?\nHlášení chyby: {error_msg}"
     }
   },
   "categories": {
@@ -79,6 +83,23 @@
         "prep": "Doba přípravy:",
         "cook": "Doba vaření:",
         "total": "Celková doba:"
+      },
+      "nutrition": {
+        "title": "Výživové informace",
+        "items": {
+          "calories": "Energie",
+          "carbohydrateContent": "Sacharidy",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Tuky celkem",
+          "fiberContent": "Vláknina",
+          "proteinContent": "Bílkoviny",
+          "saturatedFatContent": "Nasycené mastné kyseliny",
+          "servingSize": "Velikost porce",
+          "sodiumContent": "Sodík",
+          "sugarContent": "Cukry",
+          "transFatContent": "Obsah trans-tuků",
+          "unsaturatedFatContent": "Obsah nenasycených tuků"
+        }
       },
       "tools": "Nástroje:",
       "ingredients": "Přísady:",

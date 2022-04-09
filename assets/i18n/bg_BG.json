@@ -26,6 +26,8 @@
       "self_signed_certificate": "Игнориране на невалиден сертификат.\nНеобходимо е за самоподписани сертификати.\n(Използвате на свой собствен риск!)"
     },
     "button": "Вписване",
+    "retry": "Retry Login!",
+    "reset": "Reset Credentials!",
     "errors": {
       "not_reachable": "Невъзможно достигане до: {server_url}\n{error_msg}",
       "certificate_failed": "Сертификатът на сървъра не можа да бъде проверен: {server_url}\n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "Не е намерено удостоверяване в Хранилище",
       "failed_remove_remote": "Неуспешно премахване на паролата за дистанционно приложение!",
       "failure": "Процесът на вписване не можа да завърши правилно.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Съхранените идентификационни данни вече не са валидни и сте отписани!"
+      "credentials_invalid": "Съхранените идентификационни данни вече не са валидни и сте отписани!",
+      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
@@ -80,6 +84,23 @@
         "cook": "Време за готвене:",
         "total": "Общо време:"
       },
+      "nutrition": {
+        "title": "Nutrition Information",
+        "items": {
+          "calories": "Energy",
+          "carbohydrateContent": "Carbohydrate",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Fat total",
+          "fiberContent": "Fiber",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Saturated Fat",
+          "servingSize": "Serving size",
+          "sodiumContent": "Sodium",
+          "sugarContent": "Sugar",
+          "transFatContent": "Trans-fat content",
+          "unsaturatedFatContent": "Unsaturated-fat content"
+        }
+      },
       "tools": "Инструменти:",
       "ingredients": "Съставки:",
       "instructions": "Инструкции:"
@@ -121,7 +142,7 @@
   "timer": {
     "title": "Вашите таймери",
     "started": "Таймерът стартира.",
-    "finished": " е завършен.",
+    "finished": "is finished.",
     "done": "Таймерът е готов."
   },
   "settings": {

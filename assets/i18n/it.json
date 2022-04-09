@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Cerca",
     "refresh": "Aggiorna",
-    "logout": "Esci"
+    "logout": "Esci",
+    "clear_all": "Cancella tutto"
   },
   "login": {
     "title": "Accedi",
@@ -25,6 +26,8 @@
       "self_signed_certificate": "Ignora certificato non valido.\nNecessario per certificati auto-firmati\n(Utilizzalo a tuo rischio!)"
     },
     "button": "Accedi",
+    "retry": "Riprova il Login!",
+    "reset": "Reimposta le credenziali!",
     "errors": {
       "not_reachable": "Impossibile raggiungere: {server_url}\n{error_msg}",
       "certificate_failed": "Impossibile verificare il certificato del server: {server_url}\n{error_msg}",
@@ -35,22 +38,25 @@
       "authentication_not_found": "Nessuna autenticazione trovata in Archiviazione",
       "failed_remove_remote": "Impossibile rimuovere la password dell'applicazione remota!",
       "failure": "L'accesso non è stato completato correttamente.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Le credenziali memorizzate non sono più valide e sei stato disconnesso!"
+      "credentials_invalid": "Le credenziali memorizzate non sono più valide e sei stato disconnesso!",
+      "no_internet": "La verifica dell'autenticazione non è riuscita.\nForse non c'è connessione a Internet?\nMessaggio di errore: {error_msg}",
+      "wrong_status": "La verifica dell'autenticazione non è riuscita.\nÈ possibile che l'host del server fornito non sia corretto?\nMessaggio di errore: {error_msg}"
     }
   },
   "categories": {
     "title": "Ricettario",
     "all_categories": "Tutte",
     "drawer": {
-      "import": "Importa ricetta"
+      "import": "Importa ricetta",
+      "settings": "Impostazioni"
     },
     "errors": {
       "unknown": "Categorie in stato sconosciuto",
-      "load_failed": "Caricamento categoria non riuscito: {error_msg}",
+      "load_failed": "Caricamento della categoria non riuscito: {error_msg}",
       "load_no_response": "Impossibile recuperare le categorie dal server.",
-      "api_version_check_failed": "Controllo della versione di API del server non riuscito:\n{error_msg}",
-      "api_version_above_confirmed": "La versione di API del server è stata aggiornata. Alcune funzionalità potrebbero non funzionare come previsto. Attendi un aggiornamento!\n{version}",
-      "plugin_missing": "Impossibile caricare le categorie. Assicurati che l'estensione del ricettario sia installata su questa istanza Nextcloud! "
+      "api_version_check_failed": "Impossibile controllare la versione API del server:\n{error_msg}",
+      "api_version_above_confirmed": "La versione API del server è stata aggiornata. Alcune funzioni potrebbero non funzionare come previsto. Attendi un aggiornamento!\n{version}",
+      "plugin_missing": "Impossibile caricare le categorie. Assicurati che il plug-in Cookbook sia installato su questa istanza di Nextcloud!"
     }
   },
   "recipe_list": {
@@ -61,6 +67,9 @@
   },
   "recipe": {
     "title": "Ricetta:",
+    "prep": "Tempo di preparazione",
+    "cook": "Tempo di cottura",
+    "total": "Tempo totale",
     "fields": {
       "name": "Nome della ricetta:",
       "description": "Descrizione della ricetta:",
@@ -75,6 +84,23 @@
         "cook": "Tempo di cottura:",
         "total": "Tempo totale:"
       },
+      "nutrition": {
+        "title": "Informazioni nutrizionali",
+        "items": {
+          "calories": "Energia",
+          "carbohydrateContent": "Carboidrati",
+          "cholesterolContent": "Colesterolo",
+          "fatContent": "Grassi totali",
+          "fiberContent": "Fibre",
+          "proteinContent": "Proteine",
+          "saturatedFatContent": "Grassi saturi",
+          "servingSize": "Dimensioni della porzione",
+          "sodiumContent": "Sodio",
+          "sugarContent": "Zucchero",
+          "transFatContent": "Contenuto di acidi grassi trans",
+          "unsaturatedFatContent": "Contenuto di grassi insaturi"
+        }
+      },
       "tools": "Strumenti:",
       "ingredients": "Ingredienti:",
       "instructions": "Istruzioni:"
@@ -85,14 +111,14 @@
   },
   "recipe_edit": {
     "title": "Modifica ricetta",
-    "button": "Aggiorna la ricetta",
+    "button": "Modifica",
     "errors": {
       "update_failed": "Aggiornamento non riuscito {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Crea ricetta",
-    "button": "Crea ricetta",
+    "button": "Crea",
     "errors": {
       "update_failed": "Creazione non riuscita {error_msg}"
     }
@@ -111,6 +137,36 @@
     "nothing_found": "Nessuna ricetta trovata",
     "errors": {
       "search_failed": "Impossibile caricare tutte le ricette!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "I tuoi timer",
+    "started": "Il timer è partito.",
+    "finished": "è terminato.",
+    "done": "Il timer è terminato."
+  },
+  "settings": {
+    "title": "Impostazioni dell'applicazione",
+    "dark_mode": {
+      "title": "Modalità scura",
+      "system": "Predefiniti di sistema",
+      "dark": "Sempre",
+      "light": "Mai"
+    },
+    "language": {
+      "title": "Lingua"
+    },
+    "stay_awake": {
+      "title": "Stai sveglio",
+      "subtitle": "Lo schermo rimarrà acceso durante la schermata della ricetta."
+    },
+    "recipe_font_size": {
+      "title": "Dimensione carattere della ricetta",
+      "subtitle": "Modifica la dimensione del carattere di strumenti ricetta, ingredienti e istruzioni per una migliore leggibilità."
+    },
+    "category_font_size": {
+      "title": "Dimensione carattere della categoria",
+      "subtitle": "Cambia la dimensione del carattere del titolo della categoria. Può essere utile se hai nomi di categoria lunghi."
     }
   }
 }
