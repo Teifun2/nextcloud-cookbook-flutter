@@ -82,6 +82,8 @@ dependencies:
 
   cached_network_image: ^3.0.0
 
+  flutter_typeahead: 3.2.4
+
 dev_dependencies:
   flutter_launcher_icons: ^0.9.0
 
