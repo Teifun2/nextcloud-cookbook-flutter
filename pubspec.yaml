@@ -70,6 +70,8 @@ dependencies:
 
   flutter_svg: ^1.0.3
 
+  flutter_markdown: ^0.6.9
+
   # Reorderable List for Edit and Create Recipe
   flutter_reorderable_list: 1.2.0
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
@@ -202,9 +203,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      recipe.description,
-                      style: TextStyle(fontStyle: FontStyle.italic),
+                    child: MarkdownBody(
+                      data: recipe.description,
                     ),
                   ),
                   Padding(
@@ -214,17 +214,17 @@ class RecipeScreenState extends State<RecipeScreen> {
                         RichText(
                           text: TextSpan(
                             text: translate('recipe.fields.servings'),
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .apply(fontWeightDelta: 3),
                             children: <TextSpan>[
                               TextSpan(
                                 text: " " + recipe.recipeYield.toString(),
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .apply(fontWeightDelta: 3),
                               )
                             ],
                           ),
