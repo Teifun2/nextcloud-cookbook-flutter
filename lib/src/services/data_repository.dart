@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
@@ -65,14 +67,20 @@ class DataRepository {
   }
 
   Future<Category> _fetchCategoryMainRecipe(Category category) async {
-    List<RecipeShort> categoryRecipes = await () {
-      if (category.name == translate('categories.all_categories')) {
-        return recipesShortProvider.fetchRecipesShort();
-      } else {
-        return categoryRecipesShortProvider
-            .fetchCategoryRecipesShort(category.name);
-      }
-    }();
+    List<RecipeShort> categoryRecipes = [];
+
+    try {
+      categoryRecipes = await () {
+        if (category.name == translate('categories.all_categories')) {
+          return recipesShortProvider.fetchRecipesShort();
+        } else {
+          return categoryRecipesShortProvider
+              .fetchCategoryRecipesShort(category.name);
+        }
+      }();
+    } catch (e) {
+      log("Could not load main recipe of Category!");
+    }
 
     if (categoryRecipes.length > 0) {
       category.firstRecipeId = categoryRecipes.first.recipeId;
