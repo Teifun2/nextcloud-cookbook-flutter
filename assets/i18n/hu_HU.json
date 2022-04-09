@@ -26,6 +26,8 @@
       "self_signed_certificate": "Érvénytelen tanúsítvány figyelmen kívül hagyása.\nA saját aláírású tanúsítványokhoz szükséges.\n(Csak a saját felelősségére használja!)"
     },
     "button": "Bejelentkezés",
+    "retry": "Próbáljon újra bejelentkezni.",
+    "reset": "Állítsa vissza a hitelesítő adatokat.",
     "errors": {
       "not_reachable": "Nem érhető el: {server_url}\n{error_msg}",
       "certificate_failed": "A kiszolgáló tanúsítványát nem sikerült ellenőrizni: {server_url}\n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "Nem található hitelesítési adat a tárolóban",
       "failed_remove_remote": "Nem sikerült eltávolítani a távoli alkalmazásjelszót!",
       "failure": "A bejelentkezési folyamat nem fejeződött be megfelelően.\n{status_code}\n{status_message}",
-      "credentials_invalid": "A tárolt hitelesítő adatok már nem érvényesek, így ki lett jelentkeztetve!"
+      "credentials_invalid": "A tárolt hitelesítő adatok már nem érvényesek, így ki lett jelentkeztetve!",
+      "no_internet": "A hitelesítési ellenőrzés sikertelen volt.\nTalán nincs internetkapcsolat?\nHibaüzenet: {error_msg}",
+      "wrong_status": "A hitelesítési ellenőrzés sikertelen volt.\nTalán a megadott kiszolgáló helytelen?\nHibaüzenet: {error_msg}"
     }
   },
   "categories": {
@@ -79,6 +83,23 @@
         "prep": "Elkészítési idő:",
         "cook": "Főzési idő:",
         "total": "Teljes idő:"
+      },
+      "nutrition": {
+        "title": "Táplálkozási információk",
+        "items": {
+          "calories": "Energia",
+          "carbohydrateContent": "Szénhidrát",
+          "cholesterolContent": "Koleszterin",
+          "fatContent": "Zsír összesen",
+          "fiberContent": "Rost",
+          "proteinContent": "Fehérje",
+          "saturatedFatContent": "Telített zsír",
+          "servingSize": "Adag",
+          "sodiumContent": "Nátrium",
+          "sugarContent": "Cukor",
+          "transFatContent": "Transzzsírtartalom",
+          "unsaturatedFatContent": "Telítetlen zsírtartalom"
+        }
       },
       "tools": "Eszközök:",
       "ingredients": "Hozzávalók:",

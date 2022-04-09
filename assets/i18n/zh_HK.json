@@ -26,6 +26,8 @@
       "self_signed_certificate": "忽略無效的證書。\n需要自簽名證書。\n（使用風險自負！）"
     },
     "button": "登入",
+    "retry": "重試登入！",
+    "reset": "重設身份驗證！",
     "errors": {
       "not_reachable": "無法到達：{server_url}\n{error_msg}",
       "certificate_failed": "無法驗證伺服器證書： {server_url}\n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "在存儲中找不到身分驗證",
       "failed_remove_remote": "無法刪除遠端應用程式密碼！",
       "failure": "登入過程無法正確完成。\n{status_code}\n{status_message}",
-      "credentials_invalid": "存儲的身分驗證不再有效，系統已註銷您！"
+      "credentials_invalid": "存儲的身分驗證不再有效，系統已註銷您！",
+      "no_internet": "身份驗證檢查不成功。\n也許沒有互聯網連接？\n錯誤消息：{error_msg}",
+      "wrong_status": "身份驗證檢查不成功。\n也許提供的伺服器主機不正確？\n錯誤消息：{error_msg}"
     }
   },
   "categories": {
@@ -79,6 +83,23 @@
         "prep": "準備時間：",
         "cook": "烹調時間：",
         "total": "總時間："
+      },
+      "nutrition": {
+        "title": "營養資訊",
+        "items": {
+          "calories": "熱量",
+          "carbohydrateContent": "澱粉質",
+          "cholesterolContent": "膽固醇",
+          "fatContent": "總脂肪",
+          "fiberContent": "纖維",
+          "proteinContent": "蛋白質",
+          "saturatedFatContent": "飽和脂肪",
+          "servingSize": "食用份量",
+          "sodiumContent": "鈉",
+          "sugarContent": "糖份",
+          "transFatContent": "反式脂肪含量",
+          "unsaturatedFatContent": "不飽和脂肪含量"
+        }
       },
       "tools": "工具：",
       "ingredients": "材料：",

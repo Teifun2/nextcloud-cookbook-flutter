@@ -26,6 +26,8 @@
       "self_signed_certificate": "Prezri neveljavna potrdila.\nZahtevano za samo-podpisana potrdila.\n(Uporaba na lastno odgovornost!)"
     },
     "button": "Prijava",
+    "retry": "Retry Login!",
+    "reset": "Reset Credentials!",
     "errors": {
       "not_reachable": "Povezava s strežnikom ni mogoča: {server_url} \n {error_msg}",
       "certificate_failed": "Potrdila strežnika ni mogoče preveriti {server_url} \n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "V mapi shrambe ni najdenih datotek za overitev",
       "failed_remove_remote": "Odstranjevanje oddaljenega gesla programa je spodletelo!",
       "failure": "Prijave ni mogoče pravilno dokončati.\n {status_code}\n {status_message}",
-      "credentials_invalid": "Shranjena poverila niso več veljavna ali pa ni več vzpostavljene prijave!"
+      "credentials_invalid": "Shranjena poverila niso več veljavna ali pa ni več vzpostavljene prijave!",
+      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
@@ -80,6 +84,23 @@
         "cook": "Čas kuhanja ali pečenja:",
         "total": "Skupni čas"
       },
+      "nutrition": {
+        "title": "Nutrition Information",
+        "items": {
+          "calories": "Energy",
+          "carbohydrateContent": "Carbohydrate",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Fat total",
+          "fiberContent": "Fiber",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Saturated Fat",
+          "servingSize": "Serving size",
+          "sodiumContent": "Sodium",
+          "sugarContent": "Sugar",
+          "transFatContent": "Trans-fat content",
+          "unsaturatedFatContent": "Unsaturated-fat content"
+        }
+      },
       "tools": "Pripomočki:",
       "ingredients": "Sestavine:",
       "instructions": "Navodila:"
@@ -121,7 +142,7 @@
   "timer": {
     "title": "Your timers",
     "started": "Časomer je zagnan.",
-    "finished": " is finished.",
+    "finished": "is finished.",
     "done": "Časomer je ustavljen."
   },
   "settings": {
