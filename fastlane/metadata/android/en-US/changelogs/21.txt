@@ -1,0 +1,3 @@
+- Bugfixes
+- Markdown Support in Description field
+- Category Autocomplete
