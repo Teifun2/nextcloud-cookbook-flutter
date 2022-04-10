@@ -20,9 +20,9 @@ Current Features:
 
 Planned Features:
 
-    Offline Usage (Caching) *
+    Offline Usage (Caching)
     Image Upload
-    Integrate new values of nextcloud plugin
+    Integrate new values of nextcloud plugin *
 
 * Currently worked on!
 
