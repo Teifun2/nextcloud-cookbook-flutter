@@ -26,6 +26,8 @@
       "self_signed_certificate": "Ignorar certificados no válidos.\nNecesario para certificados autofirmados.\n(¡Úselo bajo su propio riesgo!)"
     },
     "button": "Iniciar sesión",
+    "retry": "Volver a intentar la entrada.",
+    "reset": "Resetear credenciales.",
     "errors": {
       "not_reachable": "No se puede alcanzar: {server_url} \n {error_msg}",
       "certificate_failed": "No puede verificar el Certificado del servidor: {server_url} \n {error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "No se ha encontrado autenticación en el almacenamiento",
       "failed_remove_remote": "¡Fallo al eliminar la contaseña de aplicación remota!",
       "failure": "El proceso de inicio de sesión no se ha completado adecuadamente.\n{status_code}\n{status_message}",
-      "credentials_invalid": "¡Las credenciales almacenadas ya no son válidas y has sido desconectado!"
+      "credentials_invalid": "¡Las credenciales almacenadas ya no son válidas y has sido desconectado!",
+      "no_internet": "La comprobación de autenticación no ha tenido éxito. ¿Puede que no haya conexión a internet?\nMensaje de error: {error_msg}",
+      "wrong_status": "La comprobación de autenticación no ha tenido éxito. ¿Puede que noel alojamiento del servidor no sea correcto?\nMensaje de error: {error_msg}"
     }
   },
   "categories": {
@@ -79,6 +83,23 @@
         "prep": "Tiempo de preparación:",
         "cook": "Tiempo de cocción:",
         "total": "Tiempo total:"
+      },
+      "nutrition": {
+        "title": "Información nutricional",
+        "items": {
+          "calories": "Energía",
+          "carbohydrateContent": "Hidratos de carbono",
+          "cholesterolContent": "Colesterol",
+          "fatContent": "Grasa total",
+          "fiberContent": "Fibra",
+          "proteinContent": "Proteínas",
+          "saturatedFatContent": "Grasas saturadas",
+          "servingSize": "Tamaño de porción",
+          "sodiumContent": "Sodio",
+          "sugarContent": "Azúcares",
+          "transFatContent": "Contenido de grasas trans",
+          "unsaturatedFatContent": "Contenido de grasas insaturadas"
+        }
       },
       "tools": "Herramientas:",
       "ingredients": "Ingredientes:",

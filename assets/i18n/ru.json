@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Поиск",
     "refresh": "Обновить",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "clear_all": "Очистить всё"
   },
   "login": {
     "title": "Войти",
@@ -25,6 +26,8 @@
       "self_signed_certificate": "Игнорировать недействительный сертификат.\nТребуется для самоподписанных сертификатов.\n(Используйте на свой риск!)"
     },
     "button": "Войти",
+    "retry": "Повторите вход!",
+    "reset": "Сбросьте учётные данные!",
     "errors": {
       "not_reachable": "Невозможно связаться: {server_url}\n{error_msg}",
       "certificate_failed": "Не удалось проверить сертификат сервера: {server_url}\n{error_msg}",
@@ -35,22 +38,25 @@
       "authentication_not_found": "В хранилище не обнаружена аутентификация",
       "failed_remove_remote": "Не удалось удалить пароль приложения!",
       "failure": "Процесс входа не может завершиться должным образом.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Сохраненные учетные данные больше не действительны, и вы вышли из системы!"
+      "credentials_invalid": "Сохраненные учетные данные больше не действительны, и вы вышли из системы!",
+      "no_internet": "Аутентификация не прошла успешно.\nВозможно, отсутствует подключение к Интернету?\nСообщение об ошибке: {error_msg}",
+      "wrong_status": "Аутентификация не была успешной.\nВозможно, указанный хост сервера неверен?\nСообщение об ошибке: {error_msg}"
     }
   },
   "categories": {
     "title": "Кулинарная книга",
     "all_categories": "Все",
     "drawer": {
-      "import": "Импортировать рецепт"
+      "import": "Импортировать рецепт",
+      "settings": "Настройки"
     },
     "errors": {
       "unknown": "Категории в неизвестном состоянии",
-      "load_failed": "Ошибка загрузки категории: {error_msg}",
+      "load_failed": "Загрузка категории не удалась: {error_msg}",
       "load_no_response": "Не удалось получить категории с сервера.",
-      "api_version_check_failed": "Не удалось проверить версию API Сервера:\n{error_msg}",
-      "api_version_above_confirmed": "Обновлена версия API сервера. Некоторые функции могут работать не так, как ожидалось. Пожалуйста, подождите обновления!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
+      "api_version_check_failed": "Не удалось проверить версию API сервера:\n{error_msg}",
+      "api_version_above_confirmed": "Версия API сервера была обновлена. Некоторые функции могут работать не так, как ожидалось. Пожалуйста, дождитесь обновления!\n{version}",
+      "plugin_missing": "Не удалось загрузить категории. Убедитесь, что плагин Cookbook установлен на данном экземпляре Nextcloud!"
     }
   },
   "recipe_list": {
@@ -61,6 +67,9 @@
   },
   "recipe": {
     "title": "Рецепт:",
+    "prep": "Время приготовления",
+    "cook": "Время готовки",
+    "total": "Общее время",
     "fields": {
       "name": "Название рецепта:",
       "description": "Описание рецепта:",
@@ -75,6 +84,23 @@
         "cook": "Время готовки:",
         "total": "Общее время:"
       },
+      "nutrition": {
+        "title": "Сведения о питательных веществах",
+        "items": {
+          "calories": "Энергетическая ценность",
+          "carbohydrateContent": "Углеводы",
+          "cholesterolContent": "Холестерин",
+          "fatContent": "Всего жиров",
+          "fiberContent": "Клетчатка",
+          "proteinContent": "Белок",
+          "saturatedFatContent": "Насыщенные жиры",
+          "servingSize": "Размер порции",
+          "sodiumContent": "Соль",
+          "sugarContent": "Сахар",
+          "transFatContent": "Содержание трансжиров",
+          "unsaturatedFatContent": "Содержание ненасыщенных жиров"
+        }
+      },
       "tools": "Инструменты:",
       "ingredients": "Ингредиенты:",
       "instructions": "Инструкции:"
@@ -85,16 +111,16 @@
   },
   "recipe_edit": {
     "title": "Изменить рецепт",
-    "button": "Обновить рецепт",
+    "button": "Редактировать",
     "errors": {
       "update_failed": "Ошибка обновления {error_msg}"
     }
   },
   "recipe_create": {
-    "title": "Create Recipe",
-    "button": "Create Recipe",
+    "title": "Создать Рецепт",
+    "button": "Создать",
     "errors": {
-      "update_failed": "Create Failed {error_msg}"
+      "update_failed": "Не удалось создать {error_msg}"
     }
   },
   "recipe_import": {
@@ -107,10 +133,40 @@
     }
   },
   "search": {
-    "title": "Search Recipe",
+    "title": "Поиск рецепта",
     "nothing_found": "Рецепт не найден!",
     "errors": {
-      "search_failed": "Unable to load all Recipes!\n{error_msg}"
+      "search_failed": "Невозможно загрузить все рецепты!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Ваши таймеры",
+    "started": "Таймер запущен.",
+    "finished": "закончен.",
+    "done": "Таймер завершён."
+  },
+  "settings": {
+    "title": "Настройки приложения",
+    "dark_mode": {
+      "title": "Тёмная режим",
+      "system": "Система по умолчанию",
+      "dark": "Всегда",
+      "light": "Никогда"
+    },
+    "language": {
+      "title": "Язык"
+    },
+    "stay_awake": {
+      "title": "Оставайтесь бодрыми",
+      "subtitle": "Экран будет оставаться включённым, пока вы находитесь на экране рецептов."
+    },
+    "recipe_font_size": {
+      "title": "Размер шрифта Рецепта",
+      "subtitle": "Изменяет размер шрифта инструментов рецепта, ингредиентов и инструкций для лучшей читабельности."
+    },
+    "category_font_size": {
+      "title": "Размер шрифта Категории",
+      "subtitle": "Изменяет размер шрифта заголовка категории. Это может быть полезно, если у вас длинные названия категорий."
     }
   }
 }

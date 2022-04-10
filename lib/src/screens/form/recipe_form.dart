@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
@@ -26,20 +28,19 @@ class _RecipeFormState extends State<RecipeForm> {
   final _formKey = GlobalKey<FormState>();
   Recipe recipe;
   MutableRecipe _mutableRecipe;
+  TextEditingController categoryController;
 
   @override
   void initState() {
     recipe = widget.recipe;
     _mutableRecipe = recipe.toMutableRecipe();
+    categoryController = TextEditingController(text: recipe.recipeCategory);
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController servingsController =
-        TextEditingController(text: recipe.recipeYield.toString());
-
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (context, state) => Form(
         key: _formKey,
@@ -99,13 +100,27 @@ class _RecipeFormState extends State<RecipeForm> {
                         fontSize: 16,
                       ),
                     ),
-                    TextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
-                      initialValue: recipe.recipeCategory,
-                      onChanged: (value) {
-                        _mutableRecipe.recipeCategory = value;
+                    TypeAheadFormField(
+                      getImmediateSuggestions: true,
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: this.categoryController,
+                      ),
+                      suggestionsCallback: (pattern) async {
+                        return await DataRepository()
+                            .getMatchingCategoryNames(pattern);
                       },
-                    ),
+                      itemBuilder: (context, String suggestion) {
+                        return ListTile(
+                          title: Text(suggestion),
+                        );
+                      },
+                      onSuggestionSelected: (String suggestion) {
+                        this.categoryController.text = suggestion;
+                      },
+                      onSaved: (value) {
+                        this._mutableRecipe.recipeCategory = value;
+                      },
+                    )
                   ],
                 ), // Category
                 Column(

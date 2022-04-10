@@ -75,11 +75,13 @@ class Recipe extends Equatable {
 
     Map<String, String> recipeNutrition = {};
 
-    if (data["nutrition"] is Map) {
-      recipeNutrition = Map<String, String>.from(data["nutrition"])
+    if (data["nutrition"] is Map<String, dynamic>) {
+      recipeNutrition = (data["nutrition"] as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, value?.toString()))
         ..removeWhere((key, value) =>
             !NutritionUtility.nutritionProperties.contains(key));
-      data["nutrition"] = Map.from(data["nutrition"])
+      data["nutrition"] = (data["nutrition"] as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, value?.toString()))
         ..removeWhere(
             (key, value) => NutritionUtility.nutritionProperties.contains(key));
     }
@@ -190,7 +192,11 @@ class Recipe extends Equatable {
     // Add all the data points that are not handled by the app!
     remainingData.addAll(updatedData);
 
-    (remainingData['nutrition'] as Map).addAll(nutrition);
+    if (remainingData['nutrition'] is Map) {
+      (remainingData['nutrition'] as Map).addAll(nutrition);
+    } else {
+      remainingData['nutrition'] = nutrition;
+    }
 
     return jsonEncode(remainingData);
   }

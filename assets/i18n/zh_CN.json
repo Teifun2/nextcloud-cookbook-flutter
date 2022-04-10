@@ -26,6 +26,8 @@
       "self_signed_certificate": "忽略无效证书对自签名证书是必须的（使用风险自担！）"
     },
     "button": "登录",
+    "retry": "Retry Login!",
+    "reset": "Reset Credentials!",
     "errors": {
       "not_reachable": "无法抵达：{server_url}{error_msg}",
       "certificate_failed": "无法验证服务器证书：{server_url}{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "在存储中未找到验证",
       "failed_remove_remote": "移除远程应用密码失败！",
       "failure": "无法正常完成登录过程。{status_code}{status_message}",
-      "credentials_invalid": "储存的凭据不再有效，你已被登出！"
+      "credentials_invalid": "储存的凭据不再有效，你已被登出！",
+      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
@@ -80,6 +84,23 @@
         "cook": "烹饪时间",
         "total": "总时间："
       },
+      "nutrition": {
+        "title": "Nutrition Information",
+        "items": {
+          "calories": "Energy",
+          "carbohydrateContent": "Carbohydrate",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Fat total",
+          "fiberContent": "Fiber",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Saturated Fat",
+          "servingSize": "Serving size",
+          "sodiumContent": "Sodium",
+          "sugarContent": "Sugar",
+          "transFatContent": "Trans-fat content",
+          "unsaturatedFatContent": "Unsaturated-fat content"
+        }
+      },
       "tools": "工具：",
       "ingredients": "配料：",
       "instructions": "步骤："
@@ -121,7 +142,7 @@
   "timer": {
     "title": "你的计时器",
     "started": "计时开始",
-    "finished": "已完成",
+    "finished": "is finished.",
     "done": "计时结束"
   },
   "settings": {

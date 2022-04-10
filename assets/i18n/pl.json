@@ -26,6 +26,8 @@
       "self_signed_certificate": "Zignoruj nieprawidłowy certyfikat.\nWymagane w przypadku certyfikatów z podpisem własnym.\n(Używasz na własne ryzyko!)"
     },
     "button": "Zaloguj",
+    "retry": "Zaloguj się ponownie!",
+    "reset": "Zresetuj poświadczenia!",
     "errors": {
       "not_reachable": "Brak dostępu: {server_url}\n{error_msg}",
       "certificate_failed": "Nie można zweryfikować certyfikatu serwera: {server_url}\n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "Nie znaleziono uwierzytelnienia w pamięci",
       "failed_remove_remote": "Nie udało się usunąć zdalnego hasła do aplikacji!",
       "failure": "Proces logowania nie mógł zakończyć się poprawnie.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Zapisane dane uwierzytelniające są już nie ważne i zostałeś wylogowany!"
+      "credentials_invalid": "Zapisane dane uwierzytelniające są już nie ważne i zostałeś wylogowany!",
+      "no_internet": "Sprawdzenie uwierzytelniania nie powiodło się.\nMoże nie ma połączenia z internetem?\nKomunikat o błędzie: {error_msg}",
+      "wrong_status": "Sprawdzenie uwierzytelniania nie powiodło się.\nMoże podany host serwera nie jest poprawny?\nKomunikat o błędzie: {error_msg}"
     }
   },
   "categories": {
@@ -79,6 +83,23 @@
         "prep": "Czas przygotowania:",
         "cook": "Czas gotowania:",
         "total": "Czas całkowity:"
+      },
+      "nutrition": {
+        "title": "Informacje o wartości odżywczej",
+        "items": {
+          "calories": "Energia",
+          "carbohydrateContent": "Węglowodan",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Całkowity tłuszcz",
+          "fiberContent": "Błonnik",
+          "proteinContent": "Białko",
+          "saturatedFatContent": "Tłuszcz nasycony",
+          "servingSize": "Wielkość porcji",
+          "sodiumContent": "Sód",
+          "sugarContent": "Cukier",
+          "transFatContent": "Zawartość tłuszczu trans",
+          "unsaturatedFatContent": "Zawartość tłuszczu nienasyconego"
+        }
       },
       "tools": "Przybory:",
       "ingredients": "Składniki:",

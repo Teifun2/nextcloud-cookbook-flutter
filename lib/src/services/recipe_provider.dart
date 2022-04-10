@@ -11,7 +11,8 @@ class RecipeProvider {
     AppAuthentication appAuthentication =
         UserRepository().getCurrentAppAuthentication();
 
-    final String url = "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/$id";
+    final String url =
+        "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/$id";
     // Parse categories
     try {
       String contents = await Network().get(url);
@@ -27,15 +28,15 @@ class RecipeProvider {
         UserRepository().getCurrentAppAuthentication();
 
     try {
-      final String url = "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/${recipe.id}";
-      var response = await client.put(
-          url,
+      final String url =
+          "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/${recipe.id}";
+      var response = await client.put(url,
           data: recipe.toJson(),
           options: new Options(
             contentType: "application/json;charset=UTF-8",
           ));
       // Refresh recipe in the cache
-      DefaultCacheManager().downloadFile(url);
+      await DefaultCacheManager().removeFile(url);
       return int.parse(response.data);
     } catch (e) {
       throw Exception(e);

@@ -26,6 +26,8 @@
       "self_signed_certificate": "Ungültiges Zertifikat ignorieren.\nWird für selbstsignierte Zertifikate benötigt.\n(Verwendung auf eigene Gefahr!)"
     },
     "button": "Anmelden",
+    "retry": "Anmeldung erneut versuchen!",
+    "reset": "Anmeldeinformationen zurücksetzen!",
     "errors": {
       "not_reachable": "Nicht erreichbar: {server_url} \n{error_msg}",
       "certificate_failed": "Das Zertifikat des Servers konnte nicht verifiziert werden {server_url} \n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "Keine Authentifizierung im Speicher gefunden",
       "failed_remove_remote": "Remote-App-Passwort konnte nicht entfernt werden!",
       "failure": "Anmeldevorgang konnte nicht ordnungsgemäß beendet werden.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Die gespeicherten Anmeldedaten waren nicht mehr gültig und Du wurdest abgemeldet!"
+      "credentials_invalid": "Die gespeicherten Anmeldedaten waren nicht mehr gültig und Du wurdest abgemeldet!",
+      "no_internet": "Die Authentifizierungsprüfung war nicht erfolgreich.\nVielleicht gibt es keine Internetverbindung?\nFehlermeldung: {error_msg}",
+      "wrong_status": "Die Authentifizierungsprüfung war nicht erfolgreich.\nVielleicht ist der angegebene Server-Host nicht korrekt?\nFehlermeldung: {error_msg}"
     }
   },
   "categories": {
@@ -48,10 +52,10 @@
     },
     "errors": {
       "unknown": "Kategorien sind in unbekanntem Zustand",
-      "load_failed": "Category load failed: {error_msg}",
+      "load_failed": "Laden der Kategorien ist fehlgeschlagen: {error_msg}",
       "load_no_response": "Kategorien konnten vom Server nicht abgerufen werden.",
-      "api_version_check_failed": "Failed to check the API version of the server:\n{error_msg}",
-      "api_version_above_confirmed": "The API version of the server was updated. Some features might not work as expected. Please wait for an update!\n{version}",
+      "api_version_check_failed": "API-Version des Servers konnte nicht geprüft werden:\n{error_msg}",
+      "api_version_above_confirmed": "Die API-Version des Servers wurde aktualisiert. Einige Funktionen funktionieren möglicherweise nicht wie erwartet. Bitte warte auf eine Aktualisierung!\n{version}",
       "plugin_missing": "Die Kategorien konnten nicht geladen werden. Stellen Sie sicher, dass das Kochbuch-Plugin auf dieser Nextcloud installiert ist!"
     }
   },
@@ -79,6 +83,23 @@
         "prep": "Vorbereitungsdauer:",
         "cook": "Kochdauer:",
         "total": "Gesamtzeit:"
+      },
+      "nutrition": {
+        "title": "Nährwertangaben",
+        "items": {
+          "calories": "Energie",
+          "carbohydrateContent": "Kohlenhydrate",
+          "cholesterolContent": "Cholesterin",
+          "fatContent": "Fett gesamt",
+          "fiberContent": "Faser",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Gesättigte Fettsäuren",
+          "servingSize": "Portionsgröße",
+          "sodiumContent": "Natrium",
+          "sugarContent": "Zucker",
+          "transFatContent": "Gehalt an Transfetten",
+          "unsaturatedFatContent": "Gehalt an ungesättigten Fettsäuren"
+        }
       },
       "tools": "Utensilien:",
       "ingredients": "Zutaten:",
@@ -120,31 +141,31 @@
   },
   "timer": {
     "title": "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
-    "started": "Timer started.",
-    "finished": " is finished.",
-    "done": "Timer is done."
+    "started": "Timer gestartet.",
+    "finished": "ist abgeschlossen.",
+    "done": "Timer ist fertig."
   },
   "settings": {
-    "title": "App Settings",
+    "title": "App-Einstellungen",
     "dark_mode": {
-      "title": "Dark Mode",
-      "system": "System Default",
-      "dark": "Always",
-      "light": "Never"
+      "title": "Dunkelmodus",
+      "system": "Systemstandard",
+      "dark": "Immer",
+      "light": "Niemals"
     },
     "language": {
-      "title": "Language"
+      "title": "Sprache"
     },
     "stay_awake": {
-      "title": "Stay Awake",
-      "subtitle": "Screen will stay on while on the recipe screen."
+      "title": "Wach bleiben",
+      "subtitle": "Der Bildschirm bleibt eingeschaltet, während das Rezept angezeigt wird."
     },
     "recipe_font_size": {
-      "title": "Recipe Font Size",
-      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+      "title": "Rezept Schriftgröße",
+      "subtitle": "Ändert die Schriftgröße von Rezeptwerkzeugen, Zutaten und Anweisungen für eine bessere Lesbarkeit."
     },
     "category_font_size": {
-      "title": "Category Font Size",
+      "title": "Kategorie Schriftgröße",
       "subtitle": "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE)."
     }
   }
