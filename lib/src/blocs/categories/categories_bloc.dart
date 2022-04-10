@@ -19,6 +19,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     try {
       yield CategoriesLoadInProgress();
       List<Category> categories = await dataRepository.fetchCategories();
+      dataRepository.updateCategoryNames(categories);
       yield CategoriesLoadSuccess(categories: categories);
       List<Category> categoriesWithImage =
           await dataRepository.fetchCategoryMainRecipes(categories);

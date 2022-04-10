@@ -6,6 +6,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/categories_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/category_recipes_short_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/category_search_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/net/nextcloud_metadata_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipe_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
@@ -22,6 +23,7 @@ class DataRepository {
   RecipesShortProvider recipesShortProvider = RecipesShortProvider();
   CategoryRecipesShortProvider categoryRecipesShortProvider =
       CategoryRecipesShortProvider();
+  CategorySearchProvider categorySearchProvider = CategorySearchProvider();
   RecipeProvider recipeProvider = RecipeProvider();
   CategoriesProvider categoriesProvider = CategoriesProvider();
   NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
@@ -97,5 +99,16 @@ class DataRepository {
 
   String getUserAvatarUrl() {
     return _nextcloudMetadataApi.getUserAvatarUrl();
+  }
+
+  void updateCategoryNames(List<Category> categories) {
+    categorySearchProvider.updateCategoryNames(categories);
+  }
+
+  Future<Iterable<String>> getMatchingCategoryNames(String pattern) async {
+    if (!categorySearchProvider.categoriesLoaded)
+      await categoriesProvider.fetchCategories();
+
+    return categorySearchProvider.getMatchingCategoryNames(pattern);
   }
 }
