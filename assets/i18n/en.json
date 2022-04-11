@@ -111,7 +111,7 @@
   },
   "recipe_edit": {
     "title": "Edit Recipe",
-    "button": "Edit",
+    "button": "Save",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
     }
