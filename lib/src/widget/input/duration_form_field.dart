@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 
@@ -47,7 +48,7 @@ class _DurationFormFieldState extends State<DurationFormField> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 12.0),
-              child: Text("Hours: "),
+              child: Text(translate('recipe.fields.time.hours')),
             ),
             Container(
               width: 70,
@@ -55,7 +56,8 @@ class _DurationFormFieldState extends State<DurationFormField> {
                 enabled: !(widget.state is RecipeUpdateInProgress),
                 initialValue:
                     widget.duration != null ? widget.duration.inHours : 0,
-                decoration: InputDecoration(hintText: "Hours"),
+                decoration: InputDecoration(
+                    hintText: translate('recipe.fields.time.hours')),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
                       currentDuration: currentDuration, hours: value);
@@ -65,7 +67,7 @@ class _DurationFormFieldState extends State<DurationFormField> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 12.0, left: 12.0),
-              child: Text("Minutes"),
+              child: Text(translate('recipe.fields.time.minutes')),
             ),
             Container(
               width: 50,
@@ -75,7 +77,8 @@ class _DurationFormFieldState extends State<DurationFormField> {
                     ? widget.duration.inMinutes % 60
                     : 0,
                 maxValue: 60,
-                decoration: InputDecoration(hintText: "Minutes"),
+                decoration: InputDecoration(
+                    hintText: translate('recipe.fields.time.minutes')),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
                       currentDuration: currentDuration, minutes: value);
