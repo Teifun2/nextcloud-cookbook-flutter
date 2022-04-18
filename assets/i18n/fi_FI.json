@@ -26,8 +26,8 @@
       "self_signed_certificate": "Ohita virheellinen sertifikaatti.\nTarvitaan itse allekirjoitetuille varmenteille.\n(Käytä omalla vastuulla!) "
     },
     "button": "Kirjaudu sisään",
-    "retry": "Retry Login!",
-    "reset": "Reset Credentials!",
+    "retry": "Yritä kirjautumista uudelleen!",
+    "reset": "Nollaa valtuudet!",
     "errors": {
       "not_reachable": "Ei voitu yhdistää: {server_url} \n {error_msg}",
       "certificate_failed": "Palvelimen identiteettiä ei voitu vahvistaa: {server_url} \n {error_msg}",
@@ -39,8 +39,8 @@
       "failed_remove_remote": "Sovellussalasanan poisto epäonnistui!",
       "failure": "Kirjautuminen ei onnistunut.\n {status_code}\n {status_message}",
       "credentials_invalid": "Tallennetut tunnistetiedot eivät ole enää kelvollisia, sinut on kirjattu ulos!",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Tunnistautuminen epäonnistui.\nOnhan internetyhteys käytettävissä?\nVirheilmoitus: {error_msg}",
+      "wrong_status": "Tunnistautuminen epäonnistui.\nOnhan palveliuntarjoaja valittu oikein?\nVirheilmoitus: {error_msg}"
     }
   },
   "categories": {
@@ -55,8 +55,8 @@
       "load_failed": "Luokan lataaminen epäonnistui: {error_msg}",
       "load_no_response": "Luokkien haku palvelimelta ei onnistunut.",
       "api_version_check_failed": "Palvelimen rajapintaversion tarkistus epäonnistui:\n{error_msg}",
-      "api_version_above_confirmed": "The API version of the server was updated. Some features might not work as expected. Please wait for an update!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
+      "api_version_above_confirmed": "Palvelimen API-veresio on päivitetty. Jotkin toiminnot eivät välttämättä toimi odotetusti. Odota sovelluksen päivitystä!\n{version}",
+      "plugin_missing": "Kategorioita ei voitu ladata. Varmista, että Cookbook-sovellus on asennettuna Nextcloud-palvelimelle!"
     }
   },
   "recipe_list": {
@@ -85,20 +85,20 @@
         "total": "Kokonaiskesto:"
       },
       "nutrition": {
-        "title": "Nutrition Information",
+        "title": "Ravintosisältö",
         "items": {
-          "calories": "Energy",
-          "carbohydrateContent": "Carbohydrate",
-          "cholesterolContent": "Cholesterol",
-          "fatContent": "Fat total",
-          "fiberContent": "Fiber",
-          "proteinContent": "Protein",
-          "saturatedFatContent": "Saturated Fat",
-          "servingSize": "Serving size",
-          "sodiumContent": "Sodium",
-          "sugarContent": "Sugar",
-          "transFatContent": "Trans-fat content",
-          "unsaturatedFatContent": "Unsaturated-fat content"
+          "calories": "Energia",
+          "carbohydrateContent": "Hiilihydraatit",
+          "cholesterolContent": "Kolesteroli",
+          "fatContent": "Kokonaisrasva",
+          "fiberContent": "Kuitu",
+          "proteinContent": "Proteiini",
+          "saturatedFatContent": "Tyydyttynyt rasva",
+          "servingSize": "Annoksia",
+          "sodiumContent": "Suola",
+          "sugarContent": "Sokeri",
+          "transFatContent": "Transrasvat",
+          "unsaturatedFatContent": "Tyydyttymätön rasva"
         }
       },
       "tools": "Työvälineet:",
@@ -142,7 +142,7 @@
   "timer": {
     "title": "Ajastimesi",
     "started": "Ajastin käynnistyi.",
-    "finished": "is finished.",
+    "finished": "päättynyt.",
     "done": "Ajastin valmistui."
   },
   "settings": {
@@ -158,15 +158,15 @@
     },
     "stay_awake": {
       "title": "Pysy hereillä",
-      "subtitle": "Screen will stay on while on the recipe screen."
+      "subtitle": "Näyttö pysyy päällä reseptinäkymässä."
     },
     "recipe_font_size": {
       "title": "Reseptin fontin koko",
-      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+      "subtitle": "Muuttaa fontin kokoa reseptin välineissä, ainesosissa ja ohjeissa luettavuuden parantamiseksi."
     },
     "category_font_size": {
       "title": "Luokan fontin koko",
-      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
+      "subtitle": "Muuttaa kategorian otsikon fontin kokoa. Muutos voi olla käytännöllistä, jos käytät pitkiä kategorioiden nimiä."
     }
   }
 }

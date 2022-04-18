@@ -140,7 +140,7 @@
     }
   },
   "timer": {
-    "title": "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
+    "title": "Deine Timer",
     "started": "Timer gestartet.",
     "finished": "ist abgeschlossen.",
     "done": "Timer ist fertig."
@@ -166,7 +166,7 @@
     },
     "category_font_size": {
       "title": "Kategorie Schriftgröße",
-      "subtitle": "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE)."
+      "subtitle": "Ändert die Schriftgröße des Kategorietitels. Dies kann nützlich sein, wenn Du lange Kategorienamen verwendest."
     }
   }
 }
