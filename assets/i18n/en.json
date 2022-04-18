@@ -82,7 +82,9 @@
       "time": {
         "prep": "Preparation time:",
         "cook": "Cooking time:",
-        "total": "Total time:"
+        "total": "Total time:",
+        "hours": "Hours",
+        "minutes": "Minutes"
       },
       "nutrition": {
         "title": "Nutrition Information",
