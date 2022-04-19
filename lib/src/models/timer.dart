@@ -41,7 +41,10 @@ class Timer {
     this.duration, [
     tz.TZDateTime done,
   ]) {
+    print(tz.local);
+    print(this.duration);
     this.done = tz.TZDateTime.now(tz.local).add(this.duration);
+    print(this.done);
   }
 
   // Restore Timer fom pending notification
@@ -86,13 +89,18 @@ class Timer {
   }
 
   Duration remaining() {
-    return this.done.difference(tz.TZDateTime.now(tz.local));
+     if(this.done.difference(tz.TZDateTime.now(tz.local)).isNegative){
+       return Duration.zero;
+     }
+     else{
+       return this.done.difference(tz.TZDateTime.now(tz.local));
+     }
   }
 
   double progress() {
     Duration remainingTime = remaining();
     return remainingTime.inSeconds > 0
         ? 1 - (remainingTime.inSeconds / this.duration.inSeconds)
-        : 0.0;
+        : 1.0;
   }
 }
