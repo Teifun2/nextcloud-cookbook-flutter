@@ -41,10 +41,7 @@ class Timer {
     this.duration, [
     tz.TZDateTime done,
   ]) {
-    print(tz.local);
-    print(this.duration);
     this.done = tz.TZDateTime.now(tz.local).add(this.duration);
-    print(this.done);
   }
 
   // Restore Timer fom pending notification
