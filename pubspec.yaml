@@ -77,7 +77,6 @@ dependencies:
 
   # Timer for cooking time
   flutter_local_notifications: ^9.4.0
-  timer_builder: 2.0.0
   flutter_native_timezone: 2.0.0
 
   cached_network_image: ^3.0.0

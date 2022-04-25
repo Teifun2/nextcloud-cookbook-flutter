@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
+import 'package:timer_builder/timer_builder.dart';
 
 class AnimatedTimeProgressBar extends StatefulWidget {
   final Timer timer;
