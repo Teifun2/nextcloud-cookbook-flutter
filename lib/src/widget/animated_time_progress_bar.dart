@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
-import 'package:timer_builder/timer_builder.dart';
 
 class AnimatedTimeProgressBar extends StatefulWidget {
   final Timer timer;
@@ -35,7 +34,10 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
       duration: _timer.remaining(),
       vsync: this,
     );
-    this._controller.forward();
+
+    this._controller.forward().whenCompleteOrCancel(() {
+    });
+
   }
 
   @override
@@ -46,35 +48,32 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
 
   @override
   Widget build(BuildContext context) {
-    if (_timer.progress() > 0) {
-      return Container(
-        child: Column(children: [
-          TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    "${_timer.remaining().inHours}:${(_timer.remaining().inMinutes + 1 % 60).toString().padLeft(2, "0")}"),
-                Text(
-                    "${_timer.done.hour.toString()}:${_timer.done.minute.toString().padLeft(2, "0")}"),
-              ],
-            );
-          }),
-          AnimatedBuilder(
-            animation: this._controller,
-            builder: (context, child) {
-              return LinearProgressIndicator(
-                value: this._timerTween.evaluate(this._controller),
-                semanticsLabel: _timer.title,
-              );
-            },
-          ),
-        ]),
-      );
-    } else {
-      return Container(
-        child: Text(translate('timer.done')),
-      );
-    }
+    return AnimatedBuilder(
+      animation: this._controller,
+      child: Container(),
+      builder: (context, child){
+        if(_controller.isCompleted){
+          return Container(child: Text(translate('timer.done')));
+        }
+
+        return Column(
+          children: [
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
+                  Text("${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
+                ],
+              ),
+
+            LinearProgressIndicator(
+              value: this._timerTween.evaluate(this._controller),
+              semanticsLabel: _timer.title,
+            )
+          ],
+        );
+      }
+
+    );
   }
 }
