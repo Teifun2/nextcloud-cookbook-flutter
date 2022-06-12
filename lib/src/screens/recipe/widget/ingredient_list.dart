@@ -3,11 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 
-class IngredientList extends StatelessWidget {
+class IngredientList extends StatefulWidget {
   final Recipe _recipe;
   final TextStyle _textStyle;
 
   const IngredientList(this._recipe, this._textStyle);
+
+  @override
+  _IngredientListState createState() => _IngredientListState();
+}
+
+class _IngredientListState extends State<IngredientList> {
+  List<bool> _ingredientsDone;
+
+  @override
+  void initState() {
+    _ingredientsDone =
+        List.filled(widget._recipe.recipeIngredient.length, false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +39,13 @@ class IngredientList extends StatelessWidget {
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return this._recipe.recipeIngredient[index].startsWith('##')
+                  return widget._recipe.recipeIngredient[index].startsWith('##')
                     ? Text(
-                        this._recipe.recipeIngredient[index].replaceFirst(
+                        widget._recipe.recipeIngredient[index].replaceFirst(
                           RegExp(r'##\s*'),
                           '',
                         ),
-                        style: this._textStyle.copyWith(
+                        style: widget._textStyle.copyWith(
                           fontFeatures:[FontFeature.enable('smcp')],
                         ),
                       )
@@ -39,25 +53,38 @@ class IngredientList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            width: this._textStyle.fontSize * 1.5,
-                            height: this._textStyle.fontSize,
+                            width: widget._textStyle.fontSize * 1.5,
+                            height: widget._textStyle.fontSize,
                             alignment: Alignment.center,
-                            child: Icon(
-                              Icons.circle,
-                              size: this._textStyle.fontSize * 0.5,
-                            ),
+                            child: _ingredientsDone[index]
+                              ? Icon(
+                                  Icons.check_circle,
+                                  size: widget._textStyle.fontSize,
+                                  color: Colors.green,
+                                )
+                              : Icon(
+                                  Icons.circle,
+                                  size: widget._textStyle.fontSize * 0.5,
+                                ),
                           ),
                           Expanded(
-                            child: Text(
-                              this._recipe.recipeIngredient[index],
-                              style: this._textStyle,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _ingredientsDone[index] = !_ingredientsDone[index];
+                                });
+                              },
+                              child: Text(
+                                widget._recipe.recipeIngredient[index],
+                                style: widget._textStyle,
+                              ),
                             ),
                           ),
                         ],
                       );
                 },
                 separatorBuilder: (c, i) => SizedBox(height: 5),
-                itemCount: this._recipe.recipeIngredient.length,
+                itemCount: widget._recipe.recipeIngredient.length,
               ),
             ),
           ],
