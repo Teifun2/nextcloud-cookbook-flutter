@@ -149,9 +149,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                 SnackBar(content: Text(translate('timer.started')));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else {
-            final snackBar = SnackBar(
-                content:
-                    Text("You need to set the cooking time to use a timer."));
+            final snackBar =
+                SnackBar(content: Text(translate('timer.missing')));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         }
