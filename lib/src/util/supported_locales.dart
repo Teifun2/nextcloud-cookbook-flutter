@@ -21,6 +21,7 @@ class SupportedLocales {
     'sc': 'sardu',
     'sl': 'Slovenski jezik',
     'tr': 'Türkçe',
+    'vi': 'Tiếng Việt',
     'zh_CN': '中文 (China)',
     'zh_HK': '中文 (Hong Kong)',
   };
