@@ -145,7 +145,8 @@
     "title": "Your timers",
     "started": "Timer started.",
     "finished": "is finished.",
-    "done": "Timer is done."
+    "done": "Timer is done.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "App Settings",
