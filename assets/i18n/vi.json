@@ -1,0 +1,174 @@
+{
+  "app_bar": {
+    "search": "Tìm kiếm",
+    "refresh": "Tải mới",
+    "logout": "Đăng xuất",
+    "clear_all": "Xóa tât cả"
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "server_url": {
+      "field": "URL máy chủ",
+      "validator": {
+        "empty": "Vui lòng nhập URL vào phiên bản Nextcloud của bạn.",
+        "pattern": "Vui lòng nhập một URL hợp lệ"
+      }
+    },
+    "username": {
+      "field": "Tên đăng nhập"
+    },
+    "password": {
+      "field": "Mật khẩu"
+    },
+    "settings": {
+      "title": "Cài đặt nâng cao",
+      "app_password": "Sử dụng mật khẩu ứng dụng tự tạo.\nCần thiết cho các tài khoản có 2FA.",
+      "self_signed_certificate": "Bỏ qua văn thư không hợp lệ.\nCần thiết cho các văn thư tự ký.\n(Bạn sử dụng tự chịu trách nhiệm!)"
+    },
+    "button": "Đăng nhập",
+    "retry": "Thử đăng nhập lại!",
+    "reset": "Chứng thực sử dụng",
+    "errors": {
+      "not_reachable": "Không thể truy cập: {url máy chủ}\n{thông báo lỗi}",
+      "certificate_failed": "Không thể xác minh văn thư của máy chủ: {url của văn thư}\n{error_msg}",
+      "request_failed": "Mật khẩu bạn yêu cầu không thành công: {lỗi thông tin}",
+      "parse_failed": "Không thể phân tích cách giải quyết mật khẩu ứng dụng!\n{error_msg}",
+      "parse_missing": "Không thể tìm thấy mật khẩu ứng dụng để phản hồi!\n{error_msg}",
+      "auth_failed": "Tên người dùng và / hoặc mật khẩu sai!",
+      "authentication_not_found": "Không tìm thấy xác thực trong Bộ nhớ",
+      "failed_remove_remote": "Không xóa được mật khẩu ứng dụng từ xa!",
+      "failure": "Quá trình đăng nhập không thể kết thúc đúng cách.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Các thông tin xác thực được lưu trữ không còn hợp lệ, và bạn đã đăng xuất!",
+      "no_internet": "Kiểm tra xác thực không thành công.\nCó thể không có kết nối internet?\nThông báo lỗi: {error_msg}",
+      "wrong_status": "Kiểm tra xác thực không thành công.\nCó thể máy chủ lưu trữ được cung cấp không đúng?\nThông báo lỗi: {error_msg}"
+    }
+  },
+  "categories": {
+    "title": "Sách dạy nấu ăn",
+    "all_categories": "Tất cả",
+    "drawer": {
+      "import": "Nhập công thức",
+      "settings": "Cài đặt"
+    },
+    "errors": {
+      "unknown": "Danh mục ở trạng thái không xác định",
+      "load_failed": "Tải danh mục không thành công: {error_msg}",
+      "load_no_response": "Không thể truy xuất Danh mục từ máy chủ.",
+      "api_version_check_failed": "Không thể kiểm tra phiên bản API của máy chủ:\n{error_msg}",
+      "api_version_above_confirmed": "Phiên bản API của máy chủ đã được cập nhật. Một số tính năng có thể không hoạt động như mong đợi. Vui lòng đợi bản cập nhật!\n{phiên bản}",
+      "plugin_missing": "Không thể tải các danh mục. Đảm bảo rằng plugin Cookbook được cài đặt trên phiên bản Nextcloud này!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Thể loại: {danh mục}",
+    "errors": {
+      "load_failed": "Không thể tải \"Công thức ngắn gọn\"!"
+    }
+  },
+  "recipe": {
+    "title": "Công thức",
+    "prep": "Thời gian chuẩn sự bị",
+    "cook": "Thời gian nấu",
+    "total": "Tổng thời gian",
+    "fields": {
+      "name": "Tên công thức",
+      "description": "Mô tả công thức ",
+      "keywords": "Từ khóa:",
+      "category": "Danh mục:",
+      "servings": "Khẩu phần ăn:",
+      "source": "Nguồn:",
+      "source_button": "Nguồn",
+      "image": "Hình",
+      "time": {
+        "prep": "Thời gian chuẩn bị:",
+        "cook": "Thời gian nấu ăn:",
+        "total": "Tổng thời gian:",
+        "hours": "Giờ",
+        "minutes": "Phút"
+      },
+      "nutrition": {
+        "title": "Thông tin dinh dưỡng",
+        "items": {
+          "calories": "Năng lượng",
+          "carbohydrateContent": "Hóa chất cac bon",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Tổng chất béo",
+          "fiberContent": "Chất xơ",
+          "proteinContent": "Chất đạm",
+          "saturatedFatContent": "Chất béo bão hòa",
+          "servingSize": "Khẩu phần ăn",
+          "sodiumContent": "Natri",
+          "sugarContent": "Đường ",
+          "transFatContent": "Hàm lượng chất béo chuyển hóa",
+          "unsaturatedFatContent": "Hàm lượng chất béo không bão hòa"
+        }
+      },
+      "tools": "Công cụ:",
+      "ingredients": "Thành phần:",
+      "instructions": "Hướng dẫn:"
+    },
+    "errors": {
+      "load_failed": "Không thể tải công thức!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Chỉnh sửa công thức",
+    "button": "Lưu",
+    "errors": {
+      "update_failed": "Cập nhật không thành công {error_msg}"
+    }
+  },
+  "recipe_create": {
+    "title": "Tạo công thức",
+    "button": "‎Tạo‎",
+    "errors": {
+      "update_failed": "Tạo không thành công {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Nhập công thức",
+    "button": "Nhập vào",
+    "field": "URL của công thức",
+    "clipboard": "Dán khay nhớ tạm",
+    "errors": {
+      "import_failed": "Nhập không thành công {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Tìm kiếm công thức",
+    "nothing_found": "Không tìm thấy công thức!",
+    "errors": {
+      "search_failed": "Không thể tải tất cả các Công thức!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Hẹn giờ của bạn",
+    "started": "Đã bắt đầu hẹn giờ.",
+    "finished": "đã hoàn thành",
+    "done": "Hẹn giờ đã xong."
+  },
+  "settings": {
+    "title": "Cài đặt ứng dụng",
+    "dark_mode": {
+      "title": "Chế độ ban đêm",
+      "system": "Mặc định hệ thống",
+      "dark": "Luôn luôn",
+      "light": "Không bao giờ"
+    },
+    "language": {
+      "title": "Ngôn ngữ"
+    },
+    "stay_awake": {
+      "title": "Vui lòng tỉnh táo",
+      "subtitle": "Màn hình sẽ vẫn sáng khi ở trên màn hình công thức."
+    },
+    "recipe_font_size": {
+      "title": "Độ lớn phông chữ của công thức",
+      "subtitle": "Chỉnh phông chữ của các công cụ, thành phần và hướng dẫn để dễ đọc hơn."
+    },
+    "category_font_size": {
+      "title": "Cỡ chữ của danh mục",
+      "subtitle": "Thay đổi kích cỏ phông chữ của tiêu đề danh mục. Điều này có thể hữu ích nếu bạn có tên danh mục dài."
+    }
+  }
+}

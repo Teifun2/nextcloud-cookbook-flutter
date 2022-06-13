@@ -82,23 +82,25 @@
       "time": {
         "prep": "准备时间：",
         "cook": "烹饪时间",
-        "total": "总时间："
+        "total": "总时间：",
+        "hours": "小时",
+        "minutes": "分钟"
       },
       "nutrition": {
-        "title": "Nutrition Information",
+        "title": "营养信息",
         "items": {
-          "calories": "Energy",
-          "carbohydrateContent": "Carbohydrate",
-          "cholesterolContent": "Cholesterol",
-          "fatContent": "Fat total",
-          "fiberContent": "Fiber",
-          "proteinContent": "Protein",
-          "saturatedFatContent": "Saturated Fat",
-          "servingSize": "Serving size",
-          "sodiumContent": "Sodium",
-          "sugarContent": "Sugar",
-          "transFatContent": "Trans-fat content",
-          "unsaturatedFatContent": "Unsaturated-fat content"
+          "calories": "能量",
+          "carbohydrateContent": "碳水化合物 ",
+          "cholesterolContent": "胆固醇 ",
+          "fatContent": "总脂肪",
+          "fiberContent": "纤维",
+          "proteinContent": "蛋白质",
+          "saturatedFatContent": "饱和脂肪 ",
+          "servingSize": "食用份量",
+          "sodiumContent": "钠 ",
+          "sugarContent": "糖",
+          "transFatContent": "反式脂肪含量",
+          "unsaturatedFatContent": "不饱和脂肪含量"
         }
       },
       "tools": "工具：",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "编辑菜谱",
-    "button": "编辑",
+    "button": "保存",
     "errors": {
       "update_failed": "更新失败 {error_msg}"
     }

@@ -82,7 +82,9 @@
       "time": {
         "prep": "Doba prípravy:",
         "cook": "Doba varenia:",
-        "total": "Celkový čas:"
+        "total": "Celkový čas:",
+        "hours": "Hodín",
+        "minutes": "Minúty"
       },
       "nutrition": {
         "title": "Informácie o výžive",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Upraviť recept",
-    "button": "Upraviť",
+    "button": "Uložiť",
     "errors": {
       "update_failed": "Aktualizácia zlyhala {error_msg}"
     }

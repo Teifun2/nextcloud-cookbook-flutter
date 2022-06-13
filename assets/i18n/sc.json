@@ -2,7 +2,8 @@
   "app_bar": {
     "search": "Chirca",
     "refresh": "Agiorna",
-    "logout": "Essi·nche"
+    "logout": "Essi·nche",
+    "clear_all": "Clear all"
   },
   "login": {
     "title": "Intra",
@@ -25,6 +26,8 @@
       "self_signed_certificate": "Non cunsideres su tzertificadu non vàlidu.\nSerbit pro tzertificados auto-firmados.\n(Sa responsabilidade de s'impreu est sa tua!)"
     },
     "button": "Intra",
+    "retry": "Retry Login!",
+    "reset": "Reset Credentials!",
     "errors": {
       "not_reachable": "Impossìbile lòmpere a: {server_url}\n{error_msg}",
       "certificate_failed": "No at fatu a averguare su Tzertificadu de su serbidore: {server_url}\n{error_msg}",
@@ -35,22 +38,25 @@
       "authentication_not_found": "Peruna autenticatzione agatada in Archiviatzione",
       "failed_remove_remote": "No at fatu a nche bogare sa crae de s'aplicatzione remota!",
       "failure": "Su atzessu no est agabbadu bene.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Is credentziales sarvadas non fiant prus vàlidas e t'ant fatu essire!"
+      "credentials_invalid": "Is credentziales sarvadas non fiant prus vàlidas e t'ant fatu essire!",
+      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Libru de retzetas",
     "all_categories": "Totu",
     "drawer": {
-      "import": "Importa retzeta"
+      "import": "Importa retzeta",
+      "settings": "Impostatziones"
     },
     "errors": {
       "unknown": "Categorias in istadu non connotu",
-      "load_failed": "Carrigamentu de categoria faddidu: {error_msg}",
+      "load_failed": "Category load failed: {error_msg}",
       "load_no_response": "No at fatu a recuperare is Categorias dae su serbidore.",
-      "api_version_check_failed": "No at fatu a controllare sa versione API in su serbidore:\n{error_msg}",
-      "api_version_above_confirmed": "Sa versione API de su serbidore s'est agiornada. Carchi funtzionalidade diat podet funtzionare comente prevìdidu. Abeta pro un'agiornamentu!\n{version}",
-      "plugin_missing": "No at fatu a carrigare is categorias. Segura·ti chi s'estensione de su libru de retzetas siat installadu in custa istàntzia de Nextcloud!"
+      "api_version_check_failed": "Failed to check the API version of the server:\n{error_msg}",
+      "api_version_above_confirmed": "The API version of the server was updated. Some features might not work as expected. Please wait for an update!\n{version}",
+      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
     }
   },
   "recipe_list": {
@@ -61,6 +67,9 @@
   },
   "recipe": {
     "title": "Retzeta:",
+    "prep": "Tempus de preparatzione",
+    "cook": "Tempus de cotura",
+    "total": "Tempus totale",
     "fields": {
       "name": "Nùmene de sa retzeta:",
       "description": "Descritzione de sa retzeta:",
@@ -73,7 +82,26 @@
       "time": {
         "prep": "Tempus de preparatzione:",
         "cook": "Tempus de cotura:",
-        "total": "Tempus totale:"
+        "total": "Tempus totale:",
+        "hours": "Oras",
+        "minutes": "Minutos"
+      },
+      "nutrition": {
+        "title": "Informatziones de nutritzione",
+        "items": {
+          "calories": "Energia",
+          "carbohydrateContent": "Carboidratos",
+          "cholesterolContent": "Colesterolu",
+          "fatContent": "Grassos in totale",
+          "fiberContent": "Fibra",
+          "proteinContent": "Proteina",
+          "saturatedFatContent": "Grassos sàturos",
+          "servingSize": "Mannària de sa portzione",
+          "sodiumContent": "Sòdiu",
+          "sugarContent": "Tzùcuru",
+          "transFatContent": "Cuntenutu de grassos trans",
+          "unsaturatedFatContent": "Cuntenutu de grassos non sàturos"
+        }
       },
       "tools": "Ainas:",
       "ingredients": "Ingredientes:",
@@ -85,14 +113,14 @@
   },
   "recipe_edit": {
     "title": "Modìfica retzeta",
-    "button": "Agiorna retzeta",
+    "button": "Sarva",
     "errors": {
       "update_failed": "Agiornamentu faddidu {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Crea una retzeta",
-    "button": "Crea una retzeta",
+    "button": "Crea",
     "errors": {
       "update_failed": "Creatzione faddida {error_msg}"
     }
@@ -111,6 +139,36 @@
     "nothing_found": "Peruna retzeta agatada!",
     "errors": {
       "search_failed": "No at fatu a carrigare tout is retzetas!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Your timers",
+    "started": "Timer started.",
+    "finished": "is finished.",
+    "done": "Timer is done."
+  },
+  "settings": {
+    "title": "App Settings",
+    "dark_mode": {
+      "title": "Dark Mode",
+      "system": "Predefinidu de sistema",
+      "dark": "Semper",
+      "light": "Mai"
+    },
+    "language": {
+      "title": "Limba"
+    },
+    "stay_awake": {
+      "title": "Stay Awake",
+      "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Recipe Font Size",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Category Font Size",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
     }
   }
 }

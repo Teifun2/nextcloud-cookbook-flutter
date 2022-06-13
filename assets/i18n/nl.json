@@ -82,23 +82,25 @@
       "time": {
         "prep": "Voorbereidingstijd:",
         "cook": "Kooktijd:",
-        "total": "Totale tijd:"
+        "total": "Totale tijd:",
+        "hours": "Uur",
+        "minutes": "Minuten"
       },
       "nutrition": {
-        "title": "Nutrition Information",
+        "title": "Voedingswaarde Informatie",
         "items": {
-          "calories": "Energy",
-          "carbohydrateContent": "Carbohydrate",
+          "calories": "Energie",
+          "carbohydrateContent": "Koolhydraten",
           "cholesterolContent": "Cholesterol",
-          "fatContent": "Fat total",
-          "fiberContent": "Fiber",
-          "proteinContent": "Protein",
-          "saturatedFatContent": "Saturated Fat",
-          "servingSize": "Serving size",
-          "sodiumContent": "Sodium",
-          "sugarContent": "Sugar",
-          "transFatContent": "Trans-fat content",
-          "unsaturatedFatContent": "Unsaturated-fat content"
+          "fatContent": "Vet totaal",
+          "fiberContent": "Vezels",
+          "proteinContent": "Eiwit",
+          "saturatedFatContent": "Verzadigd vet",
+          "servingSize": "Portiegrootte",
+          "sodiumContent": "Natrium",
+          "sugarContent": "Suiker",
+          "transFatContent": "Transvetgehalte",
+          "unsaturatedFatContent": "Onverzadigd vetgehalte"
         }
       },
       "tools": "Hulpmiddelen",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Bewerk recept",
-    "button": "Bewerken",
+    "button": "Opslaan",
     "errors": {
       "update_failed": "Bijwerken mislukt {error_msg}"
     }
@@ -142,7 +144,7 @@
   "timer": {
     "title": "Jouw timers",
     "started": "Timer gestart.",
-    "finished": "is finished.",
+    "finished": "is klaar.",
     "done": "Timer is klaar."
   },
   "settings": {
