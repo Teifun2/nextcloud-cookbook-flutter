@@ -11,7 +11,7 @@ jobs:
       with:
         java-version: '12.x'
         distribution: 'adopt'
-    - uses: subosito/flutter-action@v2.4.0
+    - uses: subosito/flutter-action@v2.6.1
       with:
         flutter-version: '2.10.4'
     - run: flutter pub get
