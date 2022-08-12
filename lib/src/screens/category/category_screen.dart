@@ -53,15 +53,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
-                  child: Column(
-                    children: [
-                      ClipOval(
-                        child: AuthenticationCachedNetworkImage(
-                          url: DataRepository().getUserAvatarUrl(),
-                          boxFit: BoxFit.fill,
-                        ),
+                  child: Center(
+                    child: ClipOval(
+                      child: AuthenticationCachedNetworkImage(
+                        url: DataRepository().getUserAvatarUrl(),
+                        boxFit: BoxFit.fill,
                       ),
-                    ],
+                    ),
                   ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
