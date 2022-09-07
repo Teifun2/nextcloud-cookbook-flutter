@@ -145,7 +145,8 @@
     "title": "Jouw timers",
     "started": "Timer gestart.",
     "finished": "is klaar.",
-    "done": "Timer is klaar."
+    "done": "Timer is klaar.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "App Instellingen",

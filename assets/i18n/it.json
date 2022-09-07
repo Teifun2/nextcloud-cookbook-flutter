@@ -145,7 +145,8 @@
     "title": "I tuoi timer",
     "started": "Il timer è partito.",
     "finished": "è terminato.",
-    "done": "Il timer è terminato."
+    "done": "Il timer è terminato.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Impostazioni dell'applicazione",

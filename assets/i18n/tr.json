@@ -145,7 +145,8 @@
     "title": "Zamanlayıcılarınız",
     "started": "Zamanlayıcı başlatıldı.",
     "finished": "tamamlandı.",
-    "done": "Zamanlayıcı tamamlandı."
+    "done": "Zamanlayıcı tamamlandı.",
+    "missing": "Bir zamanlayıcı kullanmak için pişirme süresini ayarlamanız gerekir."
   },
   "settings": {
     "title": "Uygulama ayarları",

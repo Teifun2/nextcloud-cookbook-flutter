@@ -145,7 +145,8 @@
     "title": "你的计时器",
     "started": "计时开始",
     "finished": "is finished.",
-    "done": "计时结束"
+    "done": "计时结束",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "应用设置",

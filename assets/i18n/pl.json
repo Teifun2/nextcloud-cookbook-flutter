@@ -145,7 +145,8 @@
     "title": "Twój czas",
     "started": "Uruchomiony minutnik.",
     "finished": "zakończone.",
-    "done": "Minutnik jest gotowy."
+    "done": "Minutnik jest gotowy.",
+    "missing": "Aby korzystać z minutnika, musisz ustawić czas gotowania."
   },
   "settings": {
     "title": "Ustawienia aplikacji",

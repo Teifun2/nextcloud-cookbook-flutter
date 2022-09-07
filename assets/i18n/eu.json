@@ -145,7 +145,8 @@
     "title": "Zure tenporizadoreak",
     "started": "Tenporizadorea hasita.",
     "finished": "amaituta dago.",
-    "done": "Tenporizadorea bukatu da."
+    "done": "Tenporizadorea bukatu da.",
+    "missing": "Sukaldaritza denbora ezarri behar duzu tenporizadore bat erabili ahal izateko."
   },
   "settings": {
     "title": "Aplikazioaren ezarpenak",

@@ -67,8 +67,8 @@
   },
   "recipe": {
     "title": "Recette :",
-    "prep": "Temps de préparation",
-    "cook": "Temps de cuisson",
+    "prep": "Durée de préparation",
+    "cook": "Durée de cuisson",
     "total": "Temps total",
     "fields": {
       "name": "Titre de la recette : ",
@@ -80,9 +80,9 @@
       "source_button": "Source",
       "image": "Image : ",
       "time": {
-        "prep": "Temps de préparation :",
-        "cook": "Temps de cuisson :",
-        "total": "Temps total : ",
+        "prep": "Durée de préparation :",
+        "cook": "Durée de cuisson :",
+        "total": "Durée totale : ",
         "hours": "Heures",
         "minutes": "Minutes"
       },
@@ -145,7 +145,8 @@
     "title": "Vos minuteurs",
     "started": "Minuteur démarré.",
     "finished": "est terminé.",
-    "done": "Minutage terminé."
+    "done": "Minutage terminé.",
+    "missing": "Vous devez renseigner la durée de cuisson avant d'utiliser un minuteur."
   },
   "settings": {
     "title": "Paramètres de l'application",

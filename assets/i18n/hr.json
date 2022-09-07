@@ -145,7 +145,8 @@
     "title": "Vaši brojači vremena",
     "started": "Brojač vremena je pokrenut.",
     "finished": "is finished.",
-    "done": "Brojač vremena je završio."
+    "done": "Brojač vremena je završio.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Postavke aplikacije",

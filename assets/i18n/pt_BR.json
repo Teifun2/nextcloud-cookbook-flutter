@@ -145,7 +145,8 @@
     "title": "Seus temporizadores",
     "started": "Cronômetro inicializado.",
     "finished": "está finalizado.",
-    "done": "Temporizador finalizou.."
+    "done": "Temporizador finalizou..",
+    "missing": "Você precisa definir o tempo de cozimento para usar um cronômetro."
   },
   "settings": {
     "title": "Configurações do Aplicativo",

@@ -145,7 +145,8 @@
     "title": "Tus temporizadores",
     "started": "Temporizador iniciado.",
     "finished": "ha terminado.",
-    "done": "El temporizador ha terminado."
+    "done": "El temporizador ha terminado.",
+    "missing": "Necesitas configurar el tiempo de cocinado para usar un temporizador."
   },
   "settings": {
     "title": "Ajustes de la Aplicación",
