@@ -84,7 +84,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('${state.error}'),
               backgroundColor: Colors.red,
@@ -206,7 +206,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                           ],
                         ),
                       ),
-                      RaisedButton(
+                      ElevatedButton(
                         onPressed: state is! LoginLoading
                             ? _onLoginButtonPressed
                             : null,

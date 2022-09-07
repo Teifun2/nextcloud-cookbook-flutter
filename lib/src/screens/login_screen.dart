@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
 
   void notifyIfInvalidCredentials(context) {
     if (invalidCredentials) {
-      Scaffold.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(translate('login.errors.credentials_invalid')),
           backgroundColor: Colors.red,
