@@ -145,7 +145,8 @@
     "title": "Ajastimesi",
     "started": "Ajastin käynnistyi.",
     "finished": "päättynyt.",
-    "done": "Ajastin valmistui."
+    "done": "Ajastin valmistui.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Sovelluksen asetukset",

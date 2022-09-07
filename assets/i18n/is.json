@@ -1,0 +1,175 @@
+{
+  "app_bar": {
+    "search": "Search",
+    "refresh": "Endurnýja",
+    "logout": "Útskráning",
+    "clear_all": "Clear all"
+  },
+  "login": {
+    "title": "Innskráning",
+    "server_url": {
+      "field": "URL-slóð vefþjóns",
+      "validator": {
+        "empty": "Please enter the URL to your Nextcloud instance.",
+        "pattern": "Please enter a valid URL"
+      }
+    },
+    "username": {
+      "field": "Notandanafn"
+    },
+    "password": {
+      "field": "Lykilorð"
+    },
+    "settings": {
+      "title": "Ítarlegar stillingar",
+      "app_password": "Use self generated App Password.\nNeeded for accounts with 2FA.",
+      "self_signed_certificate": "Ignore invalid certificate.\nNeeded for self signed certificates.\n(Use at your own risk!)"
+    },
+    "button": "Innskráning",
+    "retry": "Retry Login!",
+    "reset": "Reset Credentials!",
+    "errors": {
+      "not_reachable": "Cannot reach: {server_url}\n{error_msg}",
+      "certificate_failed": "The Certificate of the server could not be verified: {server_url}\n{error_msg}",
+      "request_failed": "App Password request failed:\n{error_msg}",
+      "parse_failed": "Cannot parse the App Password response!\n{error_msg}",
+      "parse_missing": "Cannot find App Password in response!\n{error_msg}",
+      "auth_failed": "Username and / or Password is incorrect!",
+      "authentication_not_found": "No authentication found in Storage",
+      "failed_remove_remote": "Failed to remove remote App Password!",
+      "failure": "Login Process could not finish properly.\n{status_code}\n{status_message}",
+      "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!",
+      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+    }
+  },
+  "categories": {
+    "title": "Uppskriftabók",
+    "all_categories": "Allt",
+    "drawer": {
+      "import": "Import Recipe",
+      "settings": "Stillingar"
+    },
+    "errors": {
+      "unknown": "Categories in unknown state",
+      "load_failed": "Category load failed: {error_msg}",
+      "load_no_response": "Could not retrieve the Categories from the server.",
+      "api_version_check_failed": "Failed to check the API version of the server:\n{error_msg}",
+      "api_version_above_confirmed": "The API version of the server was updated. Some features might not work as expected. Please wait for an update!\n{version}",
+      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Category: {category}",
+    "errors": {
+      "load_failed": "Failed to load Recipes Short!"
+    }
+  },
+  "recipe": {
+    "title": "Recipe:",
+    "prep": "Undirbúningstími",
+    "cook": "Eldunartími",
+    "total": "Heildartími",
+    "fields": {
+      "name": "Recipe Name:",
+      "description": "Recipe Description:",
+      "keywords": "Keywords:",
+      "category": "Category:",
+      "servings": "Servings:",
+      "source": "Source:",
+      "source_button": "Heimild",
+      "image": "Image:",
+      "time": {
+        "prep": "Preparation time:",
+        "cook": "Cooking time:",
+        "total": "Total time:",
+        "hours": "klukkustundir",
+        "minutes": "mínútur"
+      },
+      "nutrition": {
+        "title": "Nutrition Information",
+        "items": {
+          "calories": "Energy",
+          "carbohydrateContent": "Carbohydrate",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Fat total",
+          "fiberContent": "Fiber",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Saturated Fat",
+          "servingSize": "Serving size",
+          "sodiumContent": "Sodium",
+          "sugarContent": "Sugar",
+          "transFatContent": "Trans-fat content",
+          "unsaturatedFatContent": "Unsaturated-fat content"
+        }
+      },
+      "tools": "Tools:",
+      "ingredients": "Ingredients:",
+      "instructions": "Instructions:"
+    },
+    "errors": {
+      "load_failed": "Failed to load Recipe!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Edit Recipe",
+    "button": "Vista",
+    "errors": {
+      "update_failed": "Update Failed {error_msg}"
+    }
+  },
+  "recipe_create": {
+    "title": "Create Recipe",
+    "button": "Búa til",
+    "errors": {
+      "update_failed": "Create Failed {error_msg}"
+    }
+  },
+  "recipe_import": {
+    "title": "Import Recipe",
+    "button": "Flytja inn",
+    "field": "URL to Recipe",
+    "clipboard": "Paste Clipboard",
+    "errors": {
+      "import_failed": "Import Failed {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Search Recipe",
+    "nothing_found": "No recipe found!",
+    "errors": {
+      "search_failed": "Unable to load all Recipes!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Your timers",
+    "started": "Timer started.",
+    "finished": "is finished.",
+    "done": "Timer is done.",
+    "missing": "You need to set the cooking time to use a timer."
+  },
+  "settings": {
+    "title": "App Settings",
+    "dark_mode": {
+      "title": "Dark Mode",
+      "system": "Sjálfgefið kerfi",
+      "dark": "Alltaf",
+      "light": "Aldrei"
+    },
+    "language": {
+      "title": "Tungumál"
+    },
+    "stay_awake": {
+      "title": "Stay Awake",
+      "subtitle": "Screen will stay on while on the recipe screen."
+    },
+    "recipe_font_size": {
+      "title": "Recipe Font Size",
+      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+    },
+    "category_font_size": {
+      "title": "Category Font Size",
+      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
+    }
+  }
+}

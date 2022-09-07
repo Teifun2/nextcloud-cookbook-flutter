@@ -145,7 +145,8 @@
     "title": "Ihre Timer",
     "started": "Timer gestartet.",
     "finished": "ist abgeschlossen.",
-    "done": "Timer ist fertig."
+    "done": "Timer ist fertig.",
+    "missing": "Um einen Timer zu verwenden, müssen Sie die Kochzeit angeben."
   },
   "settings": {
     "title": "App-Einstellungen",

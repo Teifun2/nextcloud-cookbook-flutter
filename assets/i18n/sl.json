@@ -145,7 +145,8 @@
     "title": "Your timers",
     "started": "Časomer je zagnan.",
     "finished": "is finished.",
-    "done": "Časomer je ustavljen."
+    "done": "Časomer je ustavljen.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Nastavitve programa",

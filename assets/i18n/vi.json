@@ -145,7 +145,8 @@
     "title": "Hẹn giờ của bạn",
     "started": "Đã bắt đầu hẹn giờ.",
     "finished": "đã hoàn thành",
-    "done": "Hẹn giờ đã xong."
+    "done": "Hẹn giờ đã xong.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Cài đặt ứng dụng",
