@@ -22,7 +22,7 @@ class Network {
       // Download, if not available
       file = await CustomCacheManager.getInstance()
           .downloadFile(url, authHeaders: {
-        "authorization": appAuthentication.basicAuth,
+        "Authorization": appAuthentication.basicAuth,
       });
       if (file == null) {
         throw Exception("could not download " + url);
