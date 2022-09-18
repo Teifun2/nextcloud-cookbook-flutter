@@ -90,7 +90,7 @@ class Recipe extends Equatable {
     if (data["recipeIngredient"] is Map) {
       data["recipeIngredient"]
           .forEach((k, v) => recipeIngredient.add(v as String));
-    } else {
+    } else if (data["recipeIngredient"] != null) {
       recipeIngredient = data["recipeIngredient"].cast<String>().toList();
     }
 
@@ -98,14 +98,14 @@ class Recipe extends Equatable {
     if (data["recipeInstructions"] is Map) {
       data["recipeInstructions"]
           .forEach((k, v) => recipeInstructions.add(v as String));
-    } else {
+    } else if (data["recipeInstructions"] != null) {
       recipeInstructions = data["recipeInstructions"].cast<String>().toList();
     }
 
     List<String> tool = [];
     if (data["tool"] is Map) {
       data["tool"].forEach((k, v) => tool.add(v as String));
-    } else {
+    } else if (data["tool"] != null) {
       tool = data["tool"].cast<String>().toList();
     }
 

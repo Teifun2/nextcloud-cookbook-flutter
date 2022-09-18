@@ -12,7 +12,7 @@ class RecipeProvider {
         UserRepository().getCurrentAppAuthentication();
 
     final String url =
-        "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/$id";
+        "${appAuthentication.server}/apps/cookbook/api/v1/recipes/$id";
     // Parse categories
     try {
       String contents = await Network().get(url);
@@ -29,7 +29,7 @@ class RecipeProvider {
 
     try {
       final String url =
-          "${appAuthentication.server}/index.php/apps/cookbook/api/recipes/${recipe.id}";
+          "${appAuthentication.server}/apps/cookbook/api/v1/recipes/${recipe.id}";
       var response = await client.put(url,
           data: recipe.toJson(),
           options: new Options(
@@ -50,7 +50,7 @@ class RecipeProvider {
 
     try {
       var response = await client.post(
-          "${appAuthentication.server}/index.php/apps/cookbook/api/recipes",
+          "${appAuthentication.server}/apps/cookbook/api/v1/recipes",
           data: recipe.toJson(),
           options: new Options(
             contentType: "application/json;charset=UTF-8",
@@ -68,7 +68,7 @@ class RecipeProvider {
 
     try {
       var response = await client.post(
-          "${appAuthentication.server}/index.php/apps/cookbook/import",
+          "${appAuthentication.server}/apps/cookbook/import",
           data: {"url": url},
           options: new Options(
             contentType: "application/json;charset=UTF-8",

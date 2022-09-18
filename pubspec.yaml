@@ -11,11 +11,11 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.7.6+21
+version: 0.7.7+22
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: 2.10.4
+  sdk: ">=2.10.0 <3.0.0"
+  flutter: 3.3.0
 
 dependencies:
   flutter:
@@ -77,12 +77,11 @@ dependencies:
 
   # Timer for cooking time
   flutter_local_notifications: ^9.4.0
-  timer_builder: 2.0.0
   flutter_native_timezone: 2.0.0
 
   cached_network_image: ^3.0.0
 
-  flutter_typeahead: 3.2.4
+  flutter_typeahead: 4.1.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.0
@@ -93,7 +92,7 @@ dev_dependencies:
 
 flutter_icons:
   android: "launcher_icon"
-  ios: false
+  ios: true
   image_path: "assets/icon.png"
   adaptive_icon_background: "#0082c9"
   adaptive_icon_foreground: "assets/adaptive_foreground.png"

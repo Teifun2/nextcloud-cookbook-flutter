@@ -82,23 +82,25 @@
       "time": {
         "prep": "Vrijeme pripreme:",
         "cook": "Vrijeme kuhanja:",
-        "total": "Ukupno vrijeme:"
+        "total": "Ukupno vrijeme:",
+        "hours": "Sati",
+        "minutes": "Minute"
       },
       "nutrition": {
-        "title": "Nutrition Information",
+        "title": "Nutritivne informacije",
         "items": {
-          "calories": "Energy",
-          "carbohydrateContent": "Carbohydrate",
-          "cholesterolContent": "Cholesterol",
-          "fatContent": "Fat total",
-          "fiberContent": "Fiber",
+          "calories": "Energija",
+          "carbohydrateContent": "Ugljikohidrati",
+          "cholesterolContent": "Kolesterol",
+          "fatContent": "Ukupno masti",
+          "fiberContent": "Vlakna",
           "proteinContent": "Protein",
-          "saturatedFatContent": "Saturated Fat",
-          "servingSize": "Serving size",
-          "sodiumContent": "Sodium",
-          "sugarContent": "Sugar",
-          "transFatContent": "Trans-fat content",
-          "unsaturatedFatContent": "Unsaturated-fat content"
+          "saturatedFatContent": "Zasićene masti",
+          "servingSize": "Količina za posluživanje",
+          "sodiumContent": "Natrij",
+          "sugarContent": "Šećer",
+          "transFatContent": "Udio transmasnih kiselina",
+          "unsaturatedFatContent": "Udio nezasićenih masnih kiselina"
         }
       },
       "tools": "Alati:",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Uredi recept",
-    "button": "Uredi",
+    "button": "Spremi",
     "errors": {
       "update_failed": "Ažuriranje nije uspjelo {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "Vaši brojači vremena",
     "started": "Brojač vremena je pokrenut.",
     "finished": "is finished.",
-    "done": "Brojač vremena je završio."
+    "done": "Brojač vremena je završio.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Postavke aplikacije",

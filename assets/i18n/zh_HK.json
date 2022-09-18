@@ -82,7 +82,9 @@
       "time": {
         "prep": "準備時間：",
         "cook": "烹調時間：",
-        "total": "總時間："
+        "total": "總時間：",
+        "hours": "小時",
+        "minutes": "分鐘"
       },
       "nutrition": {
         "title": "營養資訊",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "編輯食譜",
-    "button": "編輯",
+    "button": "保存",
     "errors": {
       "update_failed": "更新失敗 {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "你的計時器",
     "started": "計時器已啟動。",
     "finished": "已完成。",
-    "done": "計時结束。"
+    "done": "計時结束。",
+    "missing": "您需要設置烹飪時間才能使用計時器。"
   },
   "settings": {
     "title": "應用程式設定",

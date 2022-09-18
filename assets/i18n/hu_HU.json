@@ -8,10 +8,10 @@
   "login": {
     "title": "Bejelentkezés",
     "server_url": {
-      "field": "Kiszolgáló URL",
+      "field": "Kiszolgáló webcíme",
       "validator": {
-        "empty": "Adja meg a Nextcloud példány URL-jét.",
-        "pattern": "Érvényes URL-t adjon meg"
+        "empty": "Adja meg a Nextcloud-példány webcímét.",
+        "pattern": "Érvényes webcímet adjon meg"
       }
     },
     "username": {
@@ -32,13 +32,13 @@
       "not_reachable": "Nem érhető el: {server_url}\n{error_msg}",
       "certificate_failed": "A kiszolgáló tanúsítványát nem sikerült ellenőrizni: {server_url}\n{error_msg}",
       "request_failed": "Az alkalmazásjelszó kérése nem sikerült:\n{error_msg}",
-      "parse_failed": "Az alkalmazásjelszó válasz nem értelmezhető!\n{error_msg}",
-      "parse_missing": "A válaszban nem található az alkalmazásjelszó!\n{error_msg}",
-      "auth_failed": "A felhasználónév vagy jelszó helytelen!",
+      "parse_failed": "Az alkalmazásjelszó válasz nem értelmezhető.\n{error_msg}",
+      "parse_missing": "A válaszban nem található az alkalmazásjelszó.\n{error_msg}",
+      "auth_failed": "A felhasználónév vagy jelszó helytelen.",
       "authentication_not_found": "Nem található hitelesítési adat a tárolóban",
-      "failed_remove_remote": "Nem sikerült eltávolítani a távoli alkalmazásjelszót!",
+      "failed_remove_remote": "Nem sikerült eltávolítani a távoli alkalmazásjelszót.",
       "failure": "A bejelentkezési folyamat nem fejeződött be megfelelően.\n{status_code}\n{status_message}",
-      "credentials_invalid": "A tárolt hitelesítő adatok már nem érvényesek, így ki lett jelentkeztetve!",
+      "credentials_invalid": "A tárolt hitelesítő adatok már nem érvényesek, így ki lett jelentkeztetve.",
       "no_internet": "A hitelesítési ellenőrzés sikertelen volt.\nTalán nincs internetkapcsolat?\nHibaüzenet: {error_msg}",
       "wrong_status": "A hitelesítési ellenőrzés sikertelen volt.\nTalán a megadott kiszolgáló helytelen?\nHibaüzenet: {error_msg}"
     }
@@ -54,7 +54,7 @@
       "unknown": "Ismeretlen állapotú kategóriák",
       "load_failed": "Kategória betöltése sikertelen: {error_msg}",
       "load_no_response": "A kategóriákat nem sikerült lekérni a kiszolgálóról.",
-      "api_version_check_failed": "Nem sikerült ellenőrizni a kiszolgáló API verzióját:\n{error_msg}",
+      "api_version_check_failed": "Nem sikerült ellenőrizni a kiszolgáló API-verzióját:\n{error_msg}",
       "api_version_above_confirmed": "A kiszolgáló API-verziója frissült. Lehet, hogy egyes funkciók nem a várt módon működnek. Várjon a frissítésre!\n{version}",
       "plugin_missing": "A kategóriák nem tölthetők be. Győződjön meg róla, hogy a receptkönyv bővítmény telepítve van-e a Nextcloud példányra!"
     }
@@ -82,7 +82,9 @@
       "time": {
         "prep": "Elkészítési idő:",
         "cook": "Főzési idő:",
-        "total": "Teljes idő:"
+        "total": "Teljes idő:",
+        "hours": "Óra",
+        "minutes": "Perc"
       },
       "nutrition": {
         "title": "Táplálkozási információk",
@@ -106,12 +108,12 @@
       "instructions": "Leírások:"
     },
     "errors": {
-      "load_failed": "Nem sikerült betölteni a receptet!"
+      "load_failed": "Nem sikerült betölteni a receptet."
     }
   },
   "recipe_edit": {
     "title": "Recept szerkesztése",
-    "button": "Szerkesztés",
+    "button": "Mentés",
     "errors": {
       "update_failed": "Sikertelen frissítés {error_msg}"
     }
@@ -126,7 +128,7 @@
   "recipe_import": {
     "title": "Recept importálása",
     "button": "Importálás",
-    "field": "Recept URL-je",
+    "field": "Recept webcíme",
     "clipboard": "Vágólap beillesztése",
     "errors": {
       "import_failed": "Sikertelen importálás {error_msg}"
@@ -143,7 +145,8 @@
     "title": "Saját időzítők",
     "started": "Az időzítő elindult.",
     "finished": " befejeződött.",
-    "done": "Az időzítő kész."
+    "done": "Az időzítő kész.",
+    "missing": "Az időzítő használatához be kell állítania a főzési időt."
   },
   "settings": {
     "title": "Alkalmazásbeállítások",

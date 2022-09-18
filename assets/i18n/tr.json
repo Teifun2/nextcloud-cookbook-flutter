@@ -82,7 +82,9 @@
       "time": {
         "prep": "Hazırlama süresi:",
         "cook": "Pişirme süresi:",
-        "total": "Toplam süre:"
+        "total": "Toplam süre:",
+        "hours": "Saat",
+        "minutes": "Dakika"
       },
       "nutrition": {
         "title": "Beslenme bilgileri",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Tarifi düzenle",
-    "button": "Düzenle",
+    "button": "Kaydet",
     "errors": {
       "update_failed": "Güncellenemedi {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "Zamanlayıcılarınız",
     "started": "Zamanlayıcı başlatıldı.",
     "finished": "tamamlandı.",
-    "done": "Zamanlayıcı tamamlandı."
+    "done": "Zamanlayıcı tamamlandı.",
+    "missing": "Bir zamanlayıcı kullanmak için pişirme süresini ayarlamanız gerekir."
   },
   "settings": {
     "title": "Uygulama ayarları",

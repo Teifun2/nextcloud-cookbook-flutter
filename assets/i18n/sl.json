@@ -26,8 +26,8 @@
       "self_signed_certificate": "Prezri neveljavna potrdila.\nZahtevano za samo-podpisana potrdila.\n(Uporaba na lastno odgovornost!)"
     },
     "button": "Prijava",
-    "retry": "Retry Login!",
-    "reset": "Reset Credentials!",
+    "retry": "Ponovi poskus prijave!",
+    "reset": "Ponastavi poverila!",
     "errors": {
       "not_reachable": "Povezava s strežnikom ni mogoča: {server_url} \n {error_msg}",
       "certificate_failed": "Potrdila strežnika ni mogoče preveriti {server_url} \n{error_msg}",
@@ -39,8 +39,8 @@
       "failed_remove_remote": "Odstranjevanje oddaljenega gesla programa je spodletelo!",
       "failure": "Prijave ni mogoče pravilno dokončati.\n {status_code}\n {status_message}",
       "credentials_invalid": "Shranjena poverila niso več veljavna ali pa ni več vzpostavljene prijave!",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Overjanje je spodletelo!\nMorda ni vzpostavljene omrežne povezave?\nSporočilo napake: {error_msg}",
+      "wrong_status": "Overjanje je spodletelo!\nAli so podatki gostiteljskega strežnika pravi?\nSporočilo napake: {error_msg}"
     }
   },
   "categories": {
@@ -56,7 +56,7 @@
       "load_no_response": "Ni mogoče pridobiti kategorij s strežnika.",
       "api_version_check_failed": "Preverjanje različice API strežnika je spodletelo:\n {error_msg}",
       "api_version_above_confirmed": "Različica vmesnika API strežnika je posodobljena. Nekatere zmožnosti morda ne bodo delovale pravilno. Počakajte na posodobitev!\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
+      "plugin_missing": "Kategorij ni mogoče naložiti. Prepričajte se, da je vstavek Kuhar'ce nameščen v okolju Nextcloud."
     }
   },
   "recipe_list": {
@@ -82,23 +82,25 @@
       "time": {
         "prep": "Čas priprave:",
         "cook": "Čas kuhanja ali pečenja:",
-        "total": "Skupni čas"
+        "total": "Skupni čas",
+        "hours": "Ure",
+        "minutes": "Minute"
       },
       "nutrition": {
-        "title": "Nutrition Information",
+        "title": "Podrobnosti o hranilnosti",
         "items": {
-          "calories": "Energy",
-          "carbohydrateContent": "Carbohydrate",
-          "cholesterolContent": "Cholesterol",
-          "fatContent": "Fat total",
-          "fiberContent": "Fiber",
-          "proteinContent": "Protein",
-          "saturatedFatContent": "Saturated Fat",
-          "servingSize": "Serving size",
-          "sodiumContent": "Sodium",
-          "sugarContent": "Sugar",
-          "transFatContent": "Trans-fat content",
-          "unsaturatedFatContent": "Unsaturated-fat content"
+          "calories": "Energijska vrednost",
+          "carbohydrateContent": "Ogljikovi hidrati",
+          "cholesterolContent": "Holesterol",
+          "fatContent": "Skupno maščobe",
+          "fiberContent": "Vlaknine",
+          "proteinContent": "Beljakovine",
+          "saturatedFatContent": "Nasičene maščobe",
+          "servingSize": "Velikost porcije",
+          "sodiumContent": "Natrij",
+          "sugarContent": "Sladkor",
+          "transFatContent": "Vsebnost trans-maščob",
+          "unsaturatedFatContent": "Vsebnost nenasičenih maščob"
         }
       },
       "tools": "Pripomočki:",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Uredi recept",
-    "button": "Uredi",
+    "button": "Shrani",
     "errors": {
       "update_failed": "Posodobitev je spodletela {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "Your timers",
     "started": "Časomer je zagnan.",
     "finished": "is finished.",
-    "done": "Časomer je ustavljen."
+    "done": "Časomer je ustavljen.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Nastavitve programa",
@@ -158,7 +161,7 @@
     },
     "stay_awake": {
       "title": "Ostanite budni",
-      "subtitle": "Screen will stay on while on the recipe screen."
+      "subtitle": "Zaslon bo ostal prižgan, ko bo na zaslonu prikazan recept."
     },
     "recipe_font_size": {
       "title": "Velikost pisave receptov",

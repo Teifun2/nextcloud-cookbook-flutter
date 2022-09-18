@@ -29,10 +29,11 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       httpHeaders: {
-        "authorization": appAuthentication.basicAuth,
+        "Authorization": appAuthentication.basicAuth,
+        "Accept": "image/jpeg"
       },
       imageUrl: url,
-      placeholder: (context, url) => CircularProgressIndicator(),
+      placeholder: (context, url) => Container(child: Center(child: CircularProgressIndicator(),),),
       errorWidget: (context, url, error) => Container(
         width: width,
         height: height,

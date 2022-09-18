@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest_10y.dart' as tz;
@@ -43,9 +45,33 @@ class NotificationService {
     final AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('notification_icon');
 
+    Future onDidReceiveLocalNotification(
+        int id, String title, String body, String payload) async {
+      // display a dialog with the notification details, tap ok to go to another page
+      showDialog(
+        //context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: Text(body),
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text('Ok'),
+              onPressed: () async {
+                Navigator.of(context, rootNavigator: true).pop();
+              },
+            )
+          ],
+        ),
+      );
+    }
+
+    final IOSInitializationSettings initializationSettingsIOS =
+    IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: initializationSettingsAndroid, iOS: null, macOS: null);
+            android: initializationSettingsAndroid, iOS: initializationSettingsIOS, macOS: null);
 
     // Notification was triggered and the user clicked on it
     Future selectNotification(String payload) async {
@@ -72,7 +98,7 @@ class NotificationService {
         timer.body, timer.done, platformChannelSpecifics,
         payload: jsonEncode(timer.toJson()),
         androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation: null);
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime);
     return this.curId;
   }
 

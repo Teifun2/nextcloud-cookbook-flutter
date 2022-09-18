@@ -26,8 +26,8 @@
       "self_signed_certificate": "Игнориране на невалиден сертификат.\nНеобходимо е за самоподписани сертификати.\n(Използвате на свой собствен риск!)"
     },
     "button": "Вписване",
-    "retry": "Retry Login!",
-    "reset": "Reset Credentials!",
+    "retry": "Опитайте да влезете отново!",
+    "reset": "Възстановяване на идентификационни данни!",
     "errors": {
       "not_reachable": "Невъзможно достигане до: {server_url}\n{error_msg}",
       "certificate_failed": "Сертификатът на сървъра не можа да бъде проверен: {server_url}\n{error_msg}",
@@ -39,8 +39,8 @@
       "failed_remove_remote": "Неуспешно премахване на паролата за дистанционно приложение!",
       "failure": "Процесът на вписване не можа да завърши правилно.\n{status_code}\n{status_message}",
       "credentials_invalid": "Съхранените идентификационни данни вече не са валидни и сте отписани!",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Проверката за удостоверяване не беше успешна.\nМоже би няма интернет връзка?\nСъобщение за грешка: {error_msg}",
+      "wrong_status": "Проверката за удостоверяване не беше успешна.\nМоже би предоставеният хост на сървър не е правилен?\nСъобщение за грешка: {error_msg}"
     }
   },
   "categories": {
@@ -82,23 +82,25 @@
       "time": {
         "prep": "Време за подготовка:",
         "cook": "Време за готвене:",
-        "total": "Общо време:"
+        "total": "Общо време:",
+        "hours": "Часове",
+        "minutes": "Минути "
       },
       "nutrition": {
-        "title": "Nutrition Information",
+        "title": "Информация за храната",
         "items": {
-          "calories": "Energy",
-          "carbohydrateContent": "Carbohydrate",
-          "cholesterolContent": "Cholesterol",
-          "fatContent": "Fat total",
-          "fiberContent": "Fiber",
-          "proteinContent": "Protein",
-          "saturatedFatContent": "Saturated Fat",
-          "servingSize": "Serving size",
-          "sodiumContent": "Sodium",
-          "sugarContent": "Sugar",
-          "transFatContent": "Trans-fat content",
-          "unsaturatedFatContent": "Unsaturated-fat content"
+          "calories": "Енергия",
+          "carbohydrateContent": "Въглехидрати",
+          "cholesterolContent": "Холестерол",
+          "fatContent": "Общо мазнини",
+          "fiberContent": "Фибри",
+          "proteinContent": "Протеин",
+          "saturatedFatContent": "Наситени мазнини",
+          "servingSize": "Размер на порция",
+          "sodiumContent": "Натрий",
+          "sugarContent": "Захар",
+          "transFatContent": "Съдържание на трансмазнини",
+          "unsaturatedFatContent": "Съдържание на ненаситени мазнини"
         }
       },
       "tools": "Инструменти:",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Редактиране на Рецепта",
-    "button": "Редакция",
+    "button": "Запиши",
     "errors": {
       "update_failed": "Актуализацията не беше успешна {error_msg}"
     }
@@ -142,8 +144,9 @@
   "timer": {
     "title": "Вашите таймери",
     "started": "Таймерът стартира.",
-    "finished": "is finished.",
-    "done": "Таймерът е готов."
+    "finished": " е завършен.",
+    "done": "Таймерът е готов.",
+    "missing": "Трябва да зададете времето за готвене, за да използвате таймер."
   },
   "settings": {
     "title": "Настройки на приложението",

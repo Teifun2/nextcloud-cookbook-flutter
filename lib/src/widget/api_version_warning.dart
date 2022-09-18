@@ -13,7 +13,7 @@ class ApiVersionWarning extends StatelessWidget {
       versionProvider.warningWasShown = true;
       Future.delayed(const Duration(milliseconds: 100), () {
         if (apiVersion.loadFailureMessage.isNotEmpty) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
                 translate(
@@ -25,7 +25,7 @@ class ApiVersionWarning extends StatelessWidget {
             ),
           );
         } else if (apiVersion.isVersionAboveConfirmed()) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
                 translate(

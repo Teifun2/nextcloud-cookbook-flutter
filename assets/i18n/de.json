@@ -10,7 +10,7 @@
     "server_url": {
       "field": "Server-URL",
       "validator": {
-        "empty": "Bitte die URL der Nextcloud-Instanz angeben.",
+        "empty": "Bitte die URL deiner Nextcloud-Instanz angeben.",
         "pattern": "Bitte eine gültige URL angeben"
       }
     },
@@ -38,7 +38,7 @@
       "authentication_not_found": "Keine Authentifizierung im Speicher gefunden",
       "failed_remove_remote": "Remote-App-Passwort konnte nicht entfernt werden!",
       "failure": "Anmeldevorgang konnte nicht ordnungsgemäß beendet werden.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Die gespeicherten Anmeldedaten waren nicht mehr gültig und Du wurdest abgemeldet!",
+      "credentials_invalid": "Die gespeicherten Anmeldedaten waren nicht mehr gültig und du wurdest abgemeldet!",
       "no_internet": "Die Authentifizierungsprüfung war nicht erfolgreich.\nVielleicht gibt es keine Internetverbindung?\nFehlermeldung: {error_msg}",
       "wrong_status": "Die Authentifizierungsprüfung war nicht erfolgreich.\nVielleicht ist der angegebene Server-Host nicht korrekt?\nFehlermeldung: {error_msg}"
     }
@@ -82,7 +82,9 @@
       "time": {
         "prep": "Vorbereitungsdauer:",
         "cook": "Kochdauer:",
-        "total": "Gesamtzeit:"
+        "total": "Gesamtzeit:",
+        "hours": "Stunden",
+        "minutes": "Minuten"
       },
       "nutrition": {
         "title": "Nährwertangaben",
@@ -111,16 +113,16 @@
   },
   "recipe_edit": {
     "title": "Rezept bearbeiten",
-    "button": "Bearbeiten",
+    "button": "Speichern",
     "errors": {
       "update_failed": "Aktualisierung fehlgeschlagen {error_msg}"
     }
   },
   "recipe_create": {
-    "title": "Neues Rezept anlegen",
+    "title": "Neues Rezept erstellen",
     "button": "Erstellen",
     "errors": {
-      "update_failed": "Anlegen fehlgeschlagen {error_msg}"
+      "update_failed": "Erstellen fehlgeschlagen {error_msg}"
     }
   },
   "recipe_import": {
@@ -140,10 +142,11 @@
     }
   },
   "timer": {
-    "title": "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
+    "title": "Deine Timer",
     "started": "Timer gestartet.",
     "finished": "ist abgeschlossen.",
-    "done": "Timer ist fertig."
+    "done": "Timer ist fertig.",
+    "missing": "Um einen Timer zu verwenden, musst du die Kochzeit angeben."
   },
   "settings": {
     "title": "App-Einstellungen",
@@ -166,7 +169,7 @@
     },
     "category_font_size": {
       "title": "Kategorie Schriftgröße",
-      "subtitle": "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE)."
+      "subtitle": "Ändert die Schriftgröße des Kategorietitels. Dies kann nützlich sein, wenn du lange Kategorienamen verwendest."
     }
   }
 }

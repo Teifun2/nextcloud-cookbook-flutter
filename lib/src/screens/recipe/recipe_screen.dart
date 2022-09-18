@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/ingredient_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/instruction_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/nutrition_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
@@ -148,9 +148,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                 SnackBar(content: Text(translate('timer.started')));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else {
-            final snackBar = SnackBar(
-                content:
-                    Text("You need to set the cooking time to use a timer."));
+            final snackBar =
+                SnackBar(content: Text(translate('timer.missing')));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         }
@@ -305,7 +304,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                               ),
                               Expanded(
                                 flex: 5,
-                                child: this._buildRecipeIngredient(
+                                child: IngredientList(
                                     recipe, settingsBasedTextStyle),
                               ),
                               Expanded(
@@ -321,8 +320,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                           if (recipe.nutrition.isNotEmpty)
                             NutritionList(recipe.nutrition),
                           if (recipe.recipeIngredient.isNotEmpty)
-                            this._buildRecipeIngredient(
-                                recipe, settingsBasedTextStyle),
+                            IngredientList(recipe, settingsBasedTextStyle),
                           InstructionList(recipe, settingsBasedTextStyle)
                         ]))
                 ],
@@ -332,32 +330,6 @@ class RecipeScreenState extends State<RecipeScreen> {
         );
       },
     );
-  }
-
-  Widget _buildRecipeIngredient(
-      Recipe recipe, TextStyle settingsBasedTextStyle) {
-    return Padding(
-        padding: const EdgeInsets.only(bottom: 10.0),
-        child: Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            title: Text(translate('recipe.fields.ingredients')),
-            initiallyExpanded: true,
-            children: <Widget>[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    recipe.recipeIngredient
-                        .fold("", (p, e) => p + "-  " + e.trim() + "\n"),
-                    style: settingsBasedTextStyle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ));
   }
 
   Widget _showTimers(Recipe recipe) {

@@ -26,6 +26,8 @@
       "self_signed_certificate": "Ignorer les certificats invalides.\nNécessaire pour les certificats autosignés.\n(À utiliser à vos risques et périls !)"
     },
     "button": "S'identifier",
+    "retry": "Réessayez de vous connecter ! ",
+    "reset": "Réinitialisation de l'authentification",
     "errors": {
       "not_reachable": "Impossible d'atteindre : {server_url} \n {error_msg}",
       "certificate_failed": "Le certificat du serveur ne peut pas être vérifié : {server_url}\n{error_msg}",
@@ -36,7 +38,9 @@
       "authentication_not_found": "Aucune authentification trouvée dans l'espace de stockage",
       "failed_remove_remote": "Impossible de supprimer le mot de passe d'application distant",
       "failure": "L'opération de connexion ne sait pas terminée correctement.\n{status_code}\n{status_message}",
-      "credentials_invalid": "Les informations d'identification stockées ne sont plus valables et vous avez été déconnecté !"
+      "credentials_invalid": "Les informations d'identification stockées ne sont plus valables et vous avez été déconnecté !",
+      "no_internet": "L'authentification a échoué.\nPeut-être n'y-a-t-il pas de connexion internet ?\nMessage d'erreur : {error_msg}",
+      "wrong_status": "L'authentification a échoué.\nPeut-être le serveur indiqué est-il incorrect ?\nMessage d'erreur : {error_msg}"
     }
   },
   "categories": {
@@ -44,7 +48,7 @@
     "all_categories": "Tout",
     "drawer": {
       "import": "Importer une recette",
-      "settings": "Settings"
+      "settings": "Paramètres"
     },
     "errors": {
       "unknown": "Catégories dans un état inconnu",
@@ -52,7 +56,7 @@
       "load_no_response": "Impossible de récupérer les catégories depuis le serveur.",
       "api_version_check_failed": "Impossible de vérifier la version de l'API du serveur :\n{error_msg}",
       "api_version_above_confirmed": "La version de l'API du serveur a été mise à jour. Quelques fonctionnalités pourraient ne pas fonctionner comme prévu. Merci d'attendre une mise à jour !\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the Cookbook plugin is installed on this Nextcloud instance!"
+      "plugin_missing": "Impossible de charger les catégories. Assurez-vous que le greffon Cookbook est installé sur l'instance Nextcloud !"
     }
   },
   "recipe_list": {
@@ -63,8 +67,8 @@
   },
   "recipe": {
     "title": "Recette :",
-    "prep": "Preparation time",
-    "cook": "Cooking time",
+    "prep": "Durée de préparation",
+    "cook": "Durée de cuisson",
     "total": "Temps total",
     "fields": {
       "name": "Titre de la recette : ",
@@ -76,9 +80,28 @@
       "source_button": "Source",
       "image": "Image : ",
       "time": {
-        "prep": "Temps de préparation :",
-        "cook": "Temps de cuisson :",
-        "total": "Temps total : "
+        "prep": "Durée de préparation :",
+        "cook": "Durée de cuisson :",
+        "total": "Durée totale : ",
+        "hours": "Heures",
+        "minutes": "Minutes"
+      },
+      "nutrition": {
+        "title": "Information nutritionnelle",
+        "items": {
+          "calories": "Énergie",
+          "carbohydrateContent": "Glucides",
+          "cholesterolContent": "Cholestérol",
+          "fatContent": "Total graisses",
+          "fiberContent": "Fibres",
+          "proteinContent": "Protéines",
+          "saturatedFatContent": "Graisses saturées",
+          "servingSize": "Taille de la portion",
+          "sodiumContent": "Sodium",
+          "sugarContent": "Sucre",
+          "transFatContent": "Teneur en graisses trans",
+          "unsaturatedFatContent": "Teneur en graisses insaturées"
+        }
       },
       "tools": "Ustensiles :",
       "ingredients": "Ingrédients :",
@@ -90,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Editer la recette",
-    "button": "Modifier",
+    "button": "Enregistrer",
     "errors": {
       "update_failed": "Échec de mise à jour {error_msg}"
     }
@@ -119,16 +142,17 @@
     }
   },
   "timer": {
-    "title": "Your timers",
-    "started": "Timer started.",
+    "title": "Vos minuteurs",
+    "started": "Minuteur démarré.",
     "finished": "est terminé.",
-    "done": "Timer is done."
+    "done": "Minutage terminé.",
+    "missing": "Vous devez renseigner la durée de cuisson avant d'utiliser un minuteur."
   },
   "settings": {
-    "title": "App Settings",
+    "title": "Paramètres de l'application",
     "dark_mode": {
       "title": "Thème sombre",
-      "system": "System Default",
+      "system": "Paramètres système",
       "dark": "Toujours",
       "light": "Jamais"
     },
@@ -136,16 +160,16 @@
       "title": "Langue"
     },
     "stay_awake": {
-      "title": "Stay Awake",
-      "subtitle": "Screen will stay on while on the recipe screen."
+      "title": "Rester allumé",
+      "subtitle": "L'écran restera allumé tant que la recette est affichée."
     },
     "recipe_font_size": {
-      "title": "Recipe Font Size",
-      "subtitle": "Changes the font size of recipe tools, ingredients and instructions for better readability."
+      "title": "Taille de police des recettes",
+      "subtitle": "Change la taille de police des ustensiles, ingrédients et instructions, pour une meilleure lisibilité."
     },
     "category_font_size": {
-      "title": "Category Font Size",
-      "subtitle": "Changes the font size of category title. This can be useful if you have long category names."
+      "title": "Taille de police des catégorie",
+      "subtitle": "Change la taille de police des titres de catégories. Cela peut être utile en cas de noms de catégories longs."
     }
   }
 }

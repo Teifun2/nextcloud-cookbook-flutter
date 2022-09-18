@@ -22,8 +22,8 @@
     },
     "settings": {
       "title": "Pokročilá nastavení",
-      "app_password": "Použít vygenerované heslo pro aplikaci.\nPotřebné k účtům s dvoufázovým ověřováním se.",
-      "self_signed_certificate": "Ignorovat neplatný certifikát.\nPotřebné pro certifikáty podepsané samotnou organizací.\n(Používejte na vlastní riziko!)"
+      "app_password": "Použít vygenerované heslo pro jednotlivou aplikaci.\nPotřebné pro účty s dvoufázovým ověřováním se.",
+      "self_signed_certificate": "Ignorovat neplatný certifikát.\nPotřebné pro certifikáty podepsané samy sebou.\n(Používejte na vlastní riziko!)"
     },
     "button": "Přihlásit",
     "retry": "Zkusit se znovu přihlásit!",
@@ -31,9 +31,9 @@
     "errors": {
       "not_reachable": "Nelze se připojit k: {server_url}\n{error_msg}",
       "certificate_failed": "Certifikát serveru se nepodařilo ověřit: {server_url}\n{error_msg}",
-      "request_failed": "Žádost o heslo pro aplikaci se nezdařila:\n{error_msg}",
-      "parse_failed": "Nedaří se zpracovat heslo pro aplikaci!\n{error_msg}",
-      "parse_missing": "V odpovědi se nedaří najít heslo aplikace:\n{error_msg}",
+      "request_failed": "Žádost o heslo pro jednotlivou aplikaci se nezdařila:\n{error_msg}",
+      "parse_failed": "Nedaří se zpracovat odpověď s heslem pro jednotlivou aplikaci!\n{error_msg}",
+      "parse_missing": "V odpovědi se nedaří najít heslo pro jednotlivou aplikaci:\n{error_msg}",
       "auth_failed": "Uživatelské jméno a / nebo heslo není správné!",
       "authentication_not_found": "V úložišti nebyla nalezena autentifikace",
       "failed_remove_remote": "Nepovedlo se odstranit heslo pro externí aplikaci!",
@@ -82,7 +82,9 @@
       "time": {
         "prep": "Doba přípravy:",
         "cook": "Doba vaření:",
-        "total": "Celková doba:"
+        "total": "Celková doba:",
+        "hours": "Hodin",
+        "minutes": "Minut"
       },
       "nutrition": {
         "title": "Výživové informace",
@@ -101,7 +103,7 @@
           "unsaturatedFatContent": "Obsah nenasycených tuků"
         }
       },
-      "tools": "Nástroje:",
+      "tools": "Vybavení:",
       "ingredients": "Přísady:",
       "instructions": "Postup:"
     },
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Upravit recept",
-    "button": "Upravit",
+    "button": "Uložit",
     "errors": {
       "update_failed": "Aktualizace se nezdařila: {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "Vaše minutky",
     "started": "Minutka spuštěna.",
     "finished": "je dokončeno.",
-    "done": "Minutka zvonila."
+    "done": "Minutka zvonila.",
+    "missing": "Pokud chcete použít časovač, je třeba nastavit dobu vaření."
   },
   "settings": {
     "title": "Nastavení aplikace",
@@ -157,12 +160,12 @@
       "title": "Jazyk"
     },
     "stay_awake": {
-      "title": "Buďte bdělí",
+      "title": "Nezhasínat",
       "subtitle": "Při zobrazování receptu se obrazovka nevypne."
     },
     "recipe_font_size": {
       "title": "Velikost písma receptů",
-      "subtitle": "Změní velikost písma nástrojů receptu, přísad a pokynů tak, aby bylo lépe čitelné."
+      "subtitle": "Změní velikost písma vybavení, přísad a pokynů pro recept tak, aby bylo lépe čitelné."
     },
     "category_font_size": {
       "title": "Velikost písma kategorií",

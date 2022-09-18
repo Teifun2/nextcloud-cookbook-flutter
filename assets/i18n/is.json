@@ -1,31 +1,31 @@
 {
   "app_bar": {
     "search": "Search",
-    "refresh": "Refresh",
-    "logout": "Logout",
+    "refresh": "Endurnýja",
+    "logout": "Útskráning",
     "clear_all": "Clear all"
   },
   "login": {
-    "title": "Login",
+    "title": "Innskráning",
     "server_url": {
-      "field": "Server URL",
+      "field": "URL-slóð vefþjóns",
       "validator": {
         "empty": "Please enter the URL to your Nextcloud instance.",
         "pattern": "Please enter a valid URL"
       }
     },
     "username": {
-      "field": "Username"
+      "field": "Notandanafn"
     },
     "password": {
-      "field": "Password"
+      "field": "Lykilorð"
     },
     "settings": {
-      "title": "Advanced Settings",
+      "title": "Ítarlegar stillingar",
       "app_password": "Use self generated App Password.\nNeeded for accounts with 2FA.",
       "self_signed_certificate": "Ignore invalid certificate.\nNeeded for self signed certificates.\n(Use at your own risk!)"
     },
-    "button": "Login",
+    "button": "Innskráning",
     "retry": "Retry Login!",
     "reset": "Reset Credentials!",
     "errors": {
@@ -44,11 +44,11 @@
     }
   },
   "categories": {
-    "title": "Cookbook",
-    "all_categories": "All",
+    "title": "Uppskriftabók",
+    "all_categories": "Allt",
     "drawer": {
       "import": "Import Recipe",
-      "settings": "Settings"
+      "settings": "Stillingar"
     },
     "errors": {
       "unknown": "Categories in unknown state",
@@ -67,9 +67,9 @@
   },
   "recipe": {
     "title": "Recipe:",
-    "prep": "Preparation time",
-    "cook": "Cooking time",
-    "total": "Total time",
+    "prep": "Undirbúningstími",
+    "cook": "Eldunartími",
+    "total": "Heildartími",
     "fields": {
       "name": "Recipe Name:",
       "description": "Recipe Description:",
@@ -77,14 +77,14 @@
       "category": "Category:",
       "servings": "Servings:",
       "source": "Source:",
-      "source_button": "Source",
+      "source_button": "Heimild",
       "image": "Image:",
       "time": {
         "prep": "Preparation time:",
         "cook": "Cooking time:",
         "total": "Total time:",
-        "hours": "Hours",
-        "minutes": "Minutes"
+        "hours": "klukkustundir",
+        "minutes": "mínútur"
       },
       "nutrition": {
         "title": "Nutrition Information",
@@ -113,21 +113,21 @@
   },
   "recipe_edit": {
     "title": "Edit Recipe",
-    "button": "Save",
+    "button": "Vista",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
     }
   },
   "recipe_create": {
     "title": "Create Recipe",
-    "button": "Create",
+    "button": "Búa til",
     "errors": {
       "update_failed": "Create Failed {error_msg}"
     }
   },
   "recipe_import": {
     "title": "Import Recipe",
-    "button": "Import",
+    "button": "Flytja inn",
     "field": "URL to Recipe",
     "clipboard": "Paste Clipboard",
     "errors": {
@@ -152,12 +152,12 @@
     "title": "App Settings",
     "dark_mode": {
       "title": "Dark Mode",
-      "system": "System Default",
-      "dark": "Always",
-      "light": "Never"
+      "system": "Sjálfgefið kerfi",
+      "dark": "Alltaf",
+      "light": "Aldrei"
     },
     "language": {
-      "title": "Language"
+      "title": "Tungumál"
     },
     "stay_awake": {
       "title": "Stay Awake",

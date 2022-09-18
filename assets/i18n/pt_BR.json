@@ -82,7 +82,9 @@
       "time": {
         "prep": "Tempo de preparo:",
         "cook": "Tempo de cozimento:",
-        "total": "Tempo total:"
+        "total": "Tempo total:",
+        "hours": "Horas",
+        "minutes": "Minutos"
       },
       "nutrition": {
         "title": "Informação nutricional",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Editar receita",
-    "button": "Editar",
+    "button": "Salvar",
     "errors": {
       "update_failed": "Erro na atualização {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "Seus temporizadores",
     "started": "Cronômetro inicializado.",
     "finished": "está finalizado.",
-    "done": "Temporizador finalizou.."
+    "done": "Temporizador finalizou..",
+    "missing": "Você precisa definir o tempo de cozimento para usar um cronômetro."
   },
   "settings": {
     "title": "Configurações do Aplicativo",

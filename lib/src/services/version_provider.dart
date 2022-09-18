@@ -14,7 +14,7 @@ class VersionProvider {
         UserRepository().getCurrentAppAuthentication();
 
     var response = await appAuthentication.authenticatedClient
-        .get("${appAuthentication.server}/index.php/apps/cookbook/api/version");
+        .get("${appAuthentication.server}/apps/cookbook/api/version");
 
     if (response.statusCode == 200 &&
         !response.data.toString().startsWith("<!DOCTYPE html>")) {
@@ -37,8 +37,8 @@ class VersionProvider {
 }
 
 class ApiVersion {
-  static const int CONFIRMED_MAJOR_API_VERSION = 0;
-  static const int CONFIRMED_MINOR_API_VERSION = 2;
+  static const int CONFIRMED_MAJOR_API_VERSION = 1;
+  static const int CONFIRMED_MINOR_API_VERSION = 0;
 
   final int majorApiVersion;
   final int minorApiVersion;

@@ -82,7 +82,9 @@
       "time": {
         "prep": "Vorbereitungsdauer:",
         "cook": "Kochdauer:",
-        "total": "Gesamtzeit:"
+        "total": "Gesamtzeit:",
+        "hours": "Stunden",
+        "minutes": "Minuten"
       },
       "nutrition": {
         "title": "Nährwertangaben",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Rezept bearbeiten",
-    "button": "Bearbeiten",
+    "button": "Speichern",
     "errors": {
       "update_failed": "Aktualisierung fehlgeschlagen {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "Ihre Timer",
     "started": "Timer gestartet.",
     "finished": "ist abgeschlossen.",
-    "done": "Timer ist fertig."
+    "done": "Timer ist fertig.",
+    "missing": "Um einen Timer zu verwenden, müssen Sie die Kochzeit angeben."
   },
   "settings": {
     "title": "App-Einstellungen",

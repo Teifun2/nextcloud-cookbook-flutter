@@ -82,7 +82,9 @@
       "time": {
         "prep": "Tempo di preparazione:",
         "cook": "Tempo di cottura:",
-        "total": "Tempo totale:"
+        "total": "Tempo totale:",
+        "hours": "Ore",
+        "minutes": "Minuti"
       },
       "nutrition": {
         "title": "Informazioni nutrizionali",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Modifica ricetta",
-    "button": "Modifica",
+    "button": "Salva",
     "errors": {
       "update_failed": "Aggiornamento non riuscito {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "I tuoi timer",
     "started": "Il timer è partito.",
     "finished": "è terminato.",
-    "done": "Il timer è terminato."
+    "done": "Il timer è terminato.",
+    "missing": "You need to set the cooking time to use a timer."
   },
   "settings": {
     "title": "Impostazioni dell'applicazione",

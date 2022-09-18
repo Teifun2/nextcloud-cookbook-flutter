@@ -26,8 +26,8 @@
       "self_signed_certificate": "Ez ikusi egin ziurtagiri baliogabeari.\nAuto-sinatutako ziurtagirietarako beharrezkoa.\n(Erabili zure ardurapean!)"
     },
     "button": "Hasi saioa",
-    "retry": "Retry Login!",
-    "reset": "Reset Credentials!",
+    "retry": "Saiatu berriro saioa hasten!",
+    "reset": "Berrezarri kredentzialak!",
     "errors": {
       "not_reachable": "Ezin da honekin harremanetan jarri:{server_url}\n{error_msg}",
       "certificate_failed": "Ezin izan da zerbitzariaren ziurtagiria egiaztatu: {server_url}\n{error_msg}",
@@ -39,8 +39,8 @@
       "failed_remove_remote": "Ezin izan da urruneko aplikazio-pasahitza kendu!",
       "failure": "Saioa hasteko prozesua ezin izan da behar bezala amaitu.\n{status_code}\n{status_message}",
       "credentials_invalid": "Gordetako kredentzialak jada ez dira baliozkoak eta saioa amaitu zaizu!",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Autentifikazio-egiaztapena ez da arrakastatsua izan.\nAgian ez dago Interneteko konexiorik?\nErrore-mezua: {error_msg}",
+      "wrong_status": "Autentifikazio-egiaztapena ez da arrakastatsua izan.\nAgian emandako zerbitzariaren ostalaria ez da zuzena?\nErrore-mezua: {error_msg}"
     }
   },
   "categories": {
@@ -82,7 +82,9 @@
       "time": {
         "prep": "Prestatzeko denbora:",
         "cook": "Janaria prestatzeko denbora:",
-        "total": "Denbora guztira:"
+        "total": "Denbora guztira:",
+        "hours": "Orduak",
+        "minutes": "Minutuak"
       },
       "nutrition": {
         "title": "Nutrizio informazioa",
@@ -111,7 +113,7 @@
   },
   "recipe_edit": {
     "title": "Editatu errezeta",
-    "button": "Editatu",
+    "button": "Gorde",
     "errors": {
       "update_failed": "Eguneratzeak huts egin du {error_msg}"
     }
@@ -143,7 +145,8 @@
     "title": "Zure tenporizadoreak",
     "started": "Tenporizadorea hasita.",
     "finished": "amaituta dago.",
-    "done": "Tenporizadorea bukatu da."
+    "done": "Tenporizadorea bukatu da.",
+    "missing": "Sukaldaritza denbora ezarri behar duzu tenporizadore bat erabili ahal izateko."
   },
   "settings": {
     "title": "Aplikazioaren ezarpenak",
