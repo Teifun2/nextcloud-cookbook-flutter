@@ -68,7 +68,7 @@ class RecipeProvider {
 
     try {
       var response = await client.post(
-          "${appAuthentication.server}/apps/cookbook/import",
+          "${appAuthentication.server}/apps/cookbook/api/v1/import",
           data: {"url": url},
           options: new Options(
             contentType: "application/json;charset=UTF-8",
