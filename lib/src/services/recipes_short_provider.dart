@@ -10,7 +10,7 @@ class RecipesShortProvider {
     AppAuthentication appAuthentication =
     UserRepository().getCurrentAppAuthentication();
 
-    final String url = "${appAuthentication.server}/apps/cookbook/api/v1/recipes";
+    final String url = "${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes";
     try {
       String contents = await Network().get(url);
             return RecipeShort.parseRecipesShort(contents);

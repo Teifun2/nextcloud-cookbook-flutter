@@ -11,7 +11,7 @@ class CategoriesProvider {
         UserRepository().getCurrentAppAuthentication();
 
     final String url =
-        "${appAuthentication.server}/apps/cookbook/api/v1/categories";
+        "${appAuthentication.server}/index.php/apps/cookbook/api/v1/categories";
 
     // Parse categories
     try {

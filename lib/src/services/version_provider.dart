@@ -14,7 +14,7 @@ class VersionProvider {
         UserRepository().getCurrentAppAuthentication();
 
     var response = await appAuthentication.authenticatedClient
-        .get("${appAuthentication.server}/apps/cookbook/api/version");
+        .get("${appAuthentication.server}/index.php/apps/cookbook/api/version");
 
     if (response.statusCode == 200 &&
         !response.data.toString().startsWith("<!DOCTYPE html>")) {
