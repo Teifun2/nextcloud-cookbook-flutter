@@ -13,13 +13,13 @@ class CategoryRecipesShortProvider {
         UserRepository().getCurrentAppAuthentication();
 
     String url =
-        "${appAuthentication.server}/index.php/apps/cookbook/category/$category";
+        "${appAuthentication.server}/apps/cookbook/api/v1/category/$category";
     if (androidApiVersion != AndroidApiVersion.BEFORE_API_ENDPOINT) {
       category = category == "*"
           ? "_"
           : category; // Mapping from * to _ for recipes without a category!
       url =
-          "${appAuthentication.server}/apps/cookbook/api/v1/category/$category";
+          "${appAuthentication.server}/index.php/apps/cookbook/api/v1/category/$category";
     }
 
     // Parse categories

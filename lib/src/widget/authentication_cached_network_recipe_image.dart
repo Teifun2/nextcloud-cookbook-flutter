@@ -28,7 +28,7 @@ class AuthenticationCachedNetworkRecipeImage extends StatelessWidget {
 
     return AuthenticationCachedNetworkImage(
       url:
-          '${appAuthentication.server}/apps/cookbook/api/v1/recipes/$recipeId/image?size=$settings',
+          '${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes/$recipeId/image?size=$settings',
       width: width,
       height: height,
       boxFit: boxFit,
