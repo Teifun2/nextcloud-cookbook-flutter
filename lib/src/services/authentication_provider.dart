@@ -168,7 +168,7 @@ class AuthenticationProvider {
     String basicAuth,
     bool isSelfSignedCertificate,
   ) async {
-    String urlAuthCheck = serverUrl + '/apps/cookbook/categories';
+    String urlAuthCheck = serverUrl + '/apps/cookbook/api/v1/categories';
 
     dio.Response response;
     try {
