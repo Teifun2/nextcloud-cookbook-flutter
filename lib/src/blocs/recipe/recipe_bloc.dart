@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/local/local_storage_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/local/timed_store_ref.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final DataRepository dataRepository = DataRepository();
+  final LocalStorageRepository localStorage = LocalStorageRepository.instance;
 
   RecipeBloc() : super(RecipeInitial());
 
@@ -25,8 +30,27 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       RecipeLoaded recipeLoaded) async* {
     try {
       yield RecipeLoadInProgress();
-      final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
-      yield RecipeLoadSuccess(recipe);
+
+      // CACHE
+      TimedStoreRef<String> cachedRecipe;
+      try {
+        cachedRecipe = await localStorage.loadRecipe(recipeLoaded.recipeId);
+        if (cachedRecipe != null) {
+          yield RecipeLoadSuccess(Recipe(cachedRecipe.value));
+        }
+      } catch (_) {
+        stderr.writeln(_.toString());
+      }
+
+      var internet = true;
+      if (internet &&
+          (cachedRecipe == null ||
+              cachedRecipe.dateTime.difference(DateTime.now()).inHours > 1)) {
+        // LOAD
+        final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
+        localStorage.storeRecipe(recipeLoaded.recipeId, TimedStoreRef(recipe));
+        yield RecipeLoadSuccess(Recipe(recipe));
+      }
     } catch (_) {
       yield RecipeLoadFailure(_.toString());
     }

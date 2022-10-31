@@ -22,6 +22,7 @@ class AppAuthentication {
     authenticatedClient.options.headers["authorization"] = basicAuth;
     authenticatedClient.options.headers["User-Agent"] = "Cookbook App";
     authenticatedClient.options.responseType = ResponseType.plain;
+    authenticatedClient.options.baseUrl = this.server;
 
     if (isSelfSignedCertificate) {
       HttpOverrides.global = new SelfSignedCertificateHttpOverride();

@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -11,6 +8,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/screens/category/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/intent_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/local/local_storage_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/lifecycle_event_handler.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
@@ -91,6 +89,9 @@ class _AppState extends State<App> {
     if (savedLocalization != 'default') {
       changeLocale(context, savedLocalization);
     }
+
+    // Load Local Storage
+    LocalStorageRepository.instance.init();
   }
 
   @override

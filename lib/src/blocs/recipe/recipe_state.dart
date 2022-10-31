@@ -25,11 +25,14 @@ class RecipeSuccess extends RecipeState {
   const RecipeSuccess(this.recipe);
 
   @override
-  List<Object> get props => [recipe];
+  List<Object> get props => [recipe.toJson()];
 }
 
 class RecipeLoadSuccess extends RecipeSuccess {
   RecipeLoadSuccess(Recipe recipe) : super(recipe);
+
+  @override
+  List<Object> get props => [recipe.toJson()];
 }
 
 class RecipeLoadFailure extends RecipeFailure {
