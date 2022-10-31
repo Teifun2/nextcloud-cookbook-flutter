@@ -49,6 +49,7 @@ class UserRepository {
     authenticationProvider.stopAuthenticate();
   }
 
+  @deprecated
   AppAuthentication getCurrentAppAuthentication() {
     return authenticationProvider.currentAppAuthentication;
   }

@@ -9,7 +9,6 @@ import 'package:nextcloud_cookbook_flutter/src/services/category_recipes_short_p
 import 'package:nextcloud_cookbook_flutter/src/services/category_search_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/net/nextcloud_metadata_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/net/recipe_service.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/recipe_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
 
 class DataRepository {
@@ -25,7 +24,6 @@ class DataRepository {
   CategoryRecipesShortProvider categoryRecipesShortProvider =
       CategoryRecipesShortProvider();
   CategorySearchProvider categorySearchProvider = CategorySearchProvider();
-  RecipeProvider recipeProvider = RecipeProvider();
   RecipeService recipeService = RecipeService();
   CategoriesProvider categoriesProvider = CategoriesProvider();
   NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
@@ -48,15 +46,15 @@ class DataRepository {
   }
 
   Future<int> updateRecipe(Recipe recipe) {
-    return recipeProvider.updateRecipe(recipe);
+    return recipeService.updateRecipe(recipe);
   }
 
   Future<int> createRecipe(Recipe recipe) {
-    return recipeProvider.createRecipe(recipe);
+    return recipeService.createRecipe(recipe);
   }
 
-  Future<Recipe> importRecipe(String url) {
-    return recipeProvider.importRecipe(url);
+  Future<String> importRecipe(String url) {
+    return recipeService.importRecipe(url);
   }
 
   Future<List<Category>> fetchCategories() {

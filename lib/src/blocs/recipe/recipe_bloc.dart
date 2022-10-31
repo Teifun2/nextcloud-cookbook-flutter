@@ -60,7 +60,13 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       RecipeUpdated recipeUpdated) async* {
     try {
       yield RecipeUpdateInProgress();
+
       int recipeId = await dataRepository.updateRecipe(recipeUpdated.recipe);
+
+      // Update Cache
+      await localStorage.storeRecipe(
+          recipeId, TimedStoreRef(recipeUpdated.recipe.toJson()));
+
       yield RecipeUpdateSuccess(recipeId);
     } catch (_) {
       yield RecipeUpdateFailure(_.toString());
@@ -71,7 +77,13 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       RecipeCreated recipeCreated) async* {
     try {
       yield RecipeCreateInProgress();
+
       int recipeId = await dataRepository.createRecipe(recipeCreated.recipe);
+
+      // Update Cache
+      await localStorage.storeRecipe(
+          recipeId, TimedStoreRef(recipeCreated.recipe.toJson()));
+
       yield RecipeCreateSuccess(recipeId);
     } catch (_) {
       yield RecipeCreateFailure(_.toString());
@@ -82,7 +94,13 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       RecipeImported recipeImported) async* {
     try {
       yield RecipeImportInProgress();
-      Recipe recipe = await dataRepository.importRecipe(recipeImported.url);
+
+      final recipeJson = await dataRepository.importRecipe(recipeImported.url);
+      final recipe = Recipe(recipeJson);
+
+      // Update Cache
+      await localStorage.storeRecipe(recipe.id, TimedStoreRef(recipeJson));
+
       yield RecipeImportSuccess(recipe.id);
     } catch (_) {
       yield RecipeImportFailure(_.toString());

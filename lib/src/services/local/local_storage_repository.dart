@@ -24,7 +24,7 @@ class LocalStorageRepository {
 
   var recipeStore = StoreRef<int, String>.main();
 
-  Future storeRecipe(int id, TimedStoreRef recipe) async {
+  Future storeRecipe(int id, TimedStoreRef<String> recipe) async {
     await recipeStore
         .record(id)
         .put(database, jsonEncode(recipe));
