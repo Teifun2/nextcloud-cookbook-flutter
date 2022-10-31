@@ -24,20 +24,29 @@ import 'src/blocs/authentication/authentication.dart';
 import 'src/blocs/simple_bloc_delegatae.dart';
 
 void main() async {
+  // Setup Bloc observer
   Bloc.observer = SimpleBlocDelegate();
-  var delegate = await LocalizationDelegate.create(
+
+  // Wait for Localization to be ready
+  var delegateFuture = LocalizationDelegate.create(
     basePath: 'assets/i18n/',
     fallbackLocale: 'en',
     supportedLocales: SupportedLocales.locales.keys.toList(),
     preferences: TranslatePreferences(),
   );
   // Wait for Settings to be ready
-  await Settings.init();
+  var settingsFuture = Settings.init();
   // Wait for Notifications to be ready
-  await NotificationService().init();
+  var notificationFuture = NotificationService().init();
+  // Waot for Local Storage to be ready
+  var localStoragFuture = LocalStorageRepository.instance.init();
+
+  await Future.wait(
+      [delegateFuture, settingsFuture, notificationFuture, localStoragFuture]);
+
   runApp(
     LocalizedApp(
-      delegate,
+      await delegateFuture,
       MultiBlocProvider(
         providers: [
           BlocProvider<AuthenticationBloc>(
@@ -89,9 +98,6 @@ class _AppState extends State<App> {
     if (savedLocalization != 'default') {
       changeLocale(context, savedLocalization);
     }
-
-    // Load Local Storage
-    LocalStorageRepository.instance.init();
   }
 
   @override

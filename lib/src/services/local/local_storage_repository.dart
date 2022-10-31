@@ -17,19 +17,27 @@ class LocalStorageRepository {
   Database database;
 
   Future init() async {
-    var documentsDir = await getApplicationDocumentsDirectory();
-    await documentsDir.create(recursive: true);
-    var databasePath = join(documentsDir.path, databaseFile);
+    try {
+      var documentsDir = await getApplicationDocumentsDirectory();
+      await documentsDir.create(recursive: true);
+      var databasePath = join(documentsDir.path, databaseFile);
 
-    database = await databaseFactoryIo.openDatabase(databasePath);
+      database = await databaseFactoryIo.openDatabase(databasePath);
+    } catch (_) {
+      stderr.writeln(_.toString());
+    }
   }
 
   var recipeStore = StoreRef<int, String>.main();
 
   Future storeRecipe(int id, Recipe recipe) async {
-    await recipeStore
-        .record(id)
-        .put(database, jsonEncode(TimedStoreRef(recipe)));
+    try {
+      await recipeStore
+          .record(id)
+          .put(database, jsonEncode(TimedStoreRef(recipe)));
+    } catch (_) {
+      stderr.writeln(_.toString());
+    }
   }
 
   Future<TimedStoreRef<Recipe>> loadRecipe(int id) async {
