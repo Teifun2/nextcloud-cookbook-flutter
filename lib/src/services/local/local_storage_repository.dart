@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/local/timed_store_ref.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,19 +26,22 @@ class LocalStorageRepository {
 
   var recipeStore = StoreRef<int, String>.main();
 
-  Future storeRecipe(int id, TimedStoreRef<String> recipe) async {
+  Future storeRecipe(int id, Recipe recipe) async {
     await recipeStore
         .record(id)
-        .put(database, jsonEncode(recipe));
+        .put(database, jsonEncode(TimedStoreRef(recipe)));
   }
 
-  Future<TimedStoreRef<String>> loadRecipe(int id) async {
-    var json = await recipeStore.record(id).get(database);
-    if (json != null) {
-      TimedStoreRef<String> recipe = TimedStoreRef.fromJson(jsonDecode(json));
-      return recipe;
-    } else {
-      return null;
+  Future<TimedStoreRef<Recipe>> loadRecipe(int id) async {
+    try {
+      var json = await recipeStore.record(id).get(database);
+      if (json != null) {
+        return TimedStoreRef.fromJson(jsonDecode(json), Recipe.fromJson);
+      }
+      return TimedStoreRef(null);
+    } catch (_) {
+      stderr.writeln(_.toString());
+      return TimedStoreRef(null);
     }
   }
 }

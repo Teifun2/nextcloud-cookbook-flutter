@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/json_serializable.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/iso_time_format.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/nutrition_utilty.dart';
 
-class Recipe extends Equatable {
+class Recipe extends Equatable with JsonSerializable {
   final int id;
   final String name;
   final String imageUrl;
@@ -62,6 +63,11 @@ class Recipe extends Equatable {
       '',
       Map<String, dynamic>(),
     );
+  }
+
+  // Needed as curently we dont have the "constructor-tearoffs" langauge feature needed for constructor parameter passing
+  static Recipe fromJson(String jsonString) {
+    return Recipe(jsonString);
   }
 
   factory Recipe(String jsonString) {

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
@@ -32,24 +30,20 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       yield RecipeLoadInProgress();
 
       // CACHE
-      TimedStoreRef<String> cachedRecipe;
-      try {
-        cachedRecipe = await localStorage.loadRecipe(recipeLoaded.recipeId);
-        if (cachedRecipe != null) {
-          yield RecipeLoadSuccess(Recipe(cachedRecipe.value));
-        }
-      } catch (_) {
-        stderr.writeln(_.toString());
+      TimedStoreRef<Recipe> cachedRecipe =
+          await localStorage.loadRecipe(recipeLoaded.recipeId);
+
+      if (cachedRecipe.value != null) {
+        yield RecipeLoadSuccess(cachedRecipe.value);
       }
 
-      var internet = true;
-      if (internet &&
-          (cachedRecipe == null ||
-              cachedRecipe.dateTime.difference(DateTime.now()).inHours > 1)) {
+      if (cachedRecipe.needsUpdate()) {
         // LOAD
-        final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
-        localStorage.storeRecipe(recipeLoaded.recipeId, TimedStoreRef(recipe));
-        yield RecipeLoadSuccess(Recipe(recipe));
+        final recipe =
+            Recipe(await dataRepository.fetchRecipe(recipeLoaded.recipeId));
+
+        localStorage.storeRecipe(recipeLoaded.recipeId, recipe);
+        yield RecipeLoadSuccess(recipe);
       }
     } catch (_) {
       yield RecipeLoadFailure(_.toString());
@@ -64,8 +58,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       int recipeId = await dataRepository.updateRecipe(recipeUpdated.recipe);
 
       // Update Cache
-      await localStorage.storeRecipe(
-          recipeId, TimedStoreRef(recipeUpdated.recipe.toJson()));
+      await localStorage.storeRecipe(recipeId, recipeUpdated.recipe);
 
       yield RecipeUpdateSuccess(recipeId);
     } catch (_) {
@@ -81,8 +74,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       int recipeId = await dataRepository.createRecipe(recipeCreated.recipe);
 
       // Update Cache
-      await localStorage.storeRecipe(
-          recipeId, TimedStoreRef(recipeCreated.recipe.toJson()));
+      await localStorage.storeRecipe(recipeId, recipeCreated.recipe);
 
       yield RecipeCreateSuccess(recipeId);
     } catch (_) {
@@ -99,7 +91,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       final recipe = Recipe(recipeJson);
 
       // Update Cache
-      await localStorage.storeRecipe(recipe.id, TimedStoreRef(recipeJson));
+      await localStorage.storeRecipe(recipe.id, recipe);
 
       yield RecipeImportSuccess(recipe.id);
     } catch (_) {
