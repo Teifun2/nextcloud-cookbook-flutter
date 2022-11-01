@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
@@ -9,6 +10,7 @@ import 'package:nextcloud_cookbook_flutter/src/screens/category/category_screen.
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/intent_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/local/local_storage_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/net/connectivity_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/lifecycle_event_handler.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
@@ -116,31 +118,38 @@ class _AppState extends State<App> {
           brightness: Brightness.dark,
           hintColor: Colors.grey,
         ),
-        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-            if (state is AuthenticationUninitialized) {
-              return SplashPage();
-            } else if (state is AuthenticationAuthenticated) {
-              IntentRepository().handleIntent();
-              if (BlocProvider.of<CategoriesBloc>(context).state
-                  is CategoriesInitial) {
-                BlocProvider.of<CategoriesBloc>(context)
-                    .add(CategoriesLoaded());
-              }
-              return CategoryScreen();
-            } else if (state is AuthenticationUnauthenticated) {
-              return LoginScreen();
-            } else if (state is AuthenticationInvalid) {
-              return LoginScreen(
-                invalidCredentials: true,
-              );
-            } else if (state is AuthenticationLoading ||
-                state is AuthenticationError) {
-              return LoadingScreen();
-            } else {
-              return LoadingScreen();
-            }
+        home: OfflineBuilder(
+          connectivityBuilder: (BuildContext context,
+              ConnectivityResult connectivity, Widget child) {
+            ConnectivityProvider.instance.connectivity = connectivity;
+            return child;
           },
+          child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+              if (state is AuthenticationUninitialized) {
+                return SplashPage();
+              } else if (state is AuthenticationAuthenticated) {
+                IntentRepository().handleIntent();
+                if (BlocProvider.of<CategoriesBloc>(context).state
+                    is CategoriesInitial) {
+                  BlocProvider.of<CategoriesBloc>(context)
+                      .add(CategoriesLoaded());
+                }
+                return CategoryScreen();
+              } else if (state is AuthenticationUnauthenticated) {
+                return LoginScreen();
+              } else if (state is AuthenticationInvalid) {
+                return LoginScreen(
+                  invalidCredentials: true,
+                );
+              } else if (state is AuthenticationLoading ||
+                  state is AuthenticationError) {
+                return LoadingScreen();
+              } else {
+                return LoadingScreen();
+              }
+            },
+          ),
         ),
       ),
     );

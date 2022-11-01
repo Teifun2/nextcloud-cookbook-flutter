@@ -1,5 +1,6 @@
 import 'package:nextcloud_cookbook_flutter/src/models/json_serializable.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/net/connectivity_provider.dart';
 
 class TimedStoreRef<T extends JsonSerializable> {
   final T value;
@@ -19,10 +20,8 @@ class TimedStoreRef<T extends JsonSerializable> {
   }
 
   bool needsUpdate() {
-    var internet = true; // Represents a check if offline TBD
-
-    // Generally update locally stored data all hour if connectivity is given.
-    return internet &&
+    // Update locally stored data all hour if connectivity is given.
+    return ConnectivityProvider.instance.connected() &&
         (value == null || dateTime.difference(DateTime.now()).inHours > 1);
   }
 }
