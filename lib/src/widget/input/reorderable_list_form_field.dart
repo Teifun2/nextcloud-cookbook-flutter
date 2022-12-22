@@ -27,10 +27,9 @@ class ItemData {
 }
 
 class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
-  List<ItemData> _items;
+  final List<ItemData> _items = [];
 
   _ReorderableListFormFieldState(List<String> items) {
-    _items = List();
     for (int i = 0; i < items.length; ++i) {
       _items.add(ItemData(items[i], ValueKey(i)));
     }
@@ -50,10 +49,6 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
       _items.insert(newPositionIndex, draggedItem);
     });
     return true;
-  }
-
-  void _reorderDone(Key item) {
-    final draggedItem = _items[_indexOfKey(item)];
   }
 
   //
@@ -91,7 +86,6 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
           children: [
             RL.ReorderableList(
               onReorder: this._reorderCallback,
-              onReorderDone: this._reorderDone,
               child: CustomScrollView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

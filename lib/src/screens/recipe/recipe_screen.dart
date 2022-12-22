@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -16,7 +15,7 @@ import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:wakelock/wakelock.dart';
 
 class RecipeScreen extends StatefulWidget {
@@ -53,21 +52,8 @@ class RecipeScreenState extends State<RecipeScreen> {
     super.initState();
   }
 
-  Future<void> _refresh() async {
-    DefaultCacheManager().emptyCache();
-    this.setState(() {});
-    return Future.value(true);
-  }
-
   @override
   Widget build(BuildContext context) {
-    TextStyle settingsBasedTextStyle = TextStyle(
-      fontSize: Settings.getValue<double>(
-        describeEnum(SettingKeys.recipe_font_size),
-        Theme.of(context).textTheme.bodyText2.fontSize,
-      ),
-    );
-
     this.isLargeScreen = MediaQuery.of(context).size.width > 600;
     return BlocProvider<RecipeBloc>(
       create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId: recipeId)),
@@ -156,7 +142,7 @@ class RecipeScreenState extends State<RecipeScreen> {
       },
       child: Icon(Icons.access_alarm),
       backgroundColor: enabled
-          ? Theme.of(context).accentColor
+          ? Theme.of(context).colorScheme.secondary
           : Theme.of(context).disabledColor,
     );
   }
@@ -233,8 +219,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                           ElevatedButton(
                             style: ButtonStyle(),
                             onPressed: () async {
-                              if (await canLaunch(recipe.url)) {
-                                await launch(recipe.url);
+                              if (await launchUrlString(recipe.url)) {
+                                await launchUrlString(recipe.url);
                               }
                             },
                             child:

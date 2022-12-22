@@ -29,7 +29,6 @@ class DataRepository {
   NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
-  static Future<List<RecipeShort>> _allRecipesShort;
   static String categoryAll = translate('categories.all_categories');
 
   // Actions

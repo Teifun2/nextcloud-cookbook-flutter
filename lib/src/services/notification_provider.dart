@@ -67,11 +67,14 @@ class NotificationService {
     }
 
     final IOSInitializationSettings initializationSettingsIOS =
-    IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+        IOSInitializationSettings(
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: initializationSettingsAndroid, iOS: initializationSettingsIOS, macOS: null);
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS,
+            macOS: null);
 
     // Notification was triggered and the user clicked on it
     Future selectNotification(String payload) async {
@@ -98,7 +101,8 @@ class NotificationService {
         timer.body, timer.done, platformChannelSpecifics,
         payload: jsonEncode(timer.toJson()),
         androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime);
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.wallClockTime);
     return this.curId;
   }
 

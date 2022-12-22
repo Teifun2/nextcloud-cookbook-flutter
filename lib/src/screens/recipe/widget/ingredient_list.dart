@@ -40,48 +40,49 @@ class _IngredientListState extends State<IngredientList> {
                 physics: ClampingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return widget._recipe.recipeIngredient[index].startsWith('##')
-                    ? Text(
-                        widget._recipe.recipeIngredient[index].replaceFirst(
-                          RegExp(r'##\s*'),
-                          '',
-                        ),
-                        style: widget._textStyle.copyWith(
-                          fontFeatures:[FontFeature.enable('smcp')],
-                        ),
-                      )
-                    : Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: widget._textStyle.fontSize * 1.5,
-                            height: widget._textStyle.fontSize,
-                            alignment: Alignment.center,
-                            child: _ingredientsDone[index]
-                              ? Icon(
-                                  Icons.check_circle,
-                                  size: widget._textStyle.fontSize,
-                                  color: Colors.green,
-                                )
-                              : Icon(
-                                  Icons.circle,
-                                  size: widget._textStyle.fontSize * 0.5,
-                                ),
+                      ? Text(
+                          widget._recipe.recipeIngredient[index].replaceFirst(
+                            RegExp(r'##\s*'),
+                            '',
                           ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _ingredientsDone[index] = !_ingredientsDone[index];
-                                });
-                              },
-                              child: Text(
-                                widget._recipe.recipeIngredient[index],
-                                style: widget._textStyle,
+                          style: widget._textStyle.copyWith(
+                            fontFeatures: [FontFeature.enable('smcp')],
+                          ),
+                        )
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: widget._textStyle.fontSize * 1.5,
+                              height: widget._textStyle.fontSize,
+                              alignment: Alignment.center,
+                              child: _ingredientsDone[index]
+                                  ? Icon(
+                                      Icons.check_circle,
+                                      size: widget._textStyle.fontSize,
+                                      color: Colors.green,
+                                    )
+                                  : Icon(
+                                      Icons.circle,
+                                      size: widget._textStyle.fontSize * 0.5,
+                                    ),
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _ingredientsDone[index] =
+                                        !_ingredientsDone[index];
+                                  });
+                                },
+                                child: Text(
+                                  widget._recipe.recipeIngredient[index],
+                                  style: widget._textStyle,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
+                          ],
+                        );
                 },
                 separatorBuilder: (c, i) => SizedBox(height: 5),
                 itemCount: widget._recipe.recipeIngredient.length,

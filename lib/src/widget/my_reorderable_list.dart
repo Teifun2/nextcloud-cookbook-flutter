@@ -7,7 +7,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/rendering.dart';
 
 // Examples can assume:
@@ -483,8 +482,8 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
         ),
         child: _dragging == toWrap.key ? const SizedBox() : toWrapWithSemantics,
         childWhenDragging: const SizedBox(),
-        dragAnchor: DragAnchor.child,
         onDragStarted: onDragStarted,
+        dragAnchorStrategy: childDragAnchorStrategy,
         // When the drag ends inside a DragTarget widget, the drag
         // succeeds, and we reorder the widget into position appropriately.
         onDragCompleted: onDragEnded,
@@ -634,5 +633,5 @@ class _ReorderableListViewChildGlobalKey extends GlobalObjectKey {
   }
 
   @override
-  int get hashCode => hashValues(subKey, state);
+  int get hashCode => Object.hash(subKey, state);
 }

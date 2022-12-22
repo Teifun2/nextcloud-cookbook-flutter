@@ -86,12 +86,11 @@ class Timer {
   }
 
   Duration remaining() {
-     if(this.done.difference(tz.TZDateTime.now(tz.local)).isNegative){
-       return Duration.zero;
-     }
-     else{
-       return this.done.difference(tz.TZDateTime.now(tz.local));
-     }
+    if (this.done.difference(tz.TZDateTime.now(tz.local)).isNegative) {
+      return Duration.zero;
+    } else {
+      return this.done.difference(tz.TZDateTime.now(tz.local));
+    }
   }
 
   double progress() {

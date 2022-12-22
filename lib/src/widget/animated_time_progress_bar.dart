@@ -35,9 +35,7 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
       vsync: this,
     );
 
-    this._controller.forward().whenCompleteOrCancel(() {
-    });
-
+    this._controller.forward().whenCompleteOrCancel(() {});
   }
 
   @override
@@ -49,31 +47,30 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: this._controller,
-      child: Container(),
-      builder: (context, child){
-        if(_controller.isCompleted){
-          return Container(child: Text(translate('timer.done')));
-        }
+        animation: this._controller,
+        child: Container(),
+        builder: (context, child) {
+          if (_controller.isCompleted) {
+            return Container(child: Text(translate('timer.done')));
+          }
 
-        return Column(
-          children: [
-               Row(
+          return Column(
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
-                  Text("${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
+                  Text(
+                      "${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
+                  Text(
+                      "${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
                 ],
               ),
-
-            LinearProgressIndicator(
-              value: this._timerTween.evaluate(this._controller),
-              semanticsLabel: _timer.title,
-            )
-          ],
-        );
-      }
-
-    );
+              LinearProgressIndicator(
+                value: this._timerTween.evaluate(this._controller),
+                semanticsLabel: _timer.title,
+              )
+            ],
+          );
+        });
   }
 }
