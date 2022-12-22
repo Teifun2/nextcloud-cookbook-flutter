@@ -57,7 +57,7 @@ class CategoryCard extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 fontSize: Settings.getValue<double>(
                   foundation.describeEnum(SettingKeys.category_font_size),
-                  16,
+                  defaultValue: 16,
                 ),
               ),
             ),

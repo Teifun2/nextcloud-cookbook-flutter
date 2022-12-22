@@ -68,7 +68,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
           settingKey: describeEnum(SettingKeys.language),
           selected: Settings.getValue<String>(
             describeEnum(SettingKeys.language),
-            'default',
+            defaultValue: 'default',
           ),
           values: Map.from(
             <String, String>{

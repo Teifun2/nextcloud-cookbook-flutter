@@ -83,7 +83,7 @@ class _AppState extends State<App> {
     // Update Localization if Settings are set!
     String savedLocalization = Settings.getValue<String>(
       describeEnum(SettingKeys.language),
-      'default',
+      defaultValue: 'default',
     );
     if (savedLocalization != 'default') {
       changeLocale(context, savedLocalization);

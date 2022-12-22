@@ -40,7 +40,8 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   void _enableWakelock() {
-    if (Settings.getValue<bool>(describeEnum(SettingKeys.stay_awake), false)) {
+    if (Settings.getValue<bool>(describeEnum(SettingKeys.stay_awake),
+        defaultValue: false)) {
       Wakelock.enable();
     }
   }
@@ -153,7 +154,7 @@ class RecipeScreenState extends State<RecipeScreen> {
         TextStyle settingsBasedTextStyle = TextStyle(
           fontSize: Settings.getValue<double>(
             describeEnum(SettingKeys.recipe_font_size),
-            Theme.of(context).textTheme.bodyText2.fontSize,
+            defaultValue: Theme.of(context).textTheme.bodyText2.fontSize,
           ),
         );
 

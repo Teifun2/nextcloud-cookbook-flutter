@@ -57,7 +57,7 @@ dependencies:
   search_page: ^2.0.0
 
   # Settings Page
-  flutter_settings_screens: ^0.2.2+1
+  flutter_settings_screens: ^0.3.3-null-safety+2
 
   theme_mode_handler: ^3.0.0
 
@@ -92,7 +92,6 @@ dev_dependencies:
 
   flutter_test:
     sdk: flutter
-
 
 flutter_icons:
   android: "launcher_icon"
