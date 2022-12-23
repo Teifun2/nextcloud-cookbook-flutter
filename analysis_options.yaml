@@ -1,0 +1,3 @@
+# This file configures the analyzer to use the lint rule set from `package:lint`
+
+include: package:lint/strict.yaml

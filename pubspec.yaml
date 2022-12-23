@@ -93,6 +93,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  lint: ^2.0.0
+
 flutter_icons:
   android: "launcher_icon"
   ios: true
