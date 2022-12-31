@@ -22,13 +22,14 @@ class AuthenticationProvider {
     required String originalBasicAuth,
     required bool isSelfSignedCertificate,
   }) async {
-    if (serverUrl.substring(0, 4) != 'http') {
-      serverUrl = 'https://$serverUrl';
-      if (serverUrl.endsWith("/")) {
-        serverUrl = serverUrl.substring(0, serverUrl.length - 1);
+    String url = serverUrl;
+    if (url.substring(0, 4) != 'http') {
+      url = 'https://$url';
+      if (url.endsWith("/")) {
+        url = url.substring(0, url.length - 1);
       }
     }
-    final String urlInitialCall = '$serverUrl/ocs/v2.php/core/getapppassword';
+    final String urlInitialCall = '$url/ocs/v2.php/core/getapppassword';
 
     dio.Response response;
     try {
@@ -56,11 +57,15 @@ class AuthenticationProvider {
       );
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
-        throw translate("login.errors.not_reachable",
-            args: {"server_url": serverUrl, "error_msg": e},);
+        throw translate(
+          "login.errors.not_reachable",
+          args: {"server_url": url, "error_msg": e},
+        );
       } else if (e.message.contains("CERTIFICATE_VERIFY_FAILED")) {
-        throw translate("login.errors.certificate_failed",
-            args: {"server_url": serverUrl, "error_msg": e},);
+        throw translate(
+          "login.errors.certificate_failed",
+          args: {"server_url": url, "error_msg": e},
+        );
       }
       throw translate("login.errors.request_failed", args: {"error_msg": e});
     }
@@ -69,7 +74,7 @@ class AuthenticationProvider {
     if (response.statusCode == 200) {
       String appPassword;
       try {
-        appPassword = XmlDocument.parse(response.data)
+        appPassword = XmlDocument.parse(response.data as String)
             .findAllElements("apppassword")
             .first
             .text;
@@ -83,7 +88,7 @@ class AuthenticationProvider {
           'Basic ${base64Encode(utf8.encode('$username:$appPassword'))}';
 
       return AppAuthentication(
-        server: serverUrl,
+        server: url,
         loginName: username,
         basicAuth: basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
@@ -91,10 +96,13 @@ class AuthenticationProvider {
     } else if (response.statusCode == 401) {
       throw translate("login.errors.auth_failed");
     } else {
-      throw translate("login.errors.failure", args: {
-        "status_code": response.statusCode,
-        "status_message": response.statusMessage,
-      },);
+      throw translate(
+        "login.errors.failure",
+        args: {
+          "status_code": response.statusCode,
+          "status_message": response.statusMessage,
+        },
+      );
     }
   }
 
@@ -104,28 +112,36 @@ class AuthenticationProvider {
     required String basicAuth,
     required bool isSelfSignedCertificate,
   }) async {
-    if (serverUrl.substring(0, 4) != 'http') {
-      serverUrl = 'https://$serverUrl';
+    String url = serverUrl;
+    if (url.substring(0, 4) != 'http') {
+      url = 'https://$url';
     }
 
     bool authenticated;
     try {
       authenticated = await checkAppAuthentication(
-          serverUrl, basicAuth, isSelfSignedCertificate,);
+        url,
+        basicAuth,
+        isSelfSignedCertificate,
+      );
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
-        throw translate("login.errors.not_reachable",
-            args: {"server_url": serverUrl, "error_msg": e},);
+        throw translate(
+          "login.errors.not_reachable",
+          args: {"server_url": url, "error_msg": e},
+        );
       } else if (e.message.contains("CERTIFICATE_VERIFY_FAILED")) {
-        throw translate("login.errors.certificate_failed",
-            args: {"server_url": serverUrl, "error_msg": e},);
+        throw translate(
+          "login.errors.certificate_failed",
+          args: {"server_url": url, "error_msg": e},
+        );
       }
       throw translate("login.errors.request_failed", args: {"error_msg": e});
     }
 
     if (authenticated) {
       return AppAuthentication(
-        server: serverUrl,
+        server: url,
         loginName: username,
         basicAuth: basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
@@ -189,9 +205,12 @@ class AuthenticationProvider {
         ),
       );
     } on dio.DioError catch (e) {
-      throw translate("login.errors.no_internet", args: {
-        "error_msg": e.message,
-      },);
+      throw translate(
+        "login.errors.no_internet",
+        args: {
+          "error_msg": e.message,
+        },
+      );
     }
 
     if (response.statusCode == 401) {
@@ -199,17 +218,23 @@ class AuthenticationProvider {
     } else if (response.statusCode == 200) {
       return true;
     } else {
-      throw translate("login.errors.wrong_status", args: {
-        "error_msg": response.statusCode,
-      },);
+      throw translate(
+        "login.errors.wrong_status",
+        args: {
+          "error_msg": response.statusCode,
+        },
+      );
     }
   }
 
   Future<void> persistAppAuthentication(
-      AppAuthentication appAuthentication,) async {
+    AppAuthentication appAuthentication,
+  ) async {
     currentAppAuthentication = appAuthentication;
     await _secureStorage.write(
-        key: _appAuthenticationKey, value: appAuthentication.toJson(),);
+      key: _appAuthenticationKey,
+      value: appAuthentication.toJson(),
+    );
   }
 
   Future<void> deleteAppAuthentication() async {

@@ -76,9 +76,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return const TimerScreen();
-                      },),
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const TimerScreen();
+                        },
+                      ),
                     );
                   },
                 ),
@@ -92,9 +94,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return const RecipeImportScreen();
-                      },),
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const RecipeImportScreen();
+                        },
+                      ),
                     );
                   },
                 ),
@@ -107,9 +111,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   onTap: () async {
                     await Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return const MySettingsScreen();
-                      },),
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const MySettingsScreen();
+                        },
+                      ),
                     );
                     setState(() {});
                   },
@@ -152,12 +158,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ],
                             builder: (recipe) => ListTile(
                               title: Text(recipe.name),
-                              trailing: Container(
-                                child: AuthenticationCachedNetworkRecipeImage(
-                                  recipeId: recipe.recipeId,
-                                  full: false,
-                                  width: 50,
-                                ),
+                              trailing: AuthenticationCachedNetworkRecipeImage(
+                                recipeId: recipe.recipeId,
+                                full: false,
+                                width: 50,
                               ),
                               onTap: () =>
                                   Navigator.of(context).pushReplacement(
@@ -220,47 +224,54 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ],
           ),
-          body: RefreshIndicator(onRefresh: () {
-            DefaultCacheManager().emptyCache();
-            BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
-            return Future.value(true);
-          }, child: () {
-            if (categoriesState is CategoriesLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesImageLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesLoadInProgress ||
-                categoriesState is CategoriesInitial) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: SpinKitWave(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  const ApiVersionWarning(),
-                ],
-              );
-            } else if (categoriesState is CategoriesLoadFailure) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+          body: RefreshIndicator(
+            onRefresh: () {
+              DefaultCacheManager().emptyCache();
+              BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
+              return Future.value();
+            },
+            child: () {
+              if (categoriesState is CategoriesLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesImageLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesLoadInProgress ||
+                  categoriesState is CategoriesInitial) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      translate('categories.errors.plugin_missing'),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    Center(
+                      child: SpinKitWave(
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
-                    const Divider(),
-                    Text(translate('categories.errors.load_failed',
-                        args: {'error_msg': categoriesState.errorMsg},),),
+                    const ApiVersionWarning(),
                   ],
-                ),
-              );
-            } else {
-              return Text(translate('categories.errors.unknown'));
-            }
-          }(),),
+                );
+              } else if (categoriesState is CategoriesLoadFailure) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        translate('categories.errors.plugin_missing'),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const Divider(),
+                      Text(
+                        translate(
+                          'categories.errors.load_failed',
+                          args: {'error_msg': categoriesState.errorMsg},
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Text(translate('categories.errors.unknown'));
+              }
+            }(),
+          ),
         );
       },
     );

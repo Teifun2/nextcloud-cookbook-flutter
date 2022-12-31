@@ -28,25 +28,25 @@ class AppAuthentication {
   }
 
   factory AppAuthentication.fromJson(String jsonString) {
-    final Map<String, dynamic> jsonData = json.decode(jsonString);
+    final jsonData = json.decode(jsonString) as Map<String, dynamic>;
 
-    final String basicAuth = jsonData.containsKey("basicAuth")
-        ? jsonData['basicAuth']
+    final basicAuth = jsonData.containsKey("basicAuth")
+        ? jsonData['basicAuth'] as String
         : 'Basic ${base64Encode(
-              utf8.encode(
-                '${jsonData["loginName"]}:${jsonData["appPassword"]}',
-              ),
-            )}';
+            utf8.encode(
+              '${jsonData["loginName"]}:${jsonData["appPassword"]}',
+            ),
+          )}';
 
-    final bool selfSignedCertificate = jsonData.containsKey("isSelfSignedCertificate")
-        ? jsonData['isSelfSignedCertificate']
-        : false;
+    final selfSignedCertificate =
+        jsonData['isSelfSignedCertificate'] as bool? ?? false;
 
     return AppAuthentication(
-        server: jsonData["server"],
-        loginName: jsonData["loginName"],
-        basicAuth: basicAuth,
-        isSelfSignedCertificate: selfSignedCertificate,);
+      server: jsonData["server"] as String,
+      loginName: jsonData["loginName"] as String,
+      basicAuth: basicAuth,
+      isSelfSignedCertificate: selfSignedCertificate,
+    );
   }
 
   String toJson() {

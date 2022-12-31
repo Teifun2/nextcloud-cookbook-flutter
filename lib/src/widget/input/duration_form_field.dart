@@ -54,10 +54,13 @@ class _DurationFormFieldState extends State<DurationFormField> {
                 enabled: widget.state is! RecipeUpdateInProgress,
                 initialValue: widget.duration.inHours,
                 decoration: InputDecoration(
-                    hintText: translate('recipe.fields.time.hours'),),
+                  hintText: translate('recipe.fields.time.hours'),
+                ),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
-                      currentDuration: currentDuration, hours: value,);
+                    currentDuration: currentDuration,
+                    hours: value,
+                  );
                   widget.onChanged(currentDuration);
                 },
               ),
@@ -73,10 +76,13 @@ class _DurationFormFieldState extends State<DurationFormField> {
                 initialValue: widget.duration.inMinutes % 60,
                 maxValue: 60,
                 decoration: InputDecoration(
-                    hintText: translate('recipe.fields.time.minutes'),),
+                  hintText: translate('recipe.fields.time.minutes'),
+                ),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
-                      currentDuration: currentDuration, minutes: value,);
+                    currentDuration: currentDuration,
+                    minutes: value,
+                  );
                   widget.onChanged(currentDuration);
                 },
               ),
@@ -87,8 +93,11 @@ class _DurationFormFieldState extends State<DurationFormField> {
     );
   }
 
-  Duration _updateDuration(
-      {required Duration currentDuration, int? hours, int? minutes,}) {
+  Duration _updateDuration({
+    required Duration currentDuration,
+    int? hours,
+    int? minutes,
+  }) {
     if (hours != null) {
       final int currentMinutes = currentDuration.inMinutes % 60;
 

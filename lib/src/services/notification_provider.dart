@@ -35,13 +35,18 @@ class NotificationService {
     // initialize Timezone Database
     tz.initializeTimeZones();
     tz.setLocalLocation(
-        tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()),);
+      tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()),
+    );
 
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('notification_icon');
 
     Future onDidReceiveLocalNotification(
-        int id, String? title, String? body, String? payload,) async {
+      int id,
+      String? title,
+      String? body,
+      String? payload,
+    ) async {
       // display a dialog with the notification details, tap ok to go to another page
       /* showDialog(
         // context: context,
@@ -63,12 +68,14 @@ class NotificationService {
 
     final DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
-            onDidReceiveLocalNotification: onDidReceiveLocalNotification,);
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS,);
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
 
     // Notification was triggered and the user clicked on it
     Future selectNotification(NotificationResponse payload) async {
@@ -85,7 +92,7 @@ class NotificationService {
         await _localNotifications.pendingNotificationRequests();
     for (final element in pendingNotificationRequests) {
       if (element.payload != null) {
-        final Map<String, dynamic> data = jsonDecode(element.payload!);
+        final data = jsonDecode(element.payload!) as Map<String, dynamic>;
         final Timer timer = Timer.fromJson(data, element.id);
         if (timer.id > curId) curId = timer.id;
       }
@@ -95,20 +102,25 @@ class NotificationService {
   int start(Timer timer) {
     curId++;
     timer.id = curId;
-    _localNotifications.zonedSchedule(curId, timer.title, timer.body,
-        timer.done, platformChannelSpecifics,
-        payload: jsonEncode(timer.toJson()),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.wallClockTime,);
+    _localNotifications.zonedSchedule(
+      curId,
+      timer.title,
+      timer.body,
+      timer.done,
+      platformChannelSpecifics,
+      payload: jsonEncode(timer.toJson()),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.wallClockTime,
+    );
     return curId;
   }
 
-  cancel(Timer timer) {
+  void cancel(Timer timer) {
     _localNotifications.cancel(timer.id);
   }
 
-  cancelAll() {
+  void cancelAll() {
     _localNotifications.cancelAll();
   }
 }

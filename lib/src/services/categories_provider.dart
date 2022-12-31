@@ -22,9 +22,10 @@ class CategoriesProvider {
         Category(
           translate('categories.all_categories'),
           categories.fold(
-              0,
-              (int previousValue, Category element) =>
-                  previousValue + element.recipeCount,),
+            0,
+            (int previousValue, Category element) =>
+                previousValue + element.recipeCount,
+          ),
         ),
       );
       return categories;

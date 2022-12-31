@@ -6,7 +6,8 @@ class NextcloudMetadataApi {
 
   factory NextcloudMetadataApi() {
     return NextcloudMetadataApi._(
-        UserRepository().currentAppAuthentication,);
+      UserRepository().currentAppAuthentication,
+    );
   }
 
   NextcloudMetadataApi._(this._appAuthentication);

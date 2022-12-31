@@ -17,9 +17,12 @@ class Network {
 
     final FileInfo file = await DefaultCacheManager().getFileFromCache(url) ??
         // Download, if not available
-        await CustomCacheManager.getInstance().downloadFile(url, authHeaders: {
-          "Authorization": appAuthentication.basicAuth,
-        },);
+        await CustomCacheManager.getInstance().downloadFile(
+          url,
+          authHeaders: {
+            "Authorization": appAuthentication.basicAuth,
+          },
+        );
 
     final String contents = await file.file.readAsString();
     return contents;

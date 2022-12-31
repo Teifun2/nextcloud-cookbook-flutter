@@ -46,16 +46,18 @@ class _ListFormFieldState extends State<ListFormField> {
     );
   }
 
-  _onReorder(int oldIndex, int newIndex) {
+  void _onReorder(int oldIndex, int newIndex) {
     final ListTile tile = currentList.removeAt(oldIndex);
     currentList.insert(newIndex, tile);
 
     setState(() {
-      widget.onChanged(currentList.map((tile) {
-        final Text title = tile.title as Text;
-        log(title.data!);
-        return title.data!;
-      }).toList(),);
+      widget.onChanged(
+        currentList.map((tile) {
+          final Text title = tile.title! as Text;
+          log(title.data!);
+          return title.data!;
+        }).toList(),
+      );
     });
   }
 }

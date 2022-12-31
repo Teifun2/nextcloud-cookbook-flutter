@@ -13,14 +13,16 @@ class IntentRepository {
   static const platform = MethodChannel('app.channel.shared.data');
 
   Future<void> handleIntent() async {
-    final importUrl = await platform.invokeMethod('getImportUrl');
+    final importUrl = await platform.invokeMethod('getImportUrl') as String?;
     if (importUrl != null) {
       _navigationKey.currentState?.pushAndRemoveUntil(
-          MaterialPageRoute<void>(
-              builder: (BuildContext context) => () {
-                    return RecipeImportScreen(importUrl);
-                  }(),),
-          ModalRoute.withName('/'),);
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => () {
+            return RecipeImportScreen(importUrl);
+          }(),
+        ),
+        ModalRoute.withName('/'),
+      );
     }
   }
 

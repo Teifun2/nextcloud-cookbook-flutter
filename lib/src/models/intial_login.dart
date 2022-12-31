@@ -10,8 +10,8 @@ class InitialLogin {
   });
 
   factory InitialLogin.fromJson(Map<String, dynamic> json) => InitialLogin(
-        poll: Poll.fromJson(json["poll"]),
-        login: json["login"],
+        poll: Poll.fromJson(json["poll"] as Map<String, dynamic>),
+        login: json["login"] as String,
       );
 
   Map<String, dynamic> toJson() => {

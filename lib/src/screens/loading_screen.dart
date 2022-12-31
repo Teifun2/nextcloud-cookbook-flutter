@@ -26,19 +26,21 @@ class LoadingScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 if (authenticationState is AuthenticationError)
                   ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<AuthenticationBloc>(context)
-                            .add(AppStarted());
-                      },
-                      child: Text(translate("login.retry")),),
+                    onPressed: () {
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(AppStarted());
+                    },
+                    child: Text(translate("login.retry")),
+                  ),
                 const SizedBox(height: 10),
                 if (authenticationState is AuthenticationError)
                   ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<AuthenticationBloc>(context)
-                            .add(LoggedOut());
-                      },
-                      child: Text(translate("login.reset")),),
+                    onPressed: () {
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(LoggedOut());
+                    },
+                    child: Text(translate("login.reset")),
+                  ),
               ],
             ),
           );

@@ -24,69 +24,71 @@ class Recipe extends Equatable {
   final Map<String, dynamic> remainingData;
 
   factory Recipe(String jsonString) {
-    final Map<String, dynamic> data = json.decode(jsonString);
+    final data = json.decode(jsonString) as Map<String, dynamic>;
 
-    final int id = data["id"] ?? 0;
-    final String name = data["name"] ?? '';
-    final String imageUrl = data["imageUrl"] ?? '';
-    final String recipeCategory = data["recipeCategory"] ?? '';
-    final String description = data["description"] ?? '';
+    final int id = data["id"] as int? ?? 0;
+    final String name = data["name"] as String? ?? '';
+    final String imageUrl = data["imageUrl"] as String? ?? '';
+    final String recipeCategory = data["recipeCategory"] as String? ?? '';
+    final String description = data["description"] as String? ?? '';
 
     Map<String, String> recipeNutrition = {};
 
     if (data["nutrition"] is Map<String, dynamic>) {
       recipeNutrition = (data["nutrition"] as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, value.toString()))
-        ..removeWhere((key, value) =>
-            !NutritionUtility.nutritionProperties.contains(key),);
+        ..removeWhere(
+          (key, value) => !NutritionUtility.nutritionProperties.contains(key),
+        );
       data["nutrition"] = (data["nutrition"] as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, value?.toString()))
         ..removeWhere(
-            (key, value) => NutritionUtility.nutritionProperties.contains(key),);
+          (key, value) => NutritionUtility.nutritionProperties.contains(key),
+        );
     }
 
     List<String> recipeIngredient = [];
     if (data["recipeIngredient"] is Map) {
-      data["recipeIngredient"]
+      (data["recipeIngredient"] as Map)
           .forEach((k, v) => recipeIngredient.add(v as String));
     } else if (data["recipeIngredient"] != null) {
-      recipeIngredient = data["recipeIngredient"].cast<String>().toList();
+      recipeIngredient = data["recipeIngredient"] as List<String>;
     }
 
     List<String> recipeInstructions = [];
     if (data["recipeInstructions"] is Map) {
-      data["recipeInstructions"]
+      (data["recipeInstructions"] as Map)
           .forEach((k, v) => recipeInstructions.add(v as String));
     } else if (data["recipeInstructions"] != null) {
-      recipeInstructions = data["recipeInstructions"].cast<String>().toList();
+      recipeInstructions = data["recipeInstructions"] as List<String>;
     }
 
     List<String> tool = [];
     if (data["tool"] is Map) {
-      data["tool"].forEach((k, v) => tool.add(v as String));
+      (data["tool"] as Map).forEach((k, v) => tool.add(v as String));
     } else if (data["tool"] != null) {
-      tool = data["tool"].cast<String>().toList();
+      tool = data["tool"] as List<String>;
     }
 
-    final int recipeYield = data["recipeYield"] ?? 1;
+    final int recipeYield = data["recipeYield"] as int? ?? 1;
     final Duration prepTime = data.containsKey("prepTime") &&
             data["prepTime"] != "" &&
             data["prepTime"] != null
-        ? IsoTimeFormat.toDuration(data["prepTime"])
+        ? IsoTimeFormat.toDuration(data["prepTime"] as String)
         : Duration.zero;
     final Duration cookTime = data.containsKey("cookTime") &&
             data["cookTime"] != "" &&
             data["cookTime"] != null
-        ? IsoTimeFormat.toDuration(data["cookTime"])
+        ? IsoTimeFormat.toDuration(data["cookTime"] as String)
         : Duration.zero;
     final Duration totalTime = data.containsKey("totalTime") &&
             data["totalTime"] != "" &&
             data["totalTime"] != null
-        ? IsoTimeFormat.toDuration(data["totalTime"])
+        ? IsoTimeFormat.toDuration(data["totalTime"] as String)
         : Duration.zero;
-    final String keywords = data["keywords"] ?? '';
-    final String image = data["image"] ?? '';
-    final String url = data["url"] ?? '';
+    final String keywords = data["keywords"] as String? ?? '';
+    final String image = data["image"] as String? ?? '';
+    final String url = data["url"] as String? ?? '';
 
     data.remove("id");
     data.remove("name");

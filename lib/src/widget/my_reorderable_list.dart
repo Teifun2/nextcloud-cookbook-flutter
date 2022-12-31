@@ -154,9 +154,12 @@ class _ReorderableListViewState extends State<ReorderableListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Overlay(key: _overlayKey, initialEntries: <OverlayEntry>[
-      _listOverlayEntry,
-    ],);
+    return Overlay(
+      key: _overlayKey,
+      initialEntries: <OverlayEntry>[
+        _listOverlayEntry,
+      ],
+    );
   }
 }
 
@@ -410,7 +413,8 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
       // If the item can move to before its current position in the list.
       if (index > 0) {
         semanticsActions[CustomSemanticsAction(
-            label: localizations.reorderItemToStart,)] = moveToStart;
+          label: localizations.reorderItemToStart,
+        )] = moveToStart;
         String reorderItemBefore = localizations.reorderItemUp;
         if (widget.scrollDirection == Axis.horizontal) {
           reorderItemBefore = Directionality.of(context) == TextDirection.ltr
@@ -453,8 +457,11 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
       );
     }
 
-    Widget buildDragTarget(BuildContext context, List<Key?> acceptedCandidates,
-        List<dynamic> rejectedCandidates,) {
+    Widget buildDragTarget(
+      BuildContext context,
+      List<Key?> acceptedCandidates,
+      List<dynamic> rejectedCandidates,
+    ) {
       final Widget toWrapWithSemantics = wrapWithSemantics();
 
       // We build the draggable inside of a layout builder so that we can
@@ -509,45 +516,51 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
       // We open up a space under where the dragging widget currently is to
       // show it can be dropped.
       if (_currentIndex == index) {
-        return _buildContainerForScrollDirection(children: <Widget>[
-          SizeTransition(
-            sizeFactor: _entranceController,
-            axis: widget.scrollDirection,
-            child: spacing,
-          ),
-          child,
-        ],);
+        return _buildContainerForScrollDirection(
+          children: <Widget>[
+            SizeTransition(
+              sizeFactor: _entranceController,
+              axis: widget.scrollDirection,
+              child: spacing,
+            ),
+            child,
+          ],
+        );
       }
       // We close up the space under where the dragging widget previously was
       // with the ghostController animation.
       if (_ghostIndex == index) {
-        return _buildContainerForScrollDirection(children: <Widget>[
-          SizeTransition(
-            sizeFactor: _ghostController,
-            axis: widget.scrollDirection,
-            child: spacing,
-          ),
-          child,
-        ],);
+        return _buildContainerForScrollDirection(
+          children: <Widget>[
+            SizeTransition(
+              sizeFactor: _ghostController,
+              axis: widget.scrollDirection,
+              child: spacing,
+            ),
+            child,
+          ],
+        );
       }
       return child;
     }
 
     // We wrap the drag target in a Builder so that we can scroll to its specific context.
-    return Builder(builder: (BuildContext context) {
-      return DragTarget<Key>(
-        builder: buildDragTarget,
-        onWillAccept: (Key? toAccept) {
-          setState(() {
-            _nextIndex = index;
-            _requestAnimationToNextIndex();
-          });
-          _scrollTo(context);
-          // If the target is not the original starting point, then we will accept the drop.
-          return _dragging == toAccept && toAccept != toWrap.key;
-        },
-      );
-    },);
+    return Builder(
+      builder: (BuildContext context) {
+        return DragTarget<Key>(
+          builder: buildDragTarget,
+          onWillAccept: (Key? toAccept) {
+            setState(() {
+              _nextIndex = index;
+              _requestAnimationToNextIndex();
+            });
+            _scrollTo(context);
+            // If the target is not the original starting point, then we will accept the drop.
+            return _dragging == toAccept && toAccept != toWrap.key;
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -555,49 +568,50 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
     assert(debugCheckHasMaterialLocalizations(context));
     // We use the layout builder to constrain the cross-axis size of dragging child widgets.
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      const Key endWidgetKey = Key('DraggableList - End Widget');
-      Widget finalDropArea;
-      switch (widget.scrollDirection) {
-        case Axis.horizontal:
-          finalDropArea = SizedBox(
-            key: endWidgetKey,
-            width: _defaultDropAreaExtent,
-            height: constraints.maxHeight,
-          );
-          break;
-        case Axis.vertical:
-        default:
-          finalDropArea = SizedBox(
-            key: endWidgetKey,
-            height: _defaultDropAreaExtent,
-            width: constraints.maxWidth,
-          );
-          break;
-      }
+      builder: (BuildContext context, BoxConstraints constraints) {
+        const Key endWidgetKey = Key('DraggableList - End Widget');
+        Widget finalDropArea;
+        switch (widget.scrollDirection) {
+          case Axis.horizontal:
+            finalDropArea = SizedBox(
+              key: endWidgetKey,
+              width: _defaultDropAreaExtent,
+              height: constraints.maxHeight,
+            );
+            break;
+          case Axis.vertical:
+          default:
+            finalDropArea = SizedBox(
+              key: endWidgetKey,
+              height: _defaultDropAreaExtent,
+              width: constraints.maxWidth,
+            );
+            break;
+        }
 
-      // If the reorderable list only has one child element, reordering
-      // should not be allowed.
-      final bool hasMoreThanOneChildElement = widget.children.length > 1;
+        // If the reorderable list only has one child element, reordering
+        // should not be allowed.
+        final bool hasMoreThanOneChildElement = widget.children.length > 1;
 
-      return ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        scrollDirection: widget.scrollDirection,
-        padding: widget.padding,
-        controller: _scrollController,
-        reverse: widget.reverse,
-        children: <Widget>[
-          if (widget.reverse && hasMoreThanOneChildElement)
-            _wrap(finalDropArea, widget.children.length, constraints),
-          if (widget.header != null) widget.header!,
-          for (int i = 0; i < widget.children.length; i += 1)
-            _wrap(widget.children[i], i, constraints),
-          if (!widget.reverse && hasMoreThanOneChildElement)
-            _wrap(finalDropArea, widget.children.length, constraints),
-        ],
-      );
-    },);
+        return ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          scrollDirection: widget.scrollDirection,
+          padding: widget.padding,
+          controller: _scrollController,
+          reverse: widget.reverse,
+          children: <Widget>[
+            if (widget.reverse && hasMoreThanOneChildElement)
+              _wrap(finalDropArea, widget.children.length, constraints),
+            if (widget.header != null) widget.header!,
+            for (int i = 0; i < widget.children.length; i += 1)
+              _wrap(widget.children[i], i, constraints),
+            if (!widget.reverse && hasMoreThanOneChildElement)
+              _wrap(finalDropArea, widget.children.length, constraints),
+          ],
+        );
+      },
+    );
   }
 }
 

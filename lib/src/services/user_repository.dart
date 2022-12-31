@@ -72,7 +72,8 @@ class UserRepository {
   }
 
   Future<void> persistAppAuthentication(
-      AppAuthentication appAuthentication,) async {
+    AppAuthentication appAuthentication,
+  ) async {
     return authenticationProvider.persistAppAuthentication(appAuthentication);
   }
 

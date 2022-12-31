@@ -30,7 +30,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
-  late Function authenticateInterruptCallback;
+  late Function() authenticateInterruptCallback;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -40,7 +40,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   }
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -57,7 +57,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
       UserRepository().stopAuthenticate();
     };
 
-    _onLoginButtonPressed() {
+    void onLoginButtonPressed() {
       _formKey.currentState?.save();
 
       if (_formKey.currentState?.validate() ?? false) {
@@ -65,10 +65,10 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
         final String username = _username.text.trim();
         final String password = _password.text.trim();
         final String originalBasicAuth = 'Basic ${base64Encode(
-              utf8.encode(
-                '$username:$password',
-              ),
-            )}';
+          utf8.encode(
+            '$username:$password',
+          ),
+        )}';
         BlocProvider.of<LoginBloc>(context).add(
           LoginButtonPressed(
             serverURL: serverUrl,
@@ -112,7 +112,8 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return translate(
-                                'login.server_url.validator.empty',);
+                              'login.server_url.validator.empty',
+                            );
                           }
                           const urlPattern =
                               r"^(?:http(s)?:\/\/)?[\w.-]+(?:(?:\.[\w\.-]+)|(?:\:\d+))+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]*$";
@@ -121,12 +122,16 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                   .hasMatch(_punyEncodeUrl(value));
                           if (!match) {
                             return translate(
-                                'login.server_url.validator.pattern',);
+                              'login.server_url.validator.pattern',
+                            );
                           }
                           return null;
                         },
                         textInputAction: TextInputAction.next,
-                        autofillHints: const [AutofillHints.url, AutofillHints.name],
+                        autofillHints: const [
+                          AutofillHints.url,
+                          AutofillHints.name
+                        ],
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -144,7 +149,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         obscureText: true,
                         onFieldSubmitted: (val) {
                           if (state is! LoginLoading) {
-                            _onLoginButtonPressed();
+                            onLoginButtonPressed();
                           }
                         },
                         textInputAction: TextInputAction.done,
@@ -153,7 +158,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0),
                         child: ExpansionPanelList(
-                          expandedHeaderPadding: const EdgeInsets.all(0),
+                          expandedHeaderPadding: EdgeInsets.zero,
                           expansionCallback: (int index, bool isExpanded) {
                             setState(() {
                               advancedSettingsExpanded = !isExpanded;
@@ -174,8 +179,11 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                           advancedIsAppPassword = checked;
                                         });
                                       },
-                                      title: Text(translate(
-                                          'login.settings.app_password',),),
+                                      title: Text(
+                                        translate(
+                                          'login.settings.app_password',
+                                        ),
+                                      ),
                                     ),
                                     CheckboxFormField(
                                       initialValue:
@@ -188,8 +196,11 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                               checked;
                                         });
                                       },
-                                      title: Text(translate(
-                                          'login.settings.self_signed_certificate',),),
+                                      title: Text(
+                                        translate(
+                                          'login.settings.self_signed_certificate',
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -211,14 +222,15 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                       ),
                       ElevatedButton(
                         onPressed: state is! LoginLoading
-                            ? _onLoginButtonPressed
+                            ? onLoginButtonPressed
                             : null,
                         child: Text(translate('login.button')),
                       ),
                       Container(
                         child: state is LoginLoading
                             ? SpinKitWave(
-                                color: Theme.of(context).primaryColor,)
+                                color: Theme.of(context).primaryColor,
+                              )
                             : null,
                       ),
                     ],
@@ -232,15 +244,16 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
     );
   }
 
-  String _punyEncodeUrl(String url) {
+  String _punyEncodeUrl(String punycodeUrl) {
     const String pattern = r"(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)";
     final RegExp expression = RegExp(pattern, caseSensitive: false);
     String prefix = "";
-    if (url.startsWith("https://")) {
-      url = url.replaceFirst("https://", "");
+    String url = punycodeUrl;
+    if (punycodeUrl.startsWith("https://")) {
+      url = punycodeUrl.replaceFirst("https://", "");
       prefix = "https://";
-    } else if (url.startsWith("http://")) {
-      url = url.replaceFirst("http://", "");
+    } else if (punycodeUrl.startsWith("http://")) {
+      url = punycodeUrl.replaceFirst("http://", "");
       prefix = "http://";
     }
 

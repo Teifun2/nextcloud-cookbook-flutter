@@ -1,3 +1,7 @@
 # This file configures the analyzer to use the lint rule set from `package:lint`
 
 include: package:lint/strict.yaml
+
+linter:
+  rules:
+    sort_pub_dependencies: false

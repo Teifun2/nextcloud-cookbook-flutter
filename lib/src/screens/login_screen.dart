@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void notifyIfInvalidCredentials(context) {
+  void notifyIfInvalidCredentials(BuildContext context) {
     if (invalidCredentials) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

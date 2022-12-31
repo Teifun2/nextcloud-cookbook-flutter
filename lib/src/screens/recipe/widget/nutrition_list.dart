@@ -20,13 +20,17 @@ class NutritionList extends StatelessWidget {
           title: Text(translate('recipe.fields.nutrition.title')),
           children: [
             Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: _nutrition.entries
-                    .map((e) => NutritionListItem(
-                        translate('recipe.fields.nutrition.items.${e.key}'),
-                        e.value,),)
-                    .toList(),),
+              spacing: 10,
+              runSpacing: 10,
+              children: _nutrition.entries
+                  .map(
+                    (e) => NutritionListItem(
+                      translate('recipe.fields.nutrition.items.${e.key}'),
+                      e.value,
+                    ),
+                  )
+                  .toList(),
+            ),
           ],
         ),
       ),

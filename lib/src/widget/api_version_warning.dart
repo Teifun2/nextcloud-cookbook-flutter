@@ -33,7 +33,8 @@ class ApiVersionWarning extends StatelessWidget {
                 translate(
                   "categories.errors.api_version_above_confirmed",
                   args: {
-                    "version": "${apiVersion.majorApiVersion}.${apiVersion.minorApiVersion}"
+                    "version":
+                        "${apiVersion.majorApiVersion}.${apiVersion.minorApiVersion}"
                   },
                 ),
               ),

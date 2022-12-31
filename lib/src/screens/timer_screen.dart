@@ -77,11 +77,12 @@ class _TimerScreen extends State<TimerScreen> {
       ),
       isThreeLine: true,
       trailing: IconButton(
-          icon: const Icon(Icons.cancel),
-          onPressed: () {
-            timer.cancel();
-            setState(() {});
-          },),
+        icon: const Icon(Icons.cancel),
+        onPressed: () {
+          timer.cancel();
+          setState(() {});
+        },
+      ),
       onTap: () {
         Navigator.push(
           context,

@@ -46,7 +46,7 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
     );
   }
 
-  _updateController() {
+  void _updateController() {
     final String value = controller.text;
     if (value.isEmpty) {
       widget.onChanged?.call(_ensureMinMax(0));

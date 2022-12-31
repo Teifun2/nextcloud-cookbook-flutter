@@ -11,7 +11,9 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_fi
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
 typedef RecipeFormSubmit = void Function(
-    MutableRecipe mutableRecipe, BuildContext context,);
+  MutableRecipe mutableRecipe,
+  BuildContext context,
+);
 
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
@@ -110,10 +112,8 @@ class _RecipeFormState extends State<RecipeForm> {
                       textFieldConfiguration: TextFieldConfiguration(
                         controller: categoryController,
                       ),
-                      suggestionsCallback: (pattern) async {
-                        return await DataRepository()
-                            .getMatchingCategoryNames(pattern);
-                      },
+                      suggestionsCallback:
+                          DataRepository().getMatchingCategoryNames,
                       itemBuilder: (context, String? suggestion) {
                         if (suggestion != null) {
                           return ListTile(
@@ -258,7 +258,10 @@ class _RecipeFormState extends State<RecipeForm> {
                     child: () {
                       switch (state.runtimeType) {
                         case RecipeUpdateInProgress:
-                          return const SpinKitWave(color: Colors.white, size: 30.0);
+                          return const SpinKitWave(
+                            color: Colors.white,
+                            size: 30.0,
+                          );
                         case RecipeUpdateFailure:
                         case RecipeUpdateSuccess:
                         case RecipeLoadSuccess:

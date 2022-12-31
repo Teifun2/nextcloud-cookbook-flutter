@@ -10,19 +10,21 @@ class Category extends Equatable {
   Category(this.name, this.recipeCount);
 
   Category.fromJson(Map<String, dynamic> json)
-      : name = json["name"],
+      : name = json["name"] as String,
         recipeCount = json["recipe_count"] is int
-            ? json["recipe_count"]
-            : int.parse(json["recipe_count"]);
+            ? json["recipe_count"] as int
+            : int.parse(json["recipe_count"] as String);
 
   @override
   List<String> get props => [name];
 
   static List<Category> parseCategories(String responseBody) {
-    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    final parsed = json.decode(responseBody) as List;
 
     return parsed
-        .map<Category>((json) => Category.fromJson(json))
+        .map<Category>(
+          (json) => Category.fromJson(json as Map<String, dynamic>),
+        )
         .where((Category c) => c.recipeCount > 0)
         .toList();
   }

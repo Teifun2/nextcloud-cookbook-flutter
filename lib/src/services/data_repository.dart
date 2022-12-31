@@ -60,8 +60,9 @@ class DataRepository {
   }
 
   Future<List<Category>> fetchCategoryMainRecipes(
-      List<Category> categories,) async {
-    return await Future.wait(
+    List<Category> categories,
+  ) async {
+    return Future.wait(
       categories.map((category) => _fetchCategoryMainRecipe(category)).toList(),
     );
   }
@@ -90,7 +91,7 @@ class DataRepository {
   }
 
   Future<List<RecipeShort>> fetchAllRecipes() async {
-    return await fetchRecipesShort(category: "All");
+    return fetchRecipesShort(category: "All");
   }
 
   String getUserAvatarUrl() {

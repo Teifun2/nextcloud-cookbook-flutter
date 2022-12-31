@@ -17,7 +17,7 @@ class TimerList {
     return l;
   }
 
-  clear() {
+  void clear() {
     timers.clear();
     NotificationService().cancelAll();
   }
@@ -35,7 +35,8 @@ class Timer {
     this.recipeId,
     this.title,
     this.body,
-    this.duration,) : done = tz.TZDateTime.now(tz.local).add(duration);
+    this.duration,
+  ) : done = tz.TZDateTime.now(tz.local).add(duration);
 
   // Restore Timer fom pending notification
   Timer._restore(
@@ -49,11 +50,11 @@ class Timer {
 
   factory Timer.fromJson(Map<String, dynamic> json, int id) {
     final Timer timer = Timer._restore(
-      json['recipeId'],
-      json['title'],
-      json['body'],
-      Duration(minutes: json['duration']),
-      tz.TZDateTime.fromMicrosecondsSinceEpoch(tz.local, json['done']),
+      json['recipeId'] as int,
+      json['title'] as String,
+      json['body'] as String,
+      Duration(minutes: json['duration'] as int),
+      tz.TZDateTime.fromMicrosecondsSinceEpoch(tz.local, json['done'] as int),
       id,
     );
     TimerList().timers.add(timer);
@@ -69,12 +70,12 @@ class Timer {
         'recipeId': recipeId,
       };
 
-  start() async {
+  void start() {
     NotificationService().start(this);
   }
 
   // cancel the timer
-  cancel() {
+  void cancel() {
     NotificationService().cancel(this);
     TimerList().timers.remove(this);
   }

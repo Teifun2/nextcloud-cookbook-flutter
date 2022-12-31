@@ -57,7 +57,8 @@ class _InstructionListState extends State<InstructionList> {
                           margin: const EdgeInsets.only(right: 15, top: 10),
                           decoration: ShapeDecoration(
                             shape: const CircleBorder(
-                                side: BorderSide(color: Colors.grey),),
+                              side: BorderSide(color: Colors.grey),
+                            ),
                             color: _instructionsDone[index]
                                 ? Colors.green
                                 : Theme.of(context).backgroundColor,

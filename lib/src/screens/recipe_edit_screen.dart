@@ -26,23 +26,27 @@ class RecipeEditScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: BlocListener<RecipeBloc, RecipeState>(
-              listener: (BuildContext context, RecipeState state) {
-                if (state is RecipeUpdateFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(translate(
-                          'recipe_edit.errors.update_failed',
-                          args: {"error_msg": state.errorMsg},),),
-                      backgroundColor: Colors.red,
+            listener: (BuildContext context, RecipeState state) {
+              if (state is RecipeUpdateFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      translate(
+                        'recipe_edit.errors.update_failed',
+                        args: {"error_msg": state.errorMsg},
+                      ),
                     ),
-                  );
-                } else if (state is RecipeUpdateSuccess) {
-                  BlocProvider.of<RecipeBloc>(context)
-                      .add(RecipeLoaded(state.recipeId));
-                  Navigator.pop(context);
-                }
-              },
-              child: Text(translate('recipe_edit.title')),),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else if (state is RecipeUpdateSuccess) {
+                BlocProvider.of<RecipeBloc>(context)
+                    .add(RecipeLoaded(state.recipeId));
+                Navigator.pop(context);
+              }
+            },
+            child: Text(translate('recipe_edit.title')),
+          ),
         ),
         body: RecipeForm(
           recipe,

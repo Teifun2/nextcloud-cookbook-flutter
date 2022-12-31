@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
@@ -84,7 +83,7 @@ class _AppState extends State<App> {
 
     // Update Localization if Settings are set!
     final savedLocalization = Settings.getValue<String>(
-      describeEnum(SettingKeys.language),
+      SettingKeys.language.name,
     );
     changeLocale(context, savedLocalization);
   }

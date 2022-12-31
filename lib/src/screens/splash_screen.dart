@@ -8,9 +8,10 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: SpinKitWave(
-        color: Theme.of(context).primaryColor,
-      ),),
+        child: SpinKitWave(
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
     );
   }
 }

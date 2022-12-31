@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
@@ -25,10 +24,10 @@ class CategoryCard extends StatelessWidget {
             blendMode: BlendMode.srcATop,
             shaderCallback: (bounds) {
               return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.center,
-                      colors: <Color>[Colors.black, Colors.transparent],)
-                  .createShader(bounds);
+                begin: Alignment.topCenter,
+                end: Alignment.center,
+                colors: <Color>[Colors.black, Colors.transparent],
+              ).createShader(bounds);
             },
             child: category.firstRecipeId != 0
                 ? ClipRRect(
@@ -59,7 +58,7 @@ class CategoryCard extends StatelessWidget {
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
                 fontSize: Settings.getValue<double>(
-                  foundation.describeEnum(SettingKeys.category_font_size),
+                  SettingKeys.category_font_size.name,
                   defaultValue: 16,
                 ),
               ),
@@ -78,10 +77,11 @@ class CategoryCard extends StatelessWidget {
                   border: Border.all(color: Colors.deepOrangeAccent, width: 2),
                 ),
                 child: Center(
-                    child: Text(
-                  category.recipeCount.toString(),
-                  style: const TextStyle(color: Colors.white),
-                ),),
+                  child: Text(
+                    category.recipeCount.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ),
           ),

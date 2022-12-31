@@ -12,25 +12,25 @@ class AnimatedTimeProgressBar extends StatefulWidget {
 
   @override
   _AnimatedTimeProgressBarState createState() =>
-      _AnimatedTimeProgressBarState(timer);
+      _AnimatedTimeProgressBarState();
 }
 
 class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
     with TickerProviderStateMixin {
   late AnimationController _controller;
-  final Timer _timer;
+  late Timer _timer;
   late Tween<num> _timerTween;
 
-  _AnimatedTimeProgressBarState(this._timer) {
+  _AnimatedTimeProgressBarState();
+
+  @override
+  void initState() {
+    _timer = widget.timer;
+
     _timerTween = Tween(
       begin: _timer.progress(),
       end: 1.0,
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
 
     _controller = AnimationController(
       duration: _timer.remaining(),
@@ -38,6 +38,7 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
     );
 
     _controller.forward().whenCompleteOrCancel(() {});
+    super.initState();
   }
 
   @override
@@ -49,30 +50,33 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: _controller,
-        child: Container(),
-        builder: (context, child) {
-          if (_controller.isCompleted) {
-            return Container(child: Text(translate('timer.done')));
-          }
+      animation: _controller,
+      child: Container(),
+      builder: (context, child) {
+        if (_controller.isCompleted) {
+          return Text(translate('timer.done'));
+        }
 
-          return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      "${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}",),
-                  Text(
-                      "${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",),
-                ],
-              ),
-              LinearProgressIndicator(
-                value: _timerTween.evaluate(_controller) as double?,
-                semanticsLabel: _timer.title,
-              )
-            ],
-          );
-        },);
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}",
+                ),
+                Text(
+                  "${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
+                ),
+              ],
+            ),
+            LinearProgressIndicator(
+              value: _timerTween.evaluate(_controller) as double?,
+              semanticsLabel: _timer.title,
+            )
+          ],
+        );
+      },
+    );
   }
 }
