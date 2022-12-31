@@ -82,9 +82,7 @@ class DataRepository {
     }
 
     if (categoryRecipes.isNotEmpty) {
-      category.firstRecipeId = categoryRecipes.first.recipeId;
-    } else {
-      category.firstRecipeId = 0;
+      return category.copyWith(firstRecipeId: categoryRecipes.first.recipeId);
     }
 
     return category;

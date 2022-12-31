@@ -18,9 +18,9 @@ class UserRepository {
   Future<AppAuthentication> authenticate(
     String serverUrl,
     String username,
-    String originalBasicAuth,
-    bool isSelfSignedCertificate,
-  ) async {
+    String originalBasicAuth, {
+    required bool isSelfSignedCertificate,
+  }) async {
     return authenticationProvider.authenticate(
       serverUrl: serverUrl,
       username: username,
@@ -32,9 +32,9 @@ class UserRepository {
   Future<AppAuthentication> authenticateAppPassword(
     String serverUrl,
     String username,
-    String basicAuth,
-    bool isSelfSignedCertificate,
-  ) async {
+    String basicAuth, {
+    required bool isSelfSignedCertificate,
+  }) async {
     return authenticationProvider.authenticateAppPassword(
       serverUrl: serverUrl,
       username: username,
@@ -67,7 +67,7 @@ class UserRepository {
     return authenticationProvider.checkAppAuthentication(
       currentAppAuthentication.server,
       currentAppAuthentication.basicAuth,
-      currentAppAuthentication.isSelfSignedCertificate,
+      isSelfSignedCertificate: currentAppAuthentication.isSelfSignedCertificate,
     );
   }
 

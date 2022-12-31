@@ -64,7 +64,7 @@ class ApiVersion {
       throw Exception("Required Fields not present!\n$jsonString");
     }
 
-    final appVersion = data["cookbook_version"] as List<int>;
+    final appVersion = (data["cookbook_version"] as List).cast<int>();
     final apiVersion = data["api_version"] as Map<String, dynamic>;
 
     if (!(appVersion.length == 3 &&

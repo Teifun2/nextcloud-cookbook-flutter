@@ -80,6 +80,7 @@ class AuthenticationProvider {
             .text;
       } on XmlParserException catch (e) {
         throw translate("login.errors.parse_failed", args: {"error_msg": e});
+      // ignore: avoid_catching_errors
       } on StateError catch (e) {
         throw translate("login.errors.parse_missing", args: {"error_msg": e});
       }
@@ -122,7 +123,7 @@ class AuthenticationProvider {
       authenticated = await checkAppAuthentication(
         url,
         basicAuth,
-        isSelfSignedCertificate,
+        isSelfSignedCertificate: isSelfSignedCertificate,
       );
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
@@ -180,9 +181,9 @@ class AuthenticationProvider {
   /// If server response is 401 Unauthorized the AppPassword is (no longer?) valid!
   Future<bool> checkAppAuthentication(
     String serverUrl,
-    String basicAuth,
-    bool isSelfSignedCertificate,
-  ) async {
+    String basicAuth, {
+    required bool isSelfSignedCertificate,
+  }) async {
     final String urlAuthCheck =
         '$serverUrl/index.php/apps/cookbook/api/v1/categories';
 
