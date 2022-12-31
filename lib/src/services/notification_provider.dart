@@ -22,7 +22,7 @@ const AndroidNotificationDetails androidPlatformChannelSpecifics =
 const NotificationDetails platformChannelSpecifics =
     NotificationDetails(android: androidPlatformChannelSpecifics);
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+final FlutterLocalNotificationsPlugin _localNotifications =
     FlutterLocalNotificationsPlugin();
 
 class NotificationService {
@@ -64,8 +64,8 @@ class NotificationService {
       ); */
     }
 
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
+    final DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
             onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
     final InitializationSettings initializationSettings =
@@ -75,16 +75,18 @@ class NotificationService {
             macOS: null);
 
     // Notification was triggered and the user clicked on it
-    Future selectNotification(String? payload) async {
+    Future selectNotification(NotificationResponse payload) async {
       // Map<String, dynamic> data = jsonDecode(payload);
       // We could e.g. show the recipe
     }
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
+    await _localNotifications.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: selectNotification,
+    );
 
     // Loading pending notifications an rebuild timers
-    final List<PendingNotificationRequest> pendingNotificationRequests =
-        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+    final pendingNotificationRequests =
+        await _localNotifications.pendingNotificationRequests();
     pendingNotificationRequests.forEach((PendingNotificationRequest element) {
       if (element.payload != null) {
         Map<String, dynamic> data = jsonDecode(element.payload!);
@@ -97,8 +99,8 @@ class NotificationService {
   int start(Timer timer) {
     this.curId++;
     timer.id = this.curId;
-    flutterLocalNotificationsPlugin.zonedSchedule(this.curId, timer.title,
-        timer.body, timer.done, platformChannelSpecifics,
+    _localNotifications.zonedSchedule(this.curId, timer.title, timer.body,
+        timer.done, platformChannelSpecifics,
         payload: jsonEncode(timer.toJson()),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
@@ -107,10 +109,10 @@ class NotificationService {
   }
 
   cancel(Timer timer) {
-    flutterLocalNotificationsPlugin.cancel(timer.id);
+    _localNotifications.cancel(timer.id);
   }
 
   cancelAll() {
-    flutterLocalNotificationsPlugin.cancelAll();
+    _localNotifications.cancelAll();
   }
 }
