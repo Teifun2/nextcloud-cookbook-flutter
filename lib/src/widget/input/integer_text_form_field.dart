@@ -30,8 +30,8 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
   @override
   void initState() {
     super.initState();
-    int curVal = _ensureMinMax(widget.initialValue);
-    controller = new TextEditingController(text: curVal.toString());
+    final int curVal = _ensureMinMax(widget.initialValue);
+    controller = TextEditingController(text: curVal.toString());
 
     controller.addListener(_updateController);
   }
@@ -47,11 +47,11 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
   }
 
   _updateController() {
-    String value = controller.text;
+    final String value = controller.text;
     if (value.isEmpty) {
       widget.onChanged?.call(_ensureMinMax(0));
     } else {
-      var parsedValue = _ensureMinMax(_parseValue(value));
+      final parsedValue = _ensureMinMax(_parseValue(value));
       if (controller.text != parsedValue.toString()) {
         controller.value = TextEditingValue(
           text: parsedValue.toString(),
@@ -74,7 +74,7 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
   }
 
   int _parseValue(String input) {
-    var regexMatches = RegExp(r'(\d+)').allMatches(input);
+    final regexMatches = RegExp(r'(\d+)').allMatches(input);
     if (regexMatches.isEmpty) {
       return 0;
     } else {

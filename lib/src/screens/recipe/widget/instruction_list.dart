@@ -40,7 +40,7 @@ class _InstructionListState extends State<InstructionList> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListView.separated(
                 shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -54,17 +54,17 @@ class _InstructionListState extends State<InstructionList> {
                         Container(
                           width: 40,
                           height: 40,
-                          margin: EdgeInsets.only(right: 15, top: 10),
-                          child: _instructionsDone[index]
-                              ? Icon(Icons.check)
-                              : Center(child: Text("${index + 1}")),
+                          margin: const EdgeInsets.only(right: 15, top: 10),
                           decoration: ShapeDecoration(
-                            shape: CircleBorder(
-                                side: BorderSide(color: Colors.grey)),
+                            shape: const CircleBorder(
+                                side: BorderSide(color: Colors.grey),),
                             color: _instructionsDone[index]
                                 ? Colors.green
                                 : Theme.of(context).backgroundColor,
                           ),
+                          child: _instructionsDone[index]
+                              ? const Icon(Icons.check)
+                              : Center(child: Text("${index + 1}")),
                         ),
                         Expanded(
                           child: Text(
@@ -76,7 +76,7 @@ class _InstructionListState extends State<InstructionList> {
                     ),
                   );
                 },
-                separatorBuilder: (c, i) => SizedBox(height: 10),
+                separatorBuilder: (c, i) => const SizedBox(height: 10),
                 itemCount: widget._recipe.recipeInstructions.length,
               ),
             ),

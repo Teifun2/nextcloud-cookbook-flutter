@@ -41,7 +41,7 @@ class _IngredientListState extends State<IngredientList> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ListView.separated(
                 shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return widget._recipe.recipeIngredient[index].startsWith('##')
                       ? Text(
@@ -50,7 +50,7 @@ class _IngredientListState extends State<IngredientList> {
                             '',
                           ),
                           style: widget._textStyle.copyWith(
-                            fontFeatures: [FontFeature.enable('smcp')],
+                            fontFeatures: [const FontFeature.enable('smcp')],
                           ),
                         )
                       : Row(
@@ -88,7 +88,7 @@ class _IngredientListState extends State<IngredientList> {
                           ],
                         );
                 },
-                separatorBuilder: (c, i) => SizedBox(height: 5),
+                separatorBuilder: (c, i) => const SizedBox(height: 5),
                 itemCount: widget._recipe.recipeIngredient.length,
               ),
             ),

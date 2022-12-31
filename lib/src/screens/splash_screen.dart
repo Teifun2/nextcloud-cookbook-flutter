@@ -10,8 +10,7 @@ class SplashPage extends StatelessWidget {
       body: Center(
           child: SpinKitWave(
         color: Theme.of(context).primaryColor,
-        size: 50.0,
-      )),
+      ),),
     );
   }
 }

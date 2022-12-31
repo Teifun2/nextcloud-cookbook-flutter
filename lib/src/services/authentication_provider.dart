@@ -11,7 +11,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:xml/xml.dart';
 
 class AuthenticationProvider {
-  final FlutterSecureStorage _secureStorage = new FlutterSecureStorage();
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   final String _appAuthenticationKey = 'appAuthentication';
   AppAuthentication? currentAppAuthentication;
   dio.CancelToken? _cancelToken;
@@ -23,16 +23,16 @@ class AuthenticationProvider {
     required bool isSelfSignedCertificate,
   }) async {
     if (serverUrl.substring(0, 4) != 'http') {
-      serverUrl = 'https://' + serverUrl;
+      serverUrl = 'https://$serverUrl';
       if (serverUrl.endsWith("/")) {
         serverUrl = serverUrl.substring(0, serverUrl.length - 1);
       }
     }
-    String urlInitialCall = serverUrl + '/ocs/v2.php/core/getapppassword';
+    final String urlInitialCall = '$serverUrl/ocs/v2.php/core/getapppassword';
 
     dio.Response response;
     try {
-      dio.Dio client = dio.Dio();
+      final dio.Dio client = dio.Dio();
       if (isSelfSignedCertificate) {
         (client.httpClientAdapter as DefaultHttpClientAdapter)
             .onHttpClientCreate = (HttpClient httpClient) {
@@ -44,7 +44,7 @@ class AuthenticationProvider {
 
       response = await client.get(
         urlInitialCall,
-        options: new dio.Options(
+        options: dio.Options(
           headers: {
             "OCS-APIREQUEST": "true",
             "User-Agent": "Cookbook App",
@@ -56,13 +56,13 @@ class AuthenticationProvider {
       );
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
-        throw (translate("login.errors.not_reachable",
-            args: {"server_url": serverUrl, "error_msg": e}));
+        throw translate("login.errors.not_reachable",
+            args: {"server_url": serverUrl, "error_msg": e},);
       } else if (e.message.contains("CERTIFICATE_VERIFY_FAILED")) {
-        throw (translate("login.errors.certificate_failed",
-            args: {"server_url": serverUrl, "error_msg": e}));
+        throw translate("login.errors.certificate_failed",
+            args: {"server_url": serverUrl, "error_msg": e},);
       }
-      throw (translate("login.errors.request_failed", args: {"error_msg": e}));
+      throw translate("login.errors.request_failed", args: {"error_msg": e});
     }
     _cancelToken = null;
 
@@ -74,13 +74,13 @@ class AuthenticationProvider {
             .first
             .text;
       } on XmlParserException catch (e) {
-        throw (translate("login.errors.parse_failed", args: {"error_msg": e}));
+        throw translate("login.errors.parse_failed", args: {"error_msg": e});
       } on StateError catch (e) {
-        throw (translate("login.errors.parse_missing", args: {"error_msg": e}));
+        throw translate("login.errors.parse_missing", args: {"error_msg": e});
       }
 
-      String basicAuth =
-          'Basic ' + base64Encode(utf8.encode('$username:$appPassword'));
+      final String basicAuth =
+          'Basic ${base64Encode(utf8.encode('$username:$appPassword'))}';
 
       return AppAuthentication(
         server: serverUrl,
@@ -89,12 +89,12 @@ class AuthenticationProvider {
         isSelfSignedCertificate: isSelfSignedCertificate,
       );
     } else if (response.statusCode == 401) {
-      throw (translate("login.errors.auth_failed"));
+      throw translate("login.errors.auth_failed");
     } else {
-      throw (translate("login.errors.failure", args: {
+      throw translate("login.errors.failure", args: {
         "status_code": response.statusCode,
         "status_message": response.statusMessage,
-      }));
+      },);
     }
   }
 
@@ -105,22 +105,22 @@ class AuthenticationProvider {
     required bool isSelfSignedCertificate,
   }) async {
     if (serverUrl.substring(0, 4) != 'http') {
-      serverUrl = 'https://' + serverUrl;
+      serverUrl = 'https://$serverUrl';
     }
 
     bool authenticated;
     try {
       authenticated = await checkAppAuthentication(
-          serverUrl, basicAuth, isSelfSignedCertificate);
+          serverUrl, basicAuth, isSelfSignedCertificate,);
     } on dio.DioError catch (e) {
       if (e.message.contains("SocketException")) {
-        throw (translate("login.errors.not_reachable",
-            args: {"server_url": serverUrl, "error_msg": e}));
+        throw translate("login.errors.not_reachable",
+            args: {"server_url": serverUrl, "error_msg": e},);
       } else if (e.message.contains("CERTIFICATE_VERIFY_FAILED")) {
-        throw (translate("login.errors.certificate_failed",
-            args: {"server_url": serverUrl, "error_msg": e}));
+        throw translate("login.errors.certificate_failed",
+            args: {"server_url": serverUrl, "error_msg": e},);
       }
-      throw (translate("login.errors.request_failed", args: {"error_msg": e}));
+      throw translate("login.errors.request_failed", args: {"error_msg": e});
     }
 
     if (authenticated) {
@@ -131,7 +131,7 @@ class AuthenticationProvider {
         isSelfSignedCertificate: isSelfSignedCertificate,
       );
     } else {
-      throw (translate("login.errors.auth_failed"));
+      throw translate("login.errors.auth_failed");
     }
   }
 
@@ -144,17 +144,17 @@ class AuthenticationProvider {
     if (currentAppAuthentication != null) {
       return true;
     } else {
-      String? appAuthentication =
+      final String? appAuthentication =
           await _secureStorage.read(key: _appAuthenticationKey);
       return appAuthentication != null;
     }
   }
 
   Future<void> loadAppAuthentication() async {
-    String? appAuthenticationString =
+    final String? appAuthenticationString =
         await _secureStorage.read(key: _appAuthenticationKey);
     if (appAuthenticationString == null) {
-      throw (translate('login.errors.authentication_not_found'));
+      throw translate('login.errors.authentication_not_found');
     } else {
       currentAppAuthentication =
           AppAuthentication.fromJson(appAuthenticationString);
@@ -167,12 +167,12 @@ class AuthenticationProvider {
     String basicAuth,
     bool isSelfSignedCertificate,
   ) async {
-    String urlAuthCheck =
-        serverUrl + '/index.php/apps/cookbook/api/v1/categories';
+    final String urlAuthCheck =
+        '$serverUrl/index.php/apps/cookbook/api/v1/categories';
 
     dio.Response response;
     try {
-      dio.Dio client = dio.Dio();
+      final dio.Dio client = dio.Dio();
       if (isSelfSignedCertificate) {
         (client.httpClientAdapter as DefaultHttpClientAdapter)
             .onHttpClientCreate = (HttpClient httpClient) {
@@ -183,15 +183,15 @@ class AuthenticationProvider {
       }
       response = await client.get(
         urlAuthCheck,
-        options: new dio.Options(
+        options: dio.Options(
           headers: {"authorization": basicAuth},
           validateStatus: (status) => status! < 500,
         ),
       );
     } on dio.DioError catch (e) {
-      throw (translate("login.errors.no_internet", args: {
+      throw translate("login.errors.no_internet", args: {
         "error_msg": e.message,
-      }));
+      },);
     }
 
     if (response.statusCode == 401) {
@@ -199,17 +199,17 @@ class AuthenticationProvider {
     } else if (response.statusCode == 200) {
       return true;
     } else {
-      throw (translate("login.errors.wrong_status", args: {
+      throw translate("login.errors.wrong_status", args: {
         "error_msg": response.statusCode,
-      }));
+      },);
     }
   }
 
   Future<void> persistAppAuthentication(
-      AppAuthentication appAuthentication) async {
+      AppAuthentication appAuthentication,) async {
     currentAppAuthentication = appAuthentication;
     await _secureStorage.write(
-        key: _appAuthenticationKey, value: appAuthentication.toJson());
+        key: _appAuthenticationKey, value: appAuthentication.toJson(),);
   }
 
   Future<void> deleteAppAuthentication() async {
@@ -217,7 +217,7 @@ class AuthenticationProvider {
     try {
       response = await currentAppAuthentication?.authenticatedClient.delete(
         "${currentAppAuthentication!.server}/ocs/v2.php/core/apppassword",
-        options: new dio.Options(
+        options: dio.Options(
           headers: {
             "OCS-APIREQUEST": "true",
           },

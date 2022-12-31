@@ -9,7 +9,7 @@ import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 class TranslatePreferences implements ITranslatePreferences {
   @override
   Future<Locale> getPreferredLocale() {
-    var locale = Settings.getValue<String>(
+    final locale = Settings.getValue<String>(
       describeEnum(SettingKeys.language),
       defaultValue: Platform.localeName,
     );

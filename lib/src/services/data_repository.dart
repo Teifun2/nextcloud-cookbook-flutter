@@ -25,7 +25,7 @@ class DataRepository {
   CategorySearchProvider categorySearchProvider = CategorySearchProvider();
   RecipeProvider recipeProvider = RecipeProvider();
   CategoriesProvider categoriesProvider = CategoriesProvider();
-  NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
+  final NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
   static String categoryAll = translate('categories.all_categories');
@@ -60,7 +60,7 @@ class DataRepository {
   }
 
   Future<List<Category>> fetchCategoryMainRecipes(
-      List<Category> categories) async {
+      List<Category> categories,) async {
     return await Future.wait(
       categories.map((category) => _fetchCategoryMainRecipe(category)).toList(),
     );
@@ -102,8 +102,9 @@ class DataRepository {
   }
 
   Future<Iterable<String>> getMatchingCategoryNames(String pattern) async {
-    if (!categorySearchProvider.categoriesLoaded)
+    if (!categorySearchProvider.categoriesLoaded) {
       await categoriesProvider.fetchCategories();
+    }
 
     return categorySearchProvider.getMatchingCategoryNames(pattern);
   }

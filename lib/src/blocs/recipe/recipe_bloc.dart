@@ -22,7 +22,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeLoadedToState(
-      RecipeLoaded recipeLoaded) async* {
+      RecipeLoaded recipeLoaded,) async* {
     try {
       yield RecipeLoadInProgress();
       final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
@@ -33,10 +33,10 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeUpdatedToState(
-      RecipeUpdated recipeUpdated) async* {
+      RecipeUpdated recipeUpdated,) async* {
     try {
       yield RecipeUpdateInProgress();
-      int recipeId = await dataRepository.updateRecipe(recipeUpdated.recipe);
+      final int recipeId = await dataRepository.updateRecipe(recipeUpdated.recipe);
       yield RecipeUpdateSuccess(recipeId);
     } catch (_) {
       yield RecipeUpdateFailure(_.toString());
@@ -44,10 +44,10 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeCreatedToState(
-      RecipeCreated recipeCreated) async* {
+      RecipeCreated recipeCreated,) async* {
     try {
       yield RecipeCreateInProgress();
-      int recipeId = await dataRepository.createRecipe(recipeCreated.recipe);
+      final int recipeId = await dataRepository.createRecipe(recipeCreated.recipe);
       yield RecipeCreateSuccess(recipeId);
     } catch (_) {
       yield RecipeCreateFailure(_.toString());
@@ -55,10 +55,10 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeImportedToState(
-      RecipeImported recipeImported) async* {
+      RecipeImported recipeImported,) async* {
     try {
       yield RecipeImportInProgress();
-      Recipe recipe = await dataRepository.importRecipe(recipeImported.url);
+      final Recipe recipe = await dataRepository.importRecipe(recipeImported.url);
       yield RecipeImportSuccess(recipe.id);
     } catch (_) {
       yield RecipeImportFailure(_.toString());

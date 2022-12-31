@@ -10,10 +10,10 @@ class VersionProvider {
   Future<ApiVersion> fetchApiVersion() async {
     warningWasShown = false;
 
-    AppAuthentication appAuthentication =
+    final AppAuthentication appAuthentication =
         UserRepository().currentAppAuthentication;
 
-    var response = await appAuthentication.authenticatedClient
+    final response = await appAuthentication.authenticatedClient
         .get("${appAuthentication.server}/index.php/apps/cookbook/api/version");
 
     if (response.statusCode == 200 &&
@@ -57,15 +57,15 @@ class ApiVersion {
   );
 
   static ApiVersion decodeJsonApiVersion(jsonString) {
-    Map<String, dynamic> data = json.decode(jsonString);
+    final Map<String, dynamic> data = json.decode(jsonString);
 
     if (!(data.containsKey("cookbook_version") &&
         data.containsKey("api_version"))) {
       throw Exception("Required Fields not present!\n$jsonString");
     }
 
-    List<int> appVersion = data["cookbook_version"].cast<int>();
-    var apiVersion = data["api_version"];
+    final List<int> appVersion = data["cookbook_version"].cast<int>();
+    final apiVersion = data["api_version"];
 
     if (!(appVersion.length == 3 &&
         apiVersion.containsKey("major") &&

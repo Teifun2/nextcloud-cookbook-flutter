@@ -37,7 +37,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
             title: Text(translate(
               'recipe_list.title_category',
               args: {'category': widget.category},
-            )),
+            ),),
             actions: <Widget>[
               // action button
               IconButton(
@@ -60,13 +60,13 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                   .add(RecipesShortLoaded(category: widget.category));
               return Future.value(true);
             },
-            child: (() {
+            child: () {
               if (recipesShortState is RecipesShortLoadSuccess) {
                 return _buildRecipesShortScreen(recipesShortState.recipesShort);
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
-            }()),
+            }(),
           ),
         );
       },
@@ -81,7 +81,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
         itemBuilder: (context, index) {
           return _buildRecipeShortScreen(data[index]);
         },
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black,
         ),
       ),
@@ -105,7 +105,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
             MaterialPageRoute(
               builder: (context) =>
                   RecipeScreen(recipeId: recipeShort.recipeId),
-            ));
+            ),);
       },
     );
   }

@@ -18,10 +18,10 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
   }
 
   Stream<RecipesShortState> _mapRecipesShortLoadedToState(
-      RecipesShortLoaded recipesShortLoaded) async* {
+      RecipesShortLoaded recipesShortLoaded,) async* {
     try {
       final recipesShort = await dataRepository.fetchRecipesShort(
-          category: recipesShortLoaded.category);
+          category: recipesShortLoaded.category,);
       yield RecipesShortLoadSuccess(recipesShort);
     } catch (_) {
       yield RecipesShortLoadFailure();
@@ -29,7 +29,7 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
   }
 
   Stream<RecipesShortState> _mapRecipesShortLoadedAllToState(
-      RecipesShortLoadedAll recipesShortLoadedAll) async* {
+      RecipesShortLoadedAll recipesShortLoadedAll,) async* {
     try {
       yield RecipesShortLoadAllInProgress();
       final recipesShort = await dataRepository.fetchAllRecipes();

@@ -18,10 +18,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   Stream<CategoriesState> _mapCategoriesLoadedToState() async* {
     try {
       yield CategoriesLoadInProgress();
-      List<Category> categories = await dataRepository.fetchCategories();
+      final List<Category> categories = await dataRepository.fetchCategories();
       dataRepository.updateCategoryNames(categories);
       yield CategoriesLoadSuccess(categories: categories);
-      List<Category> categoriesWithImage =
+      final List<Category> categoriesWithImage =
           await dataRepository.fetchCategoryMainRecipes(categories);
       yield CategoriesImageLoadSuccess(categories: categoriesWithImage);
     } on Exception catch (e) {

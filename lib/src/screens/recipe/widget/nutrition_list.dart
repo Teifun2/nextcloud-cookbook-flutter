@@ -18,16 +18,15 @@ class NutritionList extends StatelessWidget {
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           title: Text(translate('recipe.fields.nutrition.title')),
-          initiallyExpanded: false,
           children: [
             Wrap(
                 spacing: 10,
                 runSpacing: 10,
                 children: _nutrition.entries
                     .map((e) => NutritionListItem(
-                        translate('recipe.fields.nutrition.items.' + e.key),
-                        e.value))
-                    .toList()),
+                        translate('recipe.fields.nutrition.items.${e.key}'),
+                        e.value,),)
+                    .toList(),),
           ],
         ),
       ),

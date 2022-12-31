@@ -15,32 +15,30 @@ class LoadingScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (authenticationState is! AuthenticationError)
                   SpinKitWave(
                     color: Theme.of(context).primaryColor,
-                    size: 50.0,
                   ),
                 if (authenticationState is AuthenticationError)
                   Text(authenticationState.errorMsg),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 if (authenticationState is AuthenticationError)
                   ElevatedButton(
                       onPressed: () {
                         BlocProvider.of<AuthenticationBloc>(context)
                             .add(AppStarted());
                       },
-                      child: Text(translate("login.retry"))),
-                SizedBox(height: 10),
+                      child: Text(translate("login.retry")),),
+                const SizedBox(height: 10),
                 if (authenticationState is AuthenticationError)
                   ElevatedButton(
                       onPressed: () {
                         BlocProvider.of<AuthenticationBloc>(context)
                             .add(LoggedOut());
                       },
-                      child: Text(translate("login.reset"))),
+                      child: Text(translate("login.reset")),),
               ],
             ),
           );

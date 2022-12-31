@@ -141,12 +141,12 @@ class _ReorderableListViewState extends State<ReorderableListView> {
       builder: (BuildContext context) {
         return _ReorderableListContent(
           header: widget.header,
-          children: widget.children,
           scrollController: widget.scrollController,
           scrollDirection: widget.scrollDirection,
           onReorder: widget.onReorder,
           padding: widget.padding,
           reverse: widget.reverse,
+          children: widget.children,
         );
       },
     );
@@ -156,7 +156,7 @@ class _ReorderableListViewState extends State<ReorderableListView> {
   Widget build(BuildContext context) {
     return Overlay(key: _overlayKey, initialEntries: <OverlayEntry>[
       _listOverlayEntry,
-    ]);
+    ],);
   }
 }
 
@@ -410,7 +410,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
       // If the item can move to before its current position in the list.
       if (index > 0) {
         semanticsActions[CustomSemanticsAction(
-            label: localizations.reorderItemToStart)] = moveToStart;
+            label: localizations.reorderItemToStart,)] = moveToStart;
         String reorderItemBefore = localizations.reorderItemUp;
         if (widget.scrollDirection == Axis.horizontal) {
           reorderItemBefore = Directionality.of(context) == TextDirection.ltr
@@ -454,7 +454,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
     }
 
     Widget buildDragTarget(BuildContext context, List<Key?> acceptedCandidates,
-        List<dynamic> rejectedCandidates) {
+        List<dynamic> rejectedCandidates,) {
       final Widget toWrapWithSemantics = wrapWithSemantics();
 
       // We build the draggable inside of a layout builder so that we can
@@ -473,7 +473,6 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
             child: toWrapWithSemantics,
           ),
         ),
-        child: _dragging == toWrap.key ? const SizedBox() : toWrapWithSemantics,
         childWhenDragging: const SizedBox(),
         onDragStarted: onDragStarted,
         dragAnchorStrategy: childDragAnchorStrategy,
@@ -486,6 +485,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
         onDraggableCanceled: (Velocity velocity, Offset offset) {
           onDragEnded();
         },
+        child: _dragging == toWrap.key ? const SizedBox() : toWrapWithSemantics,
       );
 
       // The target for dropping at the end of the list doesn't need to be
@@ -516,7 +516,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
             child: spacing,
           ),
           child,
-        ]);
+        ],);
       }
       // We close up the space under where the dragging widget previously was
       // with the ghostController animation.
@@ -528,7 +528,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
             child: spacing,
           ),
           child,
-        ]);
+        ],);
       }
       return child;
     }
@@ -547,7 +547,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
           return _dragging == toAccept && toAccept != toWrap.key;
         },
       );
-    });
+    },);
   }
 
   @override
@@ -581,7 +581,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
       final bool hasMoreThanOneChildElement = widget.children.length > 1;
 
       return ListView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: widget.scrollDirection,
         padding: widget.padding,
@@ -597,7 +597,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
             _wrap(finalDropArea, widget.children.length, constraints),
         ],
       );
-    });
+    },);
   }
 }
 

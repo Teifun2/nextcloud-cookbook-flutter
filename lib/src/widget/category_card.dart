@@ -24,10 +24,10 @@ class CategoryCard extends StatelessWidget {
           ShaderMask(
             blendMode: BlendMode.srcATop,
             shaderCallback: (bounds) {
-              return LinearGradient(
+              return const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.center,
-                      colors: <Color>[Colors.black, Colors.transparent])
+                      colors: <Color>[Colors.black, Colors.transparent],)
                   .createShader(bounds);
             },
             child: category.firstRecipeId != 0
@@ -43,7 +43,7 @@ class CategoryCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     child: Container(
                       color: Colors.grey[400],
-                      child: Center(
+                      child: const Center(
                         child: CircularProgressIndicator(),
                       ),
                     ),
@@ -80,8 +80,8 @@ class CategoryCard extends StatelessWidget {
                 child: Center(
                     child: Text(
                   category.recipeCount.toString(),
-                  style: TextStyle(color: Colors.white),
-                )),
+                  style: const TextStyle(color: Colors.white),
+                ),),
               ),
             ),
           ),

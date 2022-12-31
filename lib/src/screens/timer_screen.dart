@@ -22,7 +22,7 @@ class _TimerScreen extends State<TimerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    this._list = TimerList().timers;
+    _list = TimerList().timers;
 
     return Scaffold(
       appBar: AppBar(
@@ -41,9 +41,9 @@ class _TimerScreen extends State<TimerScreen> {
           ),
         ],
       ),
-      body: (() {
-        return _buildTimerScreen(this._list);
-      }()),
+      body: () {
+        return _buildTimerScreen(_list);
+      }(),
     );
   }
 
@@ -55,7 +55,7 @@ class _TimerScreen extends State<TimerScreen> {
         itemBuilder: (context, index) {
           return _buildListItem(data[index]);
         },
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black,
         ),
       ),
@@ -77,11 +77,11 @@ class _TimerScreen extends State<TimerScreen> {
       ),
       isThreeLine: true,
       trailing: IconButton(
-          icon: Icon(Icons.cancel),
+          icon: const Icon(Icons.cancel),
           onPressed: () {
             timer.cancel();
             setState(() {});
-          }),
+          },),
       onTap: () {
         Navigator.push(
           context,

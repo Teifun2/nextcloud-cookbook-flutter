@@ -1,4 +1,4 @@
-import 'poll.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/poll.dart';
 
 class InitialLogin {
   Poll poll;

@@ -1,13 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:timezone/data/latest_10y.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-
-import '../models/timer.dart';
 
 const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
@@ -38,13 +35,13 @@ class NotificationService {
     // initialize Timezone Database
     tz.initializeTimeZones();
     tz.setLocalLocation(
-        tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()));
+        tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()),);
 
-    final AndroidInitializationSettings initializationSettingsAndroid =
+    const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('notification_icon');
 
     Future onDidReceiveLocalNotification(
-        int id, String? title, String? body, String? payload) async {
+        int id, String? title, String? body, String? payload,) async {
       // display a dialog with the notification details, tap ok to go to another page
       /* showDialog(
         // context: context,
@@ -66,13 +63,12 @@ class NotificationService {
 
     final DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
-            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification,);
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
             android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS,
-            macOS: null);
+            iOS: initializationSettingsIOS,);
 
     // Notification was triggered and the user clicked on it
     Future selectNotification(NotificationResponse payload) async {
@@ -87,25 +83,25 @@ class NotificationService {
     // Loading pending notifications an rebuild timers
     final pendingNotificationRequests =
         await _localNotifications.pendingNotificationRequests();
-    pendingNotificationRequests.forEach((PendingNotificationRequest element) {
+    for (final element in pendingNotificationRequests) {
       if (element.payload != null) {
-        Map<String, dynamic> data = jsonDecode(element.payload!);
-        Timer timer = Timer.fromJson(data, element.id);
-        if (timer.id > this.curId) this.curId = timer.id;
+        final Map<String, dynamic> data = jsonDecode(element.payload!);
+        final Timer timer = Timer.fromJson(data, element.id);
+        if (timer.id > curId) curId = timer.id;
       }
-    });
+    }
   }
 
   int start(Timer timer) {
-    this.curId++;
-    timer.id = this.curId;
-    _localNotifications.zonedSchedule(this.curId, timer.title, timer.body,
+    curId++;
+    timer.id = curId;
+    _localNotifications.zonedSchedule(curId, timer.title, timer.body,
         timer.done, platformChannelSpecifics,
         payload: jsonEncode(timer.toJson()),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.wallClockTime);
-    return this.curId;
+            UILocalNotificationDateInterpretation.wallClockTime,);
+    return curId;
   }
 
   cancel(Timer timer) {

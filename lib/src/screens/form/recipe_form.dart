@@ -11,7 +11,7 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_fi
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
 typedef RecipeFormSubmit = void Function(
-    MutableRecipe mutableRecipe, BuildContext context);
+    MutableRecipe mutableRecipe, BuildContext context,);
 
 class RecipeForm extends StatefulWidget {
   final Recipe recipe;
@@ -60,7 +60,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   children: <Widget>[
                     Text(
                       translate('recipe.fields.name'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -79,7 +79,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   children: <Widget>[
                     Text(
                       translate('recipe.fields.description'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -100,7 +100,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   children: <Widget>[
                     Text(
                       translate('recipe.fields.category'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -108,7 +108,7 @@ class _RecipeFormState extends State<RecipeForm> {
                     TypeAheadFormField(
                       getImmediateSuggestions: true,
                       textFieldConfiguration: TextFieldConfiguration(
-                        controller: this.categoryController,
+                        controller: categoryController,
                       ),
                       suggestionsCallback: (pattern) async {
                         return await DataRepository()
@@ -124,11 +124,11 @@ class _RecipeFormState extends State<RecipeForm> {
                       },
                       onSuggestionSelected: (String? suggestion) {
                         if (suggestion == null) return;
-                        this.categoryController.text = suggestion;
+                        categoryController.text = suggestion;
                       },
                       onSaved: (value) {
                         if (value == null) return;
-                        this._mutableRecipe.recipeCategory = value;
+                        _mutableRecipe.recipeCategory = value;
                       },
                     )
                   ],
@@ -138,7 +138,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   children: <Widget>[
                     Text(
                       translate('recipe.fields.keywords'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -157,7 +157,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   children: <Widget>[
                     Text(
                       translate('recipe.fields.source'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -176,14 +176,14 @@ class _RecipeFormState extends State<RecipeForm> {
                   children: <Widget>[
                     Text(
                       translate('recipe.fields.image'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
                     TextFormField(
                       enabled: false,
-                      style: TextStyle(color: Colors.grey),
+                      style: const TextStyle(color: Colors.grey),
                       initialValue: recipe.imageUrl,
                       onChanged: (value) {
                         _mutableRecipe.imageUrl = value;
@@ -196,7 +196,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   children: <Widget>[
                     Text(
                       translate('recipe.fields.servings'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -246,7 +246,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   onSave: (value) =>
                       {_mutableRecipe.recipeInstructions = value},
                 ),
-                Container(
+                SizedBox(
                   width: 150,
                   child: ElevatedButton(
                     onPressed: () {
@@ -258,7 +258,7 @@ class _RecipeFormState extends State<RecipeForm> {
                     child: () {
                       switch (state.runtimeType) {
                         case RecipeUpdateInProgress:
-                          return SpinKitWave(color: Colors.white, size: 30.0);
+                          return const SpinKitWave(color: Colors.white, size: 30.0);
                         case RecipeUpdateFailure:
                         case RecipeUpdateSuccess:
                         case RecipeLoadSuccess:

@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/authentication_provider.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
-
-import '../models/app_authentication.dart';
 
 class UserRepository {
   // Singleton
@@ -73,7 +72,7 @@ class UserRepository {
   }
 
   Future<void> persistAppAuthentication(
-      AppAuthentication appAuthentication) async {
+      AppAuthentication appAuthentication,) async {
     return authenticationProvider.persistAppAuthentication(appAuthentication);
   }
 

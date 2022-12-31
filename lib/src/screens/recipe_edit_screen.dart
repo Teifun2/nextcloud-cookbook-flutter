@@ -17,7 +17,7 @@ class RecipeEditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
+        final RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
         if (recipeBloc.state is RecipeUpdateFailure) {
           recipeBloc.add(RecipeLoaded(recipe.id));
         }
@@ -32,7 +32,7 @@ class RecipeEditScreen extends StatelessWidget {
                     SnackBar(
                       content: Text(translate(
                           'recipe_edit.errors.update_failed',
-                          args: {"error_msg": state.errorMsg})),
+                          args: {"error_msg": state.errorMsg},),),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -42,7 +42,7 @@ class RecipeEditScreen extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-              child: Text(translate('recipe_edit.title'))),
+              child: Text(translate('recipe_edit.title')),),
         ),
         body: RecipeForm(
           recipe,

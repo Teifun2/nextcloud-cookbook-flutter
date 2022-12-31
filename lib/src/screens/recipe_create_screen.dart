@@ -5,7 +5,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 
-import 'recipe/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 
 class RecipeCreateScreen extends StatelessWidget {
   final Recipe recipe;
@@ -28,7 +28,7 @@ class RecipeCreateScreen extends StatelessWidget {
                     SnackBar(
                       content: Text(translate(
                           'recipe_create.errors.update_failed',
-                          args: {"error_msg": state.errorMsg})),
+                          args: {"error_msg": state.errorMsg},),),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -42,7 +42,7 @@ class RecipeCreateScreen extends StatelessWidget {
                   );
                 }
               },
-              child: Text(translate('recipe_create.title'))),
+              child: Text(translate('recipe_create.title')),),
         ),
         body: RecipeForm(
           recipe,

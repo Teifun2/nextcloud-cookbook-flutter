@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-
-import '../../services/user_repository.dart';
-import 'authentication.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -13,7 +12,7 @@ class AuthenticationBloc
 
   @override
   Stream<AuthenticationState> mapEventToState(
-      AuthenticationEvent event) async* {
+      AuthenticationEvent event,) async* {
     if (event is AppStarted) {
       final bool hasToken = await userRepository.hasAppAuthentication();
 

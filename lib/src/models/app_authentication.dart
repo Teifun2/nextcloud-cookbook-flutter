@@ -23,23 +23,22 @@ class AppAuthentication {
     authenticatedClient.options.responseType = ResponseType.plain;
 
     if (isSelfSignedCertificate) {
-      HttpOverrides.global = new SelfSignedCertificateHttpOverride();
+      HttpOverrides.global = SelfSignedCertificateHttpOverride();
     }
   }
 
   factory AppAuthentication.fromJson(String jsonString) {
-    Map<String, dynamic> jsonData = json.decode(jsonString);
+    final Map<String, dynamic> jsonData = json.decode(jsonString);
 
-    String basicAuth = jsonData.containsKey("basicAuth")
+    final String basicAuth = jsonData.containsKey("basicAuth")
         ? jsonData['basicAuth']
-        : 'Basic ' +
-            base64Encode(
+        : 'Basic ${base64Encode(
               utf8.encode(
                 '${jsonData["loginName"]}:${jsonData["appPassword"]}',
               ),
-            );
+            )}';
 
-    bool selfSignedCertificate = jsonData.containsKey("isSelfSignedCertificate")
+    final bool selfSignedCertificate = jsonData.containsKey("isSelfSignedCertificate")
         ? jsonData['isSelfSignedCertificate']
         : false;
 
@@ -47,7 +46,7 @@ class AppAuthentication {
         server: jsonData["server"],
         loginName: jsonData["loginName"],
         basicAuth: basicAuth,
-        isSelfSignedCertificate: selfSignedCertificate);
+        isSelfSignedCertificate: selfSignedCertificate,);
   }
 
   String toJson() {
