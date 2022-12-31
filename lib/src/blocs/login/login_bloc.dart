@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 
@@ -13,10 +12,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationBloc authenticationBloc;
 
   LoginBloc({
-    @required this.authenticationBloc,
-  }) : super(LoginInitial()) {
-    assert(authenticationBloc != null);
-  }
+    required this.authenticationBloc,
+  }) : super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {

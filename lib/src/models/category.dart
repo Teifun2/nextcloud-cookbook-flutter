@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 class Category extends Equatable {
   final String name;
   final int recipeCount;
-  int firstRecipeId;
+  int firstRecipeId = 0;
 
   Category(this.name, this.recipeCount);
 
@@ -16,7 +16,7 @@ class Category extends Equatable {
             : int.parse(json["recipe_count"]);
 
   @override
-  List<Object> get props => [name];
+  List<String> get props => [name];
 
   static List<Category> parseCategories(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();

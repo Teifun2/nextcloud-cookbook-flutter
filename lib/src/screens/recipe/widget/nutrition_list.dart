@@ -5,7 +5,10 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/nutrition_l
 class NutritionList extends StatelessWidget {
   final Map<String, String> _nutrition;
 
-  const NutritionList(this._nutrition);
+  const NutritionList(
+    this._nutrition, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

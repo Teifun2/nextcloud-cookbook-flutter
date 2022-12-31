@@ -62,6 +62,8 @@ void main() async {
 }
 
 class App extends StatefulWidget {
+  const App({super.key});
+
   @override
   State<App> createState() => _AppState();
 }
@@ -81,13 +83,10 @@ class _AppState extends State<App> {
     );
 
     // Update Localization if Settings are set!
-    String savedLocalization = Settings.getValue<String>(
+    var savedLocalization = Settings.getValue<String>(
       describeEnum(SettingKeys.language),
-      defaultValue: 'default',
     );
-    if (savedLocalization != 'default') {
-      changeLocale(context, savedLocalization);
-    }
+    changeLocale(context, savedLocalization);
   }
 
   @override

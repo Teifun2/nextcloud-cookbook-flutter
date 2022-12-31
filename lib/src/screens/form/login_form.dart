@@ -11,6 +11,8 @@ import 'package:punycode/punycode.dart';
 import '../../blocs/login/login.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
@@ -29,7 +31,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
-  Function authenticateInterruptCallback;
+  late Function authenticateInterruptCallback;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -57,9 +59,9 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
     };
 
     _onLoginButtonPressed() {
-      _formKey.currentState.save();
+      _formKey.currentState?.save();
 
-      if (_formKey.currentState.validate()) {
+      if (_formKey.currentState?.validate() ?? false) {
         String serverUrl = _punyEncodeUrl(_serverUrl.text);
         String username = _username.text.trim();
         String password = _password.text.trim();
@@ -110,7 +112,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         controller: _serverUrl,
                         keyboardType: TextInputType.url,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return translate(
                                 'login.server_url.validator.empty');
                           }
@@ -168,10 +170,11 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                   children: [
                                     CheckboxFormField(
                                       initialValue: advancedIsAppPassword,
-                                      onSaved: (bool checked) => {
+                                      onSaved: (bool? checked) {
+                                        if (checked == null) return;
                                         setState(() {
                                           advancedIsAppPassword = checked;
-                                        })
+                                        });
                                       },
                                       title: Text(translate(
                                           'login.settings.app_password')),
@@ -179,11 +182,13 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                     CheckboxFormField(
                                       initialValue:
                                           advancedIsSelfSignedCertificate,
-                                      onSaved: (bool checked) => {
+                                      onSaved: (bool? checked) {
+                                        if (checked == null) return;
+
                                         setState(() {
                                           advancedIsSelfSignedCertificate =
                                               checked;
-                                        })
+                                        });
                                       },
                                       title: Text(translate(
                                           'login.settings.self_signed_certificate')),
@@ -243,7 +248,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
     }
 
     while (expression.hasMatch(url)) {
-      String match = expression.firstMatch(url).group(1);
+      String match = expression.firstMatch(url)!.group(1)!;
       url = url.replaceFirst(match, "xn--" + punycodeEncode(match));
     }
 

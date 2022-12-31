@@ -18,7 +18,12 @@ class RecipeForm extends StatefulWidget {
   final String buttonSubmitText;
   final RecipeFormSubmit recipeFormSubmit;
 
-  const RecipeForm(this.recipe, this.buttonSubmitText, this.recipeFormSubmit);
+  const RecipeForm(
+    this.recipe,
+    this.buttonSubmitText,
+    this.recipeFormSubmit, {
+    super.key,
+  });
 
   @override
   _RecipeFormState createState() => _RecipeFormState();
@@ -26,9 +31,9 @@ class RecipeForm extends StatefulWidget {
 
 class _RecipeFormState extends State<RecipeForm> {
   final _formKey = GlobalKey<FormState>();
-  Recipe recipe;
-  MutableRecipe _mutableRecipe;
-  TextEditingController categoryController;
+  late Recipe recipe;
+  late MutableRecipe _mutableRecipe;
+  late TextEditingController categoryController;
 
   @override
   void initState() {
@@ -61,7 +66,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                     ),
                     TextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
+                      enabled: state is! RecipeUpdateInProgress,
                       initialValue: recipe.name,
                       onChanged: (value) {
                         _mutableRecipe.name = value;
@@ -80,7 +85,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                     ),
                     TextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
+                      enabled: state is! RecipeUpdateInProgress,
                       initialValue: recipe.description,
                       maxLines: 100,
                       minLines: 1,
@@ -109,15 +114,20 @@ class _RecipeFormState extends State<RecipeForm> {
                         return await DataRepository()
                             .getMatchingCategoryNames(pattern);
                       },
-                      itemBuilder: (context, String suggestion) {
-                        return ListTile(
-                          title: Text(suggestion),
-                        );
+                      itemBuilder: (context, String? suggestion) {
+                        if (suggestion != null) {
+                          return ListTile(
+                            title: Text(suggestion),
+                          );
+                        }
+                        return const SizedBox();
                       },
-                      onSuggestionSelected: (String suggestion) {
+                      onSuggestionSelected: (String? suggestion) {
+                        if (suggestion == null) return;
                         this.categoryController.text = suggestion;
                       },
                       onSaved: (value) {
+                        if (value == null) return;
                         this._mutableRecipe.recipeCategory = value;
                       },
                     )
@@ -134,7 +144,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                     ),
                     TextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
+                      enabled: state is! RecipeUpdateInProgress,
                       initialValue: recipe.keywords,
                       onChanged: (value) {
                         _mutableRecipe.keywords = value;
@@ -153,7 +163,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                     ),
                     TextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
+                      enabled: state is! RecipeUpdateInProgress,
                       initialValue: recipe.url,
                       onChanged: (value) {
                         _mutableRecipe.url = value;
@@ -192,7 +202,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                     ),
                     IntegerTextFormField(
-                      enabled: !(state is RecipeUpdateInProgress),
+                      enabled: state is! RecipeUpdateInProgress,
                       initialValue: recipe.recipeYield,
                       onChanged: (value) => _mutableRecipe.recipeYield = value,
                       onSaved: (value) => _mutableRecipe.recipeYield = value,
@@ -240,21 +250,23 @@ class _RecipeFormState extends State<RecipeForm> {
                   width: 150,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
+                      if (_formKey.currentState?.validate() ?? false) {
+                        _formKey.currentState?.save();
                         widget.recipeFormSubmit(_mutableRecipe, context);
                       }
                     },
                     child: () {
-                      if (state is RecipeUpdateInProgress) {
-                        return SpinKitWave(color: Colors.white, size: 30.0);
-                      } else if (state is RecipeUpdateFailure ||
-                          state is RecipeUpdateSuccess ||
-                          state is RecipeLoadSuccess ||
-                          state is RecipeCreateSuccess ||
-                          state is RecipeCreateFailure ||
-                          state is RecipeInitial) {
-                        return Text(widget.buttonSubmitText);
+                      switch (state.runtimeType) {
+                        case RecipeUpdateInProgress:
+                          return SpinKitWave(color: Colors.white, size: 30.0);
+                        case RecipeUpdateFailure:
+                        case RecipeUpdateSuccess:
+                        case RecipeLoadSuccess:
+                        case RecipeCreateSuccess:
+                        case RecipeCreateFailure:
+                        case RecipeInitial:
+                        default:
+                          return Text(widget.buttonSubmitText);
                       }
                     }(),
                   ),

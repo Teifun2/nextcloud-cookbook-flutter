@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 
@@ -14,7 +13,7 @@ class AppStarted extends AuthenticationEvent {}
 class LoggedIn extends AuthenticationEvent {
   final AppAuthentication appAuthentication;
 
-  const LoggedIn({@required this.appAuthentication});
+  const LoggedIn({required this.appAuthentication});
 
   @override
   List<Object> get props => [appAuthentication];

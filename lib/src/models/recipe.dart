@@ -24,23 +24,24 @@ class Recipe extends Equatable {
   final Map<String, dynamic> remainingData;
 
   const Recipe._(
-      this.id,
-      this.name,
-      this.imageUrl,
-      this.recipeCategory,
-      this.description,
-      this.nutrition,
-      this.recipeIngredient,
-      this.recipeInstructions,
-      this.tool,
-      this.recipeYield,
-      this.prepTime,
-      this.cookTime,
-      this.totalTime,
-      this.keywords,
-      this.image,
-      this.url,
-      this.remainingData);
+    this.id,
+    this.name,
+    this.imageUrl,
+    this.recipeCategory,
+    this.description,
+    this.nutrition,
+    this.recipeIngredient,
+    this.recipeInstructions,
+    this.tool,
+    this.recipeYield,
+    this.prepTime,
+    this.cookTime,
+    this.totalTime,
+    this.keywords,
+    this.image,
+    this.url,
+    this.remainingData,
+  );
 
   factory Recipe.empty() {
     return Recipe._(
@@ -67,17 +68,17 @@ class Recipe extends Equatable {
   factory Recipe(String jsonString) {
     Map<String, dynamic> data = json.decode(jsonString);
 
-    int id = data["id"];
-    String name = data["name"];
-    String imageUrl = data["imageUrl"];
-    String recipeCategory = data["recipeCategory"];
-    String description = data["description"];
+    int id = data["id"] ?? 0;
+    String name = data["name"] ?? '';
+    String imageUrl = data["imageUrl"] ?? '';
+    String recipeCategory = data["recipeCategory"] ?? '';
+    String description = data["description"] ?? '';
 
     Map<String, String> recipeNutrition = {};
 
     if (data["nutrition"] is Map<String, dynamic>) {
       recipeNutrition = (data["nutrition"] as Map<String, dynamic>)
-          .map((key, value) => MapEntry(key, value?.toString()))
+          .map((key, value) => MapEntry(key, value.toString()))
         ..removeWhere((key, value) =>
             !NutritionUtility.nutritionProperties.contains(key));
       data["nutrition"] = (data["nutrition"] as Map<String, dynamic>)
@@ -109,25 +110,25 @@ class Recipe extends Equatable {
       tool = data["tool"].cast<String>().toList();
     }
 
-    int recipeYield = data["recipeYield"];
-    Duration prepTime = data.containsKey("prepTime") &&
+    int recipeYield = data["recipeYield"] ?? 1;
+    Duration? prepTime = data.containsKey("prepTime") &&
             data["prepTime"] != "" &&
             data["prepTime"] != null
         ? IsoTimeFormat.toDuration(data["prepTime"])
-        : null;
-    Duration cookTime = data.containsKey("cookTime") &&
+        : Duration.zero;
+    Duration? cookTime = data.containsKey("cookTime") &&
             data["cookTime"] != "" &&
             data["cookTime"] != null
         ? IsoTimeFormat.toDuration(data["cookTime"])
-        : null;
+        : Duration.zero;
     Duration totalTime = data.containsKey("totalTime") &&
             data["totalTime"] != "" &&
             data["totalTime"] != null
         ? IsoTimeFormat.toDuration(data["totalTime"])
-        : null;
-    String keywords = data["keywords"];
-    String image = data["image"];
-    String url = data["url"];
+        : Duration.zero;
+    String keywords = data["keywords"] ?? '';
+    String image = data["image"] ?? '';
+    String url = data["url"] ?? '';
 
     data.remove("id");
     data.remove("name");
@@ -226,9 +227,9 @@ class Recipe extends Equatable {
   }
 
   @override
-  List<Object> get props => [id];
+  List<int> get props => [id];
 
-  String _durationToIso(Duration duration) {
+  String _durationToIso(Duration? duration) {
     if (duration != null && duration.inMinutes != 0) {
       return "PT${duration.inHours}H${duration.inMinutes % 60}M";
     } else {
@@ -238,23 +239,23 @@ class Recipe extends Equatable {
 }
 
 class MutableRecipe {
-  int id;
-  String name;
-  String imageUrl;
-  String recipeCategory;
-  String description;
-  Map<String, String> nutrition;
-  List<String> recipeIngredient;
-  List<String> recipeInstructions;
-  List<String> tool;
-  int recipeYield;
-  Duration prepTime;
-  Duration cookTime;
-  Duration totalTime;
-  String keywords;
-  String image;
-  String url;
-  Map<String, dynamic> remainingData;
+  int id = 0;
+  String name = '';
+  String imageUrl = '';
+  String recipeCategory = '';
+  String description = '';
+  Map<String, String> nutrition = {};
+  List<String> recipeIngredient = [];
+  List<String> recipeInstructions = [];
+  List<String> tool = [];
+  int recipeYield = 0;
+  Duration prepTime = Duration.zero;
+  Duration cookTime = Duration.zero;
+  Duration totalTime = Duration.zero;
+  String keywords = '';
+  String image = '';
+  String url = '';
+  Map<String, dynamic> remainingData = {};
 
   Recipe toRecipe() {
     return Recipe._(

@@ -3,14 +3,12 @@ import 'package:timezone/timezone.dart' as tz;
 import '../services/notification_provider.dart';
 
 class TimerList {
-  static final TimerList _timerList = TimerList._internal();
-  List<Timer> timers = <Timer>[];
+  static const TimerList _instance = TimerList._();
+  final List<Timer> timers;
 
-  factory TimerList() {
-    return _timerList;
-  }
+  factory TimerList() => _instance;
 
-  TimerList._internal();
+  const TimerList._() : timers = const <Timer>[];
 
   List<Timer> get(int recipeId) {
     List<Timer> l = <Timer>[];
@@ -27,11 +25,11 @@ class TimerList {
 }
 
 class Timer {
-  final String title;
+  final String? title;
   final String body;
   final Duration duration;
-  int id;
-  tz.TZDateTime done;
+  int id = 0;
+  final tz.TZDateTime done;
   final int recipeId;
 
   Timer(
@@ -39,13 +37,11 @@ class Timer {
     this.title,
     this.body,
     this.duration, [
-    tz.TZDateTime done,
-  ]) {
-    this.done = tz.TZDateTime.now(tz.local).add(this.duration);
-  }
+    tz.TZDateTime? done,
+  ]) : this.done = tz.TZDateTime.now(tz.local).add(duration);
 
   // Restore Timer fom pending notification
-  Timer.restore(
+  Timer._restore(
     this.recipeId,
     this.title,
     this.body,
@@ -55,13 +51,14 @@ class Timer {
   );
 
   factory Timer.fromJson(Map<String, dynamic> json, int id) {
-    Timer timer = Timer.restore(
-        json['recipeId'],
-        json['title'],
-        json['body'],
-        new Duration(minutes: json['duration']),
-        tz.TZDateTime.fromMicrosecondsSinceEpoch(tz.local, json['done']),
-        id);
+    Timer timer = Timer._restore(
+      json['recipeId'],
+      json['title'],
+      json['body'],
+      new Duration(minutes: json['duration']),
+      tz.TZDateTime.fromMicrosecondsSinceEpoch(tz.local, json['done']),
+      id,
+    );
     TimerList().timers.add(timer);
     return timer;
   }

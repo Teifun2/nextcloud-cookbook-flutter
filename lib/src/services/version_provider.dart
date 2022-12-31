@@ -4,14 +4,14 @@ import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class VersionProvider {
-  ApiVersion _currentApiVersion;
+  late ApiVersion _currentApiVersion;
   bool warningWasShown = false;
 
   Future<ApiVersion> fetchApiVersion() async {
     warningWasShown = false;
 
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     var response = await appAuthentication.authenticatedClient
         .get("${appAuthentication.server}/index.php/apps/cookbook/api/version");
@@ -40,8 +40,8 @@ class ApiVersion {
   static const int CONFIRMED_MAJOR_API_VERSION = 1;
   static const int CONFIRMED_MINOR_API_VERSION = 0;
 
-  final int majorApiVersion;
-  final int minorApiVersion;
+  final int? majorApiVersion;
+  final int? minorApiVersion;
   final int majorAppVersion;
   final int minorAppVersion;
   final int patchAppVersion;
@@ -93,9 +93,9 @@ class ApiVersion {
   }
 
   bool isVersionAboveConfirmed() {
-    if (majorApiVersion > CONFIRMED_MAJOR_API_VERSION ||
+    if (majorApiVersion! > CONFIRMED_MAJOR_API_VERSION ||
         (majorApiVersion == CONFIRMED_MAJOR_API_VERSION &&
-            minorApiVersion > CONFIRMED_MINOR_API_VERSION)) {
+            minorApiVersion! > CONFIRMED_MINOR_API_VERSION)) {
       return true;
     } else {
       return false;

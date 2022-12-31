@@ -16,7 +16,7 @@ class TranslatePreferences implements ITranslatePreferences {
     if (locale == 'default') {
       return Future.value(Locale(Platform.localeName));
     }
-    return Future.value(Locale(locale));
+    return Future.value(Locale(locale!));
   }
 
   @override

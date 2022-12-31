@@ -3,8 +3,8 @@ class Poll {
   String endpoint;
 
   Poll({
-    this.token,
-    this.endpoint,
+    required this.token,
+    required this.endpoint,
   });
 
   factory Poll.fromJson(Map<String, dynamic> json) => Poll(

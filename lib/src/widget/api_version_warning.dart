@@ -4,6 +4,8 @@ import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
 
 class ApiVersionWarning extends StatelessWidget {
+  const ApiVersionWarning({super.key});
+
   @override
   Widget build(BuildContext context) {
     VersionProvider versionProvider = UserRepository().versionProvider;

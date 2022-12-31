@@ -8,7 +8,10 @@ import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 class RecipeEditScreen extends StatelessWidget {
   final Recipe recipe;
 
-  const RecipeEditScreen(this.recipe);
+  const RecipeEditScreen(
+    this.recipe, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class RecipeEditScreen extends StatelessWidget {
       onWillPop: () {
         RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
         if (recipeBloc.state is RecipeUpdateFailure) {
-          recipeBloc.add(RecipeLoaded(recipeId: recipe.id));
+          recipeBloc.add(RecipeLoaded(recipe.id));
         }
         return Future(() => true);
       },
@@ -35,7 +38,7 @@ class RecipeEditScreen extends StatelessWidget {
                   );
                 } else if (state is RecipeUpdateSuccess) {
                   BlocProvider.of<RecipeBloc>(context)
-                      .add(RecipeLoaded(recipeId: state.recipeId));
+                      .add(RecipeLoaded(state.recipeId));
                   Navigator.pop(context);
                 }
               },

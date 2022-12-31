@@ -8,7 +8,10 @@ import 'form/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
   final bool invalidCredentials;
-  LoginScreen({this.invalidCredentials = false});
+  LoginScreen({
+    super.key,
+    this.invalidCredentials = false,
+  });
 
   @override
   Widget build(BuildContext context) {

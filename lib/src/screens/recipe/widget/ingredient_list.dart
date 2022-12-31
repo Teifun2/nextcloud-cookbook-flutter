@@ -7,14 +7,18 @@ class IngredientList extends StatefulWidget {
   final Recipe _recipe;
   final TextStyle _textStyle;
 
-  const IngredientList(this._recipe, this._textStyle);
+  const IngredientList(
+    this._recipe,
+    this._textStyle, {
+    super.key,
+  });
 
   @override
   _IngredientListState createState() => _IngredientListState();
 }
 
 class _IngredientListState extends State<IngredientList> {
-  List<bool> _ingredientsDone;
+  late List<bool> _ingredientsDone;
 
   @override
   void initState() {
@@ -53,7 +57,7 @@ class _IngredientListState extends State<IngredientList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              width: widget._textStyle.fontSize * 1.5,
+                              width: widget._textStyle.fontSize! * 1.5,
                               height: widget._textStyle.fontSize,
                               alignment: Alignment.center,
                               child: _ingredientsDone[index]
@@ -64,7 +68,7 @@ class _IngredientListState extends State<IngredientList> {
                                     )
                                   : Icon(
                                       Icons.circle,
-                                      size: widget._textStyle.fontSize * 0.5,
+                                      size: widget._textStyle.fontSize! * 0.5,
                                     ),
                             ),
                             Expanded(

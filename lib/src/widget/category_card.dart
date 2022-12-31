@@ -8,7 +8,10 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 class CategoryCard extends StatelessWidget {
   final Category category;
 
-  const CategoryCard(this.category);
+  const CategoryCard(
+    this.category, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class CategoryCard extends StatelessWidget {
                       colors: <Color>[Colors.black, Colors.transparent])
                   .createShader(bounds);
             },
-            child: (category.firstRecipeId != null
+            child: category.firstRecipeId != 0
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: AuthenticationCachedNetworkRecipeImage(
@@ -44,7 +47,7 @@ class CategoryCard extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       ),
                     ),
-                  )),
+                  ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

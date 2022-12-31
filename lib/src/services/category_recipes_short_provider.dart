@@ -10,7 +10,7 @@ class CategoryRecipesShortProvider {
     AndroidApiVersion androidApiVersion = UserRepository().getAndroidVersion();
 
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     String url =
         "${appAuthentication.server}/apps/cookbook/api/v1/category/$category";

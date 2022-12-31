@@ -5,7 +5,7 @@ abstract class RecipeState extends Equatable {
   const RecipeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class RecipeInitial extends RecipeState {}
@@ -48,7 +48,7 @@ class RecipeUpdateSuccess extends RecipeState {
   const RecipeUpdateSuccess(this.recipeId);
 
   @override
-  List<Object> get props => [recipeId];
+  List<int> get props => [recipeId];
 }
 
 class RecipeUpdateInProgress extends RecipeState {}
@@ -74,7 +74,7 @@ class RecipeImportSuccess extends RecipeState {
   const RecipeImportSuccess(this.recipeId);
 
   @override
-  List<Object> get props => [recipeId];
+  List<int> get props => [recipeId];
 }
 
 class RecipeImportFailure extends RecipeFailure {

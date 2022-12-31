@@ -4,7 +4,11 @@ class DurationIndicator extends StatelessWidget {
   final Duration duration;
   final String name;
 
-  const DurationIndicator({@required this.duration, @required this.name});
+  const DurationIndicator({
+    super.key,
+    required this.duration,
+    required this.name,
+  });
 
   @override
   Widget build(BuildContext context) {

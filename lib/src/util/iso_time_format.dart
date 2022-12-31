@@ -26,10 +26,12 @@ class IsoTimeFormat {
   static int _parseTime(String duration, String timeUnit) {
     final timeMatch = RegExp(r"\d+" + timeUnit).firstMatch(duration);
 
-    if (timeMatch == null) {
+    final timeString = timeMatch?.group(0);
+
+    if (timeString == null) {
       return 0;
     }
-    final timeString = timeMatch.group(0);
+
     return int.parse(timeString.substring(0, timeString.length - 1));
   }
 }

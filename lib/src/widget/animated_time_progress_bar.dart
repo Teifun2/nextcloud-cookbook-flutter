@@ -5,8 +5,10 @@ import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 class AnimatedTimeProgressBar extends StatefulWidget {
   final Timer timer;
 
-  const AnimatedTimeProgressBar({@required this.timer, Key key})
-      : super(key: key);
+  const AnimatedTimeProgressBar({
+    super.key,
+    required this.timer,
+  });
 
   @override
   _AnimatedTimeProgressBarState createState() =>
@@ -15,9 +17,9 @@ class AnimatedTimeProgressBar extends StatefulWidget {
 
 class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
     with TickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   final Timer _timer;
-  Tween<num> _timerTween;
+  late Tween<num> _timerTween;
 
   _AnimatedTimeProgressBarState(this._timer) {
     this._timerTween = Tween(
@@ -66,7 +68,7 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
                 ],
               ),
               LinearProgressIndicator(
-                value: this._timerTween.evaluate(this._controller),
+                value: this._timerTween.evaluate(this._controller) as double?,
                 semanticsLabel: _timer.title,
               )
             ],

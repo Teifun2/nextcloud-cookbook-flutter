@@ -13,14 +13,14 @@ import 'package:xml/xml.dart';
 class AuthenticationProvider {
   final FlutterSecureStorage _secureStorage = new FlutterSecureStorage();
   final String _appAuthenticationKey = 'appAuthentication';
-  AppAuthentication currentAppAuthentication;
-  dio.CancelToken _cancelToken;
+  AppAuthentication? currentAppAuthentication;
+  dio.CancelToken? _cancelToken;
 
   Future<AppAuthentication> authenticate({
-    @required String serverUrl,
-    @required String username,
-    @required String originalBasicAuth,
-    @required bool isSelfSignedCertificate,
+    required String serverUrl,
+    required String username,
+    required String originalBasicAuth,
+    required bool isSelfSignedCertificate,
   }) async {
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
@@ -38,6 +38,7 @@ class AuthenticationProvider {
             .onHttpClientCreate = (HttpClient httpClient) {
           httpClient.badCertificateCallback =
               (X509Certificate cert, String host, int port) => true;
+          return null;
         };
       }
 
@@ -49,7 +50,7 @@ class AuthenticationProvider {
             "User-Agent": "Cookbook App",
             "authorization": originalBasicAuth
           },
-          validateStatus: (status) => status < 500,
+          validateStatus: (status) => status! < 500,
         ),
         cancelToken: _cancelToken,
       );
@@ -98,10 +99,10 @@ class AuthenticationProvider {
   }
 
   Future<AppAuthentication> authenticateAppPassword({
-    @required String serverUrl,
-    @required String username,
-    @required String basicAuth,
-    @required bool isSelfSignedCertificate,
+    required String serverUrl,
+    required String username,
+    required String basicAuth,
+    required bool isSelfSignedCertificate,
   }) async {
     if (serverUrl.substring(0, 4) != 'http') {
       serverUrl = 'https://' + serverUrl;
@@ -135,24 +136,22 @@ class AuthenticationProvider {
   }
 
   void stopAuthenticate() {
-    if (_cancelToken != null) {
-      _cancelToken.cancel("Stopped by the User!");
-      _cancelToken = null;
-    }
+    _cancelToken?.cancel("Stopped by the User!");
+    _cancelToken = null;
   }
 
   Future<bool> hasAppAuthentication() async {
     if (currentAppAuthentication != null) {
       return true;
     } else {
-      String appAuthentication =
+      String? appAuthentication =
           await _secureStorage.read(key: _appAuthenticationKey);
       return appAuthentication != null;
     }
   }
 
   Future<void> loadAppAuthentication() async {
-    String appAuthenticationString =
+    String? appAuthenticationString =
         await _secureStorage.read(key: _appAuthenticationKey);
     if (appAuthenticationString == null) {
       throw (translate('login.errors.authentication_not_found'));
@@ -179,13 +178,14 @@ class AuthenticationProvider {
             .onHttpClientCreate = (HttpClient httpClient) {
           httpClient.badCertificateCallback =
               (X509Certificate cert, String host, int port) => true;
+          return null;
         };
       }
       response = await client.get(
         urlAuthCheck,
         options: new dio.Options(
           headers: {"authorization": basicAuth},
-          validateStatus: (status) => status < 500,
+          validateStatus: (status) => status! < 500,
         ),
       );
     } on dio.DioError catch (e) {
@@ -213,10 +213,10 @@ class AuthenticationProvider {
   }
 
   Future<void> deleteAppAuthentication() async {
-    var response;
+    dio.Response? response;
     try {
-      response = await currentAppAuthentication.authenticatedClient.delete(
-        "${currentAppAuthentication.server}/ocs/v2.php/core/apppassword",
+      response = await currentAppAuthentication?.authenticatedClient.delete(
+        "${currentAppAuthentication!.server}/ocs/v2.php/core/apppassword",
         options: new dio.Options(
           headers: {
             "OCS-APIREQUEST": "true",

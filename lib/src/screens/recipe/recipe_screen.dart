@@ -21,14 +21,16 @@ import 'package:wakelock/wakelock.dart';
 class RecipeScreen extends StatefulWidget {
   final int recipeId;
 
-  const RecipeScreen({Key key, @required this.recipeId}) : super(key: key);
+  const RecipeScreen({
+    super.key,
+    required this.recipeId,
+  });
 
   @override
   State<StatefulWidget> createState() => RecipeScreenState();
 }
 
 class RecipeScreenState extends State<RecipeScreen> {
-  int recipeId;
   bool isLargeScreen = false;
 
   Future<bool> _disableWakelock() async {
@@ -41,7 +43,7 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   void _enableWakelock() {
     if (Settings.getValue<bool>(describeEnum(SettingKeys.stay_awake),
-        defaultValue: false)) {
+        defaultValue: false)!) {
       Wakelock.enable();
     }
   }
@@ -49,7 +51,6 @@ class RecipeScreenState extends State<RecipeScreen> {
   @override
   void initState() {
     _enableWakelock();
-    recipeId = widget.recipeId;
     super.initState();
   }
 
@@ -57,7 +58,7 @@ class RecipeScreenState extends State<RecipeScreen> {
   Widget build(BuildContext context) {
     this.isLargeScreen = MediaQuery.of(context).size.width > 600;
     return BlocProvider<RecipeBloc>(
-      create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId: recipeId)),
+      create: (context) => RecipeBloc()..add(RecipeLoaded(widget.recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (BuildContext context, RecipeState state) {
         final recipeBloc = BlocProvider.of<RecipeBloc>(context);
@@ -118,16 +119,17 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   FloatingActionButton _buildFabButton(Recipe recipe) {
-    var enabled = recipe.cookTime != null && recipe.cookTime > Duration.zero;
+    var enabled = recipe.cookTime > Duration.zero;
     return FloatingActionButton(
       onPressed: () {
         {
           if (enabled) {
             Timer timer = new Timer(
-                recipe.id,
-                recipe.name,
-                recipe.name + " " + translate('timer.finished'),
-                recipe.cookTime);
+              recipe.id,
+              recipe.name,
+              recipe.name + " " + translate('timer.finished'),
+              recipe.cookTime,
+            );
             timer.start();
             TimerList().timers.add(timer);
             setState(() {});
@@ -154,7 +156,7 @@ class RecipeScreenState extends State<RecipeScreen> {
         TextStyle settingsBasedTextStyle = TextStyle(
           fontSize: Settings.getValue<double>(
             describeEnum(SettingKeys.recipe_font_size),
-            defaultValue: Theme.of(context).textTheme.bodyText2.fontSize,
+            defaultValue: Theme.of(context).textTheme.bodyText2?.fontSize,
           ),
         );
 
@@ -202,14 +204,14 @@ class RecipeScreenState extends State<RecipeScreen> {
                             text: translate('recipe.fields.servings'),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2
+                                .bodyText2!
                                 .apply(fontWeightDelta: 3),
                             children: <TextSpan>[
                               TextSpan(
                                 text: " " + recipe.recipeYield.toString(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2
+                                    .bodyText2!
                                     .apply(fontWeightDelta: 3),
                               )
                             ],
@@ -237,15 +239,15 @@ class RecipeScreenState extends State<RecipeScreen> {
                       runSpacing: 10,
                       spacing: 10,
                       children: <Widget>[
-                        if (recipe.prepTime != null)
+                        if (recipe.prepTime > Duration.zero)
                           DurationIndicator(
                               duration: recipe.prepTime,
                               name: translate('recipe.prep')),
-                        if (recipe.cookTime != null)
+                        if (recipe.cookTime > Duration.zero)
                           DurationIndicator(
                               duration: recipe.cookTime,
                               name: translate('recipe.cook')),
-                        if (recipe.totalTime != null)
+                        if (recipe.totalTime > Duration.zero)
                           DurationIndicator(
                               duration: recipe.totalTime,
                               name: translate('recipe.total')),

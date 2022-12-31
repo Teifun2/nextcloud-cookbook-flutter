@@ -5,6 +5,8 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 
 class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +18,7 @@ class LoadingScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (!(authenticationState is AuthenticationError))
+                if (authenticationState is! AuthenticationError)
                   SpinKitWave(
                     color: Theme.of(context).primaryColor,
                     size: 50.0,

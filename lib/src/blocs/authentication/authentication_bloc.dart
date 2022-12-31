@@ -24,7 +24,7 @@ class AuthenticationBloc
         try {
           validCredentials = await userRepository.checkAppAuthentication();
         } catch (e) {
-          yield AuthenticationError(e);
+          yield AuthenticationError(e.toString());
           return;
         }
         if (validCredentials) {

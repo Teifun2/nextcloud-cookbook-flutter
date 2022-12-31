@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class NutritionListItem extends StatelessWidget {
   final String name;
   final String value;
-  const NutritionListItem(this.name, this.value);
+  const NutritionListItem(
+    this.name,
+    this.value, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

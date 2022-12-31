@@ -8,13 +8,17 @@ class ReorderableListFormField extends StatefulWidget {
   final RecipeState state;
   final Function(List<String> value) onSave;
 
-  ReorderableListFormField(
-      {Key key, this.title, this.items, this.state, this.onSave})
-      : super(key: key);
+  const ReorderableListFormField({
+    super.key,
+    required this.title,
+    required this.items,
+    required this.state,
+    required this.onSave,
+  });
 
   @override
   _ReorderableListFormFieldState createState() =>
-      _ReorderableListFormFieldState(items);
+      _ReorderableListFormFieldState();
 }
 
 class ItemData {
@@ -27,13 +31,9 @@ class ItemData {
 }
 
 class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
-  final List<ItemData> _items = [];
+  List<ItemData> _items = [];
 
-  _ReorderableListFormFieldState(List<String> items) {
-    for (int i = 0; i < items.length; ++i) {
-      _items.add(ItemData(items[i], ValueKey(i)));
-    }
-  }
+  _ReorderableListFormFieldState();
 
   int _indexOfKey(Key key) {
     return _items.indexWhere((ItemData d) => d.key == key);
@@ -49,6 +49,14 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
       _items.insert(newPositionIndex, draggedItem);
     });
     return true;
+  }
+
+  @override
+  void initState() {
+    for (int i = 0; i < widget.items.length; ++i) {
+      _items.add(ItemData(widget.items[i], ValueKey(i)));
+    }
+    super.initState();
   }
 
   //
@@ -111,8 +119,8 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                                   icon: Icon(Icons.add),
                                   onPressed: () {
                                     setState(() {
-                                      if (!(widget.state
-                                          is RecipeUpdateInProgress)) {
+                                      if (widget.state
+                                          is! RecipeUpdateInProgress) {
                                         _items.add(ItemData(
                                             "", ValueKey(_items.length)));
                                       }
@@ -169,15 +177,15 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
 }
 
 class Item extends StatefulWidget {
-  Item(
-      {Key key,
-      this.data,
-      this.isFirst,
-      this.isLast,
-      this.deleteItem,
-      this.state,
-      this.onChange})
-      : super(key: key);
+  Item({
+    super.key,
+    required this.data,
+    required this.isFirst,
+    required this.isLast,
+    required this.deleteItem,
+    required this.state,
+    required this.onChange,
+  });
 
   final ItemData data;
   final bool isFirst;
@@ -187,54 +195,41 @@ class Item extends StatefulWidget {
   final RecipeState state;
 
   @override
-  State<StatefulWidget> createState() => _ItemState(
-        data: data,
-        isFirst: isFirst,
-        isLast: isLast,
-        deleteItem: deleteItem,
-      );
+  State<StatefulWidget> createState() => _ItemState();
 }
 
 class _ItemState extends State<Item> {
-  _ItemState({
-    this.data,
-    this.isFirst,
-    this.isLast,
-    this.deleteItem,
-  });
-
-  final ItemData data;
-  final bool isFirst;
-  final bool isLast;
-  final Function deleteItem;
+  _ItemState();
 
   Widget _buildChild(BuildContext context, RL.ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == RL.ReorderableItemState.dragProxy ||
-        state == RL.ReorderableItemState.dragProxyFinished) {
-      // slightly transparent background white dragging (just like on iOS)
-      decoration = BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8));
-    } else {
-      bool placeholder = state == RL.ReorderableItemState.placeholder;
-      decoration = BoxDecoration(
-        border: Border(
-          top: isFirst && !placeholder
-              ? Divider.createBorderSide(context) //
-              : BorderSide.none,
-          bottom: isLast && placeholder
-              ? BorderSide.none //
-              : Divider.createBorderSide(context),
-        ),
-        color: placeholder ? null : Theme.of(context).scaffoldBackgroundColor,
-      );
+    switch (state) {
+      case RL.ReorderableItemState.dragProxy:
+      case RL.ReorderableItemState.dragProxyFinished:
+        // slightly transparent background white dragging (just like on iOS)
+        decoration = BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8));
+        break;
+      default:
+        bool placeholder = state == RL.ReorderableItemState.placeholder;
+        decoration = BoxDecoration(
+          border: Border(
+            top: widget.isFirst && !placeholder
+                ? Divider.createBorderSide(context) //
+                : BorderSide.none,
+            bottom: widget.isLast && placeholder
+                ? BorderSide.none //
+                : Divider.createBorderSide(context),
+          ),
+          color: placeholder ? null : Theme.of(context).scaffoldBackgroundColor,
+        );
     }
 
     // For iOS dragging mode, there will be drag handle on the right that triggers
     // reordering; For android mode it will be just an empty container
     Widget dragHandle = RL.ReorderableListener(
-      canStart: () => !(widget.state is RecipeUpdateInProgress),
+      canStart: () => widget.state is! RecipeUpdateInProgress,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 7),
         color: Color(0x08000000),
@@ -248,11 +243,11 @@ class _ItemState extends State<Item> {
       color: Color(0x08000000),
       child: Center(
         child: IconButton(
-          enableFeedback: !(widget.state is RecipeUpdateInProgress),
+          enableFeedback: widget.state is! RecipeUpdateInProgress,
           icon: Icon(Icons.delete, color: Colors.red),
           onPressed: () {
-            if (!(widget.state is RecipeUpdateInProgress)) {
-              deleteItem();
+            if (widget.state is! RecipeUpdateInProgress) {
+              widget.deleteItem();
             }
           },
         ),
@@ -278,12 +273,12 @@ class _ItemState extends State<Item> {
                         horizontal: 10.0,
                       ),
                       child: TextFormField(
-                        enabled: !(widget.state is RecipeUpdateInProgress),
+                        enabled: widget.state is! RecipeUpdateInProgress,
                         maxLines: 10000,
                         minLines: 1,
-                        initialValue: data.text,
+                        initialValue: widget.data.text,
                         onChanged: widget.onChange,
-                        autofocus: data.text.isEmpty,
+                        autofocus: widget.data.text.isEmpty,
                       ),
                     ),
                   ),
@@ -302,7 +297,7 @@ class _ItemState extends State<Item> {
   @override
   Widget build(BuildContext context) {
     return RL.ReorderableItem(
-        key: data.key, //
+        key: widget.data.key, //
         childBuilder: _buildChild);
   }
 }

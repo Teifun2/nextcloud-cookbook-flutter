@@ -8,7 +8,7 @@ import 'network.dart';
 class RecipesShortProvider {
   Future<List<RecipeShort>> fetchRecipesShort() async {
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     final String url =
         "${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes";

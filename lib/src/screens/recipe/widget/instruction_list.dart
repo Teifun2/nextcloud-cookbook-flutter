@@ -6,14 +6,18 @@ class InstructionList extends StatefulWidget {
   final Recipe _recipe;
   final TextStyle _textStyle;
 
-  const InstructionList(this._recipe, this._textStyle);
+  const InstructionList(
+    this._recipe,
+    this._textStyle, {
+    super.key,
+  });
 
   @override
   _InstructionListState createState() => _InstructionListState();
 }
 
 class _InstructionListState extends State<InstructionList> {
-  List<bool> _instructionsDone;
+  late List<bool> _instructionsDone;
 
   @override
   void initState() {

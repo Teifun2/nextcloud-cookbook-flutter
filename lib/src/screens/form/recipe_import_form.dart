@@ -42,15 +42,16 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
             child: Column(
               children: [
                 TextField(
-                  enabled: state is RecipeImportInProgress ? false : true,
+                  enabled: state is! RecipeImportInProgress,
                   controller: _importUrlController,
                   decoration: InputDecoration(
                     hintText: translate("recipe_import.field"),
                     suffixIcon: IconButton(
                       tooltip: translate("recipe_import.clipboard"),
-                      onPressed: () async => {
-                        _importUrlController.text =
-                            (await Clipboard.getData('text/plain')).text
+                      onPressed: () async {
+                        final clipboard = await Clipboard.getData('text/plain');
+                        final text = clipboard?.text;
+                        if (text != null) _importUrlController.text = text;
                       },
                       icon: Icon(Icons.content_copy),
                     ),

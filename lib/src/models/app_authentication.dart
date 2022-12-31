@@ -5,20 +5,19 @@ import 'package:dio/dio.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/self_signed_certificate_http_overrides.dart';
 
 class AppAuthentication {
-  String server;
-  String loginName;
-  String basicAuth;
-  bool isSelfSignedCertificate;
+  final String server;
+  final String loginName;
+  final String basicAuth;
+  final bool isSelfSignedCertificate;
 
-  Dio authenticatedClient;
+  final Dio authenticatedClient = Dio();
 
   AppAuthentication({
-    this.server,
-    this.loginName,
-    this.basicAuth,
-    this.isSelfSignedCertificate,
+    required this.server,
+    required this.loginName,
+    required this.basicAuth,
+    required this.isSelfSignedCertificate,
   }) {
-    authenticatedClient = Dio();
     authenticatedClient.options.headers["authorization"] = basicAuth;
     authenticatedClient.options.headers["User-Agent"] = "Cookbook App";
     authenticatedClient.options.responseType = ResponseType.plain;

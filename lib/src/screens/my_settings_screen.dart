@@ -9,7 +9,7 @@ import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 class MySettingsScreen extends StatefulWidget {
-  const MySettingsScreen({Key key}) : super(key: key);
+  const MySettingsScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _MySettingsScreenState();
@@ -31,7 +31,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
         SliderSettingsTile(
           title: translate("settings.recipe_font_size.title"),
           settingKey: describeEnum(SettingKeys.recipe_font_size),
-          defaultValue: Theme.of(context).textTheme.bodyText2.fontSize,
+          defaultValue: Theme.of(context).textTheme.bodyText2!.fontSize!,
           min: 10,
           max: 25,
           eagerUpdate: false,
@@ -54,13 +54,13 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             ThemeMode.dark.toString(): translate("settings.dark_mode.dark"),
             ThemeMode.light.toString(): translate("settings.dark_mode.light"),
           },
-          selected: ThemeModeHandler.of(context).themeMode.toString(),
+          selected: ThemeModeHandler.of(context)!.themeMode.toString(),
           onChange: (value) {
             final theme = ThemeMode.values.firstWhere(
               (v) => v.toString() == value,
               orElse: () => ThemeMode.system,
             );
-            ThemeModeHandler.of(context).saveThemeMode(theme);
+            ThemeModeHandler.of(context)?.saveThemeMode(theme);
           },
         ),
         DropDownSettingsTile(
@@ -75,7 +75,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
               'default': translate("settings.dark_mode.system"),
             },
           )..addAll(SupportedLocales.locales),
-          onChange: (value) {
+          onChange: (dynamic value) {
             if (value == 'default') {
               changeLocale(context, Platform.localeName);
             } else {
