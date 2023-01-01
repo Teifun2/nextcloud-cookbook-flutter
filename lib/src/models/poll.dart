@@ -8,8 +8,8 @@ class Poll {
   });
 
   factory Poll.fromJson(Map<String, dynamic> json) => Poll(
-        token: json["token"],
-        endpoint: json["endpoint"],
+        token: json["token"] as String,
+        endpoint: json["endpoint"] as String,
       );
 
   Map<String, dynamic> toJson() => {

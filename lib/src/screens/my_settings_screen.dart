@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -23,14 +22,12 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
       children: [
         SwitchSettingsTile(
           title: translate("settings.stay_awake.title"),
-          settingKey: describeEnum(
-            SettingKeys.stay_awake,
-          ),
+          settingKey: SettingKeys.stay_awake.name,
           subtitle: translate("settings.stay_awake.subtitle"),
         ),
         SliderSettingsTile(
           title: translate("settings.recipe_font_size.title"),
-          settingKey: describeEnum(SettingKeys.recipe_font_size),
+          settingKey: SettingKeys.recipe_font_size.name,
           defaultValue: Theme.of(context).textTheme.bodyText2!.fontSize!,
           min: 10,
           max: 25,
@@ -39,7 +36,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
         ),
         SliderSettingsTile(
           title: translate("settings.category_font_size.title"),
-          settingKey: describeEnum(SettingKeys.category_font_size),
+          settingKey: SettingKeys.category_font_size.name,
           defaultValue: 16,
           min: 10,
           max: 25,
@@ -48,7 +45,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
         ),
         DropDownSettingsTile<String>(
           title: translate("settings.dark_mode.title"),
-          settingKey: describeEnum(SettingKeys.dark_mode),
+          settingKey: SettingKeys.dark_mode.name,
           values: <String, String>{
             ThemeMode.system.toString(): translate("settings.dark_mode.system"),
             ThemeMode.dark.toString(): translate("settings.dark_mode.dark"),
@@ -65,9 +62,9 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
         ),
         DropDownSettingsTile(
           title: translate("settings.language.title"),
-          settingKey: describeEnum(SettingKeys.language),
+          settingKey: SettingKeys.language.name,
           selected: Settings.getValue<String>(
-            describeEnum(SettingKeys.language),
+            SettingKeys.language.name,
             defaultValue: 'default',
           ),
           values: Map.from(
@@ -79,7 +76,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             if (value == 'default') {
               changeLocale(context, Platform.localeName);
             } else {
-              changeLocale(context, value);
+              changeLocale(context, value as String?);
             }
             setState(() {});
           },

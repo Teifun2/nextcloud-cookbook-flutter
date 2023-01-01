@@ -12,16 +12,19 @@ class Network {
 
   /// Try to load file from locale cache first, if not available get it from the server
   Future<String> get(String url) async {
-    AppAuthentication appAuthentication =
+    final AppAuthentication appAuthentication =
         UserRepository().currentAppAuthentication;
 
-    FileInfo file = await DefaultCacheManager().getFileFromCache(url) ??
+    final FileInfo file = await DefaultCacheManager().getFileFromCache(url) ??
         // Download, if not available
-        await CustomCacheManager.getInstance().downloadFile(url, authHeaders: {
-          "Authorization": appAuthentication.basicAuth,
-        });
+        await CustomCacheManager().getInstance().downloadFile(
+          url,
+          authHeaders: {
+            "Authorization": appAuthentication.basicAuth,
+          },
+        );
 
-    String contents = await file.file.readAsString();
+    final String contents = await file.file.readAsString();
     return contents;
   }
 }

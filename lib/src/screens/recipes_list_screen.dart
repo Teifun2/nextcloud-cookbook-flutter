@@ -34,10 +34,12 @@ class RecipesListScreenState extends State<RecipesListScreen> {
       builder: (context, recipesShortState) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(translate(
-              'recipe_list.title_category',
-              args: {'category': widget.category},
-            )),
+            title: Text(
+              translate(
+                'recipe_list.title_category',
+                args: {'category': widget.category},
+              ),
+            ),
             actions: <Widget>[
               // action button
               IconButton(
@@ -58,15 +60,15 @@ class RecipesListScreenState extends State<RecipesListScreen> {
               DefaultCacheManager().emptyCache();
               BlocProvider.of<RecipesShortBloc>(context)
                   .add(RecipesShortLoaded(category: widget.category));
-              return Future.value(true);
+              return Future.value();
             },
-            child: (() {
+            child: () {
               if (recipesShortState is RecipesShortLoadSuccess) {
                 return _buildRecipesShortScreen(recipesShortState.recipesShort);
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
-            }()),
+            }(),
           ),
         );
       },
@@ -81,7 +83,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
         itemBuilder: (context, index) {
           return _buildRecipeShortScreen(data[index]);
         },
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black,
         ),
       ),
@@ -91,21 +93,19 @@ class RecipesListScreenState extends State<RecipesListScreen> {
   ListTile _buildRecipeShortScreen(RecipeShort recipeShort) {
     return ListTile(
       title: Text(recipeShort.name),
-      trailing: Container(
-        child: AuthenticationCachedNetworkRecipeImage(
-          recipeId: recipeShort.recipeId,
-          full: false,
-          width: 60,
-          height: 60,
-        ),
+      trailing: AuthenticationCachedNetworkRecipeImage(
+        recipeId: recipeShort.recipeId,
+        full: false,
+        width: 60,
+        height: 60,
       ),
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  RecipeScreen(recipeId: recipeShort.recipeId),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeScreen(recipeId: recipeShort.recipeId),
+          ),
+        );
       },
     );
   }

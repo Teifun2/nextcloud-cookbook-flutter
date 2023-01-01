@@ -12,7 +12,7 @@ class AuthenticationCachedNetworkRecipeImage extends StatelessWidget {
   final int recipeId;
   final bool full;
 
-  AuthenticationCachedNetworkRecipeImage({
+  const AuthenticationCachedNetworkRecipeImage({
     super.key,
     required this.recipeId,
     required this.full,
@@ -23,10 +23,10 @@ class AuthenticationCachedNetworkRecipeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppAuthentication appAuthentication =
+    final AppAuthentication appAuthentication =
         UserRepository().currentAppAuthentication;
 
-    String settings = full ? "full" : "thumb";
+    final String settings = full ? "full" : "thumb";
 
     return AuthenticationCachedNetworkImage(
       url:

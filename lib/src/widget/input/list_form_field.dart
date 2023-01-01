@@ -37,25 +37,27 @@ class _ListFormFieldState extends State<ListFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 56.0 * currentList.length,
       child: my.ReorderableListView(
-        children: currentList,
         onReorder: _onReorder,
+        children: currentList,
       ),
     );
   }
 
-  _onReorder(int oldIndex, int newIndex) {
-    ListTile tile = currentList.removeAt(oldIndex);
+  void _onReorder(int oldIndex, int newIndex) {
+    final ListTile tile = currentList.removeAt(oldIndex);
     currentList.insert(newIndex, tile);
 
     setState(() {
-      widget.onChanged(currentList.map((tile) {
-        Text title = tile.title as Text;
-        log(title.data!);
-        return title.data!;
-      }).toList());
+      widget.onChanged(
+        currentList.map((tile) {
+          final Text title = tile.title! as Text;
+          log(title.data!);
+          return title.data!;
+        }).toList(),
+      );
     });
   }
 }

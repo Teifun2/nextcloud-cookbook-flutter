@@ -1,0 +1,5 @@
+targets:
+  $default:
+    builders:
+      copy_with_extension_gen:
+        enabled: true

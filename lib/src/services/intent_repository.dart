@@ -9,18 +9,20 @@ class IntentRepository {
 
   IntentRepository._();
 
-  static final _navigationKey = new GlobalKey<NavigatorState>();
+  static final _navigationKey = GlobalKey<NavigatorState>();
   static const platform = MethodChannel('app.channel.shared.data');
 
-  void handleIntent() async {
-    var importUrl = await platform.invokeMethod('getImportUrl');
+  Future<void> handleIntent() async {
+    final importUrl = await platform.invokeMethod('getImportUrl') as String?;
     if (importUrl != null) {
       _navigationKey.currentState?.pushAndRemoveUntil(
-          MaterialPageRoute<void>(
-              builder: (BuildContext context) => () {
-                    return RecipeImportScreen(importUrl);
-                  }()),
-          ModalRoute.withName('/'));
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => () {
+            return RecipeImportScreen(importUrl);
+          }(),
+        ),
+        ModalRoute.withName('/'),
+      );
     }
   }
 

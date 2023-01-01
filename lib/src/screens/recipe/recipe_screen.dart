@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -34,7 +33,7 @@ class RecipeScreenState extends State<RecipeScreen> {
   bool isLargeScreen = false;
 
   Future<bool> _disableWakelock() async {
-    bool wakelockEnabled = await Wakelock.enabled;
+    final bool wakelockEnabled = await Wakelock.enabled;
     if (wakelockEnabled) {
       Wakelock.disable();
     }
@@ -42,8 +41,10 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   void _enableWakelock() {
-    if (Settings.getValue<bool>(describeEnum(SettingKeys.stay_awake),
-        defaultValue: false)!) {
+    if (Settings.getValue<bool>(
+      SettingKeys.stay_awake.name,
+      defaultValue: false,
+    )!) {
       Wakelock.enable();
     }
   }
@@ -56,78 +57,80 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    this.isLargeScreen = MediaQuery.of(context).size.width > 600;
+    isLargeScreen = MediaQuery.of(context).size.width > 600;
     return BlocProvider<RecipeBloc>(
       create: (context) => RecipeBloc()..add(RecipeLoaded(widget.recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
-          builder: (BuildContext context, RecipeState state) {
-        final recipeBloc = BlocProvider.of<RecipeBloc>(context);
-        return WillPopScope(
-          onWillPop: () => _disableWakelock(),
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(translate('recipe.title')),
-              actions: <Widget>[
-                // action button
-                IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                  ),
-                  onPressed: () async {
-                    if (state is RecipeLoadSuccess) {
-                      _disableWakelock();
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return BlocProvider.value(
+        builder: (BuildContext context, RecipeState state) {
+          final recipeBloc = BlocProvider.of<RecipeBloc>(context);
+          return WillPopScope(
+            onWillPop: () => _disableWakelock(),
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(translate('recipe.title')),
+                actions: <Widget>[
+                  // action button
+                  IconButton(
+                    icon: const Icon(
+                      Icons.edit,
+                    ),
+                    onPressed: () async {
+                      if (state is RecipeLoadSuccess) {
+                        _disableWakelock();
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BlocProvider.value(
                                 value: recipeBloc,
-                                child: RecipeEditScreen(state.recipe));
-                          },
-                        ),
-                      );
-                      _enableWakelock();
-                    }
-                  },
-                ),
-              ],
+                                child: RecipeEditScreen(state.recipe),
+                              );
+                            },
+                          ),
+                        );
+                        _enableWakelock();
+                      }
+                    },
+                  ),
+                ],
+              ),
+              floatingActionButton: state is RecipeLoadSuccess
+                  ? _buildFabButton(state.recipe)
+                  : null,
+              body: () {
+                if (state is RecipeLoadSuccess) {
+                  return _buildRecipeScreen(state.recipe);
+                } else if (state is RecipeLoadInProgress) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is RecipeFailure) {
+                  return Center(
+                    child: Text(state.errorMsg),
+                  );
+                } else {
+                  return const Center(
+                    child: Text("FAILED"),
+                  );
+                }
+              }(),
             ),
-            floatingActionButton: state is RecipeLoadSuccess
-                ? _buildFabButton(state.recipe)
-                : null,
-            body: () {
-              if (state is RecipeLoadSuccess) {
-                return _buildRecipeScreen(state.recipe);
-              } else if (state is RecipeLoadInProgress) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is RecipeFailure) {
-                return Center(
-                  child: Text(state.errorMsg),
-                );
-              } else {
-                return Center(
-                  child: Text("FAILED"),
-                );
-              }
-            }(),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 
   FloatingActionButton _buildFabButton(Recipe recipe) {
-    var enabled = recipe.cookTime > Duration.zero;
+    final enabled = recipe.cookTime > Duration.zero;
     return FloatingActionButton(
       onPressed: () {
         {
           if (enabled) {
-            Timer timer = new Timer(
+            final Timer timer = Timer(
               recipe.id,
               recipe.name,
-              recipe.name + " " + translate('timer.finished'),
+              "${recipe.name} ${translate('timer.finished')}",
               recipe.cookTime,
             );
             timer.start();
@@ -143,26 +146,28 @@ class RecipeScreenState extends State<RecipeScreen> {
           }
         }
       },
-      child: Icon(Icons.access_alarm),
       backgroundColor: enabled
           ? Theme.of(context).colorScheme.secondary
           : Theme.of(context).disabledColor,
+      child: const Icon(Icons.access_alarm),
     );
   }
 
   Widget _buildRecipeScreen(Recipe recipe) {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
-        TextStyle settingsBasedTextStyle = TextStyle(
+        final TextStyle settingsBasedTextStyle = TextStyle(
           fontSize: Settings.getValue<double>(
-            describeEnum(SettingKeys.recipe_font_size),
+            SettingKeys.recipe_font_size.name,
             defaultValue: Theme.of(context).textTheme.bodyText2?.fontSize,
           ),
         );
 
         return ListView(
           children: <Widget>[
-            Container(
+            SizedBox(
+              width: double.infinity,
+              height: 200,
               child: Center(
                 child: AuthenticationCachedNetworkRecipeImage(
                   recipeId: recipe.id,
@@ -172,21 +177,21 @@ class RecipeScreenState extends State<RecipeScreen> {
                   boxFit: BoxFit.cover,
                 ),
               ),
-              width: double.infinity,
-              height: 200,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ListView(
                 shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(bottom: 15.0),
                     child: Text(
                       recipe.name,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                   Padding(
@@ -208,7 +213,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                                 .apply(fontWeightDelta: 3),
                             children: <TextSpan>[
                               TextSpan(
-                                text: " " + recipe.recipeYield.toString(),
+                                text: " ${recipe.recipeYield}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2!
@@ -217,10 +222,10 @@ class RecipeScreenState extends State<RecipeScreen> {
                             ],
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         if (recipe.url.isNotEmpty)
                           ElevatedButton(
-                            style: ButtonStyle(),
+                            style: const ButtonStyle(),
                             onPressed: () async {
                               if (await launchUrlString(recipe.url)) {
                                 await launchUrlString(recipe.url);
@@ -241,16 +246,19 @@ class RecipeScreenState extends State<RecipeScreen> {
                       children: <Widget>[
                         if (recipe.prepTime > Duration.zero)
                           DurationIndicator(
-                              duration: recipe.prepTime,
-                              name: translate('recipe.prep')),
+                            duration: recipe.prepTime,
+                            name: translate('recipe.prep'),
+                          ),
                         if (recipe.cookTime > Duration.zero)
                           DurationIndicator(
-                              duration: recipe.cookTime,
-                              name: translate('recipe.cook')),
+                            duration: recipe.cookTime,
+                            name: translate('recipe.cook'),
+                          ),
                         if (recipe.totalTime > Duration.zero)
                           DurationIndicator(
-                              duration: recipe.totalTime,
-                              name: translate('recipe.total')),
+                            duration: recipe.totalTime,
+                            name: translate('recipe.total'),
+                          ),
                       ],
                     ),
                   ),
@@ -271,7 +279,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                                 child: Text(
                                   recipe.tool.fold(
                                     "",
-                                    (p, e) => p + "-  " + e.trim() + "\n",
+                                    (p, e) => "$p-  ${e.trim()}\n",
                                   ),
                                   style: settingsBasedTextStyle,
                                 ),
@@ -281,37 +289,46 @@ class RecipeScreenState extends State<RecipeScreen> {
                         ),
                       ),
                     ),
-                  if (this.isLargeScreen && recipe.recipeIngredient.isNotEmpty)
+                  if (isLargeScreen && recipe.recipeIngredient.isNotEmpty)
                     Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 5,
-                                child: NutritionList(recipe.nutrition),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: IngredientList(
-                                    recipe, settingsBasedTextStyle),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: InstructionList(
-                                    recipe, settingsBasedTextStyle),
-                              )
-                            ]))
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 5,
+                            child: NutritionList(recipe.nutrition),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: IngredientList(
+                              recipe,
+                              settingsBasedTextStyle,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: InstructionList(
+                              recipe,
+                              settingsBasedTextStyle,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
                   else
                     Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Column(children: <Widget>[
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Column(
+                        children: <Widget>[
                           if (recipe.nutrition.isNotEmpty)
                             NutritionList(recipe.nutrition),
                           if (recipe.recipeIngredient.isNotEmpty)
                             IngredientList(recipe, settingsBasedTextStyle),
                           InstructionList(recipe, settingsBasedTextStyle)
-                        ]))
+                        ],
+                      ),
+                    )
                 ],
               ),
             ),
@@ -322,22 +339,24 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   Widget _showTimers(Recipe recipe) {
-    List<Timer> l = TimerList().get(recipe.id);
-    if (l.length > 0) {
+    final List<Timer> l = TimerList().get(recipe.id);
+    if (l.isNotEmpty) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
-        child: Column(children: [
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: l.length,
-            itemBuilder: (context, index) {
-              return _buildTimerListItem(l[index]);
-            },
-          )
-        ]),
+        child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: l.length,
+              itemBuilder: (context, index) {
+                return _buildTimerListItem(l[index]);
+              },
+            )
+          ],
+        ),
       );
     }
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 
   ListTile _buildTimerListItem(Timer timer) {
@@ -347,11 +366,12 @@ class RecipeScreenState extends State<RecipeScreen> {
         timer: timer,
       ),
       trailing: IconButton(
-          icon: Icon(Icons.cancel),
-          onPressed: () {
-            timer.cancel();
-            setState(() {});
-          }),
+        icon: const Icon(Icons.cancel),
+        onPressed: () {
+          timer.cancel();
+          setState(() {});
+        },
+      ),
     );
   }
 }

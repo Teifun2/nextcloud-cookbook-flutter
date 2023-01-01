@@ -5,7 +5,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 
-import 'recipe/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 
 class RecipeCreateScreen extends StatelessWidget {
   final Recipe recipe;
@@ -22,27 +22,31 @@ class RecipeCreateScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: BlocListener<RecipeBloc, RecipeState>(
-              listener: (BuildContext context, RecipeState state) {
-                if (state is RecipeCreateFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(translate(
-                          'recipe_create.errors.update_failed',
-                          args: {"error_msg": state.errorMsg})),
-                      backgroundColor: Colors.red,
+            listener: (BuildContext context, RecipeState state) {
+              if (state is RecipeCreateFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      translate(
+                        'recipe_create.errors.update_failed',
+                        args: {"error_msg": state.errorMsg},
+                      ),
                     ),
-                  );
-                } else if (state is RecipeCreateSuccess) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          RecipeScreen(recipeId: state.recipeId),
-                    ),
-                  );
-                }
-              },
-              child: Text(translate('recipe_create.title'))),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else if (state is RecipeCreateSuccess) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        RecipeScreen(recipeId: state.recipeId),
+                  ),
+                );
+              }
+            },
+            child: Text(translate('recipe_create.title')),
+          ),
         ),
         body: RecipeForm(
           recipe,

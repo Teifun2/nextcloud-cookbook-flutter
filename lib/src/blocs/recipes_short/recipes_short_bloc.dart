@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_event.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_state.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
@@ -18,10 +18,12 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
   }
 
   Stream<RecipesShortState> _mapRecipesShortLoadedToState(
-      RecipesShortLoaded recipesShortLoaded) async* {
+    RecipesShortLoaded recipesShortLoaded,
+  ) async* {
     try {
       final recipesShort = await dataRepository.fetchRecipesShort(
-          category: recipesShortLoaded.category);
+        category: recipesShortLoaded.category,
+      );
       yield RecipesShortLoadSuccess(recipesShort);
     } catch (_) {
       yield RecipesShortLoadFailure();
@@ -29,7 +31,8 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
   }
 
   Stream<RecipesShortState> _mapRecipesShortLoadedAllToState(
-      RecipesShortLoadedAll recipesShortLoadedAll) async* {
+    RecipesShortLoadedAll recipesShortLoadedAll,
+  ) async* {
     try {
       yield RecipesShortLoadAllInProgress();
       final recipesShort = await dataRepository.fetchAllRecipes();

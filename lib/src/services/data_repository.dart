@@ -25,7 +25,7 @@ class DataRepository {
   CategorySearchProvider categorySearchProvider = CategorySearchProvider();
   RecipeProvider recipeProvider = RecipeProvider();
   CategoriesProvider categoriesProvider = CategoriesProvider();
-  NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
+  final NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
   static String categoryAll = translate('categories.all_categories');
@@ -60,8 +60,9 @@ class DataRepository {
   }
 
   Future<List<Category>> fetchCategoryMainRecipes(
-      List<Category> categories) async {
-    return await Future.wait(
+    List<Category> categories,
+  ) async {
+    return Future.wait(
       categories.map((category) => _fetchCategoryMainRecipe(category)).toList(),
     );
   }
@@ -81,16 +82,14 @@ class DataRepository {
     }
 
     if (categoryRecipes.isNotEmpty) {
-      category.firstRecipeId = categoryRecipes.first.recipeId;
-    } else {
-      category.firstRecipeId = 0;
+      return category.copyWith(firstRecipeId: categoryRecipes.first.recipeId);
     }
 
     return category;
   }
 
   Future<List<RecipeShort>> fetchAllRecipes() async {
-    return await fetchRecipesShort(category: "All");
+    return fetchRecipesShort(category: "All");
   }
 
   String getUserAvatarUrl() {
@@ -102,8 +101,9 @@ class DataRepository {
   }
 
   Future<Iterable<String>> getMatchingCategoryNames(String pattern) async {
-    if (!categorySearchProvider.categoriesLoaded)
+    if (!categorySearchProvider.categoriesLoaded) {
       await categoriesProvider.fetchCategories();
+    }
 
     return categorySearchProvider.getMatchingCategoryNames(pattern);
   }

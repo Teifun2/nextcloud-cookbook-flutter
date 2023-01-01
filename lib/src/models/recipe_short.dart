@@ -13,16 +13,18 @@ class RecipeShort extends Equatable {
 
   RecipeShort.fromJson(Map<String, dynamic> json)
       : _recipeId = json["recipe_id"] is int
-            ? json["recipe_id"]
-            : int.parse(json["recipe_id"]),
-        _name = json["name"],
-        _imageUrl = json["imageUrl"];
+            ? json["recipe_id"] as int
+            : int.parse(json["recipe_id"] as String),
+        _name = json["name"] as String,
+        _imageUrl = json["imageUrl"] as String;
 
   static List<RecipeShort> parseRecipesShort(String responseBody) {
-    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    final parsed = json.decode(responseBody) as List;
 
     return parsed
-        .map<RecipeShort>((json) => RecipeShort.fromJson(json))
+        .map<RecipeShort>(
+          (json) => RecipeShort.fromJson(json as Map<String, dynamic>),
+        )
         .toList();
   }
 

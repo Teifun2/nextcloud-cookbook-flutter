@@ -8,7 +8,7 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart
 class RecipeImportScreen extends StatelessWidget {
   final String importUrl;
 
-  RecipeImportScreen([this.importUrl = '']);
+  const RecipeImportScreen([this.importUrl = '']);
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +22,23 @@ class RecipeImportScreen extends StatelessWidget {
               if (state is RecipeImportFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(translate(
+                    content: Text(
+                      translate(
                         'recipe_import.errors.import_failed',
-                        args: {"error_msg": state.errorMsg})),
+                        args: {"error_msg": state.errorMsg},
+                      ),
+                    ),
                     backgroundColor: Colors.red,
                   ),
                 );
               } else if (state is RecipeImportSuccess) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) {
-                    return RecipeScreen(recipeId: state.recipeId);
-                  }),
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return RecipeScreen(recipeId: state.recipeId);
+                    },
+                  ),
                 );
               }
             },

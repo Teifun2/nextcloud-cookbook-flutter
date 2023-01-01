@@ -23,112 +23,72 @@ class Recipe extends Equatable {
   final String url;
   final Map<String, dynamic> remainingData;
 
-  const Recipe._(
-    this.id,
-    this.name,
-    this.imageUrl,
-    this.recipeCategory,
-    this.description,
-    this.nutrition,
-    this.recipeIngredient,
-    this.recipeInstructions,
-    this.tool,
-    this.recipeYield,
-    this.prepTime,
-    this.cookTime,
-    this.totalTime,
-    this.keywords,
-    this.image,
-    this.url,
-    this.remainingData,
-  );
-
-  factory Recipe.empty() {
-    return Recipe._(
-      0,
-      '',
-      '',
-      '',
-      '',
-      Map<String, String>(),
-      List<String>.empty(),
-      List<String>.empty(),
-      List<String>.empty(),
-      1,
-      Duration.zero,
-      Duration.zero,
-      Duration.zero,
-      '',
-      '',
-      '',
-      Map<String, dynamic>(),
-    );
-  }
-
   factory Recipe(String jsonString) {
-    Map<String, dynamic> data = json.decode(jsonString);
+    final data = json.decode(jsonString) as Map<String, dynamic>;
 
-    int id = data["id"] ?? 0;
-    String name = data["name"] ?? '';
-    String imageUrl = data["imageUrl"] ?? '';
-    String recipeCategory = data["recipeCategory"] ?? '';
-    String description = data["description"] ?? '';
+    final int id = data["id"] as int? ?? 0;
+    final String name = data["name"] as String? ?? '';
+    final String imageUrl = data["imageUrl"] as String? ?? '';
+    final String recipeCategory = data["recipeCategory"] as String? ?? '';
+    final String description = data["description"] as String? ?? '';
 
     Map<String, String> recipeNutrition = {};
 
     if (data["nutrition"] is Map<String, dynamic>) {
       recipeNutrition = (data["nutrition"] as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, value.toString()))
-        ..removeWhere((key, value) =>
-            !NutritionUtility.nutritionProperties.contains(key));
+        ..removeWhere(
+          (key, value) => !NutritionUtility.nutritionProperties.contains(key),
+        );
       data["nutrition"] = (data["nutrition"] as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, value?.toString()))
         ..removeWhere(
-            (key, value) => NutritionUtility.nutritionProperties.contains(key));
+          (key, value) => NutritionUtility.nutritionProperties.contains(key),
+        );
     }
 
     List<String> recipeIngredient = [];
     if (data["recipeIngredient"] is Map) {
-      data["recipeIngredient"]
+      (data["recipeIngredient"] as Map)
           .forEach((k, v) => recipeIngredient.add(v as String));
     } else if (data["recipeIngredient"] != null) {
-      recipeIngredient = data["recipeIngredient"].cast<String>().toList();
+      recipeIngredient = (data["recipeIngredient"] as List).cast();
     }
 
     List<String> recipeInstructions = [];
     if (data["recipeInstructions"] is Map) {
-      data["recipeInstructions"]
+      (data["recipeInstructions"] as Map)
           .forEach((k, v) => recipeInstructions.add(v as String));
     } else if (data["recipeInstructions"] != null) {
-      recipeInstructions = data["recipeInstructions"].cast<String>().toList();
+      recipeInstructions = (data["recipeInstructions"] as List).cast();
     }
 
     List<String> tool = [];
     if (data["tool"] is Map) {
-      data["tool"].forEach((k, v) => tool.add(v as String));
+      (data["tool"] as Map).forEach((k, v) => tool.add(v as String));
     } else if (data["tool"] != null) {
-      tool = data["tool"].cast<String>().toList();
+      tool = (data["tool"] as List).cast();
     }
 
-    int recipeYield = data["recipeYield"] ?? 1;
-    Duration? prepTime = data.containsKey("prepTime") &&
+    final int recipeYield = data["recipeYield"] as int? ?? 1;
+    final Duration prepTime = data.containsKey("prepTime") &&
             data["prepTime"] != "" &&
             data["prepTime"] != null
-        ? IsoTimeFormat.toDuration(data["prepTime"])
+        ? IsoTimeFormat.toDuration(data["prepTime"] as String)
         : Duration.zero;
-    Duration? cookTime = data.containsKey("cookTime") &&
+    final Duration cookTime = data.containsKey("cookTime") &&
             data["cookTime"] != "" &&
             data["cookTime"] != null
-        ? IsoTimeFormat.toDuration(data["cookTime"])
+        ? IsoTimeFormat.toDuration(data["cookTime"] as String)
         : Duration.zero;
-    Duration totalTime = data.containsKey("totalTime") &&
+    final Duration totalTime = data.containsKey("totalTime") &&
             data["totalTime"] != "" &&
             data["totalTime"] != null
-        ? IsoTimeFormat.toDuration(data["totalTime"])
+        ? IsoTimeFormat.toDuration(data["totalTime"] as String)
         : Duration.zero;
-    String keywords = data["keywords"] ?? '';
-    String image = data["image"] ?? '';
-    String url = data["url"] ?? '';
+    final String keywords = data["keywords"] as String? ?? '';
+    final String image = data["image"] as String? ?? '';
+    final String url = data["url"] as String? ?? '';
 
     data.remove("id");
     data.remove("name");
@@ -170,8 +130,50 @@ class Recipe extends Equatable {
     );
   }
 
+  const Recipe._(
+    this.id,
+    this.name,
+    this.imageUrl,
+    this.recipeCategory,
+    this.description,
+    this.nutrition,
+    this.recipeIngredient,
+    this.recipeInstructions,
+    this.tool,
+    this.recipeYield,
+    this.prepTime,
+    this.cookTime,
+    this.totalTime,
+    this.keywords,
+    this.image,
+    this.url,
+    this.remainingData,
+  );
+
+  factory Recipe.empty() {
+    return Recipe._(
+      0,
+      '',
+      '',
+      '',
+      '',
+      const <String, String>{},
+      List<String>.empty(),
+      List<String>.empty(),
+      List<String>.empty(),
+      1,
+      Duration.zero,
+      Duration.zero,
+      Duration.zero,
+      '',
+      '',
+      '',
+      const <String, dynamic>{},
+    );
+  }
+
   String toJson() {
-    Map<String, dynamic> updatedData = {
+    final Map<String, dynamic> updatedData = {
       'id': id,
       'name': name,
       'imageUrl': imageUrl,
@@ -203,25 +205,25 @@ class Recipe extends Equatable {
   }
 
   MutableRecipe toMutableRecipe() {
-    MutableRecipe mutableRecipe = MutableRecipe();
+    final MutableRecipe mutableRecipe = MutableRecipe();
 
-    mutableRecipe.id = this.id;
-    mutableRecipe.name = this.name;
-    mutableRecipe.imageUrl = this.imageUrl;
-    mutableRecipe.recipeCategory = this.recipeCategory;
-    mutableRecipe.description = this.description;
-    mutableRecipe.nutrition = this.nutrition;
-    mutableRecipe.recipeIngredient = this.recipeIngredient;
-    mutableRecipe.recipeInstructions = this.recipeInstructions;
-    mutableRecipe.tool = this.tool;
-    mutableRecipe.recipeYield = this.recipeYield;
-    mutableRecipe.prepTime = this.prepTime;
-    mutableRecipe.cookTime = this.cookTime;
-    mutableRecipe.totalTime = this.totalTime;
-    mutableRecipe.keywords = this.keywords;
-    mutableRecipe.image = this.image;
-    mutableRecipe.url = this.url;
-    mutableRecipe.remainingData = this.remainingData;
+    mutableRecipe.id = id;
+    mutableRecipe.name = name;
+    mutableRecipe.imageUrl = imageUrl;
+    mutableRecipe.recipeCategory = recipeCategory;
+    mutableRecipe.description = description;
+    mutableRecipe.nutrition = nutrition;
+    mutableRecipe.recipeIngredient = recipeIngredient;
+    mutableRecipe.recipeInstructions = recipeInstructions;
+    mutableRecipe.tool = tool;
+    mutableRecipe.recipeYield = recipeYield;
+    mutableRecipe.prepTime = prepTime;
+    mutableRecipe.cookTime = cookTime;
+    mutableRecipe.totalTime = totalTime;
+    mutableRecipe.keywords = keywords;
+    mutableRecipe.image = image;
+    mutableRecipe.url = url;
+    mutableRecipe.remainingData = remainingData;
 
     return mutableRecipe;
   }

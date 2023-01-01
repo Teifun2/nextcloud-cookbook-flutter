@@ -12,7 +12,7 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
 
   final Widget? errorWidget;
 
-  AuthenticationCachedNetworkImage({
+  const AuthenticationCachedNetworkImage({
     super.key,
     required this.url,
     this.width,
@@ -23,7 +23,7 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppAuthentication appAuthentication =
+    final AppAuthentication appAuthentication =
         UserRepository().currentAppAuthentication;
 
     return CachedNetworkImage(
@@ -35,10 +35,8 @@ class AuthenticationCachedNetworkImage extends StatelessWidget {
         "Accept": "image/jpeg"
       },
       imageUrl: url,
-      placeholder: (context, url) => Container(
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
+      placeholder: (context, url) => const Center(
+        child: CircularProgressIndicator(),
       ),
       errorWidget: (context, url, error) => Container(
         width: width,

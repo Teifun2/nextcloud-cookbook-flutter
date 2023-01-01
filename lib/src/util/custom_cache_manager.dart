@@ -5,10 +5,16 @@ import 'package:http/io_client.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class CustomCacheManager {
-  static const key = 'customCacheKey';
-  static UserRepository userRepository = UserRepository();
+  static final CustomCacheManager _instance = CustomCacheManager._();
 
-  static CacheManager selfSignedCacheManager = CacheManager(
+  factory CustomCacheManager() => _instance;
+
+  CustomCacheManager._();
+
+  static const key = 'customCacheKey';
+  final UserRepository _userRepository = UserRepository();
+
+  final CacheManager _selfSignedCacheManager = CacheManager(
     Config(
       key,
       fileService: HttpFileService(
@@ -21,9 +27,9 @@ class CustomCacheManager {
     ),
   );
 
-  static CacheManager getInstance() {
-    if (userRepository.currentAppAuthentication.isSelfSignedCertificate) {
-      return selfSignedCacheManager;
+  CacheManager getInstance() {
+    if (_userRepository.currentAppAuthentication.isSelfSignedCertificate) {
+      return _selfSignedCacheManager;
     } else {
       return DefaultCacheManager();
     }

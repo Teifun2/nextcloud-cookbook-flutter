@@ -10,6 +10,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/my_settings_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
@@ -20,8 +21,6 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 import 'package:search_page/search_page.dart';
-
-import '../recipe/recipe_screen.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -47,7 +46,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               );
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
           drawer: Drawer(
             child: ListView(
@@ -55,6 +54,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                  ),
                   child: Center(
                     child: ClipOval(
                       child: AuthenticationCachedNetworkImage(
@@ -62,9 +64,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         boxFit: BoxFit.fill,
                       ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 ListTile(
@@ -77,9 +76,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return TimerScreen();
-                      }),
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const TimerScreen();
+                        },
+                      ),
                     );
                   },
                 ),
@@ -93,9 +94,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return RecipeImportScreen();
-                      }),
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const RecipeImportScreen();
+                        },
+                      ),
                     );
                   },
                 ),
@@ -108,9 +111,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   onTap: () async {
                     await Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return MySettingsScreen();
-                      }),
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const MySettingsScreen();
+                        },
+                      ),
                     );
                     setState(() {});
                   },
@@ -142,7 +147,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           delegate: SearchPage<RecipeShort>(
                             items: recipeShortState.recipesShort,
                             searchLabel: translate('search.title'),
-                            suggestion: Center(
+                            suggestion: const Center(
                                 // child: Text('Filter people by name, surname or age'),
                                 ),
                             failure: Center(
@@ -153,12 +158,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ],
                             builder: (recipe) => ListTile(
                               title: Text(recipe.name),
-                              trailing: Container(
-                                child: AuthenticationCachedNetworkRecipeImage(
-                                  recipeId: recipe.recipeId,
-                                  full: false,
-                                  width: 50,
-                                ),
+                              trailing: AuthenticationCachedNetworkRecipeImage(
+                                recipeId: recipe.recipeId,
+                                full: false,
+                                width: 50,
                               ),
                               onTap: () =>
                                   Navigator.of(context).pushReplacement(
@@ -221,57 +224,63 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ],
           ),
-          body: RefreshIndicator(onRefresh: () {
-            DefaultCacheManager().emptyCache();
-            BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
-            return Future.value(true);
-          }, child: () {
-            if (categoriesState is CategoriesLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesImageLoadSuccess) {
-              return _buildCategoriesScreen(categoriesState.categories);
-            } else if (categoriesState is CategoriesLoadInProgress ||
-                categoriesState is CategoriesInitial) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: SpinKitWave(
-                      color: Theme.of(context).primaryColor,
-                      size: 50.0,
-                    ),
-                  ),
-                  ApiVersionWarning(),
-                ],
-              );
-            } else if (categoriesState is CategoriesLoadFailure) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+          body: RefreshIndicator(
+            onRefresh: () {
+              DefaultCacheManager().emptyCache();
+              BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
+              return Future.value();
+            },
+            child: () {
+              if (categoriesState is CategoriesLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesImageLoadSuccess) {
+                return _buildCategoriesScreen(categoriesState.categories);
+              } else if (categoriesState is CategoriesLoadInProgress ||
+                  categoriesState is CategoriesInitial) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      translate('categories.errors.plugin_missing'),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Center(
+                      child: SpinKitWave(
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
-                    Divider(),
-                    Text(translate('categories.errors.load_failed',
-                        args: {'error_msg': categoriesState.errorMsg})),
+                    const ApiVersionWarning(),
                   ],
-                ),
-              );
-            } else {
-              return Text(translate('categories.errors.unknown'));
-            }
-          }()),
+                );
+              } else if (categoriesState is CategoriesLoadFailure) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        translate('categories.errors.plugin_missing'),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const Divider(),
+                      Text(
+                        translate(
+                          'categories.errors.load_failed',
+                          args: {'error_msg': categoriesState.errorMsg},
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Text(translate('categories.errors.unknown'));
+              }
+            }(),
+          ),
         );
       },
     );
   }
 
   Widget _buildCategoriesScreen(List<Category> categories) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    int axisRatio = (screenWidth / 150).round();
-    int axisCount = axisRatio < 1 ? 1 : axisRatio;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final int axisRatio = (screenWidth / 150).round();
+    final int axisCount = axisRatio < 1 ? 1 : axisRatio;
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -279,7 +288,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         crossAxisCount: axisCount,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        padding: EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10),
         semanticChildCount: categories.length,
         children: categories
             .map(

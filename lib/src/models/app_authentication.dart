@@ -23,31 +23,30 @@ class AppAuthentication {
     authenticatedClient.options.responseType = ResponseType.plain;
 
     if (isSelfSignedCertificate) {
-      HttpOverrides.global = new SelfSignedCertificateHttpOverride();
+      HttpOverrides.global = SelfSignedCertificateHttpOverride();
     }
   }
 
   factory AppAuthentication.fromJson(String jsonString) {
-    Map<String, dynamic> jsonData = json.decode(jsonString);
+    final jsonData = json.decode(jsonString) as Map<String, dynamic>;
 
-    String basicAuth = jsonData.containsKey("basicAuth")
-        ? jsonData['basicAuth']
-        : 'Basic ' +
-            base64Encode(
-              utf8.encode(
-                '${jsonData["loginName"]}:${jsonData["appPassword"]}',
-              ),
-            );
+    final basicAuth = jsonData.containsKey("basicAuth")
+        ? jsonData['basicAuth'] as String
+        : 'Basic ${base64Encode(
+            utf8.encode(
+              '${jsonData["loginName"]}:${jsonData["appPassword"]}',
+            ),
+          )}';
 
-    bool selfSignedCertificate = jsonData.containsKey("isSelfSignedCertificate")
-        ? jsonData['isSelfSignedCertificate']
-        : false;
+    final selfSignedCertificate =
+        jsonData['isSelfSignedCertificate'] as bool? ?? false;
 
     return AppAuthentication(
-        server: jsonData["server"],
-        loginName: jsonData["loginName"],
-        basicAuth: basicAuth,
-        isSelfSignedCertificate: selfSignedCertificate);
+      server: jsonData["server"] as String,
+      loginName: jsonData["loginName"] as String,
+      basicAuth: basicAuth,
+      isSelfSignedCertificate: selfSignedCertificate,
+    );
   }
 
   String toJson() {

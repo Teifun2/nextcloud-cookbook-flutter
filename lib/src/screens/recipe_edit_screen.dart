@@ -17,7 +17,7 @@ class RecipeEditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
+        final RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
         if (recipeBloc.state is RecipeUpdateFailure) {
           recipeBloc.add(RecipeLoaded(recipe.id));
         }
@@ -26,23 +26,27 @@ class RecipeEditScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: BlocListener<RecipeBloc, RecipeState>(
-              listener: (BuildContext context, RecipeState state) {
-                if (state is RecipeUpdateFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(translate(
-                          'recipe_edit.errors.update_failed',
-                          args: {"error_msg": state.errorMsg})),
-                      backgroundColor: Colors.red,
+            listener: (BuildContext context, RecipeState state) {
+              if (state is RecipeUpdateFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      translate(
+                        'recipe_edit.errors.update_failed',
+                        args: {"error_msg": state.errorMsg},
+                      ),
                     ),
-                  );
-                } else if (state is RecipeUpdateSuccess) {
-                  BlocProvider.of<RecipeBloc>(context)
-                      .add(RecipeLoaded(state.recipeId));
-                  Navigator.pop(context);
-                }
-              },
-              child: Text(translate('recipe_edit.title'))),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else if (state is RecipeUpdateSuccess) {
+                BlocProvider.of<RecipeBloc>(context)
+                    .add(RecipeLoaded(state.recipeId));
+                Navigator.pop(context);
+              }
+            },
+            child: Text(translate('recipe_edit.title')),
+          ),
         ),
         body: RecipeForm(
           recipe,
