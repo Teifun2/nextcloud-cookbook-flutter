@@ -11,12 +11,12 @@ class TranslatePreferences implements ITranslatePreferences {
   Future<Locale> getPreferredLocale() {
     var locale = Settings.getValue<String>(
       describeEnum(SettingKeys.language),
-      Platform.localeName,
+      defaultValue: Platform.localeName,
     );
     if (locale == 'default') {
       return Future.value(Locale(Platform.localeName));
     }
-    return Future.value(Locale(locale));
+    return Future.value(Locale(locale!));
   }
 
   @override

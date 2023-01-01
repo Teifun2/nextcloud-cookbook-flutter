@@ -8,14 +8,14 @@ import 'network.dart';
 class RecipesShortProvider {
   Future<List<RecipeShort>> fetchRecipesShort() async {
     AppAuthentication appAuthentication =
-    UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
-    final String url = "${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes";
+    final String url =
+        "${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes";
     try {
       String contents = await Network().get(url);
-            return RecipeShort.parseRecipesShort(contents);
-    }
-    catch (e) {
+      return RecipeShort.parseRecipesShort(contents);
+    } catch (e) {
       throw Exception(translate('recipe_list.errors.load_failed'));
     }
   }

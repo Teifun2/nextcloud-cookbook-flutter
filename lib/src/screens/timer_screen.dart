@@ -6,12 +6,14 @@ import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 
 class TimerScreen extends StatefulWidget {
+  const TimerScreen({super.key});
+
   @override
   _TimerScreen createState() => _TimerScreen();
 }
 
 class _TimerScreen extends State<TimerScreen> {
-  List<Timer> _list;
+  late List<Timer> _list;
 
   @override
   void initState() {
@@ -69,7 +71,7 @@ class _TimerScreen extends State<TimerScreen> {
         width: 60,
         height: 60,
       ),
-      title: Text(timer.title),
+      title: Text(timer.title!),
       subtitle: AnimatedTimeProgressBar(
         timer: timer,
       ),

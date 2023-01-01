@@ -5,17 +5,17 @@ class InitialLogin {
   String login;
 
   InitialLogin({
-    this.poll,
-    this.login,
+    required this.poll,
+    required this.login,
   });
 
   factory InitialLogin.fromJson(Map<String, dynamic> json) => InitialLogin(
-    poll: Poll.fromJson(json["poll"]),
-    login: json["login"],
-  );
+        poll: Poll.fromJson(json["poll"]),
+        login: json["login"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "poll": poll.toJson(),
-    "login": login,
-  };
+        "poll": poll.toJson(),
+        "login": login,
+      };
 }

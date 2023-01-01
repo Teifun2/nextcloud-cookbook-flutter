@@ -4,30 +4,23 @@ import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/custom_cache_manager.dart';
 
 class Network {
-  static final Network _network = Network._internal();
+  static final Network _network = Network._();
 
-  factory Network() {
-    return _network;
-  }
+  factory Network() => _network;
 
-  Network._internal();
+  Network._();
 
   /// Try to load file from locale cache first, if not available get it from the server
   Future<String> get(String url) async {
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
-    FileInfo file = await DefaultCacheManager().getFileFromCache(url);
-    if (file == null) {
-      // Download, if not available
-      file = await CustomCacheManager.getInstance()
-          .downloadFile(url, authHeaders: {
-        "Authorization": appAuthentication.basicAuth,
-      });
-      if (file == null) {
-        throw Exception("could not download " + url);
-      }
-    }
+    FileInfo file = await DefaultCacheManager().getFileFromCache(url) ??
+        // Download, if not available
+        await CustomCacheManager.getInstance().downloadFile(url, authHeaders: {
+          "Authorization": appAuthentication.basicAuth,
+        });
+
     String contents = await file.file.readAsString();
     return contents;
   }

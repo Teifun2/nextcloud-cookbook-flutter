@@ -9,7 +9,7 @@ import 'network.dart';
 class RecipeProvider {
   Future<Recipe> fetchRecipe(int id) async {
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     final String url =
         "${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes/$id";
@@ -23,9 +23,9 @@ class RecipeProvider {
   }
 
   Future<int> updateRecipe(Recipe recipe) async {
-    Dio client = UserRepository().getAuthenticatedClient();
+    Dio client = UserRepository().authenticatedClient;
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     try {
       final String url =
@@ -44,9 +44,9 @@ class RecipeProvider {
   }
 
   Future<int> createRecipe(Recipe recipe) async {
-    Dio client = UserRepository().getAuthenticatedClient();
+    Dio client = UserRepository().authenticatedClient;
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     try {
       var response = await client.post(
@@ -62,9 +62,9 @@ class RecipeProvider {
   }
 
   Future<Recipe> importRecipe(String url) async {
-    Dio client = UserRepository().getAuthenticatedClient();
+    Dio client = UserRepository().authenticatedClient;
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     try {
       var response = await client.post(

@@ -27,5 +27,5 @@ class RecipeShort extends Equatable {
   }
 
   @override
-  List<Object> get props => [_recipeId];
+  List<int> get props => [_recipeId];
 }

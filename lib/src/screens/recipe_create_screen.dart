@@ -10,7 +10,10 @@ import 'recipe/recipe_screen.dart';
 class RecipeCreateScreen extends StatelessWidget {
   final Recipe recipe;
 
-  const RecipeCreateScreen(this.recipe);
+  const RecipeCreateScreen(
+    this.recipe, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

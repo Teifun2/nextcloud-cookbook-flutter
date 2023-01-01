@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -16,20 +15,22 @@ import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:wakelock/wakelock.dart';
 
 class RecipeScreen extends StatefulWidget {
   final int recipeId;
 
-  const RecipeScreen({Key key, @required this.recipeId}) : super(key: key);
+  const RecipeScreen({
+    super.key,
+    required this.recipeId,
+  });
 
   @override
   State<StatefulWidget> createState() => RecipeScreenState();
 }
 
 class RecipeScreenState extends State<RecipeScreen> {
-  int recipeId;
   bool isLargeScreen = false;
 
   Future<bool> _disableWakelock() async {
@@ -41,7 +42,8 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   void _enableWakelock() {
-    if (Settings.getValue<bool>(describeEnum(SettingKeys.stay_awake), false)) {
+    if (Settings.getValue<bool>(describeEnum(SettingKeys.stay_awake),
+        defaultValue: false)!) {
       Wakelock.enable();
     }
   }
@@ -49,28 +51,14 @@ class RecipeScreenState extends State<RecipeScreen> {
   @override
   void initState() {
     _enableWakelock();
-    recipeId = widget.recipeId;
     super.initState();
-  }
-
-  Future<void> _refresh() async {
-    DefaultCacheManager().emptyCache();
-    this.setState(() {});
-    return Future.value(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle settingsBasedTextStyle = TextStyle(
-      fontSize: Settings.getValue<double>(
-        describeEnum(SettingKeys.recipe_font_size),
-        Theme.of(context).textTheme.bodyText2.fontSize,
-      ),
-    );
-
     this.isLargeScreen = MediaQuery.of(context).size.width > 600;
     return BlocProvider<RecipeBloc>(
-      create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId: recipeId)),
+      create: (context) => RecipeBloc()..add(RecipeLoaded(widget.recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
           builder: (BuildContext context, RecipeState state) {
         final recipeBloc = BlocProvider.of<RecipeBloc>(context);
@@ -131,16 +119,17 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   FloatingActionButton _buildFabButton(Recipe recipe) {
-    var enabled = recipe.cookTime != null && recipe.cookTime > Duration.zero;
+    var enabled = recipe.cookTime > Duration.zero;
     return FloatingActionButton(
       onPressed: () {
         {
           if (enabled) {
             Timer timer = new Timer(
-                recipe.id,
-                recipe.name,
-                recipe.name + " " + translate('timer.finished'),
-                recipe.cookTime);
+              recipe.id,
+              recipe.name,
+              recipe.name + " " + translate('timer.finished'),
+              recipe.cookTime,
+            );
             timer.start();
             TimerList().timers.add(timer);
             setState(() {});
@@ -156,7 +145,7 @@ class RecipeScreenState extends State<RecipeScreen> {
       },
       child: Icon(Icons.access_alarm),
       backgroundColor: enabled
-          ? Theme.of(context).accentColor
+          ? Theme.of(context).colorScheme.secondary
           : Theme.of(context).disabledColor,
     );
   }
@@ -167,7 +156,7 @@ class RecipeScreenState extends State<RecipeScreen> {
         TextStyle settingsBasedTextStyle = TextStyle(
           fontSize: Settings.getValue<double>(
             describeEnum(SettingKeys.recipe_font_size),
-            Theme.of(context).textTheme.bodyText2.fontSize,
+            defaultValue: Theme.of(context).textTheme.bodyText2?.fontSize,
           ),
         );
 
@@ -215,14 +204,14 @@ class RecipeScreenState extends State<RecipeScreen> {
                             text: translate('recipe.fields.servings'),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2
+                                .bodyText2!
                                 .apply(fontWeightDelta: 3),
                             children: <TextSpan>[
                               TextSpan(
                                 text: " " + recipe.recipeYield.toString(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2
+                                    .bodyText2!
                                     .apply(fontWeightDelta: 3),
                               )
                             ],
@@ -233,8 +222,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                           ElevatedButton(
                             style: ButtonStyle(),
                             onPressed: () async {
-                              if (await canLaunch(recipe.url)) {
-                                await launch(recipe.url);
+                              if (await launchUrlString(recipe.url)) {
+                                await launchUrlString(recipe.url);
                               }
                             },
                             child:
@@ -250,15 +239,15 @@ class RecipeScreenState extends State<RecipeScreen> {
                       runSpacing: 10,
                       spacing: 10,
                       children: <Widget>[
-                        if (recipe.prepTime != null)
+                        if (recipe.prepTime > Duration.zero)
                           DurationIndicator(
                               duration: recipe.prepTime,
                               name: translate('recipe.prep')),
-                        if (recipe.cookTime != null)
+                        if (recipe.cookTime > Duration.zero)
                           DurationIndicator(
                               duration: recipe.cookTime,
                               name: translate('recipe.cook')),
-                        if (recipe.totalTime != null)
+                        if (recipe.totalTime > Duration.zero)
                           DurationIndicator(
                               duration: recipe.totalTime,
                               name: translate('recipe.total')),

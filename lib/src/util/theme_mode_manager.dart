@@ -10,7 +10,7 @@ class ThemeModeManager implements IThemeModeManager {
     return Future.value(
       Settings.getValue<String>(
         describeEnum(SettingKeys.dark_mode),
-        ThemeMode.system.toString(),
+        defaultValue: ThemeMode.system.toString(),
       ),
     );
   }

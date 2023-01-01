@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 abstract class LoginEvent extends Equatable {
   const LoginEvent();
@@ -16,11 +15,11 @@ class LoginButtonPressed extends LoginEvent {
   final bool isSelfSignedCertificate;
 
   const LoginButtonPressed({
-    @required this.serverURL,
-    @required this.username,
-    @required this.originalBasicAuth,
-    @required this.isAppPassword,
-    @required this.isSelfSignedCertificate,
+    required this.serverURL,
+    required this.username,
+    required this.originalBasicAuth,
+    required this.isAppPassword,
+    required this.isSelfSignedCertificate,
   });
 
   @override

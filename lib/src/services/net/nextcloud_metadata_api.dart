@@ -8,7 +8,7 @@ class NextcloudMetadataApi {
 
   factory NextcloudMetadataApi() {
     return new NextcloudMetadataApi._(
-        UserRepository().getCurrentAppAuthentication());
+        UserRepository().currentAppAuthentication);
   }
 
   String getUserAvatarUrl() {

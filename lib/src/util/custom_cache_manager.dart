@@ -22,7 +22,7 @@ class CustomCacheManager {
   );
 
   static CacheManager getInstance() {
-    if (userRepository.getCurrentAppAuthentication().isSelfSignedCertificate) {
+    if (userRepository.currentAppAuthentication.isSelfSignedCertificate) {
       return selfSignedCacheManager;
     } else {
       return DefaultCacheManager();

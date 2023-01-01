@@ -13,11 +13,10 @@ import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.d
 
 class DataRepository {
   // Singleton
-  static final DataRepository _dataRepository = DataRepository._internal();
-  factory DataRepository() {
-    return _dataRepository;
-  }
-  DataRepository._internal();
+  static final DataRepository _dataRepository = DataRepository._();
+  factory DataRepository() => _dataRepository;
+
+  DataRepository._();
 
   // Provider List
   RecipesShortProvider recipesShortProvider = RecipesShortProvider();
@@ -29,11 +28,10 @@ class DataRepository {
   NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
-  static Future<List<RecipeShort>> _allRecipesShort;
   static String categoryAll = translate('categories.all_categories');
 
   // Actions
-  Future<List<RecipeShort>> fetchRecipesShort({String category}) {
+  Future<List<RecipeShort>> fetchRecipesShort({required String category}) {
     if (category == categoryAll) {
       return recipesShortProvider.fetchRecipesShort();
     } else {
@@ -72,19 +70,17 @@ class DataRepository {
     List<RecipeShort> categoryRecipes = [];
 
     try {
-      categoryRecipes = await () {
-        if (category.name == translate('categories.all_categories')) {
-          return recipesShortProvider.fetchRecipesShort();
-        } else {
-          return categoryRecipesShortProvider
-              .fetchCategoryRecipesShort(category.name);
-        }
-      }();
+      if (category.name == translate('categories.all_categories')) {
+        categoryRecipes = await recipesShortProvider.fetchRecipesShort();
+      } else {
+        categoryRecipes = await categoryRecipesShortProvider
+            .fetchCategoryRecipesShort(category.name);
+      }
     } catch (e) {
       log("Could not load main recipe of Category!");
     }
 
-    if (categoryRecipes.length > 0) {
+    if (categoryRecipes.isNotEmpty) {
       category.firstRecipeId = categoryRecipes.first.recipeId;
     } else {
       category.firstRecipeId = 0;

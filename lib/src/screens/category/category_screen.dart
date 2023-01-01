@@ -24,6 +24,8 @@ import 'package:search_page/search_page.dart';
 import '../recipe/recipe_screen.dart';
 
 class CategoryScreen extends StatefulWidget {
+  const CategoryScreen({super.key});
+
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
 }

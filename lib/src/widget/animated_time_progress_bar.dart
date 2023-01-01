@@ -5,8 +5,10 @@ import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 class AnimatedTimeProgressBar extends StatefulWidget {
   final Timer timer;
 
-  const AnimatedTimeProgressBar({@required this.timer, Key key})
-      : super(key: key);
+  const AnimatedTimeProgressBar({
+    super.key,
+    required this.timer,
+  });
 
   @override
   _AnimatedTimeProgressBarState createState() =>
@@ -15,9 +17,9 @@ class AnimatedTimeProgressBar extends StatefulWidget {
 
 class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
     with TickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   final Timer _timer;
-  Tween<num> _timerTween;
+  late Tween<num> _timerTween;
 
   _AnimatedTimeProgressBarState(this._timer) {
     this._timerTween = Tween(
@@ -35,9 +37,7 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
       vsync: this,
     );
 
-    this._controller.forward().whenCompleteOrCancel(() {
-    });
-
+    this._controller.forward().whenCompleteOrCancel(() {});
   }
 
   @override
@@ -49,31 +49,30 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: this._controller,
-      child: Container(),
-      builder: (context, child){
-        if(_controller.isCompleted){
-          return Container(child: Text(translate('timer.done')));
-        }
+        animation: this._controller,
+        child: Container(),
+        builder: (context, child) {
+          if (_controller.isCompleted) {
+            return Container(child: Text(translate('timer.done')));
+          }
 
-        return Column(
-          children: [
-               Row(
+          return Column(
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
-                  Text("${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
+                  Text(
+                      "${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
+                  Text(
+                      "${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}"),
                 ],
               ),
-
-            LinearProgressIndicator(
-              value: this._timerTween.evaluate(this._controller),
-              semanticsLabel: _timer.title,
-            )
-          ],
-        );
-      }
-
-    );
+              LinearProgressIndicator(
+                value: this._timerTween.evaluate(this._controller) as double?,
+                semanticsLabel: _timer.title,
+              )
+            ],
+          );
+        });
   }
 }

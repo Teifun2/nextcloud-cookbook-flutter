@@ -10,25 +10,25 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 class RecipesListScreen extends StatefulWidget {
   final String category;
 
-  const RecipesListScreen({Key key, @required this.category}) : super(key: key);
+  const RecipesListScreen({
+    super.key,
+    required this.category,
+  });
 
   @override
   State<StatefulWidget> createState() => RecipesListScreenState();
 }
 
 class RecipesListScreenState extends State<RecipesListScreen> {
-  String category;
-
   @override
   void initState() {
-    category = widget.category;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesShortBloc>(context)
-        .add(RecipesShortLoaded(category: category));
+        .add(RecipesShortLoaded(category: widget.category));
 
     return BlocBuilder<RecipesShortBloc, RecipesShortState>(
       builder: (context, recipesShortState) {
@@ -36,7 +36,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
           appBar: AppBar(
             title: Text(translate(
               'recipe_list.title_category',
-              args: {'category': category},
+              args: {'category': widget.category},
             )),
             actions: <Widget>[
               // action button
@@ -48,7 +48,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                 onPressed: () {
                   DefaultCacheManager().emptyCache();
                   BlocProvider.of<RecipesShortBloc>(context)
-                      .add(RecipesShortLoaded(category: category));
+                      .add(RecipesShortLoaded(category: widget.category));
                 },
               ),
             ],
@@ -57,7 +57,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
             onRefresh: () {
               DefaultCacheManager().emptyCache();
               BlocProvider.of<RecipesShortBloc>(context)
-                  .add(RecipesShortLoaded(category: category));
+                  .add(RecipesShortLoaded(category: widget.category));
               return Future.value(true);
             },
             child: (() {

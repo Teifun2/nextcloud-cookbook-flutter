@@ -15,10 +15,10 @@ class RecipesShortLoadFailure extends RecipesShortState {}
 class RecipesShortLoadSuccess extends RecipesShortState {
   final List<RecipeShort> recipesShort;
 
-  const RecipesShortLoadSuccess([this.recipesShort = const []]);
+  const RecipesShortLoadSuccess(this.recipesShort);
 
   @override
-  List<Object> get props => [recipesShort];
+  List<RecipeShort> get props => recipesShort;
 
   @override
   String toString() => 'RecipesShortLoadSuccess { recipes: $recipesShort }';
@@ -27,10 +27,10 @@ class RecipesShortLoadSuccess extends RecipesShortState {
 class RecipesShortLoadAllSuccess extends RecipesShortState {
   final List<RecipeShort> recipesShort;
 
-  const RecipesShortLoadAllSuccess([this.recipesShort = const []]);
+  const RecipesShortLoadAllSuccess(this.recipesShort);
 
   @override
-  List<Object> get props => [recipesShort];
+  List<RecipeShort> get props => recipesShort;
 
   @override
   String toString() => 'RecipesShortLoadAllSuccess { recipes: $recipesShort }';
@@ -42,7 +42,7 @@ class RecipesShortLoadAllFailure extends RecipesShortState {
   const RecipesShortLoadAllFailure(this.errorMsg);
 
   @override
-  List<Object> get props => [errorMsg];
+  List<String> get props => [errorMsg];
 }
 
 class RecipesShortLoadAllInProgress extends RecipesShortState {}

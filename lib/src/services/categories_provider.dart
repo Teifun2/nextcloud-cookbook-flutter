@@ -8,7 +8,7 @@ import 'network.dart';
 class CategoriesProvider {
   Future<List<Category>> fetchCategories() async {
     AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+        UserRepository().currentAppAuthentication;
 
     final String url =
         "${appAuthentication.server}/index.php/apps/cookbook/api/v1/categories";
@@ -22,8 +22,10 @@ class CategoriesProvider {
         0,
         Category(
           translate('categories.all_categories'),
-          categories.fold(0,
-              (previousValue, element) => previousValue + element.recipeCount),
+          categories.fold(
+              0,
+              ((int previousValue, Category element) =>
+                  previousValue + element.recipeCount)),
         ),
       );
       return categories;

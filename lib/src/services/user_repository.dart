@@ -8,11 +8,10 @@ import '../models/app_authentication.dart';
 
 class UserRepository {
   // Singleton
-  static final UserRepository _userRepository = UserRepository._internal();
-  factory UserRepository() {
-    return _userRepository;
-  }
-  UserRepository._internal();
+  static final UserRepository _userRepository = UserRepository._();
+  factory UserRepository() => _userRepository;
+
+  UserRepository._();
 
   AuthenticationProvider authenticationProvider = AuthenticationProvider();
   VersionProvider versionProvider = VersionProvider();
@@ -49,12 +48,12 @@ class UserRepository {
     authenticationProvider.stopAuthenticate();
   }
 
-  AppAuthentication getCurrentAppAuthentication() {
-    return authenticationProvider.currentAppAuthentication;
+  AppAuthentication get currentAppAuthentication {
+    return authenticationProvider.currentAppAuthentication!;
   }
 
-  Dio getAuthenticatedClient() {
-    return authenticationProvider.currentAppAuthentication.authenticatedClient;
+  Dio get authenticatedClient {
+    return currentAppAuthentication.authenticatedClient;
   }
 
   Future<bool> hasAppAuthentication() async {
@@ -67,10 +66,10 @@ class UserRepository {
 
   Future<bool> checkAppAuthentication() async {
     return authenticationProvider.checkAppAuthentication(
-        authenticationProvider.currentAppAuthentication.server,
-        authenticationProvider.currentAppAuthentication.basicAuth,
-        authenticationProvider
-            .currentAppAuthentication.isSelfSignedCertificate);
+      currentAppAuthentication.server,
+      currentAppAuthentication.basicAuth,
+      currentAppAuthentication.isSelfSignedCertificate,
+    );
   }
 
   Future<void> persistAppAuthentication(
