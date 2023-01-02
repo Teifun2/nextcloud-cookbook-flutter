@@ -2,12 +2,12 @@ import 'package:nextcloud_cookbook_flutter/src/services/notification_provider.da
 import 'package:timezone/timezone.dart' as tz;
 
 class TimerList {
-  static const TimerList _instance = TimerList._();
+  static final TimerList _instance = TimerList._();
   final List<Timer> timers;
 
   factory TimerList() => _instance;
 
-  const TimerList._() : timers = const <Timer>[];
+  TimerList._() : timers = <Timer>[];
 
   List<Timer> get(int recipeId) {
     final List<Timer> l = <Timer>[];
