@@ -3,12 +3,13 @@
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/com.nextcloud_cookbook_flutter/)
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
      alt="Get it on Google Play"
      height="80">](https://play.google.com/store/apps/details?id=com.nextcloud_cookbook_flutter)
-[<img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+[<img src="https://user-images.githubusercontent.com/7461832/211680075-d3a9e06d-0f41-4153-8f54-7ed133f854b1.png"
      alt="Get it on the App Store"
-     height="55" style="padding-bottom: 12px; padding-left: 10px">](https://apps.apple.com/us/app/nextcloud-cookbook/id1619926634)
+     height="82" style="padding-bottom: 20px; padding-left: 10px">](https://apps.apple.com/us/app/nextcloud-cookbook/id1619926634)
+
 
 # Nextcloud Cookbook Mobile Client written in Flutter
 
