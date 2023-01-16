@@ -1,6 +1,7 @@
 name: "Build"
 on:
   pull_request:
+    types: [review_requested, ready_for_review]
   push:
 jobs:
   build:
