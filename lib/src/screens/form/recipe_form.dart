@@ -266,8 +266,8 @@ class _RecipeFormState extends State<RecipeForm> {
                       child: () {
                         switch (state.status) {
                           case RecipeStatus.updateInProgress:
-                            return const SpinKitWave(
-                              color: Colors.white,
+                            return SpinKitWave(
+                              color: Theme.of(context).colorScheme.primary,
                               size: 30.0,
                             );
                           case RecipeStatus.updateFailure:
