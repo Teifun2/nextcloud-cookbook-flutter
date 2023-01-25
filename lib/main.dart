@@ -107,14 +107,14 @@ class _AppState extends State<App> {
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             switch (state.status) {
-              case AuthenticationStatus.uninitialized:
+              case AuthenticationStatus.loading:
                 return const SplashPage();
               case AuthenticationStatus.authenticated:
                 IntentRepository().handleIntent();
-                if (BlocProvider.of<CategoriesBloc>(context).state.status ==
-                    CategoriesStatus.initial) {
-                  BlocProvider.of<CategoriesBloc>(context)
-                      .add(const CategoriesLoaded());
+                final categoryBloc = BlocProvider.of<CategoriesBloc>(context);
+                if (categoryBloc.state.status ==
+                    CategoriesStatus.loadInProgress) {
+                  categoryBloc.add(const CategoriesLoaded());
                 }
                 return const CategoryScreen();
               case AuthenticationStatus.unauthenticated:
@@ -123,9 +123,8 @@ class _AppState extends State<App> {
                 return const LoginScreen(
                   invalidCredentials: true,
                 );
-              case AuthenticationStatus.loading:
               case AuthenticationStatus.error:
-                return const LoadingScreen();
+                return const LoadingErrorScreen();
             }
           },
         ),

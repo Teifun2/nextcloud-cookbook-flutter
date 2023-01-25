@@ -21,7 +21,6 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     Emitter<RecipeState> emit,
   ) async {
     try {
-      emit(RecipeState(status: RecipeStatus.loadInProgress));
       final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
       emit(RecipeState(status: RecipeStatus.loadSuccess, recipe: recipe));
     } catch (e) {

@@ -1,7 +1,6 @@
 part of 'categories_bloc.dart';
 
 enum CategoriesStatus {
-  initial,
   loadInProgress,
   loadFailure,
   loadSuccess,
@@ -14,12 +13,11 @@ class CategoriesState extends Equatable {
   final Iterable<Category>? categories;
 
   CategoriesState({
-    this.status = CategoriesStatus.initial,
+    this.status = CategoriesStatus.loadInProgress,
     this.error,
     this.categories,
   }) {
     switch (status) {
-      case CategoriesStatus.initial:
       case CategoriesStatus.loadInProgress:
         assert(error == null && categories == null);
         break;

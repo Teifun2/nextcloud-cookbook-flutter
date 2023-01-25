@@ -18,7 +18,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     Emitter<CategoriesState> emit,
   ) async {
     try {
-      emit(CategoriesState(status: CategoriesStatus.loadInProgress));
       final List<Category> categories = await dataRepository.fetchCategories();
       dataRepository.updateCategoryNames(categories);
       emit(

@@ -23,7 +23,6 @@ class AuthenticationBloc
     final bool hasToken = await userRepository.hasAppAuthentication();
 
     if (hasToken) {
-      emit(AuthenticationState(status: AuthenticationStatus.loading));
       await userRepository.loadAppAuthentication();
       bool validCredentials = false;
       try {
@@ -53,7 +52,7 @@ class AuthenticationBloc
     LoggedIn event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(AuthenticationState(status: AuthenticationStatus.loading));
+    emit(AuthenticationState());
     await userRepository.persistAppAuthentication(event.appAuthentication);
     await userRepository.fetchApiVersion();
     emit(AuthenticationState(status: AuthenticationStatus.authenticated));
@@ -63,7 +62,7 @@ class AuthenticationBloc
     LoggedOut event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(AuthenticationState(status: AuthenticationStatus.loading));
+    emit(AuthenticationState());
     await userRepository.deleteAppAuthentication();
     emit(AuthenticationState(status: AuthenticationStatus.unauthenticated));
   }

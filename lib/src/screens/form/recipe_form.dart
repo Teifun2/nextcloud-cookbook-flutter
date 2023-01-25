@@ -271,7 +271,6 @@ class _RecipeFormState extends State<RecipeForm> {
                           case RecipeStatus.loadSuccess:
                           case RecipeStatus.createSuccess:
                           case RecipeStatus.createFailure:
-                          case RecipeStatus.initial:
                           default:
                             return Text(widget.buttonSubmitText);
                         }

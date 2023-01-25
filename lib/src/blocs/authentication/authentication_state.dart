@@ -2,7 +2,6 @@ part of 'authentication_bloc.dart';
 
 enum AuthenticationStatus {
   unauthenticated,
-  uninitialized,
   authenticated,
   invalid,
   loading,
@@ -14,7 +13,7 @@ class AuthenticationState extends Equatable {
   final String? error;
 
   const AuthenticationState({
-    this.status = AuthenticationStatus.uninitialized,
+    this.status = AuthenticationStatus.loading,
     this.error,
   }) : assert(
           (status != AuthenticationStatus.error && error == null) ||

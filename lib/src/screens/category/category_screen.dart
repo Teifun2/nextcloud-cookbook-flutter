@@ -237,7 +237,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 case CategoriesStatus.imageLoadSuccess:
                   return _buildCategoriesScreen(categoriesState.categories!);
                 case CategoriesStatus.loadInProgress:
-                case CategoriesStatus.initial:
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

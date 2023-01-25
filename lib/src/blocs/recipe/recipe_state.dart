@@ -1,7 +1,6 @@
 part of 'recipe_bloc.dart';
 
 enum RecipeStatus {
-  initial,
   failure,
   success,
   loadSuccess,
@@ -25,14 +24,12 @@ class RecipeState extends Equatable {
   final String? recipeId;
 
   RecipeState({
-    this.status = RecipeStatus.initial,
+    this.status = RecipeStatus.loadInProgress,
     this.error,
     this.recipe,
     this.recipeId,
   }) {
     switch (status) {
-      case RecipeStatus.initial:
-
       case RecipeStatus.loadInProgress:
       case RecipeStatus.updateInProgress:
       case RecipeStatus.createInProgress:

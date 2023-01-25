@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
 
-class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({super.key});
+class LoadingErrorScreen extends StatelessWidget {
+  const LoadingErrorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, authenticationState) {
-          if (authenticationState.status != AuthenticationStatus.error) {
-            return SpinKitWave(
-              color: Theme.of(context).primaryColor,
-            );
-          }
-
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
