@@ -14,17 +14,10 @@ class TimerScreen extends StatefulWidget {
 }
 
 class _TimerScreen extends State<TimerScreen> {
-  late List<Timer> _list;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final List<Timer> _list = TimerList().timers;
 
   @override
   Widget build(BuildContext context) {
-    _list = TimerList().timers;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(translate('timer.title')),
