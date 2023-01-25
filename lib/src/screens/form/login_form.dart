@@ -47,6 +47,9 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _serverUrl.dispose();
+    _username.dispose();
+    _password.dispose();
     super.dispose();
   }
 

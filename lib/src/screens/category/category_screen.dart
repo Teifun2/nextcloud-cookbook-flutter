@@ -151,12 +151,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) {
-                          return const MySettingsScreen();
-                        },
+                        builder: (_) => const MySettingsScreen(),
                       ),
                     );
-                    setState(() {});
                   },
                 ),
                 ListTile(

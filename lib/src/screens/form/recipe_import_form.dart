@@ -20,8 +20,6 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
 
   @override
   void initState() {
-    super.initState();
-
     _importUrlController.text = widget.importUrl;
     if (widget.importUrl.isNotEmpty) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -29,6 +27,7 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
             .add(RecipeImported(_importUrlController.text));
       });
     }
+    super.initState();
   }
 
   @override

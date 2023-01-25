@@ -7,7 +7,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
-class RecipesListScreen extends StatefulWidget {
+class RecipesListScreen extends StatelessWidget {
   final String category;
 
   const RecipesListScreen({
@@ -16,19 +16,9 @@ class RecipesListScreen extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => RecipesListScreenState();
-}
-
-class RecipesListScreenState extends State<RecipesListScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesShortBloc>(context)
-        .add(RecipesShortLoaded(category: widget.category));
+        .add(RecipesShortLoaded(category: category));
 
     return BlocBuilder<RecipesShortBloc, RecipesShortState>(
       builder: (context, recipesShortState) {
@@ -37,7 +27,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
             title: Text(
               translate(
                 'recipe_list.title_category',
-                args: {'category': widget.category},
+                args: {'category': category},
               ),
             ),
             actions: <Widget>[
@@ -50,7 +40,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                 onPressed: () {
                   DefaultCacheManager().emptyCache();
                   BlocProvider.of<RecipesShortBloc>(context)
-                      .add(RecipesShortLoaded(category: widget.category));
+                      .add(RecipesShortLoaded(category: category));
                 },
               ),
             ],
@@ -59,7 +49,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
             onRefresh: () {
               DefaultCacheManager().emptyCache();
               BlocProvider.of<RecipesShortBloc>(context)
-                  .add(RecipesShortLoaded(category: widget.category));
+                  .add(RecipesShortLoaded(category: category));
               return Future.value();
             },
             child: () {
@@ -83,7 +73,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
       child: ListView.separated(
         itemCount: data.length,
         itemBuilder: (context, index) {
-          return _buildRecipeStubScreen(data.elementAt(index));
+          return _buildRecipeShortScreen(context, data.elementAt(index));
         },
         separatorBuilder: (context, index) => const Divider(
           color: Colors.black,
@@ -92,7 +82,10 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     );
   }
 
-  ListTile _buildRecipeStubScreen(RecipeStub recipe) {
+  ListTile _buildRecipeShortScreen(
+    BuildContext context,
+    RecipeStub recipe,
+  ) {
     return ListTile(
       title: Text(recipe.name),
       trailing: RecipeImage(

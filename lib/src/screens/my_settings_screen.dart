@@ -7,14 +7,9 @@ import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
-class MySettingsScreen extends StatefulWidget {
+class MySettingsScreen extends StatelessWidget {
   const MySettingsScreen({super.key});
 
-  @override
-  State<StatefulWidget> createState() => _MySettingsScreenState();
-}
-
-class _MySettingsScreenState extends State<MySettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return SettingsScreen(
@@ -78,7 +73,6 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             } else {
               changeLocale(context, value as String?);
             }
-            setState(() {});
           },
         )
       ],

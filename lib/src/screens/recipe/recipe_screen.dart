@@ -32,7 +32,7 @@ class RecipeScreen extends StatefulWidget {
 }
 
 class RecipeScreenState extends State<RecipeScreen> {
-  bool isLargeScreen = false;
+  late bool isLargeScreen;
 
   Future<bool> _disableWakelock() async {
     final bool wakelockEnabled = await Wakelock.enabled;
@@ -58,8 +58,13 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
     isLargeScreen = MediaQuery.of(context).size.width > 600;
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider<RecipeBloc>(
       create: (context) => RecipeBloc()..add(RecipeLoaded(widget.recipeId)),
       child: BlocBuilder<RecipeBloc, RecipeState>(
