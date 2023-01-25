@@ -181,14 +181,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           delegate: SearchPage<RecipeStub>(
                             items: state.recipesShort!.toList(),
                             searchLabel: translate('search.title'),
-                            suggestion: const Center(
-                                // child: Text('Filter people by name, surname or age'),
-                                ),
+                            suggestion: Center(
+                              child: Text(translate('search.description')),
+                            ),
                             failure: Center(
                               child: Text(translate('search.nothing_found')),
                             ),
                             filter: (recipe) => [
                               recipe.name,
+                              recipe.keywords,
                             ],
                             builder: (recipe) => ListTile(
                               title: Text(recipe.name),
