@@ -230,7 +230,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                       ),
                       if (state.status == LoginStatus.loading)
                         SpinKitWave(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                     ],
                   ),

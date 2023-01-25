@@ -87,7 +87,7 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
                             ),
                           )
                         : SpinKitWave(
-                            color: Theme.of(context).iconTheme.color,
+                            color: Theme.of(context).colorScheme.primary,
                             size: 30.0,
                           ),
                   ),
