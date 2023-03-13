@@ -89,7 +89,7 @@ class DataRepository {
   }
 
   Future<List<RecipeShort>> fetchAllRecipes() async {
-    return fetchRecipesShort(category: "All");
+    return fetchRecipesShort(category: categoryAll);
   }
 
   String getUserAvatarUrl() {
