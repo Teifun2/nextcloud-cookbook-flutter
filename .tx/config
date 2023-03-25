@@ -1,8 +1,9 @@
 [main]
 host = https://www.transifex.com
 
-[nextcloud.cookbook_flutter]
+[o:nextcloud:p:nextcloud:r:cookbook_flutter]
 file_filter = assets/i18n/<lang>.json
 source_file = assets/i18n/en.json
 source_lang = en
-type = KEYVALUEJSON
+type        = KEYVALUEJSON
+

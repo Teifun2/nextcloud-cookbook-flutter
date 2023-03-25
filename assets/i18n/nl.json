@@ -27,7 +27,7 @@
     },
     "button": "Inloggen",
     "retry": "Retry Login!",
-    "reset": "Reset Credentials!",
+    "reset": "Reset inloggegevens",
     "errors": {
       "not_reachable": "Kan {server_url} niet bereiken\n {error_msg}",
       "certificate_failed": "Het certificaat van de server kon niet worden geverifieerd: {server_url} \n {error_msg}",
@@ -39,8 +39,8 @@
       "failed_remove_remote": "Kon het remote App-wachtwoord niet verwijderen!",
       "failure": "Het inlogproces kon niet goed eindigen.\n {status_code}\n {status_message}",
       "credentials_invalid": "De opgeslagen inloggegevens zijn niet meer geldig en je bent uitgelogd!",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Authenticatie is niet gelukt.\nMisschien is er geen internetverbinding?\nFoutmelding: {error_msg}",
+      "wrong_status": "Authenticatiecontrole is niet gelukt.\nMisschien is de opgegeven host niet correct?\nFoutmelding: {error_msg}"
     }
   },
   "categories": {
