@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:wakelock/wakelock.dart';
 
 class RecipeScreen extends StatefulWidget {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeScreen({
     super.key,

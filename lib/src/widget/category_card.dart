@@ -29,11 +29,11 @@ class CategoryCard extends StatelessWidget {
                 colors: <Color>[Colors.black, Colors.transparent],
               ).createShader(bounds);
             },
-            child: category.firstRecipeId != 0
+            child: category.firstRecipeId != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: AuthenticationCachedNetworkRecipeImage(
-                      recipeId: category.firstRecipeId,
+                      recipeId: category.firstRecipeId!,
                       full: false,
                       boxFit: BoxFit.cover,
                     ),

@@ -9,7 +9,7 @@ class AuthenticationCachedNetworkRecipeImage extends StatelessWidget {
   final double? height;
   final BoxFit? boxFit;
 
-  final int recipeId;
+  final String recipeId;
   final bool full;
 
   const AuthenticationCachedNetworkRecipeImage({

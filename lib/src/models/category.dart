@@ -11,9 +11,9 @@ class Category extends Equatable {
   final String name;
   @CopyWithField(immutable: true)
   final int recipeCount;
-  final int firstRecipeId;
+  final String? firstRecipeId;
 
-  const Category(this.name, this.recipeCount) : firstRecipeId = 0;
+  const Category(this.name, this.recipeCount) : firstRecipeId = null;
 
   const Category._({
     required this.name,
@@ -26,7 +26,7 @@ class Category extends Equatable {
         recipeCount = json["recipe_count"] is int
             ? json["recipe_count"] as int
             : int.parse(json["recipe_count"] as String),
-        firstRecipeId = 0;
+        firstRecipeId = null;
 
   @override
   List<String> get props => [name];

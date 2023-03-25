@@ -5,7 +5,7 @@ import 'package:nextcloud_cookbook_flutter/src/util/iso_time_format.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/nutrition_utilty.dart';
 
 class Recipe extends Equatable {
-  final int id;
+  final String id;
   final String name;
   final String imageUrl;
   final String recipeCategory;
@@ -26,11 +26,12 @@ class Recipe extends Equatable {
   factory Recipe(String jsonString) {
     final data = json.decode(jsonString) as Map<String, dynamic>;
 
-    final int id = data["id"] as int? ?? 0;
-    final String name = data["name"] as String? ?? '';
-    final String imageUrl = data["imageUrl"] as String? ?? '';
-    final String recipeCategory = data["recipeCategory"] as String? ?? '';
-    final String description = data["description"] as String? ?? '';
+    final String id =
+        data["id"] is int ? data["id"]!.toString() : data["id"] as String;
+    final String name = data["name"] as String;
+    final String imageUrl = data["imageUrl"] as String;
+    final String recipeCategory = data["recipeCategory"] as String;
+    final String description = data["description"] as String;
 
     Map<String, String> recipeNutrition = {};
 
@@ -152,7 +153,7 @@ class Recipe extends Equatable {
 
   factory Recipe.empty() {
     return Recipe._(
-      0,
+      '0',
       '',
       '',
       '',
@@ -229,7 +230,7 @@ class Recipe extends Equatable {
   }
 
   @override
-  List<int> get props => [id];
+  List<String> get props => [id];
 
   String _durationToIso(Duration? duration) {
     if (duration != null && duration.inMinutes != 0) {
@@ -241,7 +242,7 @@ class Recipe extends Equatable {
 }
 
 class MutableRecipe {
-  int id = 0;
+  String id = '0';
   String name = '';
   String imageUrl = '';
   String recipeCategory = '';

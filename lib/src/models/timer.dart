@@ -2,14 +2,14 @@ import 'package:nextcloud_cookbook_flutter/src/services/notification_provider.da
 import 'package:timezone/timezone.dart' as tz;
 
 class TimerList {
-  static const TimerList _instance = TimerList._();
+  static final TimerList _instance = TimerList._();
   final List<Timer> timers;
 
   factory TimerList() => _instance;
 
-  const TimerList._() : timers = const <Timer>[];
+  TimerList._() : timers = <Timer>[];
 
-  List<Timer> get(int recipeId) {
+  List<Timer> get(String recipeId) {
     final List<Timer> l = <Timer>[];
     for (final value in timers) {
       if (value.recipeId == recipeId) l.add(value);
@@ -29,7 +29,7 @@ class Timer {
   final Duration duration;
   int id = 0;
   final tz.TZDateTime done;
-  final int recipeId;
+  final String recipeId;
 
   Timer(
     this.recipeId,
@@ -50,7 +50,9 @@ class Timer {
 
   factory Timer.fromJson(Map<String, dynamic> json, int id) {
     final Timer timer = Timer._restore(
-      json['recipeId'] as int,
+      json['recipeId'] is String
+          ? json['recipeId'] as String
+          : json['recipeId'].toString(),
       json['title'] as String,
       json['body'] as String,
       Duration(minutes: json['duration'] as int),

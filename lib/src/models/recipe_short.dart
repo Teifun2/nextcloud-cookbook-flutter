@@ -3,18 +3,18 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class RecipeShort extends Equatable {
-  final int _recipeId;
+  final String _recipeId;
   final String _name;
   final String _imageUrl;
 
-  int get recipeId => _recipeId;
+  String get recipeId => _recipeId;
   String get name => _name;
   String get imageUrl => _imageUrl;
 
   RecipeShort.fromJson(Map<String, dynamic> json)
       : _recipeId = json["recipe_id"] is int
-            ? json["recipe_id"] as int
-            : int.parse(json["recipe_id"] as String),
+            ? json["recipe_id"]!.toString()
+            : json["recipe_id"] as String,
         _name = json["name"] as String,
         _imageUrl = json["imageUrl"] as String;
 
@@ -29,5 +29,5 @@ class RecipeShort extends Equatable {
   }
 
   @override
-  List<int> get props => [_recipeId];
+  List<String> get props => [_recipeId];
 }

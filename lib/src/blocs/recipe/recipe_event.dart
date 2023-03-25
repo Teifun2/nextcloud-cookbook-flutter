@@ -9,12 +9,12 @@ abstract class RecipeEvent extends Equatable {
 }
 
 class RecipeLoaded extends RecipeEvent {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeLoaded(this.recipeId);
 
   @override
-  List<int> get props => [recipeId];
+  List<String> get props => [recipeId];
 }
 
 class RecipeUpdated extends RecipeEvent {
