@@ -7,6 +7,7 @@ class SupportedLocales {
     'de_DE': 'Deutsch (Deutschland)',
     'de': 'Deutsch',
     'en': 'English',
+    'en_GB': 'English (United Kingdom)',
     'es': 'Español',
     'eu': 'euskara',
     'fi_FI': 'suomi (Finland)',
