@@ -43,12 +43,12 @@ class RecipeUpdateFailure extends RecipeFailure {
 }
 
 class RecipeUpdateSuccess extends RecipeState {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeUpdateSuccess(this.recipeId);
 
   @override
-  List<int> get props => [recipeId];
+  List<String> get props => [recipeId];
 }
 
 class RecipeUpdateInProgress extends RecipeState {}
@@ -58,7 +58,7 @@ class RecipeCreateFailure extends RecipeFailure {
 }
 
 class RecipeCreateSuccess extends RecipeState {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeCreateSuccess(this.recipeId);
 
@@ -69,12 +69,12 @@ class RecipeCreateSuccess extends RecipeState {
 class RecipeCreateInProgress extends RecipeState {}
 
 class RecipeImportSuccess extends RecipeState {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeImportSuccess(this.recipeId);
 
   @override
-  List<int> get props => [recipeId];
+  List<String> get props => [recipeId];
 }
 
 class RecipeImportFailure extends RecipeFailure {

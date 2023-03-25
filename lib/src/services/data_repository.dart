@@ -39,16 +39,19 @@ class DataRepository {
     }
   }
 
-  Future<Recipe> fetchRecipe(int id) {
-    return recipeProvider.fetchRecipe(id);
+  Future<Recipe> fetchRecipe(String id) {
+    return recipeProvider.fetchRecipe(int.parse(id));
   }
 
-  Future<int> updateRecipe(Recipe recipe) {
-    return recipeProvider.updateRecipe(recipe);
+  Future<String> updateRecipe(Recipe recipe) async {
+    final response = await recipeProvider.updateRecipe(recipe);
+    return response.toString();
   }
 
-  Future<int> createRecipe(Recipe recipe) {
-    return recipeProvider.createRecipe(recipe);
+  Future<String> createRecipe(Recipe recipe) async {
+    final response = await recipeProvider.createRecipe(recipe);
+
+    return response.toString();
   }
 
   Future<Recipe> importRecipe(String url) {

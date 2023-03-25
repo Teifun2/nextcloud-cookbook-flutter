@@ -38,7 +38,7 @@ class VersionProvider {
 
 class ApiVersion {
   static const int confirmedMajorAPIVersion = 1;
-  static const int confirmedMinorAPIVersion = 0;
+  static const int confirmedMinorAPIVersion = 1;
 
   final int majorApiVersion;
   final int minorApiVersion;

@@ -7,7 +7,7 @@ part of 'category.dart';
 // **************************************************************************
 
 abstract class _$CategoryCWProxy {
-  Category firstRecipeId(int firstRecipeId);
+  Category firstRecipeId(String? firstRecipeId);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Category(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -16,7 +16,7 @@ abstract class _$CategoryCWProxy {
   /// Category(...).copyWith(id: 12, name: "My name")
   /// ````
   Category call({
-    int? firstRecipeId,
+    String? firstRecipeId,
   });
 }
 
@@ -27,7 +27,7 @@ class _$CategoryCWProxyImpl implements _$CategoryCWProxy {
   final Category _value;
 
   @override
-  Category firstRecipeId(int firstRecipeId) =>
+  Category firstRecipeId(String? firstRecipeId) =>
       this(firstRecipeId: firstRecipeId);
 
   @override
@@ -44,12 +44,10 @@ class _$CategoryCWProxyImpl implements _$CategoryCWProxy {
     return Category._(
       name: _value.name,
       recipeCount: _value.recipeCount,
-      firstRecipeId:
-          firstRecipeId == const $CopyWithPlaceholder() || firstRecipeId == null
-              // ignore: unnecessary_non_null_assertion
-              ? _value.firstRecipeId!
-              // ignore: cast_nullable_to_non_nullable
-              : firstRecipeId as int,
+      firstRecipeId: firstRecipeId == const $CopyWithPlaceholder()
+          ? _value.firstRecipeId
+          // ignore: cast_nullable_to_non_nullable
+          : firstRecipeId as String?,
     );
   }
 }

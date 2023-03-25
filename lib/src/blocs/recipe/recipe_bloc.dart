@@ -38,7 +38,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   ) async* {
     try {
       yield RecipeUpdateInProgress();
-      final int recipeId =
+      final String recipeId =
           await dataRepository.updateRecipe(recipeUpdated.recipe);
       yield RecipeUpdateSuccess(recipeId);
     } catch (_) {
@@ -51,7 +51,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   ) async* {
     try {
       yield RecipeCreateInProgress();
-      final int recipeId =
+      final String recipeId =
           await dataRepository.createRecipe(recipeCreated.recipe);
       yield RecipeCreateSuccess(recipeId);
     } catch (_) {
