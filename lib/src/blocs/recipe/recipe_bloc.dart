@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
@@ -22,7 +22,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeLoadedToState(
-      RecipeLoaded recipeLoaded) async* {
+    RecipeLoaded recipeLoaded,
+  ) async* {
     try {
       yield RecipeLoadInProgress();
       final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
@@ -33,10 +34,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeUpdatedToState(
-      RecipeUpdated recipeUpdated) async* {
+    RecipeUpdated recipeUpdated,
+  ) async* {
     try {
       yield RecipeUpdateInProgress();
-      int recipeId = await dataRepository.updateRecipe(recipeUpdated.recipe);
+      final String recipeId =
+          await dataRepository.updateRecipe(recipeUpdated.recipe);
       yield RecipeUpdateSuccess(recipeId);
     } catch (_) {
       yield RecipeUpdateFailure(_.toString());
@@ -44,10 +47,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeCreatedToState(
-      RecipeCreated recipeCreated) async* {
+    RecipeCreated recipeCreated,
+  ) async* {
     try {
       yield RecipeCreateInProgress();
-      int recipeId = await dataRepository.createRecipe(recipeCreated.recipe);
+      final String recipeId =
+          await dataRepository.createRecipe(recipeCreated.recipe);
       yield RecipeCreateSuccess(recipeId);
     } catch (_) {
       yield RecipeCreateFailure(_.toString());
@@ -55,10 +60,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   }
 
   Stream<RecipeState> _mapRecipeImportedToState(
-      RecipeImported recipeImported) async* {
+    RecipeImported recipeImported,
+  ) async* {
     try {
       yield RecipeImportInProgress();
-      Recipe recipe = await dataRepository.importRecipe(recipeImported.url);
+      final Recipe recipe =
+          await dataRepository.importRecipe(recipeImported.url);
       yield RecipeImportSuccess(recipe.id);
     } catch (_) {
       yield RecipeImportFailure(_.toString());

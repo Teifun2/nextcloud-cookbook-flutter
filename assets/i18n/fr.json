@@ -62,7 +62,7 @@
   "recipe_list": {
     "title_category": "Catégorie : {category}",
     "errors": {
-      "load_failed": "Failed to load Recipes Short!"
+      "load_failed": "Impossible de charger le raccourci de recette!"
     }
   },
   "recipe": {

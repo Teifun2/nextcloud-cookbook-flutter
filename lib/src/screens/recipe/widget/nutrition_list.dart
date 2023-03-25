@@ -5,7 +5,10 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/nutrition_l
 class NutritionList extends StatelessWidget {
   final Map<String, String> _nutrition;
 
-  const NutritionList(this._nutrition);
+  const NutritionList(
+    this._nutrition, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +18,19 @@ class NutritionList extends StatelessWidget {
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           title: Text(translate('recipe.fields.nutrition.title')),
-          initiallyExpanded: false,
           children: [
             Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: _nutrition.entries
-                    .map((e) => NutritionListItem(
-                        translate('recipe.fields.nutrition.items.' + e.key),
-                        e.value))
-                    .toList()),
+              spacing: 10,
+              runSpacing: 10,
+              children: _nutrition.entries
+                  .map(
+                    (e) => NutritionListItem(
+                      translate('recipe.fields.nutrition.items.${e.key}'),
+                      e.value,
+                    ),
+                  )
+                  .toList(),
+            ),
           ],
         ),
       ),

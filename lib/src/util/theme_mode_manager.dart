@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
@@ -9,8 +8,8 @@ class ThemeModeManager implements IThemeModeManager {
   Future<String> loadThemeMode() {
     return Future.value(
       Settings.getValue<String>(
-        describeEnum(SettingKeys.dark_mode),
-        ThemeMode.system.toString(),
+        SettingKeys.dark_mode.name,
+        defaultValue: ThemeMode.system.toString(),
       ),
     );
   }

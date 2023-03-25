@@ -1,22 +1,19 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../services/user_repository.dart';
-import 'login.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/login/login.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository = UserRepository();
   final AuthenticationBloc authenticationBloc;
 
   LoginBloc({
-    @required this.authenticationBloc,
-  }) : super(LoginInitial()) {
-    assert(authenticationBloc != null);
-  }
+    required this.authenticationBloc,
+  }) : super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -31,14 +28,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             event.serverURL,
             event.username,
             event.originalBasicAuth,
-            event.isSelfSignedCertificate,
+            isSelfSignedCertificate: event.isSelfSignedCertificate,
           );
         } else {
           appAuthentication = await userRepository.authenticate(
             event.serverURL,
             event.username,
             event.originalBasicAuth,
-            event.isSelfSignedCertificate,
+            isSelfSignedCertificate: event.isSelfSignedCertificate,
           );
         }
 

@@ -4,10 +4,12 @@ import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
 
 class ApiVersionWarning extends StatelessWidget {
+  const ApiVersionWarning({super.key});
+
   @override
   Widget build(BuildContext context) {
-    VersionProvider versionProvider = UserRepository().versionProvider;
-    ApiVersion apiVersion = versionProvider.getApiVersion();
+    final VersionProvider versionProvider = UserRepository().versionProvider;
+    final ApiVersion apiVersion = versionProvider.getApiVersion();
 
     if (!versionProvider.warningWasShown) {
       versionProvider.warningWasShown = true;
@@ -31,9 +33,8 @@ class ApiVersionWarning extends StatelessWidget {
                 translate(
                   "categories.errors.api_version_above_confirmed",
                   args: {
-                    "version": apiVersion.majorApiVersion.toString() +
-                        "." +
-                        apiVersion.minorApiVersion.toString()
+                    "version":
+                        "${apiVersion.majorApiVersion}.${apiVersion.minorApiVersion}"
                   },
                 ),
               ),

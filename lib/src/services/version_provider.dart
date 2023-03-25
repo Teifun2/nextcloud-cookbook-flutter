@@ -4,22 +4,22 @@ import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 
 class VersionProvider {
-  ApiVersion _currentApiVersion;
+  late ApiVersion _currentApiVersion;
   bool warningWasShown = false;
 
   Future<ApiVersion> fetchApiVersion() async {
     warningWasShown = false;
 
-    AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+    final AppAuthentication appAuthentication =
+        UserRepository().currentAppAuthentication;
 
-    var response = await appAuthentication.authenticatedClient
+    final response = await appAuthentication.authenticatedClient
         .get("${appAuthentication.server}/index.php/apps/cookbook/api/version");
 
     if (response.statusCode == 200 &&
         !response.data.toString().startsWith("<!DOCTYPE html>")) {
       try {
-        _currentApiVersion = ApiVersion.decodeJsonApiVersion(response.data);
+        _currentApiVersion = ApiVersion.fromJson(response.data.toString());
       } catch (e) {
         _currentApiVersion = ApiVersion(0, 0, 0, 0, 0);
         _currentApiVersion.loadFailureMessage = e.toString();
@@ -37,8 +37,8 @@ class VersionProvider {
 }
 
 class ApiVersion {
-  static const int CONFIRMED_MAJOR_API_VERSION = 1;
-  static const int CONFIRMED_MINOR_API_VERSION = 0;
+  static const int confirmedMajorAPIVersion = 1;
+  static const int confirmedMinorAPIVersion = 1;
 
   final int majorApiVersion;
   final int minorApiVersion;
@@ -56,16 +56,16 @@ class ApiVersion {
     this.patchAppVersion,
   );
 
-  static ApiVersion decodeJsonApiVersion(jsonString) {
-    Map<String, dynamic> data = json.decode(jsonString);
+  factory ApiVersion.fromJson(String jsonString) {
+    final data = json.decode(jsonString) as Map<String, dynamic>;
 
     if (!(data.containsKey("cookbook_version") &&
         data.containsKey("api_version"))) {
       throw Exception("Required Fields not present!\n$jsonString");
     }
 
-    List<int> appVersion = data["cookbook_version"].cast<int>();
-    var apiVersion = data["api_version"];
+    final appVersion = (data["cookbook_version"] as List).cast<int>();
+    final apiVersion = data["api_version"] as Map<String, dynamic>;
 
     if (!(appVersion.length == 3 &&
         apiVersion.containsKey("major") &&
@@ -74,8 +74,8 @@ class ApiVersion {
     }
 
     return ApiVersion(
-      apiVersion["major"],
-      apiVersion["minor"],
+      apiVersion["major"] as int,
+      apiVersion["minor"] as int,
       appVersion[0],
       appVersion[1],
       appVersion[2],
@@ -86,16 +86,16 @@ class ApiVersion {
   /// Versions only need to be adapted if backwards comparability is required.
   AndroidApiVersion getAndroidVersion() {
     if (majorApiVersion == 0 && minorApiVersion == 0) {
-      return AndroidApiVersion.BEFORE_API_ENDPOINT;
+      return AndroidApiVersion.beforeApiEndpoint;
     } else {
-      return AndroidApiVersion.CATEGORY_API_TRANSITION;
+      return AndroidApiVersion.categoryApiTransition;
     }
   }
 
   bool isVersionAboveConfirmed() {
-    if (majorApiVersion > CONFIRMED_MAJOR_API_VERSION ||
-        (majorApiVersion == CONFIRMED_MAJOR_API_VERSION &&
-            minorApiVersion > CONFIRMED_MINOR_API_VERSION)) {
+    if (majorApiVersion > confirmedMajorAPIVersion ||
+        (majorApiVersion == confirmedMajorAPIVersion &&
+            minorApiVersion > confirmedMinorAPIVersion)) {
       return true;
     } else {
       return false;
@@ -108,4 +108,4 @@ class ApiVersion {
   }
 }
 
-enum AndroidApiVersion { BEFORE_API_ENDPOINT, CATEGORY_API_TRANSITION }
+enum AndroidApiVersion { beforeApiEndpoint, categoryApiTransition }

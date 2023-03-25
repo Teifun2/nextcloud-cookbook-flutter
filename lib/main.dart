@@ -1,16 +1,18 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/simple_bloc_delegatae.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/category/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/login_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/splash_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/intent_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/notification_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/lifecycle_event_handler.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
@@ -18,16 +20,9 @@ import 'package:nextcloud_cookbook_flutter/src/util/theme_mode_manager.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/translate_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
-import './src/screens/login_screen.dart';
-import './src/screens/splash_screen.dart';
-import './src/services/notification_provider.dart';
-import './src/services/user_repository.dart';
-import 'src/blocs/authentication/authentication.dart';
-import 'src/blocs/simple_bloc_delegatae.dart';
-
 void main() async {
   Bloc.observer = SimpleBlocDelegate();
-  var delegate = await LocalizationDelegate.create(
+  final delegate = await LocalizationDelegate.create(
     basePath: 'assets/i18n/',
     fallbackLocale: 'en',
     supportedLocales: SupportedLocales.locales.keys.toList(),
@@ -58,13 +53,15 @@ void main() async {
             },
           )
         ],
-        child: App(),
+        child: const App(),
       ),
     ),
   );
 }
 
 class App extends StatefulWidget {
+  const App({super.key});
+
   @override
   State<App> createState() => _AppState();
 }
@@ -72,6 +69,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   final UserRepository userRepository = UserRepository();
 
+  @override
   void initState() {
     super.initState();
 
@@ -84,13 +82,10 @@ class _AppState extends State<App> {
     );
 
     // Update Localization if Settings are set!
-    String savedLocalization = Settings.getValue<String>(
-      describeEnum(SettingKeys.language),
-      'default',
+    final savedLocalization = Settings.getValue<String>(
+      SettingKeys.language.name,
     );
-    if (savedLocalization != 'default') {
-      changeLocale(context, savedLocalization);
-    }
+    changeLocale(context, savedLocalization);
   }
 
   @override
@@ -112,7 +107,7 @@ class _AppState extends State<App> {
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             if (state is AuthenticationUninitialized) {
-              return SplashPage();
+              return const SplashPage();
             } else if (state is AuthenticationAuthenticated) {
               IntentRepository().handleIntent();
               if (BlocProvider.of<CategoriesBloc>(context).state
@@ -120,18 +115,18 @@ class _AppState extends State<App> {
                 BlocProvider.of<CategoriesBloc>(context)
                     .add(CategoriesLoaded());
               }
-              return CategoryScreen();
+              return const CategoryScreen();
             } else if (state is AuthenticationUnauthenticated) {
-              return LoginScreen();
+              return const LoginScreen();
             } else if (state is AuthenticationInvalid) {
-              return LoginScreen(
+              return const LoginScreen(
                 invalidCredentials: true,
               );
             } else if (state is AuthenticationLoading ||
                 state is AuthenticationError) {
-              return LoadingScreen();
+              return const LoadingScreen();
             } else {
-              return LoadingScreen();
+              return const LoadingScreen();
             }
           },
         ),

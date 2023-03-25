@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_classes_with_only_static_members
+
 class SupportedLocales {
   static final locales = <String, String>{
     'bg_BG': 'Български език (Bulgaria)',
@@ -5,6 +7,7 @@ class SupportedLocales {
     'de_DE': 'Deutsch (Deutschland)',
     'de': 'Deutsch',
     'en': 'English',
+    'en_GB': 'English (United Kingdom)',
     'es': 'Español',
     'eu': 'euskara',
     'fi_FI': 'suomi (Finland)',

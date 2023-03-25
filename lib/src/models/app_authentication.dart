@@ -5,50 +5,48 @@ import 'package:dio/dio.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/self_signed_certificate_http_overrides.dart';
 
 class AppAuthentication {
-  String server;
-  String loginName;
-  String basicAuth;
-  bool isSelfSignedCertificate;
+  final String server;
+  final String loginName;
+  final String basicAuth;
+  final bool isSelfSignedCertificate;
 
-  Dio authenticatedClient;
+  final Dio authenticatedClient = Dio();
 
   AppAuthentication({
-    this.server,
-    this.loginName,
-    this.basicAuth,
-    this.isSelfSignedCertificate,
+    required this.server,
+    required this.loginName,
+    required this.basicAuth,
+    required this.isSelfSignedCertificate,
   }) {
-    authenticatedClient = Dio();
     authenticatedClient.options.headers["authorization"] = basicAuth;
     authenticatedClient.options.headers["User-Agent"] = "Cookbook App";
     authenticatedClient.options.responseType = ResponseType.plain;
 
     if (isSelfSignedCertificate) {
-      HttpOverrides.global = new SelfSignedCertificateHttpOverride();
+      HttpOverrides.global = SelfSignedCertificateHttpOverride();
     }
   }
 
   factory AppAuthentication.fromJson(String jsonString) {
-    Map<String, dynamic> jsonData = json.decode(jsonString);
+    final jsonData = json.decode(jsonString) as Map<String, dynamic>;
 
-    String basicAuth = jsonData.containsKey("basicAuth")
-        ? jsonData['basicAuth']
-        : 'Basic ' +
-            base64Encode(
-              utf8.encode(
-                '${jsonData["loginName"]}:${jsonData["appPassword"]}',
-              ),
-            );
+    final basicAuth = jsonData.containsKey("basicAuth")
+        ? jsonData['basicAuth'] as String
+        : 'Basic ${base64Encode(
+            utf8.encode(
+              '${jsonData["loginName"]}:${jsonData["appPassword"]}',
+            ),
+          )}';
 
-    bool selfSignedCertificate = jsonData.containsKey("isSelfSignedCertificate")
-        ? jsonData['isSelfSignedCertificate']
-        : false;
+    final selfSignedCertificate =
+        jsonData['isSelfSignedCertificate'] as bool? ?? false;
 
     return AppAuthentication(
-        server: jsonData["server"],
-        loginName: jsonData["loginName"],
-        basicAuth: basicAuth,
-        isSelfSignedCertificate: selfSignedCertificate);
+      server: jsonData["server"] as String,
+      loginName: jsonData["loginName"] as String,
+      basicAuth: basicAuth,
+      isSelfSignedCertificate: selfSignedCertificate,
+    );
   }
 
   String toJson() {

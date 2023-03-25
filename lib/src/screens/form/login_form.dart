@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/login/login.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/checkbox_form_field.dart';
 import 'package:punycode/punycode.dart';
 
-import '../../blocs/login/login.dart';
-
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
@@ -29,7 +30,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
-  Function authenticateInterruptCallback;
+  late Function() authenticateInterruptCallback;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -39,7 +40,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   }
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -56,19 +57,18 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
       UserRepository().stopAuthenticate();
     };
 
-    _onLoginButtonPressed() {
-      _formKey.currentState.save();
+    void onLoginButtonPressed() {
+      _formKey.currentState?.save();
 
-      if (_formKey.currentState.validate()) {
-        String serverUrl = _punyEncodeUrl(_serverUrl.text);
-        String username = _username.text.trim();
-        String password = _password.text.trim();
-        String originalBasicAuth = 'Basic ' +
-            base64Encode(
-              utf8.encode(
-                '$username:$password',
-              ),
-            );
+      if (_formKey.currentState?.validate() ?? false) {
+        final String serverUrl = _punyEncodeUrl(_serverUrl.text);
+        final String username = _username.text.trim();
+        final String password = _password.text.trim();
+        final String originalBasicAuth = 'Basic ${base64Encode(
+          utf8.encode(
+            '$username:$password',
+          ),
+        )}';
         BlocProvider.of<LoginBloc>(context).add(
           LoginButtonPressed(
             serverURL: serverUrl,
@@ -86,7 +86,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
         if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('${state.error}'),
+              content: Text(state.error),
               backgroundColor: Colors.red,
             ),
           );
@@ -110,23 +110,28 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         controller: _serverUrl,
                         keyboardType: TextInputType.url,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return translate(
-                                'login.server_url.validator.empty');
+                              'login.server_url.validator.empty',
+                            );
                           }
-                          var urlPattern =
+                          const urlPattern =
                               r"^(?:http(s)?:\/\/)?[\w.-]+(?:(?:\.[\w\.-]+)|(?:\:\d+))+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]*$";
-                          bool _match =
-                              new RegExp(urlPattern, caseSensitive: false)
+                          final bool match =
+                              RegExp(urlPattern, caseSensitive: false)
                                   .hasMatch(_punyEncodeUrl(value));
-                          if (!_match) {
+                          if (!match) {
                             return translate(
-                                'login.server_url.validator.pattern');
+                              'login.server_url.validator.pattern',
+                            );
                           }
                           return null;
                         },
                         textInputAction: TextInputAction.next,
-                        autofillHints: [AutofillHints.url, AutofillHints.name],
+                        autofillHints: const [
+                          AutofillHints.url,
+                          AutofillHints.name
+                        ],
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -134,7 +139,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         ),
                         controller: _username,
                         textInputAction: TextInputAction.next,
-                        autofillHints: [AutofillHints.username],
+                        autofillHints: const [AutofillHints.username],
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -144,16 +149,16 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         obscureText: true,
                         onFieldSubmitted: (val) {
                           if (state is! LoginLoading) {
-                            _onLoginButtonPressed();
+                            onLoginButtonPressed();
                           }
                         },
                         textInputAction: TextInputAction.done,
-                        autofillHints: [AutofillHints.password],
+                        autofillHints: const [AutofillHints.password],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0),
                         child: ExpansionPanelList(
-                          expandedHeaderPadding: const EdgeInsets.all(0),
+                          expandedHeaderPadding: EdgeInsets.zero,
                           expansionCallback: (int index, bool isExpanded) {
                             setState(() {
                               advancedSettingsExpanded = !isExpanded;
@@ -168,25 +173,34 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                                   children: [
                                     CheckboxFormField(
                                       initialValue: advancedIsAppPassword,
-                                      onSaved: (bool checked) => {
+                                      onSaved: (bool? checked) {
+                                        if (checked == null) return;
                                         setState(() {
                                           advancedIsAppPassword = checked;
-                                        })
+                                        });
                                       },
-                                      title: Text(translate(
-                                          'login.settings.app_password')),
+                                      title: Text(
+                                        translate(
+                                          'login.settings.app_password',
+                                        ),
+                                      ),
                                     ),
                                     CheckboxFormField(
                                       initialValue:
                                           advancedIsSelfSignedCertificate,
-                                      onSaved: (bool checked) => {
+                                      onSaved: (bool? checked) {
+                                        if (checked == null) return;
+
                                         setState(() {
                                           advancedIsSelfSignedCertificate =
                                               checked;
-                                        })
+                                        });
                                       },
-                                      title: Text(translate(
-                                          'login.settings.self_signed_certificate')),
+                                      title: Text(
+                                        translate(
+                                          'login.settings.self_signed_certificate',
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -208,7 +222,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                       ),
                       ElevatedButton(
                         onPressed: state is! LoginLoading
-                            ? _onLoginButtonPressed
+                            ? onLoginButtonPressed
                             : null,
                         child: Text(translate('login.button')),
                       ),
@@ -216,7 +230,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         child: state is LoginLoading
                             ? SpinKitWave(
                                 color: Theme.of(context).primaryColor,
-                                size: 50.0)
+                              )
                             : null,
                       ),
                     ],
@@ -230,21 +244,22 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
     );
   }
 
-  String _punyEncodeUrl(String url) {
-    String pattern = r"(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)";
-    RegExp expression = new RegExp(pattern, caseSensitive: false);
+  String _punyEncodeUrl(String punycodeUrl) {
+    const String pattern = r"(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)";
+    final RegExp expression = RegExp(pattern, caseSensitive: false);
     String prefix = "";
-    if (url.startsWith("https://")) {
-      url = url.replaceFirst("https://", "");
+    String url = punycodeUrl;
+    if (punycodeUrl.startsWith("https://")) {
+      url = punycodeUrl.replaceFirst("https://", "");
       prefix = "https://";
-    } else if (url.startsWith("http://")) {
-      url = url.replaceFirst("http://", "");
+    } else if (punycodeUrl.startsWith("http://")) {
+      url = punycodeUrl.replaceFirst("http://", "");
       prefix = "http://";
     }
 
     while (expression.hasMatch(url)) {
-      String match = expression.firstMatch(url).group(1);
-      url = url.replaceFirst(match, "xn--" + punycodeEncode(match));
+      final String match = expression.firstMatch(url)!.group(1)!;
+      url = url.replaceFirst(match, "xn--${punycodeEncode(match)}");
     }
 
     return prefix + url;

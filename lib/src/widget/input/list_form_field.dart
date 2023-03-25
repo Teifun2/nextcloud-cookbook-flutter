@@ -11,52 +11,53 @@ class ListFormField extends StatefulWidget {
   final List<String> list;
   final void Function(List<String> value) onChanged;
 
-  const ListFormField(
-      {Key key,
-      @required this.state,
-      @required this.list,
-      @required this.title,
-      @required this.onChanged})
-      : super(key: key);
+  const ListFormField({
+    super.key,
+    required this.state,
+    required this.list,
+    required this.title,
+    required this.onChanged,
+  });
 
   @override
   _ListFormFieldState createState() => _ListFormFieldState();
 }
 
 class _ListFormFieldState extends State<ListFormField> {
-  List<ListTile> currentList;
+  late List<ListTile> currentList;
 
   @override
   void initState() {
+    currentList = widget.list
+        .map((item) => ListTile(title: Text(item), key: ValueKey(item)))
+        .toList();
+
     super.initState();
-    if (currentList == null) {
-      currentList = widget.list.map((item) {
-        return ListTile(title: Text(item), key: ValueKey(item));
-      }).toList();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 56.0 * currentList.length,
       child: my.ReorderableListView(
-        children: currentList,
         onReorder: _onReorder,
+        children: currentList,
       ),
     );
   }
 
-  _onReorder(int oldIndex, int newIndex) {
-    ListTile tile = currentList.removeAt(oldIndex);
+  void _onReorder(int oldIndex, int newIndex) {
+    final ListTile tile = currentList.removeAt(oldIndex);
     currentList.insert(newIndex, tile);
 
     setState(() {
-      widget.onChanged(currentList.map((tile) {
-        Text title = tile.title as Text;
-        log(title.data);
-        return title.data;
-      }).toList());
+      widget.onChanged(
+        currentList.map((tile) {
+          final Text title = tile.title! as Text;
+          log(title.data!);
+          return title.data!;
+        }).toList(),
+      );
     });
   }
 }

@@ -26,7 +26,7 @@
       "self_signed_certificate": "忽略无效证书对自签名证书是必须的（使用风险自担！）"
     },
     "button": "登录",
-    "retry": "Retry Login!",
+    "retry": "重试登录！",
     "reset": "Reset Credentials!",
     "errors": {
       "not_reachable": "无法抵达：{server_url}{error_msg}",

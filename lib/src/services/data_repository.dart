@@ -13,11 +13,10 @@ import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.d
 
 class DataRepository {
   // Singleton
-  static final DataRepository _dataRepository = DataRepository._internal();
-  factory DataRepository() {
-    return _dataRepository;
-  }
-  DataRepository._internal();
+  static final DataRepository _dataRepository = DataRepository._();
+  factory DataRepository() => _dataRepository;
+
+  DataRepository._();
 
   // Provider List
   RecipesShortProvider recipesShortProvider = RecipesShortProvider();
@@ -26,14 +25,13 @@ class DataRepository {
   CategorySearchProvider categorySearchProvider = CategorySearchProvider();
   RecipeProvider recipeProvider = RecipeProvider();
   CategoriesProvider categoriesProvider = CategoriesProvider();
-  NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
+  final NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
-  static Future<List<RecipeShort>> _allRecipesShort;
   static String categoryAll = translate('categories.all_categories');
 
   // Actions
-  Future<List<RecipeShort>> fetchRecipesShort({String category}) {
+  Future<List<RecipeShort>> fetchRecipesShort({required String category}) {
     if (category == categoryAll) {
       return recipesShortProvider.fetchRecipesShort();
     } else {
@@ -41,16 +39,19 @@ class DataRepository {
     }
   }
 
-  Future<Recipe> fetchRecipe(int id) {
-    return recipeProvider.fetchRecipe(id);
+  Future<Recipe> fetchRecipe(String id) {
+    return recipeProvider.fetchRecipe(int.parse(id));
   }
 
-  Future<int> updateRecipe(Recipe recipe) {
-    return recipeProvider.updateRecipe(recipe);
+  Future<String> updateRecipe(Recipe recipe) async {
+    final response = await recipeProvider.updateRecipe(recipe);
+    return response.toString();
   }
 
-  Future<int> createRecipe(Recipe recipe) {
-    return recipeProvider.createRecipe(recipe);
+  Future<String> createRecipe(Recipe recipe) async {
+    final response = await recipeProvider.createRecipe(recipe);
+
+    return response.toString();
   }
 
   Future<Recipe> importRecipe(String url) {
@@ -62,8 +63,9 @@ class DataRepository {
   }
 
   Future<List<Category>> fetchCategoryMainRecipes(
-      List<Category> categories) async {
-    return await Future.wait(
+    List<Category> categories,
+  ) async {
+    return Future.wait(
       categories.map((category) => _fetchCategoryMainRecipe(category)).toList(),
     );
   }
@@ -72,29 +74,25 @@ class DataRepository {
     List<RecipeShort> categoryRecipes = [];
 
     try {
-      categoryRecipes = await () {
-        if (category.name == translate('categories.all_categories')) {
-          return recipesShortProvider.fetchRecipesShort();
-        } else {
-          return categoryRecipesShortProvider
-              .fetchCategoryRecipesShort(category.name);
-        }
-      }();
+      if (category.name == translate('categories.all_categories')) {
+        categoryRecipes = await recipesShortProvider.fetchRecipesShort();
+      } else {
+        categoryRecipes = await categoryRecipesShortProvider
+            .fetchCategoryRecipesShort(category.name);
+      }
     } catch (e) {
       log("Could not load main recipe of Category!");
     }
 
-    if (categoryRecipes.length > 0) {
-      category.firstRecipeId = categoryRecipes.first.recipeId;
-    } else {
-      category.firstRecipeId = 0;
+    if (categoryRecipes.isNotEmpty) {
+      return category.copyWith(firstRecipeId: categoryRecipes.first.recipeId);
     }
 
     return category;
   }
 
   Future<List<RecipeShort>> fetchAllRecipes() async {
-    return await fetchRecipesShort(category: "All");
+    return fetchRecipesShort(category: categoryAll);
   }
 
   String getUserAvatarUrl() {
@@ -106,8 +104,9 @@ class DataRepository {
   }
 
   Future<Iterable<String>> getMatchingCategoryNames(String pattern) async {
-    if (!categorySearchProvider.categoriesLoaded)
+    if (!categorySearchProvider.categoriesLoaded) {
       await categoriesProvider.fetchCategories();
+    }
 
     return categorySearchProvider.getMatchingCategoryNames(pattern);
   }

@@ -6,12 +6,14 @@ import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 
 class TimerScreen extends StatefulWidget {
+  const TimerScreen({super.key});
+
   @override
   _TimerScreen createState() => _TimerScreen();
 }
 
 class _TimerScreen extends State<TimerScreen> {
-  List<Timer> _list;
+  late List<Timer> _list;
 
   @override
   void initState() {
@@ -20,7 +22,7 @@ class _TimerScreen extends State<TimerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    this._list = TimerList().timers;
+    _list = TimerList().timers;
 
     return Scaffold(
       appBar: AppBar(
@@ -39,9 +41,9 @@ class _TimerScreen extends State<TimerScreen> {
           ),
         ],
       ),
-      body: (() {
-        return _buildTimerScreen(this._list);
-      }()),
+      body: () {
+        return _buildTimerScreen(_list);
+      }(),
     );
   }
 
@@ -53,7 +55,7 @@ class _TimerScreen extends State<TimerScreen> {
         itemBuilder: (context, index) {
           return _buildListItem(data[index]);
         },
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black,
         ),
       ),
@@ -69,17 +71,18 @@ class _TimerScreen extends State<TimerScreen> {
         width: 60,
         height: 60,
       ),
-      title: Text(timer.title),
+      title: Text(timer.title!),
       subtitle: AnimatedTimeProgressBar(
         timer: timer,
       ),
       isThreeLine: true,
       trailing: IconButton(
-          icon: Icon(Icons.cancel),
-          onPressed: () {
-            timer.cancel();
-            setState(() {});
-          }),
+        icon: const Icon(Icons.cancel),
+        onPressed: () {
+          timer.cancel();
+          setState(() {});
+        },
+      ),
       onTap: () {
         Navigator.push(
           context,

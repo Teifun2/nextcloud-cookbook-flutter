@@ -1,51 +1,45 @@
+import 'package:nextcloud_cookbook_flutter/src/services/notification_provider.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import '../services/notification_provider.dart';
-
 class TimerList {
-  static final TimerList _timerList = TimerList._internal();
-  List<Timer> timers = <Timer>[];
+  static final TimerList _instance = TimerList._();
+  final List<Timer> timers;
 
-  factory TimerList() {
-    return _timerList;
-  }
+  factory TimerList() => _instance;
 
-  TimerList._internal();
+  TimerList._() : timers = <Timer>[];
 
-  List<Timer> get(int recipeId) {
-    List<Timer> l = <Timer>[];
-    for (var value in this.timers) {
+  List<Timer> get(String recipeId) {
+    final List<Timer> l = <Timer>[];
+    for (final value in timers) {
       if (value.recipeId == recipeId) l.add(value);
     }
     return l;
   }
 
-  clear() {
-    this.timers.clear();
+  void clear() {
+    timers.clear();
     NotificationService().cancelAll();
   }
 }
 
 class Timer {
-  final String title;
+  final String? title;
   final String body;
   final Duration duration;
-  int id;
-  tz.TZDateTime done;
-  final int recipeId;
+  int id = 0;
+  final tz.TZDateTime done;
+  final String recipeId;
 
   Timer(
     this.recipeId,
     this.title,
     this.body,
-    this.duration, [
-    tz.TZDateTime done,
-  ]) {
-    this.done = tz.TZDateTime.now(tz.local).add(this.duration);
-  }
+    this.duration,
+  ) : done = tz.TZDateTime.now(tz.local).add(duration);
 
   // Restore Timer fom pending notification
-  Timer.restore(
+  Timer._restore(
     this.recipeId,
     this.title,
     this.body,
@@ -55,13 +49,16 @@ class Timer {
   );
 
   factory Timer.fromJson(Map<String, dynamic> json, int id) {
-    Timer timer = Timer.restore(
-        json['recipeId'],
-        json['title'],
-        json['body'],
-        new Duration(minutes: json['duration']),
-        tz.TZDateTime.fromMicrosecondsSinceEpoch(tz.local, json['done']),
-        id);
+    final Timer timer = Timer._restore(
+      json['recipeId'] is String
+          ? json['recipeId'] as String
+          : json['recipeId'].toString(),
+      json['title'] as String,
+      json['body'] as String,
+      Duration(minutes: json['duration'] as int),
+      tz.TZDateTime.fromMicrosecondsSinceEpoch(tz.local, json['done'] as int),
+      id,
+    );
     TimerList().timers.add(timer);
     return timer;
   }
@@ -75,29 +72,28 @@ class Timer {
         'recipeId': recipeId,
       };
 
-  start() async {
+  void start() {
     NotificationService().start(this);
   }
 
   // cancel the timer
-  cancel() {
+  void cancel() {
     NotificationService().cancel(this);
     TimerList().timers.remove(this);
   }
 
   Duration remaining() {
-     if(this.done.difference(tz.TZDateTime.now(tz.local)).isNegative){
-       return Duration.zero;
-     }
-     else{
-       return this.done.difference(tz.TZDateTime.now(tz.local));
-     }
+    if (done.difference(tz.TZDateTime.now(tz.local)).isNegative) {
+      return Duration.zero;
+    } else {
+      return done.difference(tz.TZDateTime.now(tz.local));
+    }
   }
 
   double progress() {
-    Duration remainingTime = remaining();
+    final Duration remainingTime = remaining();
     return remainingTime.inSeconds > 0
-        ? 1 - (remainingTime.inSeconds / this.duration.inSeconds)
+        ? 1 - (remainingTime.inSeconds / duration.inSeconds)
         : 1.0;
   }
 }

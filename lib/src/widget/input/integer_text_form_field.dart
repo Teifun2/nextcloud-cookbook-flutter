@@ -2,40 +2,37 @@ import 'package:flutter/material.dart';
 
 class IntegerTextFormField extends StatefulWidget {
   final int initialValue;
-  final bool enabled;
-  final InputDecoration decoration;
-  final void Function(int value) onChanged;
-  final void Function(int value) onSaved;
-  final int minValue;
-  final int maxValue;
+  final bool? enabled;
+  final InputDecoration? decoration;
+  final void Function(int value)? onChanged;
+  final void Function(int value)? onSaved;
+  final int? minValue;
+  final int? maxValue;
 
-  IntegerTextFormField({
-    this.initialValue,
+  const IntegerTextFormField({
+    super.key,
+    this.initialValue = 0,
     this.enabled,
     this.decoration,
     this.onChanged,
     this.onSaved,
     this.minValue,
     this.maxValue,
-  }) {
-    assert((this.minValue == null || this.maxValue == null) ||
-        this.minValue <= this.maxValue);
-  }
+  }) : assert((minValue == null || maxValue == null) || minValue <= maxValue);
 
   @override
   State<StatefulWidget> createState() => _IntegerTextFormFieldState();
 }
 
 class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
-  TextEditingController controller;
+  late TextEditingController controller;
 
   @override
   void initState() {
     super.initState();
-    int curVal = _ensureMinMax(widget.initialValue);
-    if (controller == null) {
-      controller = new TextEditingController(text: curVal.toString());
-    }
+    final int curVal = _ensureMinMax(widget.initialValue);
+    controller = TextEditingController(text: curVal.toString());
+
     controller.addListener(_updateController);
   }
 
@@ -49,12 +46,12 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
     );
   }
 
-  _updateController() {
-    String value = controller.text;
-    if (value == "") {
-      widget.onChanged(_ensureMinMax(0));
+  void _updateController() {
+    final String value = controller.text;
+    if (value.isEmpty) {
+      widget.onChanged?.call(_ensureMinMax(0));
     } else {
-      var parsedValue = _ensureMinMax(_parseValue(value));
+      final parsedValue = _ensureMinMax(_parseValue(value));
       if (controller.text != parsedValue.toString()) {
         controller.value = TextEditingValue(
           text: parsedValue.toString(),
@@ -63,26 +60,25 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
           ),
         );
       }
-      widget.onChanged(parsedValue);
+      widget.onChanged?.call(parsedValue);
     }
   }
 
   int _ensureMinMax(int value) {
-    if (widget.minValue != null && value < widget.minValue) {
-      return widget.minValue;
-    }
-    if (widget.maxValue != null && value > widget.maxValue) {
-      return widget.maxValue;
-    }
+    final min = widget.minValue;
+    final max = widget.maxValue;
+
+    if (min != null && value < min) return min;
+    if (max != null && value > max) return max;
     return value;
   }
 
   int _parseValue(String input) {
-    var regexMatches = RegExp(r'(\d+)').allMatches(input);
-    if (regexMatches == null) {
+    final regexMatches = RegExp(r'(\d+)').allMatches(input);
+    if (regexMatches.isEmpty) {
       return 0;
     } else {
-      return int.parse(regexMatches.elementAt(0).group(0));
+      return int.parse(regexMatches.elementAt(0).group(0)!);
     }
   }
 }

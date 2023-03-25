@@ -1,13 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:timezone/data/latest_10y.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-
-import '../models/timer.dart';
 
 const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
@@ -22,37 +19,40 @@ const AndroidNotificationDetails androidPlatformChannelSpecifics =
 const NotificationDetails platformChannelSpecifics =
     NotificationDetails(android: androidPlatformChannelSpecifics);
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+final FlutterLocalNotificationsPlugin _localNotifications =
     FlutterLocalNotificationsPlugin();
 
 class NotificationService {
   static final NotificationService _notificationService =
-      NotificationService._internal();
+      NotificationService._();
   int curId = 0;
 
-  factory NotificationService() {
-    return _notificationService;
-  }
+  factory NotificationService() => _notificationService;
 
-  NotificationService._internal();
+  NotificationService._();
 
   Future<void> init() async {
     // initialize Timezone Database
     tz.initializeTimeZones();
     tz.setLocalLocation(
-        tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()));
+      tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()),
+    );
 
-    final AndroidInitializationSettings initializationSettingsAndroid =
+    const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('notification_icon');
 
     Future onDidReceiveLocalNotification(
-        int id, String title, String body, String payload) async {
+      int id,
+      String? title,
+      String? body,
+      String? payload,
+    ) async {
       // display a dialog with the notification details, tap ok to go to another page
-      showDialog(
-        //context: context,
+      /* showDialog(
+        // context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Text(title),
-          content: Text(body),
+          title: Text(title!),
+          content: Text(body!),
           actions: [
             CupertinoDialogAction(
               isDefaultAction: true,
@@ -63,50 +63,64 @@ class NotificationService {
             )
           ],
         ),
-      );
+      ); */
     }
 
-    final IOSInitializationSettings initializationSettingsIOS =
-    IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    final DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: initializationSettingsAndroid, iOS: initializationSettingsIOS, macOS: null);
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
 
     // Notification was triggered and the user clicked on it
-    Future selectNotification(String payload) async {
+    Future selectNotification(NotificationResponse payload) async {
       // Map<String, dynamic> data = jsonDecode(payload);
       // We could e.g. show the recipe
     }
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
+    await _localNotifications.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: selectNotification,
+    );
 
     // Loading pending notifications an rebuild timers
-    final List<PendingNotificationRequest> pendingNotificationRequests =
-        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-    pendingNotificationRequests.forEach((PendingNotificationRequest element) {
-      Map<String, dynamic> data = jsonDecode(element.payload);
-      Timer timer = Timer.fromJson(data, element.id);
-      if (timer.id > this.curId) this.curId = timer.id;
-    });
+    final pendingNotificationRequests =
+        await _localNotifications.pendingNotificationRequests();
+    for (final element in pendingNotificationRequests) {
+      if (element.payload != null) {
+        final data = jsonDecode(element.payload!) as Map<String, dynamic>;
+        final Timer timer = Timer.fromJson(data, element.id);
+        if (timer.id > curId) curId = timer.id;
+      }
+    }
   }
 
   int start(Timer timer) {
-    this.curId++;
-    timer.id = this.curId;
-    flutterLocalNotificationsPlugin.zonedSchedule(this.curId, timer.title,
-        timer.body, timer.done, platformChannelSpecifics,
-        payload: jsonEncode(timer.toJson()),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime);
-    return this.curId;
+    curId++;
+    timer.id = curId;
+    _localNotifications.zonedSchedule(
+      curId,
+      timer.title,
+      timer.body,
+      timer.done,
+      platformChannelSpecifics,
+      payload: jsonEncode(timer.toJson()),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.wallClockTime,
+    );
+    return curId;
   }
 
-  cancel(Timer timer) {
-    flutterLocalNotificationsPlugin.cancel(timer.id);
+  void cancel(Timer timer) {
+    _localNotifications.cancel(timer.id);
   }
 
-  cancelAll() {
-    flutterLocalNotificationsPlugin.cancelAll();
+  void cancelAll() {
+    _localNotifications.cancelAll();
   }
 }

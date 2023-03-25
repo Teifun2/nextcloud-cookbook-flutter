@@ -9,27 +9,25 @@ class DurationFormField extends StatefulWidget {
   final Duration duration;
   final void Function(Duration value) onChanged;
 
-  const DurationFormField(
-      {Key key,
-      @required this.state,
-      @required this.duration,
-      @required this.onChanged,
-      @required this.title})
-      : super(key: key);
+  const DurationFormField({
+    super.key,
+    required this.state,
+    required this.duration,
+    required this.onChanged,
+    required this.title,
+  });
 
   @override
   _DurationFormFieldState createState() => _DurationFormFieldState();
 }
 
 class _DurationFormFieldState extends State<DurationFormField> {
-  Duration currentDuration;
+  late Duration currentDuration;
 
   @override
   void initState() {
+    currentDuration = widget.duration;
     super.initState();
-    if (currentDuration == null) {
-      currentDuration = widget.duration;
-    }
   }
 
   @override
@@ -39,7 +37,7 @@ class _DurationFormFieldState extends State<DurationFormField> {
       children: <Widget>[
         Text(
           widget.title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
@@ -50,17 +48,19 @@ class _DurationFormFieldState extends State<DurationFormField> {
               padding: const EdgeInsets.only(right: 12.0),
               child: Text(translate('recipe.fields.time.hours')),
             ),
-            Container(
+            SizedBox(
               width: 70,
               child: IntegerTextFormField(
-                enabled: !(widget.state is RecipeUpdateInProgress),
-                initialValue:
-                    widget.duration != null ? widget.duration.inHours : 0,
+                enabled: widget.state is! RecipeUpdateInProgress,
+                initialValue: widget.duration.inHours,
                 decoration: InputDecoration(
-                    hintText: translate('recipe.fields.time.hours')),
+                  hintText: translate('recipe.fields.time.hours'),
+                ),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
-                      currentDuration: currentDuration, hours: value);
+                    currentDuration: currentDuration,
+                    hours: value,
+                  );
                   widget.onChanged(currentDuration);
                 },
               ),
@@ -69,19 +69,20 @@ class _DurationFormFieldState extends State<DurationFormField> {
               padding: const EdgeInsets.only(right: 12.0, left: 12.0),
               child: Text(translate('recipe.fields.time.minutes')),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: IntegerTextFormField(
-                enabled: !(widget.state is RecipeUpdateInProgress),
-                initialValue: widget.duration != null
-                    ? widget.duration.inMinutes % 60
-                    : 0,
+                enabled: widget.state is! RecipeUpdateInProgress,
+                initialValue: widget.duration.inMinutes % 60,
                 maxValue: 60,
                 decoration: InputDecoration(
-                    hintText: translate('recipe.fields.time.minutes')),
+                  hintText: translate('recipe.fields.time.minutes'),
+                ),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
-                      currentDuration: currentDuration, minutes: value);
+                    currentDuration: currentDuration,
+                    minutes: value,
+                  );
                   widget.onChanged(currentDuration);
                 },
               ),
@@ -92,22 +93,21 @@ class _DurationFormFieldState extends State<DurationFormField> {
     );
   }
 
-  Duration _updateDuration(
-      {@required Duration currentDuration, int hours, int minutes}) {
+  Duration _updateDuration({
+    required Duration currentDuration,
+    int? hours,
+    int? minutes,
+  }) {
     if (hours != null) {
-      int currentMinutes = 0;
-      if (currentDuration != null) {
-        currentMinutes = currentDuration.inMinutes % 60;
-      }
-      currentDuration = Duration(hours: hours, minutes: currentMinutes);
+      final int currentMinutes = currentDuration.inMinutes % 60;
+
+      return Duration(hours: hours, minutes: currentMinutes);
     }
 
     if (minutes != null) {
-      int currentHours = 0;
-      if (currentDuration != null) {
-        currentHours = currentDuration.inHours;
-      }
-      currentDuration = Duration(hours: currentHours, minutes: minutes);
+      final int currentHours = currentDuration.inHours;
+
+      return Duration(hours: currentHours, minutes: minutes);
     }
 
     return currentDuration;

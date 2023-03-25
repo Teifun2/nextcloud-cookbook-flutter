@@ -10,34 +10,36 @@ import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_netw
 class RecipesListScreen extends StatefulWidget {
   final String category;
 
-  const RecipesListScreen({Key key, @required this.category}) : super(key: key);
+  const RecipesListScreen({
+    super.key,
+    required this.category,
+  });
 
   @override
   State<StatefulWidget> createState() => RecipesListScreenState();
 }
 
 class RecipesListScreenState extends State<RecipesListScreen> {
-  String category;
-
   @override
   void initState() {
-    category = widget.category;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesShortBloc>(context)
-        .add(RecipesShortLoaded(category: category));
+        .add(RecipesShortLoaded(category: widget.category));
 
     return BlocBuilder<RecipesShortBloc, RecipesShortState>(
       builder: (context, recipesShortState) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(translate(
-              'recipe_list.title_category',
-              args: {'category': category},
-            )),
+            title: Text(
+              translate(
+                'recipe_list.title_category',
+                args: {'category': widget.category},
+              ),
+            ),
             actions: <Widget>[
               // action button
               IconButton(
@@ -48,7 +50,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
                 onPressed: () {
                   DefaultCacheManager().emptyCache();
                   BlocProvider.of<RecipesShortBloc>(context)
-                      .add(RecipesShortLoaded(category: category));
+                      .add(RecipesShortLoaded(category: widget.category));
                 },
               ),
             ],
@@ -57,16 +59,16 @@ class RecipesListScreenState extends State<RecipesListScreen> {
             onRefresh: () {
               DefaultCacheManager().emptyCache();
               BlocProvider.of<RecipesShortBloc>(context)
-                  .add(RecipesShortLoaded(category: category));
-              return Future.value(true);
+                  .add(RecipesShortLoaded(category: widget.category));
+              return Future.value();
             },
-            child: (() {
+            child: () {
               if (recipesShortState is RecipesShortLoadSuccess) {
                 return _buildRecipesShortScreen(recipesShortState.recipesShort);
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
-            }()),
+            }(),
           ),
         );
       },
@@ -81,7 +83,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
         itemBuilder: (context, index) {
           return _buildRecipeShortScreen(data[index]);
         },
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black,
         ),
       ),
@@ -91,21 +93,19 @@ class RecipesListScreenState extends State<RecipesListScreen> {
   ListTile _buildRecipeShortScreen(RecipeShort recipeShort) {
     return ListTile(
       title: Text(recipeShort.name),
-      trailing: Container(
-        child: AuthenticationCachedNetworkRecipeImage(
-          recipeId: recipeShort.recipeId,
-          full: false,
-          width: 60,
-          height: 60,
-        ),
+      trailing: AuthenticationCachedNetworkRecipeImage(
+        recipeId: recipeShort.recipeId,
+        full: false,
+        width: 60,
+        height: 60,
       ),
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  RecipeScreen(recipeId: recipeShort.recipeId),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeScreen(recipeId: recipeShort.recipeId),
+          ),
+        );
       },
     );
   }

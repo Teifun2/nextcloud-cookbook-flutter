@@ -165,7 +165,7 @@
     },
     "recipe_font_size": {
       "title": "Rezept Schriftgröße",
-      "subtitle": "Ändert die Schriftgröße von Rezeptwerkzeugen, Zutaten und Anweisungen für eine bessere Lesbarkeit."
+      "subtitle": "Ändert die Schriftgröße von \"Utensilien\", \"Zutaten\" und \"Zubereitung\" für eine bessere Lesbarkeit."
     },
     "category_font_size": {
       "title": "Kategorie Schriftgröße",

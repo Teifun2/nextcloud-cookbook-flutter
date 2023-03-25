@@ -5,7 +5,7 @@ abstract class RecipeState extends Equatable {
   const RecipeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class RecipeInitial extends RecipeState {}
@@ -29,36 +29,36 @@ class RecipeSuccess extends RecipeState {
 }
 
 class RecipeLoadSuccess extends RecipeSuccess {
-  RecipeLoadSuccess(Recipe recipe) : super(recipe);
+  const RecipeLoadSuccess(super.recipe);
 }
 
 class RecipeLoadFailure extends RecipeFailure {
-  RecipeLoadFailure(String errorMsg) : super(errorMsg);
+  const RecipeLoadFailure(super.errorMsg);
 }
 
 class RecipeLoadInProgress extends RecipeState {}
 
 class RecipeUpdateFailure extends RecipeFailure {
-  RecipeUpdateFailure(String errorMsg) : super(errorMsg);
+  const RecipeUpdateFailure(super.errorMsg);
 }
 
 class RecipeUpdateSuccess extends RecipeState {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeUpdateSuccess(this.recipeId);
 
   @override
-  List<Object> get props => [recipeId];
+  List<String> get props => [recipeId];
 }
 
 class RecipeUpdateInProgress extends RecipeState {}
 
 class RecipeCreateFailure extends RecipeFailure {
-  RecipeCreateFailure(String errorMsg) : super(errorMsg);
+  const RecipeCreateFailure(super.errorMsg);
 }
 
 class RecipeCreateSuccess extends RecipeState {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeCreateSuccess(this.recipeId);
 
@@ -69,16 +69,16 @@ class RecipeCreateSuccess extends RecipeState {
 class RecipeCreateInProgress extends RecipeState {}
 
 class RecipeImportSuccess extends RecipeState {
-  final int recipeId;
+  final String recipeId;
 
   const RecipeImportSuccess(this.recipeId);
 
   @override
-  List<Object> get props => [recipeId];
+  List<String> get props => [recipeId];
 }
 
 class RecipeImportFailure extends RecipeFailure {
-  RecipeImportFailure(String errorMsg) : super(errorMsg);
+  const RecipeImportFailure(super.errorMsg);
 }
 
 class RecipeImportInProgress extends RecipeState {}

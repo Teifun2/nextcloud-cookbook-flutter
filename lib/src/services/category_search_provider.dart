@@ -7,7 +7,10 @@ class CategorySearchProvider {
   static String categoryAll = translate('categories.all_categories');
 
   void updateCategoryNames(List<Category> categories) {
-    categoryNames = categories.map((e) => e.name).where((element) => element != categoryAll && element != '*').toList();
+    categoryNames = categories
+        .map((e) => e.name)
+        .where((element) => element != categoryAll && element != '*')
+        .toList();
     categoriesLoaded = true;
   }
 

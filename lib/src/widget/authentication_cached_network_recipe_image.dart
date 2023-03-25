@@ -5,26 +5,28 @@ import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class AuthenticationCachedNetworkRecipeImage extends StatelessWidget {
-  final double width;
-  final double height;
-  final BoxFit boxFit;
+  final double? width;
+  final double? height;
+  final BoxFit? boxFit;
 
-  final int recipeId;
+  final String recipeId;
   final bool full;
 
-  AuthenticationCachedNetworkRecipeImage(
-      {@required this.recipeId,
-      @required this.full,
-      this.width,
-      this.height,
-      this.boxFit});
+  const AuthenticationCachedNetworkRecipeImage({
+    super.key,
+    required this.recipeId,
+    required this.full,
+    this.width,
+    this.height,
+    this.boxFit,
+  });
 
   @override
   Widget build(BuildContext context) {
-    AppAuthentication appAuthentication =
-        UserRepository().getCurrentAppAuthentication();
+    final AppAuthentication appAuthentication =
+        UserRepository().currentAppAuthentication;
 
-    String settings = full ? "full" : "thumb";
+    final String settings = full ? "full" : "thumb";
 
     return AuthenticationCachedNetworkImage(
       url:
