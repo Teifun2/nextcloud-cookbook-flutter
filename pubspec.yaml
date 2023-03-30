@@ -45,7 +45,7 @@ dependencies:
   http: ^0.13.1
 
   # flutter_bloc for simpler bloc implementation
-  flutter_bloc: ^7.0.0
+  flutter_bloc: ^8.1.1
 
   # For easier handling without hand built hash comparison
   equatable: ^2.0.0

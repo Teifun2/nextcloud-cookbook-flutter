@@ -1,32 +1,47 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
+
+part 'categories_event.dart';
+part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   final DataRepository dataRepository = DataRepository();
 
-  CategoriesBloc() : super(CategoriesInitial());
-
-  @override
-  Stream<CategoriesState> mapEventToState(CategoriesEvent event) async* {
-    if (event is CategoriesLoaded) {
-      yield* _mapCategoriesLoadedToState();
-    }
+  CategoriesBloc() : super(CategoriesState()) {
+    on<CategoriesLoaded>(_mapCategoriesLoadedEventToState);
   }
 
-  Stream<CategoriesState> _mapCategoriesLoadedToState() async* {
+  Future<void> _mapCategoriesLoadedEventToState(
+    CategoriesLoaded event,
+    Emitter<CategoriesState> emit,
+  ) async {
     try {
-      yield CategoriesLoadInProgress();
+      emit(CategoriesState(status: CategoriesStatus.loadInProgress));
       final List<Category> categories = await dataRepository.fetchCategories();
       dataRepository.updateCategoryNames(categories);
-      yield CategoriesLoadSuccess(categories: categories);
+      emit(
+        CategoriesState(
+          status: CategoriesStatus.loadSuccess,
+          categories: categories,
+        ),
+      );
       final List<Category> categoriesWithImage =
           await dataRepository.fetchCategoryMainRecipes(categories);
-      yield CategoriesImageLoadSuccess(categories: categoriesWithImage);
+      emit(
+        CategoriesState(
+          status: CategoriesStatus.imageLoadSuccess,
+          categories: categoriesWithImage,
+        ),
+      );
     } on Exception catch (e) {
-      yield CategoriesLoadFailure(e.toString());
+      emit(
+        CategoriesState(
+          status: CategoriesStatus.loadFailure,
+          error: e.toString(),
+        ),
+      );
     }
   }
 }

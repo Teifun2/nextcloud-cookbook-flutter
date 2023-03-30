@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 
 class RecipeImportForm extends StatefulWidget {
   final String importUrl;
@@ -35,6 +35,7 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (BuildContext context, RecipeState state) {
+        final enabled = state.status != RecipeStatus.updateInProgress;
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -42,7 +43,7 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
               child: Column(
                 children: [
                   TextField(
-                    enabled: state is! RecipeImportInProgress,
+                    enabled: enabled,
                     controller: _importUrlController,
                     decoration: InputDecoration(
                       hintText: translate("recipe_import.field"),
@@ -60,32 +61,29 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
                   ),
                   Center(
                     child: TextButton(
-                      onPressed: () => {
-                        if (state is! RecipeImportInProgress)
+                      onPressed: () {
+                        if (enabled) {
                           BlocProvider.of<RecipeBloc>(context)
-                              .add(RecipeImported(_importUrlController.text))
-                        else
-                          null
+                              .add(RecipeImported(_importUrlController.text));
+                        }
                       },
-                      child: () {
-                        return state is RecipeImportInProgress
-                            ? SpinKitWave(
-                                color: Theme.of(context).primaryColor,
-                                size: 30.0,
-                              )
-                            : Row(
-                                children: [
-                                  const Spacer(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 9.0),
-                                    child:
-                                        Text(translate("recipe_import.button")),
-                                  ),
-                                  const Icon(Icons.cloud_download_outlined),
-                                  const Spacer(),
-                                ],
-                              );
-                      }(),
+                      child: enabled
+                          ? Row(
+                              children: [
+                                const Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 9.0),
+                                  child:
+                                      Text(translate("recipe_import.button")),
+                                ),
+                                const Icon(Icons.cloud_download_outlined),
+                                const Spacer(),
+                              ],
+                            )
+                          : SpinKitWave(
+                              color: Theme.of(context).primaryColor,
+                              size: 30.0,
+                            ),
                     ),
                   )
                 ],

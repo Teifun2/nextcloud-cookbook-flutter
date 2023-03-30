@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/my_reorderable_list.dart'
     as my;
 

@@ -80,7 +80,7 @@ class AuthenticationProvider {
             .text;
       } on XmlParserException catch (e) {
         throw translate("login.errors.parse_failed", args: {"error_msg": e});
-      // ignore: avoid_catching_errors
+        // ignore: avoid_catching_errors
       } on StateError catch (e) {
         throw translate("login.errors.parse_missing", args: {"error_msg": e});
       }

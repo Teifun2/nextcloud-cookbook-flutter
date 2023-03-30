@@ -1,84 +1,62 @@
-import 'package:equatable/equatable.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+part of 'recipe_bloc.dart';
 
-abstract class RecipeState extends Equatable {
-  const RecipeState();
+enum RecipeStatus {
+  initial,
+  failure,
+  success,
+  loadSuccess,
+  loadFailure,
+  loadInProgress,
+  updateFailure,
+  updateInProgress,
+  updateSuccess,
+  createFailure,
+  createSuccess,
+  createInProgress,
+  importSuccess,
+  importFailure,
+  importInProgress;
+}
+
+class RecipeState extends Equatable {
+  final RecipeStatus status;
+  final String? error;
+  final Recipe? recipe;
+  final String? recipeId;
+
+  RecipeState({
+    this.status = RecipeStatus.initial,
+    this.error,
+    this.recipe,
+    this.recipeId,
+  }) {
+    switch (status) {
+      case RecipeStatus.initial:
+
+      case RecipeStatus.loadInProgress:
+      case RecipeStatus.updateInProgress:
+      case RecipeStatus.createInProgress:
+      case RecipeStatus.importInProgress:
+        assert(error == null && recipe == null && recipeId == null);
+        break;
+      case RecipeStatus.createSuccess:
+      case RecipeStatus.updateSuccess:
+        assert(error == null && recipe == null && recipeId != null);
+        break;
+      case RecipeStatus.success:
+      case RecipeStatus.loadSuccess:
+      case RecipeStatus.importSuccess:
+        assert(error == null && recipe != null && recipeId == null);
+        break;
+      case RecipeStatus.failure:
+      case RecipeStatus.loadFailure:
+      case RecipeStatus.updateFailure:
+      case RecipeStatus.createFailure:
+      case RecipeStatus.importFailure:
+        assert(error != null && recipe == null && recipeId == null);
+    }
+  }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [status, error, recipe, recipeId];
 }
-
-class RecipeInitial extends RecipeState {}
-
-class RecipeFailure extends RecipeState {
-  final String errorMsg;
-
-  const RecipeFailure(this.errorMsg);
-
-  @override
-  List<Object> get props => [errorMsg];
-}
-
-class RecipeSuccess extends RecipeState {
-  final Recipe recipe;
-
-  const RecipeSuccess(this.recipe);
-
-  @override
-  List<Object> get props => [recipe];
-}
-
-class RecipeLoadSuccess extends RecipeSuccess {
-  const RecipeLoadSuccess(super.recipe);
-}
-
-class RecipeLoadFailure extends RecipeFailure {
-  const RecipeLoadFailure(super.errorMsg);
-}
-
-class RecipeLoadInProgress extends RecipeState {}
-
-class RecipeUpdateFailure extends RecipeFailure {
-  const RecipeUpdateFailure(super.errorMsg);
-}
-
-class RecipeUpdateSuccess extends RecipeState {
-  final String recipeId;
-
-  const RecipeUpdateSuccess(this.recipeId);
-
-  @override
-  List<String> get props => [recipeId];
-}
-
-class RecipeUpdateInProgress extends RecipeState {}
-
-class RecipeCreateFailure extends RecipeFailure {
-  const RecipeCreateFailure(super.errorMsg);
-}
-
-class RecipeCreateSuccess extends RecipeState {
-  final String recipeId;
-
-  const RecipeCreateSuccess(this.recipeId);
-
-  @override
-  List<Object> get props => [recipeId];
-}
-
-class RecipeCreateInProgress extends RecipeState {}
-
-class RecipeImportSuccess extends RecipeState {
-  final String recipeId;
-
-  const RecipeImportSuccess(this.recipeId);
-
-  @override
-  List<String> get props => [recipeId];
-}
-
-class RecipeImportFailure extends RecipeFailure {
-  const RecipeImportFailure(super.errorMsg);
-}
-
-class RecipeImportInProgress extends RecipeState {}

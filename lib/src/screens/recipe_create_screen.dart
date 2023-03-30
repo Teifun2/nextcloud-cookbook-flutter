@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 
@@ -23,24 +23,24 @@ class RecipeCreateScreen extends StatelessWidget {
         appBar: AppBar(
           title: BlocListener<RecipeBloc, RecipeState>(
             listener: (BuildContext context, RecipeState state) {
-              if (state is RecipeCreateFailure) {
+              if (state.status == RecipeStatus.createFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
                       translate(
                         'recipe_create.errors.update_failed',
-                        args: {"error_msg": state.errorMsg},
+                        args: {"error_msg": state.error},
                       ),
                     ),
                     backgroundColor: Colors.red,
                   ),
                 );
-              } else if (state is RecipeCreateSuccess) {
+              } else if (state.status == RecipeStatus.createSuccess) {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        RecipeScreen(recipeId: state.recipeId),
+                        RecipeScreen(recipeId: state.recipeId!),
                   ),
                 );
               }

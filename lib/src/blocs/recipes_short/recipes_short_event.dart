@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'recipes_short_bloc.dart';
 
 abstract class RecipesShortEvent extends Equatable {
   const RecipesShortEvent();

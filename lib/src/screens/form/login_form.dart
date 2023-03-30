@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/login/login.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/login/login_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/checkbox_form_field.dart';
 import 'package:punycode/punycode.dart';
@@ -83,10 +83,10 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
 
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginFailure) {
+        if (state.status == LoginStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.error),
+              content: Text(state.error!),
               backgroundColor: Colors.red,
             ),
           );
@@ -148,7 +148,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         controller: _password,
                         obscureText: true,
                         onFieldSubmitted: (val) {
-                          if (state is! LoginLoading) {
+                          if (state.status != LoginStatus.loading) {
                             onLoginButtonPressed();
                           }
                         },
@@ -221,18 +221,15 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: state is! LoginLoading
+                        onPressed: state.status != LoginStatus.loading
                             ? onLoginButtonPressed
                             : null,
                         child: Text(translate('login.button')),
                       ),
-                      Container(
-                        child: state is LoginLoading
-                            ? SpinKitWave(
-                                color: Theme.of(context).primaryColor,
-                              )
-                            : null,
-                      ),
+                      if (state.status == LoginStatus.loading)
+                        SpinKitWave(
+                          color: Theme.of(context).primaryColor,
+                        ),
                     ],
                   ),
                 ),

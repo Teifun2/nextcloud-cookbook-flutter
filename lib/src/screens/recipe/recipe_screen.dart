@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/ingredient_list.dart';
@@ -75,7 +75,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                       Icons.edit,
                     ),
                     onPressed: () async {
-                      if (state is RecipeLoadSuccess) {
+                      if (state.status == RecipeStatus.loadSuccess) {
                         _disableWakelock();
                         await Navigator.push(
                           context,
@@ -83,7 +83,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                             builder: (context) {
                               return BlocProvider.value(
                                 value: recipeBloc,
-                                child: RecipeEditScreen(state.recipe),
+                                child: RecipeEditScreen(state.recipe!),
                               );
                             },
                           ),
@@ -94,24 +94,25 @@ class RecipeScreenState extends State<RecipeScreen> {
                   ),
                 ],
               ),
-              floatingActionButton: state is RecipeLoadSuccess
-                  ? _buildFabButton(state.recipe)
+              floatingActionButton: state.status == RecipeStatus.loadSuccess
+                  ? _buildFabButton(state.recipe!)
                   : null,
               body: () {
-                if (state is RecipeLoadSuccess) {
-                  return _buildRecipeScreen(state.recipe);
-                } else if (state is RecipeLoadInProgress) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is RecipeFailure) {
-                  return Center(
-                    child: Text(state.errorMsg),
-                  );
-                } else {
-                  return const Center(
-                    child: Text("FAILED"),
-                  );
+                switch (state.status) {
+                  case RecipeStatus.loadSuccess:
+                    return _buildRecipeScreen(state.recipe!);
+                  case RecipeStatus.loadInProgress:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case RecipeStatus.failure:
+                    return Center(
+                      child: Text(state.error!),
+                    );
+                  default:
+                    return const Center(
+                      child: Text("FAILED"),
+                    );
                 }
               }(),
             ),
