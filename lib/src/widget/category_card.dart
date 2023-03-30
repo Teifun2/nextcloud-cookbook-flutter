@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
-  final String? url;
+  final String? imageID;
 
   const CategoryCard(
     this.category,
-    this.url, {
+    this.imageID, {
     super.key,
   });
 
@@ -32,24 +31,13 @@ class CategoryCard extends StatelessWidget {
                 colors: <Color>[Colors.black, Colors.transparent],
               ).createShader(bounds);
             },
-            child: url != null
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: AuthenticationCachedNetworkImage(
-                      url: url!,
-                      boxFit: BoxFit.cover,
-                      errorWidget: SvgPicture.asset('assets/icon.svg'),
-                    ),
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Container(
-                      color: Colors.grey[400],
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: RecipeImage(
+                id: imageID,
+                size: const Size.square(250),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

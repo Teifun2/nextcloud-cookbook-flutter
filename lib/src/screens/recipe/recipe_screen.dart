@@ -14,8 +14,8 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/duration_indicator.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -165,12 +165,9 @@ class RecipeScreenState extends State<RecipeScreen> {
               width: double.infinity,
               height: 200,
               child: Center(
-                child: AuthenticationCachedNetworkRecipeImage(
-                  recipeId: recipe.id!,
-                  full: true,
-                  width: double.infinity,
-                  height: 200,
-                  boxFit: BoxFit.cover,
+                child: RecipeImage(
+                  id: recipe.id,
+                  size: const Size(double.infinity, 200),
                 ),
               ),
             ),

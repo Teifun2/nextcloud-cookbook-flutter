@@ -13,10 +13,9 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/timer_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/user_image.dart';
 import 'package:search_page/search_page.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -54,13 +53,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                   ),
-                  child: Center(
-                    child: ClipOval(
-                      child: AuthenticationCachedNetworkImage(
-                        url: DataRepository().getUserAvatarUrl(),
-                        boxFit: BoxFit.fill,
-                      ),
-                    ),
+                  child: const Center(
+                    child: UserImage(),
                   ),
                 ),
                 ListTile(
@@ -155,10 +149,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ],
                             builder: (recipe) => ListTile(
                               title: Text(recipe.name),
-                              trailing: AuthenticationCachedNetworkRecipeImage(
-                                recipeId: recipe.recipeId,
-                                full: false,
-                                width: 50,
+                              trailing: RecipeImage(
+                                id: recipe.recipeId,
+                                size: const Size.square(50),
                               ),
                               onTap: () =>
                                   Navigator.of(context).pushReplacement(
@@ -290,21 +283,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
         mainAxisSpacing: 10,
         padding: const EdgeInsets.only(top: 10),
         semanticChildCount: categories.length,
-        children: categories
-            .map(
-              (category) => GestureDetector(
-                child: CategoryCard(category, recipe?.first?.imageUrl),
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return RecipesListScreen(category: category.name);
-                    },
-                  ),
+        children: [
+          for (int i = 0; i < categories.length; i++)
+            GestureDetector(
+              child: CategoryCard(
+                categories.elementAt(i),
+                recipe?.elementAt(i)?.recipeId,
+              ),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return RecipesListScreen(
+                      category: categories.elementAt(i).name,
+                    );
+                  },
                 ),
               ),
-            )
-            .toList(),
+            ),
+        ],
       ),
     );
   }

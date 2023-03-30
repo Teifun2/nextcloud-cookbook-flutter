@@ -4,7 +4,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
 class TimerScreen extends StatefulWidget {
   const TimerScreen({super.key});
@@ -66,11 +66,9 @@ class _TimerScreen extends State<TimerScreen> {
   ListTile _buildListItem(Timer timer) {
     return ListTile(
       key: UniqueKey(),
-      leading: AuthenticationCachedNetworkRecipeImage(
-        recipeId: timer.recipeId,
-        full: false,
-        width: 60,
-        height: 60,
+      leading: RecipeImage(
+        id: timer.recipeId,
+        size: const Size.square(60),
       ),
       title: Text(timer.title),
       subtitle: AnimatedTimeProgressBar(
