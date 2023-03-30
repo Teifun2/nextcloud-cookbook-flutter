@@ -87,12 +87,8 @@ class DataRepository {
   Future<RecipeStub?> _fetchCategoryMainRecipe(Category category) async {
     try {
       final categoryRecipes = await fetchRecipesShort(category: category.name);
-      if (categoryRecipes != null) {
-        for (final category in categoryRecipes) {
-          if (category.imageUrl.isNotEmpty) {
-            return category;
-          }
-        }
+      if (categoryRecipes != null && categoryRecipes.isNotEmpty) {
+        return categoryRecipes.first;
       }
     } catch (e) {
       log("Could not load main recipe of Category!");
@@ -116,5 +112,32 @@ class DataRepository {
         categories?.where((element) => element.name.contains(pattern));
 
     return matches?.map((e) => e.name) ?? [];
+  }
+
+  Future<ImageResponse?> fetchImage(String recipeId, Size size) async {
+    final String sizeParam;
+    if (size.longestSide <= 16) {
+      sizeParam = "thumb16";
+    } else if (size.longestSide <= 250) {
+      sizeParam = "thumb";
+    } else {
+      sizeParam = "full";
+    }
+
+    final response = await api.recipeApi.getImage(
+      id: recipeId,
+      headers: {
+        "Accept": "image/jpeg, image/svg+xml",
+      },
+      size: sizeParam,
+    );
+    if (response.data != null) {
+      return ImageResponse(
+        data: response.data!,
+        isSvg: response.headers.value("content-type") == "image/svg+xml",
+      );
+    }
+
+    return null;
   }
 }

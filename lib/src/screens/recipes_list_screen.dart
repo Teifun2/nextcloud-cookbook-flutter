@@ -5,7 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
 class RecipesListScreen extends StatefulWidget {
   final String category;
@@ -95,11 +95,9 @@ class RecipesListScreenState extends State<RecipesListScreen> {
   ListTile _buildRecipeStubScreen(RecipeStub recipe) {
     return ListTile(
       title: Text(recipe.name),
-      trailing: AuthenticationCachedNetworkRecipeImage(
-        recipeId: recipe.recipeId,
-        full: false,
-        width: 60,
-        height: 60,
+      trailing: RecipeImage(
+        id: recipe.recipeId,
+        size: const Size.square(60),
       ),
       onTap: () {
         Navigator.push(
