@@ -62,7 +62,7 @@ dependencies:
   theme_mode_handler: ^3.0.0
 
   # Form data HTTP Client
-  dio: ^4.0.0
+  dio: ^5.0.0
 
   # Screen always on
   wakelock: ^0.6.1
