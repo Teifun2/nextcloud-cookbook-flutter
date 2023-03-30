@@ -31,7 +31,7 @@ class DataRepository {
   static String categoryAll = translate('categories.all_categories');
 
   // Actions
-  Future<List<RecipeShort>> fetchRecipesShort({required String category}) {
+  Future<List<RecipeStub>> fetchRecipesShort({required String category}) {
     if (category == categoryAll) {
       return recipesShortProvider.fetchRecipesShort();
     } else {
@@ -71,7 +71,7 @@ class DataRepository {
   }
 
   Future<Category> _fetchCategoryMainRecipe(Category category) async {
-    List<RecipeShort> categoryRecipes = [];
+    List<RecipeStub> categoryRecipes = [];
 
     try {
       if (category.name == translate('categories.all_categories')) {
@@ -91,7 +91,7 @@ class DataRepository {
     return category;
   }
 
-  Future<List<RecipeShort>> fetchAllRecipes() async {
+  Future<List<RecipeStub>> fetchAllRecipes() async {
     return fetchRecipesShort(category: categoryAll);
   }
 

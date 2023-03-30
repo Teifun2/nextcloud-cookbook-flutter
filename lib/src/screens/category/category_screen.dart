@@ -144,7 +144,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       if (state.status == RecipesShortStatus.loadAllSuccess) {
                         showSearch(
                           context: context,
-                          delegate: SearchPage<RecipeShort>(
+                          delegate: SearchPage<RecipeStub>(
                             items: state.recipesShort!.toList(),
                             searchLabel: translate('search.title'),
                             suggestion: const Center(
