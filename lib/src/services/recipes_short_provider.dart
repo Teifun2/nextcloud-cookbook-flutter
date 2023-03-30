@@ -1,8 +1,4 @@
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/network.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
+part of 'services.dart';
 
 class RecipesShortProvider {
   Future<List<RecipeStub>> fetchRecipesShort() async {

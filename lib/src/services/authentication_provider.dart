@@ -1,13 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:dio/dio.dart' as dio;
-import 'package:dio/io.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:xml/xml.dart';
+part of 'services.dart';
 
 class AuthenticationProvider {
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();

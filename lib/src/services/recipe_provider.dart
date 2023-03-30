@@ -1,9 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/network.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
+part of 'services.dart';
 
 class RecipeProvider {
   Future<Recipe> fetchRecipe(int id) async {

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 
 class AuthenticationCachedNetworkImage extends StatelessWidget {
   final double? width;

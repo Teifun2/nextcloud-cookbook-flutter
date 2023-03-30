@@ -1,8 +1,4 @@
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/network.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
+part of 'services.dart';
 
 class CategoryRecipesShortProvider {
   Future<List<RecipeStub>> fetchCategoryRecipesShort(String category) async {

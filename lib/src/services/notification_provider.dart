@@ -1,10 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
-import 'package:timezone/data/latest_10y.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+part of 'services.dart';
 
 const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(

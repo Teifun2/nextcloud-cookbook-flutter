@@ -1,7 +1,4 @@
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
-import 'package:nextcloud_cookbook_flutter/src/util/custom_cache_manager.dart';
+part of 'services.dart';
 
 class Network {
   static final Network _network = Network._();

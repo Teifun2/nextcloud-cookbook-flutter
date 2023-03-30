@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 
 class ApiVersionWarning extends StatelessWidget {
   const ApiVersionWarning({super.key});

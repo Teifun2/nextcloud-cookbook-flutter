@@ -1,9 +1,4 @@
-import 'dart:async';
-
-import 'package:dio/dio.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/authentication_provider.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
+part of 'services.dart';
 
 class UserRepository {
   // Singleton

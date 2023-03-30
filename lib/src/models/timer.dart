@@ -1,4 +1,4 @@
-import 'package:nextcloud_cookbook_flutter/src/services/notification_provider.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 class TimerList {
