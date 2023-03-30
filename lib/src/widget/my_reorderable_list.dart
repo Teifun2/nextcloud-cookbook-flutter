@@ -270,9 +270,8 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
 
   @override
   void didChangeDependencies() {
-    _scrollController = widget.scrollController ??
-        PrimaryScrollController.of(context) ??
-        ScrollController();
+    _scrollController =
+        widget.scrollController ?? PrimaryScrollController.of(context);
     super.didChangeDependencies();
   }
 
@@ -310,7 +309,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
     if (_scrolling) return;
     final contextObject = context.findRenderObject();
     final viewport = RenderAbstractViewport.of(contextObject);
-    assert(contextObject != null && viewport != null);
+    assert(contextObject != null);
     // If and only if the current scroll offset falls in-between the offsets
     // necessary to reveal the selected context at the top or bottom of the
     // screen, then it is already on-screen.
@@ -318,7 +317,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
     final double scrollOffset = _scrollController.offset;
     final double topOffset = max(
       _scrollController.position.minScrollExtent,
-      viewport!.getOffsetToReveal(contextObject!, 0.0).offset - margin,
+      viewport.getOffsetToReveal(contextObject!, 0.0).offset - margin,
     );
     final double bottomOffset = min(
       _scrollController.position.maxScrollExtent,
@@ -482,7 +481,6 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
         ),
         childWhenDragging: const SizedBox(),
         onDragStarted: onDragStarted,
-        dragAnchorStrategy: childDragAnchorStrategy,
         // When the drag ends inside a DragTarget widget, the drag
         // succeeds, and we reorder the widget into position appropriately.
         onDragCompleted: onDragEnded,

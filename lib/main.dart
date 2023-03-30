@@ -98,7 +98,6 @@ class _AppState extends State<App> {
         theme: ThemeData(
           brightness: Brightness.light,
           hintColor: Colors.grey,
-          backgroundColor: Colors.grey[400],
         ),
         darkTheme: ThemeData(
           brightness: Brightness.dark,

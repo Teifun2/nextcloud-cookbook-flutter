@@ -160,7 +160,7 @@ class RecipeScreenState extends State<RecipeScreen> {
         final TextStyle settingsBasedTextStyle = TextStyle(
           fontSize: Settings.getValue<double>(
             SettingKeys.recipe_font_size.name,
-            defaultValue: Theme.of(context).textTheme.bodyText2?.fontSize,
+            defaultValue: Theme.of(context).textTheme.bodyMedium?.fontSize,
           ),
         );
 
@@ -210,14 +210,14 @@ class RecipeScreenState extends State<RecipeScreen> {
                             text: translate('recipe.fields.servings'),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .apply(fontWeightDelta: 3),
                             children: <TextSpan>[
                               TextSpan(
                                 text: " ${recipe.recipeYield}",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyMedium!
                                     .apply(fontWeightDelta: 3),
                               )
                             ],

@@ -36,7 +36,6 @@ class AuthenticationCachedNetworkRecipeImage extends StatelessWidget {
       boxFit: boxFit,
       errorWidget: SvgPicture.asset(
         'assets/icon.svg',
-        color: Colors.grey[600],
       ),
     );
   }
