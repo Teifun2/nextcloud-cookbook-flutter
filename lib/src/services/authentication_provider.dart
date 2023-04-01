@@ -70,8 +70,7 @@ class AuthenticationProvider {
         throw translate("login.errors.parse_missing", args: {"error_msg": e});
       }
 
-      final String basicAuth =
-          'Basic ${base64Encode(utf8.encode('$username:$appPassword'))}';
+      final basicAuth = AppAuthentication.parseBasicAuth(username, appPassword);
 
       return AppAuthentication(
         server: serverUrl,
@@ -156,7 +155,7 @@ class AuthenticationProvider {
       throw translate('login.errors.authentication_not_found');
     } else {
       currentAppAuthentication =
-          AppAuthentication.fromJson(appAuthenticationString);
+          AppAuthentication.fromJsonString(appAuthenticationString);
     }
   }
 
@@ -216,7 +215,7 @@ class AuthenticationProvider {
     currentAppAuthentication = appAuthentication;
     await _secureStorage.write(
       key: _appAuthenticationKey,
-      value: appAuthentication.toJson(),
+      value: appAuthentication.toJsonString(),
     );
   }
 

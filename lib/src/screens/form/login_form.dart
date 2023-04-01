@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/login/login_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/checkbox_form_field.dart';
@@ -64,11 +63,9 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
         final String serverUrl = URLUtils.sanitizeUrl(_serverUrl.text);
         final String username = _username.text.trim();
         final String password = _password.text.trim();
-        final String originalBasicAuth = 'Basic ${base64Encode(
-          utf8.encode(
-            '$username:$password',
-          ),
-        )}';
+        final String originalBasicAuth =
+            AppAuthentication.parseBasicAuth(username, password);
+
         BlocProvider.of<LoginBloc>(context).add(
           LoginButtonPressed(
             serverURL: serverUrl,
