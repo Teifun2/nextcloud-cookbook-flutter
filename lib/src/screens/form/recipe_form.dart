@@ -10,21 +10,12 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
-typedef RecipeFormSubmit = void Function(
-  MutableRecipe mutableRecipe,
-  BuildContext context,
-);
-
 class RecipeForm extends StatefulWidget {
-  final Recipe recipe;
-  final String buttonSubmitText;
-  final RecipeFormSubmit recipeFormSubmit;
+  final Recipe? recipe;
 
-  const RecipeForm(
-    this.recipe,
-    this.buttonSubmitText,
-    this.recipeFormSubmit, {
+  const RecipeForm({
     super.key,
+    this.recipe,
   });
 
   @override
@@ -33,15 +24,18 @@ class RecipeForm extends StatefulWidget {
 
 class _RecipeFormState extends State<RecipeForm> {
   final _formKey = GlobalKey<FormState>();
-  late Recipe recipe;
   late MutableRecipe _mutableRecipe;
   late TextEditingController categoryController;
 
   @override
   void initState() {
-    recipe = widget.recipe;
-    _mutableRecipe = recipe.toMutableRecipe();
-    categoryController = TextEditingController(text: recipe.recipeCategory);
+    _mutableRecipe = Recipe.empty().toMutableRecipe();
+
+    if (widget.recipe != null) {
+      _mutableRecipe = widget.recipe!.toMutableRecipe();
+    }
+    categoryController =
+        TextEditingController(text: _mutableRecipe.recipeCategory);
 
     super.initState();
   }
@@ -71,7 +65,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                       TextFormField(
                         enabled: enabled,
-                        initialValue: recipe.name,
+                        initialValue: _mutableRecipe.name,
                         onChanged: (value) {
                           _mutableRecipe.name = value;
                         },
@@ -90,7 +84,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                       TextFormField(
                         enabled: enabled,
-                        initialValue: recipe.description,
+                        initialValue: _mutableRecipe.description,
                         maxLines: 100,
                         minLines: 1,
                         onChanged: (value) {
@@ -116,16 +110,12 @@ class _RecipeFormState extends State<RecipeForm> {
                         ),
                         suggestionsCallback:
                             DataRepository().getMatchingCategoryNames,
-                        itemBuilder: (context, String? suggestion) {
-                          if (suggestion != null) {
-                            return ListTile(
-                              title: Text(suggestion),
-                            );
-                          }
-                          return const SizedBox();
+                        itemBuilder: (context, suggestion) {
+                          return ListTile(
+                            title: Text(suggestion),
+                          );
                         },
-                        onSuggestionSelected: (String? suggestion) {
-                          if (suggestion == null) return;
+                        onSuggestionSelected: (String suggestion) {
                           categoryController.text = suggestion;
                         },
                         onSaved: (value) {
@@ -147,7 +137,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                       TextFormField(
                         enabled: enabled,
-                        initialValue: recipe.keywords,
+                        initialValue: _mutableRecipe.keywords,
                         onChanged: (value) {
                           _mutableRecipe.keywords = value;
                         },
@@ -166,7 +156,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                       TextFormField(
                         enabled: enabled,
-                        initialValue: recipe.url,
+                        initialValue: _mutableRecipe.url,
                         onChanged: (value) {
                           _mutableRecipe.url = value;
                         },
@@ -186,7 +176,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       TextFormField(
                         enabled: false,
                         style: const TextStyle(color: Colors.grey),
-                        initialValue: recipe.imageUrl,
+                        initialValue: _mutableRecipe.imageUrl,
                         onChanged: (value) {
                           _mutableRecipe.imageUrl = value;
                         },
@@ -205,7 +195,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       ),
                       IntegerTextFormField(
                         enabled: enabled,
-                        initialValue: recipe.recipeYield,
+                        initialValue: _mutableRecipe.recipeYield,
                         onChanged: (value) =>
                             _mutableRecipe.recipeYield = value,
                         onSaved: (value) => _mutableRecipe.recipeYield = value,
@@ -215,37 +205,37 @@ class _RecipeFormState extends State<RecipeForm> {
                   DurationFormField(
                     title: translate('recipe.fields.time.prep'),
                     state: state,
-                    duration: recipe.prepTime,
+                    duration: _mutableRecipe.prepTime,
                     onChanged: (value) => {_mutableRecipe.prepTime = value},
                   ),
                   DurationFormField(
                     title: translate('recipe.fields.time.cook'),
                     state: state,
-                    duration: recipe.cookTime,
+                    duration: _mutableRecipe.cookTime,
                     onChanged: (value) => {_mutableRecipe.cookTime = value},
                   ),
                   DurationFormField(
                     title: translate('recipe.fields.time.total'),
                     state: state,
-                    duration: recipe.totalTime,
+                    duration: _mutableRecipe.totalTime,
                     onChanged: (value) => {_mutableRecipe.totalTime = value},
                   ),
                   ReorderableListFormField(
                     title: translate('recipe.fields.tools'),
-                    items: recipe.tool,
+                    items: _mutableRecipe.tool,
                     state: state,
                     onSave: (value) => {_mutableRecipe.tool = value},
                   ),
                   ReorderableListFormField(
                     title: translate('recipe.fields.ingredients'),
-                    items: recipe.recipeIngredient,
+                    items: _mutableRecipe.recipeIngredient,
                     state: state,
                     onSave: (value) =>
                         {_mutableRecipe.recipeIngredient = value},
                   ),
                   ReorderableListFormField(
                     title: translate('recipe.fields.instructions'),
-                    items: recipe.recipeInstructions,
+                    items: _mutableRecipe.recipeInstructions,
                     state: state,
                     onSave: (value) =>
                         {_mutableRecipe.recipeInstructions = value},
@@ -256,7 +246,13 @@ class _RecipeFormState extends State<RecipeForm> {
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
                           _formKey.currentState?.save();
-                          widget.recipeFormSubmit(_mutableRecipe, context);
+                          if (widget.recipe == null) {
+                            BlocProvider.of<RecipeBloc>(context)
+                                .add(RecipeCreated(_mutableRecipe.toRecipe()));
+                          } else {
+                            BlocProvider.of<RecipeBloc>(context)
+                                .add(RecipeUpdated(_mutableRecipe.toRecipe()));
+                          }
                         }
                       },
                       child: () {
@@ -272,7 +268,11 @@ class _RecipeFormState extends State<RecipeForm> {
                           case RecipeStatus.createSuccess:
                           case RecipeStatus.createFailure:
                           default:
-                            return Text(widget.buttonSubmitText);
+                            return Text(
+                              widget.recipe == null
+                                  ? translate('recipe_create.button')
+                                  : translate('recipe_edit.button'),
+                            );
                         }
                       }(),
                     ),

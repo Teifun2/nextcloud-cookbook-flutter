@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 
 class RecipeCreateScreen extends StatelessWidget {
-  final Recipe recipe;
-
-  const RecipeCreateScreen(
-    this.recipe, {
+  const RecipeCreateScreen({
     super.key,
   });
 
@@ -48,14 +44,7 @@ class RecipeCreateScreen extends StatelessWidget {
             child: Text(translate('recipe_create.title')),
           ),
         ),
-        body: RecipeForm(
-          recipe,
-          translate('recipe_create.button'),
-          (mutableRecipe, context) => {
-            BlocProvider.of<RecipeBloc>(context)
-                .add(RecipeCreated(mutableRecipe.toRecipe()))
-          },
-        ),
+        body: const RecipeForm(),
       ),
     );
   }

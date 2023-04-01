@@ -48,14 +48,7 @@ class RecipeEditScreen extends StatelessWidget {
             child: Text(translate('recipe_edit.title')),
           ),
         ),
-        body: RecipeForm(
-          recipe,
-          translate('recipe_edit.button'),
-          (mutableRecipe, context) => {
-            BlocProvider.of<RecipeBloc>(context)
-                .add(RecipeUpdated(mutableRecipe.toRecipe()))
-          },
-        ),
+        body: RecipeForm(recipe: recipe),
       ),
     );
   }

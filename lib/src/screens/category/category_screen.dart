@@ -7,7 +7,6 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authenticati
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/my_settings_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
@@ -41,7 +40,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return RecipeCreateScreen(Recipe.empty());
+                    return const RecipeCreateScreen();
                   },
                 ),
               );
