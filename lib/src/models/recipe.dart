@@ -23,9 +23,10 @@ class Recipe extends Equatable {
   final String url;
   final Map<String, dynamic> remainingData;
 
-  factory Recipe(String jsonString) {
-    final data = json.decode(jsonString) as Map<String, dynamic>;
+  factory Recipe.fromJsonString(String jsonString) =>
+      Recipe.fromJson(json.decode(jsonString) as Map<String, dynamic>);
 
+  factory Recipe.fromJson(Map<String, dynamic> data) {
     final String id =
         data["id"] is int ? data["id"]!.toString() : data["id"] as String;
     final String name = data["name"] as String;
@@ -173,7 +174,9 @@ class Recipe extends Equatable {
     );
   }
 
-  String toJson() {
+  String toJsonString() => jsonEncode(toJson());
+
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> updatedData = {
       'id': id,
       'name': name,
@@ -202,7 +205,7 @@ class Recipe extends Equatable {
       remainingData['nutrition'] = nutrition;
     }
 
-    return jsonEncode(remainingData);
+    return remainingData;
   }
 
   MutableRecipe toMutableRecipe() {

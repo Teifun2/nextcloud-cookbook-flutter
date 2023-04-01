@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 
@@ -71,7 +72,7 @@ class _TimerScreen extends State<TimerScreen> {
         width: 60,
         height: 60,
       ),
-      title: Text(timer.title!),
+      title: Text(timer.title),
       subtitle: AnimatedTimeProgressBar(
         timer: timer,
       ),
@@ -79,7 +80,7 @@ class _TimerScreen extends State<TimerScreen> {
       trailing: IconButton(
         icon: const Icon(Icons.cancel),
         onPressed: () {
-          timer.cancel();
+          TimerList().remove(timer);
           setState(() {});
         },
       ),

@@ -36,3 +36,4 @@ part "recipe_provider.dart";
 part "recipes_short_provider.dart";
 part "user_repository.dart";
 part "version_provider.dart";
+part 'timer_repository.dart';

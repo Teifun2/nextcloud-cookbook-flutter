@@ -10,6 +10,7 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/ingredient_
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/instruction_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/widget/nutrition_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
@@ -128,14 +129,7 @@ class RecipeScreenState extends State<RecipeScreen> {
       onPressed: () {
         {
           if (enabled) {
-            final Timer timer = Timer(
-              recipe.id,
-              recipe.name,
-              "${recipe.name} ${translate('timer.finished')}",
-              recipe.cookTime,
-            );
-            timer.start();
-            TimerList().timers.add(timer);
+            TimerList().timers.add(Timer(recipe));
             setState(() {});
             final snackBar =
                 SnackBar(content: Text(translate('timer.started')));
@@ -340,17 +334,17 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   Widget _showTimers(Recipe recipe) {
-    final List<Timer> l = TimerList().get(recipe.id);
-    if (l.isNotEmpty) {
+    final timers = TimerList().timers;
+    if (timers.isNotEmpty) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: Column(
           children: [
             ListView.builder(
               shrinkWrap: true,
-              itemCount: l.length,
+              itemCount: timers.length,
               itemBuilder: (context, index) {
-                return _buildTimerListItem(l[index]);
+                return _buildTimerListItem(timers[index]);
               },
             )
           ],
@@ -369,7 +363,7 @@ class RecipeScreenState extends State<RecipeScreen> {
       trailing: IconButton(
         icon: const Icon(Icons.cancel),
         onPressed: () {
-          timer.cancel();
+          TimerList().remove(timer);
           setState(() {});
         },
       ),

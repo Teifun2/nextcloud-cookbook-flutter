@@ -28,12 +28,12 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
     _timer = widget.timer;
 
     _timerTween = Tween(
-      begin: _timer.progress(),
+      begin: _timer.progress,
       end: 1.0,
     );
 
     _controller = AnimationController(
-      duration: _timer.remaining(),
+      duration: _timer.remaining,
       vsync: this,
     );
 
@@ -63,7 +63,7 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${_timer.remaining().inHours.toString().padLeft(2, '0')}:${_timer.remaining().inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining().inSeconds.remainder(60)).toString().padLeft(2, '0')}",
+                  "${_timer.remaining.inHours.toString().padLeft(2, '0')}:${_timer.remaining.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
                 ),
                 Text(
                   "${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
