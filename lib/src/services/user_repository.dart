@@ -8,7 +8,6 @@ class UserRepository {
   UserRepository._();
 
   AuthenticationProvider authenticationProvider = AuthenticationProvider();
-  VersionProvider versionProvider = VersionProvider();
 
   Future<AppAuthentication> authenticate(
     String serverUrl,
@@ -76,11 +75,13 @@ class UserRepository {
     return authenticationProvider.deleteAppAuthentication();
   }
 
-  Future<ApiVersion> fetchApiVersion() async {
-    return versionProvider.fetchApiVersion();
+  bool isVersionSupported(APIVersion version) {
+    return ApiProvider().ncCookbookApi.isSupportedSync(version);
   }
 
-  AndroidApiVersion getAndroidVersion() {
-    return versionProvider.getApiVersion().getAndroidVersion();
+  Future<APIVersion> fetchApiVersion() async {
+    final response = await ApiProvider().miscApi.version();
+
+    return response.data!.apiVersion;
   }
 }

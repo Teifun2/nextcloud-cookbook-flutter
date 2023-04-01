@@ -8,79 +8,101 @@ class DataRepository {
   DataRepository._();
 
   // Provider List
-  RecipesShortProvider recipesShortProvider = RecipesShortProvider();
-  CategoryRecipesShortProvider categoryRecipesShortProvider =
-      CategoryRecipesShortProvider();
-  CategorySearchProvider categorySearchProvider = CategorySearchProvider();
-  RecipeProvider recipeProvider = RecipeProvider();
-  CategoriesProvider categoriesProvider = CategoriesProvider();
+  final ApiProvider api = ApiProvider();
+
   final NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
-  static String categoryAll = translate('categories.all_categories');
+  static final String categoryAll = translate('categories.all_categories');
 
   // Actions
-  Future<List<RecipeStub>> fetchRecipesShort({required String category}) {
+  Future<Iterable<RecipeStub>?> fetchRecipesShort({
+    required String category,
+  }) async {
     if (category == categoryAll) {
-      return recipesShortProvider.fetchRecipesShort();
+      final response = await api.recipeApi.listRecipes();
+      return response.data;
+    } else if (category == "*") {
+      final response = await api.categoryApi.recipesInCategory(category: "_");
+      return response.data;
     } else {
-      return categoryRecipesShortProvider.fetchCategoryRecipesShort(category);
+      final response =
+          await api.categoryApi.recipesInCategory(category: category);
+      return response.data;
     }
   }
 
-  Future<Recipe> fetchRecipe(String id) {
-    return recipeProvider.fetchRecipe(int.parse(id));
+  Future<Recipe?> fetchRecipe(String id) async {
+    final response = await api.recipeApi.recipeDetails(id: id);
+    return response.data;
   }
 
-  Future<String> updateRecipe(Recipe recipe) async {
-    final response = await recipeProvider.updateRecipe(recipe);
-    return response.toString();
+  Future<String?> updateRecipe(Recipe recipe) async {
+    final response =
+        await api.recipeApi.updateRecipe(id: recipe.id!, recipe: recipe);
+    return response.data?.toString();
   }
 
-  Future<String> createRecipe(Recipe recipe) async {
-    final response = await recipeProvider.createRecipe(recipe);
-
-    return response.toString();
+  Future<String?> createRecipe(Recipe recipe) async {
+    final response = await api.recipeApi.newRecipe(recipe: recipe);
+    return response.data?.toString();
   }
 
-  Future<Recipe> importRecipe(String url) {
-    return recipeProvider.importRecipe(url);
+  Future<Recipe?> importRecipe(String url) async {
+    final requestUrl = UrlBuilder()..url = url;
+
+    final response = await api.recipeApi.callImport(url: requestUrl.build());
+    return response.data;
   }
 
-  Future<List<Category>> fetchCategories() {
-    return categoriesProvider.fetchCategories();
+  Future<Iterable<Category>?> fetchCategories() async {
+    final response = await api.categoryApi.listCategories();
+    final categories = response.data?.toBuilder();
+
+    final allRecepies = await fetchAllRecipes();
+    final allCount = allRecepies?.length;
+
+    if (allCount != null && allCount > 0) {
+      final allCategory = CategoryBuilder()
+        ..name = categoryAll
+        ..recipeCount = allCount;
+
+      categories?.insert(
+        0,
+        allCategory.build(),
+      );
+    }
+
+    return categories?.build();
   }
 
-  Future<List<Category>> fetchCategoryMainRecipes(
-    List<Category> categories,
+  Future<Iterable<RecipeStub?>?> fetchCategoryMainRecipes(
+    Iterable<Category>? categories,
   ) async {
-    return Future.wait(
-      categories.map((category) => _fetchCategoryMainRecipe(category)).toList(),
-    );
+    if (categories == null) return null;
+
+    return Future.wait(categories.map(_fetchCategoryMainRecipe));
   }
 
-  Future<Category> _fetchCategoryMainRecipe(Category category) async {
-    List<RecipeStub> categoryRecipes = [];
-
+  Future<RecipeStub?> _fetchCategoryMainRecipe(Category category) async {
     try {
-      if (category.name == translate('categories.all_categories')) {
-        categoryRecipes = await recipesShortProvider.fetchRecipesShort();
-      } else {
-        categoryRecipes = await categoryRecipesShortProvider
-            .fetchCategoryRecipesShort(category.name);
+      final categoryRecipes = await fetchRecipesShort(category: category.name);
+      if (categoryRecipes != null) {
+        for (final category in categoryRecipes) {
+          if (category.imageUrl.isNotEmpty) {
+            return category;
+          }
+        }
       }
     } catch (e) {
       log("Could not load main recipe of Category!");
+      rethrow;
     }
 
-    if (categoryRecipes.isNotEmpty) {
-      return category.copyWith(firstRecipeId: categoryRecipes.first.recipeId);
-    }
-
-    return category;
+    return null;
   }
 
-  Future<List<RecipeStub>> fetchAllRecipes() async {
+  Future<Iterable<RecipeStub>?> fetchAllRecipes() async {
     return fetchRecipesShort(category: categoryAll);
   }
 
@@ -88,15 +110,11 @@ class DataRepository {
     return _nextcloudMetadataApi.getUserAvatarUrl();
   }
 
-  void updateCategoryNames(List<Category> categories) {
-    categorySearchProvider.updateCategoryNames(categories);
-  }
-
   Future<Iterable<String>> getMatchingCategoryNames(String pattern) async {
-    if (!categorySearchProvider.categoriesLoaded) {
-      await categoriesProvider.fetchCategories();
-    }
+    final categories = await fetchCategories();
+    final matches =
+        categories?.where((element) => element.name.contains(pattern));
 
-    return categorySearchProvider.getMatchingCategoryNames(pattern);
+    return matches?.map((e) => e.name) ?? [];
   }
 }

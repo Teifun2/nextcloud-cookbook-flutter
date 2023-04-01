@@ -6,8 +6,8 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_fi
 class DurationFormField extends StatefulWidget {
   final String title;
   final RecipeState state;
-  final Duration duration;
-  final void Function(Duration value) onChanged;
+  final Duration? duration;
+  final void Function(Duration? value) onChanged;
 
   const DurationFormField({
     super.key,
@@ -22,8 +22,10 @@ class DurationFormField extends StatefulWidget {
 }
 
 class _DurationFormFieldState extends State<DurationFormField> {
-  late Duration currentDuration;
+  late Duration? currentDuration;
   late bool enabled;
+
+  Duration get duaration => currentDuration ?? Duration.zero;
 
   @override
   void initState() {
@@ -54,13 +56,12 @@ class _DurationFormFieldState extends State<DurationFormField> {
               width: 70,
               child: IntegerTextFormField(
                 enabled: enabled,
-                initialValue: widget.duration.inHours,
+                initialValue: duaration.inHours,
                 decoration: InputDecoration(
                   hintText: translate('recipe.fields.time.hours'),
                 ),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
-                    currentDuration: currentDuration,
                     hours: value,
                   );
                   widget.onChanged(currentDuration);
@@ -75,14 +76,13 @@ class _DurationFormFieldState extends State<DurationFormField> {
               width: 50,
               child: IntegerTextFormField(
                 enabled: enabled,
-                initialValue: widget.duration.inMinutes % 60,
+                initialValue: duaration.inMinutes % 60,
                 maxValue: 60,
                 decoration: InputDecoration(
                   hintText: translate('recipe.fields.time.minutes'),
                 ),
                 onChanged: (value) {
                   currentDuration = _updateDuration(
-                    currentDuration: currentDuration,
                     minutes: value,
                   );
                   widget.onChanged(currentDuration);
@@ -95,19 +95,18 @@ class _DurationFormFieldState extends State<DurationFormField> {
     );
   }
 
-  Duration _updateDuration({
-    required Duration currentDuration,
+  Duration? _updateDuration({
     int? hours,
     int? minutes,
   }) {
     if (hours != null) {
-      final int currentMinutes = currentDuration.inMinutes % 60;
+      final int currentMinutes = duaration.inMinutes % 60;
 
       return Duration(hours: hours, minutes: currentMinutes);
     }
 
     if (minutes != null) {
-      final int currentHours = currentDuration.inHours;
+      final int currentHours = duaration.inHours;
 
       return Duration(hours: currentHours, minutes: minutes);
     }

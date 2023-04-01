@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
@@ -24,15 +24,15 @@ class RecipeForm extends StatefulWidget {
 
 class _RecipeFormState extends State<RecipeForm> {
   final _formKey = GlobalKey<FormState>();
-  late MutableRecipe _mutableRecipe;
+  late RecipeBuilder _mutableRecipe;
   late TextEditingController categoryController;
 
   @override
   void initState() {
-    _mutableRecipe = Recipe.empty().toMutableRecipe();
+    _mutableRecipe = RecipeBuilder();
 
     if (widget.recipe != null) {
-      _mutableRecipe = widget.recipe!.toMutableRecipe();
+      _mutableRecipe.replace(widget.recipe!);
     }
     categoryController =
         TextEditingController(text: _mutableRecipe.recipeCategory);
@@ -110,7 +110,7 @@ class _RecipeFormState extends State<RecipeForm> {
                         ),
                         suggestionsCallback:
                             DataRepository().getMatchingCategoryNames,
-                        itemBuilder: (context, suggestion) {
+                        itemBuilder: (context, String suggestion) {
                           return ListTile(
                             title: Text(suggestion),
                           );
@@ -138,7 +138,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       TextFormField(
                         enabled: enabled,
                         initialValue: _mutableRecipe.keywords,
-                        onChanged: (value) {
+                        onSaved: (value) {
                           _mutableRecipe.keywords = value;
                         },
                       ),
@@ -157,7 +157,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       TextFormField(
                         enabled: enabled,
                         initialValue: _mutableRecipe.url,
-                        onChanged: (value) {
+                        onSaved: (value) {
                           _mutableRecipe.url = value;
                         },
                       ),
@@ -177,7 +177,7 @@ class _RecipeFormState extends State<RecipeForm> {
                         enabled: false,
                         style: const TextStyle(color: Colors.grey),
                         initialValue: _mutableRecipe.imageUrl,
-                        onChanged: (value) {
+                        onSaved: (value) {
                           _mutableRecipe.imageUrl = value;
                         },
                       ),
@@ -196,8 +196,6 @@ class _RecipeFormState extends State<RecipeForm> {
                       IntegerTextFormField(
                         enabled: enabled,
                         initialValue: _mutableRecipe.recipeYield,
-                        onChanged: (value) =>
-                            _mutableRecipe.recipeYield = value,
                         onSaved: (value) => _mutableRecipe.recipeYield = value,
                       ),
                     ],
@@ -247,11 +245,14 @@ class _RecipeFormState extends State<RecipeForm> {
                         if (_formKey.currentState?.validate() ?? false) {
                           _formKey.currentState?.save();
                           if (widget.recipe == null) {
+                            _mutableRecipe.dateCreated = DateTime.now().toUtc();
                             BlocProvider.of<RecipeBloc>(context)
-                                .add(RecipeCreated(_mutableRecipe.toRecipe()));
+                                .add(RecipeCreated(_mutableRecipe.build()));
                           } else {
+                            _mutableRecipe.dateModified =
+                                DateTime.now().toUtc();
                             BlocProvider.of<RecipeBloc>(context)
-                                .add(RecipeUpdated(_mutableRecipe.toRecipe()));
+                                .add(RecipeUpdated(_mutableRecipe.build()));
                           }
                         }
                       },

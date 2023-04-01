@@ -1,10 +1,23 @@
 part of 'authentication_bloc.dart';
 
 enum AuthenticationStatus {
+  /// The user has not been authenticated
   unauthenticated,
+
+  /// The user has been authenticated
   authenticated,
+
+  /// The provided authentication is invalid
   invalid,
+
+  /// Loading
+  ///
+  /// Can either:
+  ///  - retrive saved authentication
+  ///  - log in witht he provided authentication
   loading,
+
+  /// An error accured while authenticating
   error;
 }
 

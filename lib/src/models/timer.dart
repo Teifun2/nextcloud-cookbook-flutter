@@ -1,13 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 
 part 'timer.g.dart';
 
 @JsonSerializable(constructor: "restore")
 class Timer {
   @visibleForTesting
+  @JsonKey(
+    toJson: _recipeToJson,
+    fromJson: _recipeFromJson,
+  )
   final Recipe? recipe;
   final DateTime done;
 
@@ -23,7 +27,7 @@ class Timer {
         _body = null,
         _duration = null,
         _recipeId = null,
-        done = DateTime.now().add(recipe.cookTime);
+        done = DateTime.now().add(recipe.cookTime!);
 
   // Restore Timer fom pending notification
   @visibleForTesting
@@ -68,8 +72,8 @@ class Timer {
 
   String get body => _body ?? "$title ${translate('timer.finished')}";
   String get title => _title ?? recipe!.name;
-  Duration get duration => _duration ?? recipe!.cookTime;
-  String get recipeId => _recipeId ?? recipe!.id;
+  Duration get duration => _duration ?? recipe!.cookTime!;
+  String get recipeId => _recipeId ?? recipe!.id!;
 
   /// The remaining time of the timer
   ///
@@ -110,3 +114,9 @@ class Timer {
         recipeId,
       );
 }
+
+Recipe _recipeFromJson(String data) =>
+    standardSerializers.fromJson<Recipe>(Recipe.serializer, data)!;
+
+String? _recipeToJson(Object? data) =>
+    data != null ? standardSerializers.toJson(Recipe.serializer, data) : null;

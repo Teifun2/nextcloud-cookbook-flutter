@@ -7,13 +7,13 @@ part of 'timer.dart';
 // **************************************************************************
 
 Timer _$TimerFromJson(Map<String, dynamic> json) => Timer.restore(
-      Recipe.fromJson(json['recipe'] as Map<String, dynamic>),
+      _recipeFromJson(json['recipe'] as String),
       DateTime.parse(json['done'] as String),
       json['id'] as int?,
     );
 
 Map<String, dynamic> _$TimerToJson(Timer instance) => <String, dynamic>{
-      'recipe': instance.recipe,
+      'recipe': _recipeToJson(instance.recipe),
       'done': instance.done.toIso8601String(),
       'id': instance.id,
     };

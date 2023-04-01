@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 
 class IngredientList extends StatefulWidget {
   final Recipe _recipe;

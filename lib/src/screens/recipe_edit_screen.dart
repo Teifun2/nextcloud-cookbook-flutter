@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 
 class RecipeEditScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class RecipeEditScreen extends StatelessWidget {
       onWillPop: () {
         final RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
         if (recipeBloc.state.status == RecipeStatus.updateFailure) {
-          recipeBloc.add(RecipeLoaded(recipe.id));
+          recipeBloc.add(RecipeLoaded(recipe.id!));
         }
         return Future(() => true);
       },

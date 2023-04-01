@@ -107,13 +107,49 @@ class _AppState extends State<App> {
               case AuthenticationStatus.loading:
                 return const SplashPage();
               case AuthenticationStatus.authenticated:
-                IntentRepository().handleIntent();
-                final categoryBloc = BlocProvider.of<CategoriesBloc>(context);
-                if (categoryBloc.state.status ==
-                    CategoriesStatus.loadInProgress) {
-                  categoryBloc.add(const CategoriesLoaded());
-                }
-                return const CategoryScreen();
+                return FutureBuilder(
+                  future: UserRepository().fetchApiVersion(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    }
+
+                    if (snapshot.hasError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            translate(
+                              "categories.errors.api_version_check_failed",
+                              args: {"error_msg": snapshot.error},
+                            ),
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+
+                    if (!UserRepository().isVersionSupported(snapshot.data!)) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            translate(
+                              "categories.errors.api_version_above_confirmed",
+                              args: {
+                                "version":
+                                    "${snapshot.data!.major}.${snapshot.data!.minor}"
+                              },
+                            ),
+                          ),
+                          backgroundColor: Colors.orange,
+                        ),
+                      );
+                    }
+
+                    IntentRepository().handleIntent();
+                    return const CategoryScreen();
+                  },
+                );
+
               case AuthenticationStatus.unauthenticated:
                 return const LoginScreen();
               case AuthenticationStatus.invalid:

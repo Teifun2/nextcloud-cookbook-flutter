@@ -1,12 +1,13 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart' as rl;
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 
 class ReorderableListFormField extends StatefulWidget {
   final String title;
-  final List<String> items;
+  final ListBuilder<String> items;
   final RecipeState state;
-  final Function(List<String> value) onSave;
+  final Function(ListBuilder<String> value) onSave;
 
   const ReorderableListFormField({
     super.key,
@@ -88,7 +89,7 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                   initialValue: "",
                   enabled: false,
                   onSaved: (_) {
-                    widget.onSave(_items.map((e) => e.text).toList());
+                    widget.onSave(ListBuilder(_items.map((e) => e.text)));
                   },
                 ),
               ),

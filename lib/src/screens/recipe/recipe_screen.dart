@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
@@ -124,7 +125,7 @@ class RecipeScreenState extends State<RecipeScreen> {
   }
 
   FloatingActionButton _buildFabButton(Recipe recipe) {
-    final enabled = recipe.cookTime > Duration.zero;
+    final enabled = recipe.cookTime != null;
     return FloatingActionButton(
       onPressed: () {
         {
@@ -165,7 +166,7 @@ class RecipeScreenState extends State<RecipeScreen> {
               height: 200,
               child: Center(
                 child: AuthenticationCachedNetworkRecipeImage(
-                  recipeId: recipe.id,
+                  recipeId: recipe.id!,
                   full: true,
                   width: double.infinity,
                   height: 200,
@@ -239,19 +240,19 @@ class RecipeScreenState extends State<RecipeScreen> {
                       runSpacing: 10,
                       spacing: 10,
                       children: <Widget>[
-                        if (recipe.prepTime > Duration.zero)
+                        if (recipe.prepTime != null)
                           DurationIndicator(
-                            duration: recipe.prepTime,
+                            duration: recipe.prepTime!,
                             name: translate('recipe.prep'),
                           ),
-                        if (recipe.cookTime > Duration.zero)
+                        if (recipe.cookTime != null)
                           DurationIndicator(
-                            duration: recipe.cookTime,
+                            duration: recipe.cookTime!,
                             name: translate('recipe.cook'),
                           ),
-                        if (recipe.totalTime > Duration.zero)
+                        if (recipe.totalTime != null)
                           DurationIndicator(
-                            duration: recipe.totalTime,
+                            duration: recipe.totalTime!,
                             name: translate('recipe.total'),
                           ),
                       ],
@@ -284,7 +285,9 @@ class RecipeScreenState extends State<RecipeScreen> {
                         ),
                       ),
                     ),
-                  if (isLargeScreen && recipe.recipeIngredient.isNotEmpty)
+                  if (isLargeScreen &&
+                      recipe.recipeIngredient.isNotEmpty &&
+                      recipe.nutritionList.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Row(
@@ -292,7 +295,7 @@ class RecipeScreenState extends State<RecipeScreen> {
                         children: <Widget>[
                           Expanded(
                             flex: 5,
-                            child: NutritionList(recipe.nutrition),
+                            child: NutritionList(recipe.nutritionList),
                           ),
                           Expanded(
                             flex: 5,
@@ -316,8 +319,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Column(
                         children: <Widget>[
-                          if (recipe.nutrition.isNotEmpty)
-                            NutritionList(recipe.nutrition),
+                          if (recipe.nutritionList.isNotEmpty)
+                            NutritionList(recipe.nutritionList),
                           if (recipe.recipeIngredient.isNotEmpty)
                             IngredientList(recipe, settingsBasedTextStyle),
                           InstructionList(recipe, settingsBasedTextStyle)
