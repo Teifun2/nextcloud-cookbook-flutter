@@ -36,7 +36,7 @@ class RecipeImportScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return RecipeScreen(recipeId: state.recipeId!);
+                      return RecipeScreen(recipeId: state.recipe!.id!);
                     },
                   ),
                 );

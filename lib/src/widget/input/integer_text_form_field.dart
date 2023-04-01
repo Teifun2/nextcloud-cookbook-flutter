@@ -11,14 +11,15 @@ class IntegerTextFormField extends StatefulWidget {
 
   const IntegerTextFormField({
     super.key,
-    this.initialValue = 0,
+    int? initialValue,
     this.enabled,
     this.decoration,
     this.onChanged,
     this.onSaved,
     this.minValue,
     this.maxValue,
-  }) : assert((minValue == null || maxValue == null) || minValue <= maxValue);
+  })  : initialValue = initialValue ?? 0,
+        assert((minValue == null || maxValue == null) || minValue <= maxValue);
 
   @override
   State<StatefulWidget> createState() => _IntegerTextFormFieldState();

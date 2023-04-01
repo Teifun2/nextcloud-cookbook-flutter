@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 
 part 'recipes_short_event.dart';

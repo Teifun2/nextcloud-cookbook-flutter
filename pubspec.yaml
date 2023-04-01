@@ -89,13 +89,18 @@ dependencies:
 
   flutter_typeahead: ^4.3.7
 
-  copy_with_extension: ^5.0.0
   json_annotation: ^4.8.0
+
+  nc_cookbook_api:
+    git:
+      url: https://github.com/Leptopoda/nextcloud_cookbook_dart_api.git
+      ref: 5465b2fd64fb71cb7cd588989d1709fd48884457
+
+  built_collection: ^5.1.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0
 
-  copy_with_extension_gen: ^5.0.0
   json_serializable: ^6.6.0
   build_runner: ^2.3.0
 

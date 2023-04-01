@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
+  final String? url;
 
   const CategoryCard(
-    this.category, {
+    this.category,
+    this.url, {
     super.key,
   });
 
@@ -29,13 +32,13 @@ class CategoryCard extends StatelessWidget {
                 colors: <Color>[Colors.black, Colors.transparent],
               ).createShader(bounds);
             },
-            child: category.firstRecipeId != null
+            child: url != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: AuthenticationCachedNetworkRecipeImage(
-                      recipeId: category.firstRecipeId!,
-                      full: false,
+                    child: AuthenticationCachedNetworkImage(
+                      url: url!,
                       boxFit: BoxFit.cover,
+                      errorWidget: SvgPicture.asset('assets/icon.svg'),
                     ),
                   )
                 : ClipRRect(

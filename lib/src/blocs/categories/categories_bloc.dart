@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 
 part 'categories_event.dart';
@@ -18,20 +18,19 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     Emitter<CategoriesState> emit,
   ) async {
     try {
-      final List<Category> categories = await dataRepository.fetchCategories();
-      dataRepository.updateCategoryNames(categories);
+      final categories = await dataRepository.fetchCategories();
       emit(
         CategoriesState(
           status: CategoriesStatus.loadSuccess,
           categories: categories,
         ),
       );
-      final List<Category> categoriesWithImage =
-          await dataRepository.fetchCategoryMainRecipes(categories);
+      final recipes = await dataRepository.fetchCategoryMainRecipes(categories);
       emit(
         CategoriesState(
           status: CategoriesStatus.imageLoadSuccess,
-          categories: categoriesWithImage,
+          categories: categories,
+          recipes: recipes,
         ),
       );
     } on Exception catch (e) {

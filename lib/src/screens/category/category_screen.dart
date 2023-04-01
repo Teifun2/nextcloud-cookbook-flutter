@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/my_settings_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
@@ -15,7 +14,6 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/timer_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
@@ -234,18 +232,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 case CategoriesStatus.loadSuccess:
                   return _buildCategoriesScreen(categoriesState.categories!);
                 case CategoriesStatus.imageLoadSuccess:
-                  return _buildCategoriesScreen(categoriesState.categories!);
+                  return _buildCategoriesScreen(
+                    categoriesState.categories!,
+                    categoriesState.recipes,
+                  );
                 case CategoriesStatus.loadInProgress:
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: SpinKitWave(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      const ApiVersionWarning(),
-                    ],
+                  BlocProvider.of<CategoriesBloc>(context)
+                      .add(const CategoriesLoaded());
+
+                  return Center(
+                    child: SpinKitWave(
+                      color: Theme.of(context).primaryColor,
+                    ),
                   );
                 case CategoriesStatus.loadFailure:
                   return Padding(
@@ -277,8 +275,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget _buildCategoriesScreen(
-    Iterable<Category> categories,
-  ) {
+    Iterable<Category> categories, [
+    Iterable<RecipeStub?>? recipe,
+  ]) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final int axisRatio = (screenWidth / 150).round();
     final int axisCount = axisRatio < 1 ? 1 : axisRatio;
@@ -294,7 +293,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         children: categories
             .map(
               (category) => GestureDetector(
-                child: CategoryCard(category),
+                child: CategoryCard(category, recipe?.first?.imageUrl),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(

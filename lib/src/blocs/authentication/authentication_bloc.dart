@@ -24,9 +24,15 @@ class AuthenticationBloc
 
     if (hasToken) {
       await userRepository.loadAppAuthentication();
-      bool validCredentials = false;
       try {
-        validCredentials = await userRepository.checkAppAuthentication();
+        final validCredentials = await userRepository.checkAppAuthentication();
+
+        if (validCredentials) {
+          emit(AuthenticationState(status: AuthenticationStatus.authenticated));
+        } else {
+          await userRepository.deleteAppAuthentication();
+          emit(AuthenticationState(status: AuthenticationStatus.invalid));
+        }
       } catch (e) {
         emit(
           AuthenticationState(
@@ -34,14 +40,6 @@ class AuthenticationBloc
             error: e.toString(),
           ),
         );
-        return;
-      }
-      if (validCredentials) {
-        await userRepository.fetchApiVersion();
-        emit(AuthenticationState(status: AuthenticationStatus.authenticated));
-      } else {
-        await userRepository.deleteAppAuthentication();
-        emit(AuthenticationState(status: AuthenticationStatus.invalid));
       }
     } else {
       emit(AuthenticationState(status: AuthenticationStatus.unauthenticated));
@@ -54,7 +52,6 @@ class AuthenticationBloc
   ) async {
     emit(AuthenticationState());
     await userRepository.persistAppAuthentication(event.appAuthentication);
-    await userRepository.fetchApiVersion();
     emit(AuthenticationState(status: AuthenticationStatus.authenticated));
   }
 
