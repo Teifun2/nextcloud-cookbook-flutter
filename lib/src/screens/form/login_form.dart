@@ -6,8 +6,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/login/login_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/checkbox_form_field.dart';
-import 'package:punycode/punycode.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -61,7 +61,7 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
       _formKey.currentState?.save();
 
       if (_formKey.currentState?.validate() ?? false) {
-        final String serverUrl = _punyEncodeUrl(_serverUrl.text);
+        final String serverUrl = URLUtils.sanitizeUrl(_serverUrl.text);
         final String username = _username.text.trim();
         final String password = _password.text.trim();
         final String originalBasicAuth = 'Basic ${base64Encode(
@@ -115,12 +115,8 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
                               'login.server_url.validator.empty',
                             );
                           }
-                          const urlPattern =
-                              r"^(?:http(s)?:\/\/)?[\w.-]+(?:(?:\.[\w\.-]+)|(?:\:\d+))+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]*$";
-                          final bool match =
-                              RegExp(urlPattern, caseSensitive: false)
-                                  .hasMatch(_punyEncodeUrl(value));
-                          if (!match) {
+
+                          if (!URLUtils.isValid(value)) {
                             return translate(
                               'login.server_url.validator.pattern',
                             );
@@ -239,26 +235,5 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
         },
       ),
     );
-  }
-
-  String _punyEncodeUrl(String punycodeUrl) {
-    const String pattern = r"(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)";
-    final RegExp expression = RegExp(pattern, caseSensitive: false);
-    String prefix = "";
-    String url = punycodeUrl;
-    if (punycodeUrl.startsWith("https://")) {
-      url = punycodeUrl.replaceFirst("https://", "");
-      prefix = "https://";
-    } else if (punycodeUrl.startsWith("http://")) {
-      url = punycodeUrl.replaceFirst("http://", "");
-      prefix = "http://";
-    }
-
-    while (expression.hasMatch(url)) {
-      final String match = expression.firstMatch(url)!.group(1)!;
-      url = url.replaceFirst(match, "xn--${punycodeEncode(match)}");
-    }
-
-    return prefix + url;
   }
 }

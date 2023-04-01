@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -25,6 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     try {
       AppAuthentication appAuthentication;
+      assert(URLUtils.isSanitized(event.serverURL));
 
       if (!event.isAppPassword) {
         appAuthentication = await userRepository.authenticate(

@@ -19,6 +19,7 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/custom_cache_manager.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 import 'package:timezone/data/latest_10y.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:xml/xml.dart';

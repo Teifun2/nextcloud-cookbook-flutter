@@ -12,14 +12,9 @@ class AuthenticationProvider {
     required String originalBasicAuth,
     required bool isSelfSignedCertificate,
   }) async {
-    String url = serverUrl;
-    if (url.substring(0, 4) != 'http') {
-      url = 'https://$url';
-      if (url.endsWith("/")) {
-        url = url.substring(0, url.length - 1);
-      }
-    }
-    final String urlInitialCall = '$url/ocs/v2.php/core/getapppassword';
+    assert(URLUtils.isSanitized(serverUrl));
+
+    final String urlInitialCall = '$serverUrl/ocs/v2.php/core/getapppassword';
 
     dio.Response response;
     try {
@@ -49,12 +44,12 @@ class AuthenticationProvider {
       if (e.message?.contains("SocketException") ?? false) {
         throw translate(
           "login.errors.not_reachable",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       } else if (e.message?.contains("CERTIFICATE_VERIFY_FAILED") ?? false) {
         throw translate(
           "login.errors.certificate_failed",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       }
       throw translate("login.errors.request_failed", args: {"error_msg": e});
@@ -79,7 +74,7 @@ class AuthenticationProvider {
           'Basic ${base64Encode(utf8.encode('$username:$appPassword'))}';
 
       return AppAuthentication(
-        server: url,
+        server: serverUrl,
         loginName: username,
         basicAuth: basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
@@ -103,15 +98,12 @@ class AuthenticationProvider {
     required String basicAuth,
     required bool isSelfSignedCertificate,
   }) async {
-    String url = serverUrl;
-    if (url.substring(0, 4) != 'http') {
-      url = 'https://$url';
-    }
+    assert(URLUtils.isSanitized(serverUrl));
 
     bool authenticated;
     try {
       authenticated = await checkAppAuthentication(
-        url,
+        serverUrl,
         basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
       );
@@ -119,12 +111,12 @@ class AuthenticationProvider {
       if (e.message?.contains("SocketException") ?? false) {
         throw translate(
           "login.errors.not_reachable",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       } else if (e.message?.contains("CERTIFICATE_VERIFY_FAILED") ?? false) {
         throw translate(
           "login.errors.certificate_failed",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       }
       throw translate("login.errors.request_failed", args: {"error_msg": e});
@@ -132,7 +124,7 @@ class AuthenticationProvider {
 
     if (authenticated) {
       return AppAuthentication(
-        server: url,
+        server: serverUrl,
         loginName: username,
         basicAuth: basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
