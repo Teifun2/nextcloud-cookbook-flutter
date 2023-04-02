@@ -25,6 +25,8 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
 
   @override
   void initState() {
+    super.initState();
+
     _timer = widget.timer;
 
     _timerTween = Tween(
@@ -38,7 +40,6 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
     );
 
     _controller.forward().whenCompleteOrCancel(() {});
-    super.initState();
   }
 
   @override

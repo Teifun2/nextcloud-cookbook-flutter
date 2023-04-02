@@ -22,9 +22,10 @@ class _IngredientListState extends State<IngredientList> {
 
   @override
   void initState() {
+    super.initState();
+
     _ingredientsDone =
         List.filled(widget._recipe.recipeIngredient.length, false);
-    super.initState();
   }
 
   @override

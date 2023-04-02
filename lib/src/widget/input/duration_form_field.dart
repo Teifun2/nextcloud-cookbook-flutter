@@ -29,9 +29,10 @@ class _DurationFormFieldState extends State<DurationFormField> {
 
   @override
   void initState() {
+    super.initState();
+
     currentDuration = widget.duration;
     enabled = widget.state.status != RecipeStatus.updateInProgress;
-    super.initState();
   }
 
   @override

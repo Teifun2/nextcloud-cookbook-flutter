@@ -31,6 +31,7 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
   @override
   void initState() {
     super.initState();
+
     final int curVal = _ensureMinMax(widget.initialValue);
     controller = TextEditingController(text: curVal.toString());
 

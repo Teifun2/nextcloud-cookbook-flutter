@@ -21,9 +21,10 @@ class _InstructionListState extends State<InstructionList> {
 
   @override
   void initState() {
+    super.initState();
+
     _instructionsDone =
         List.filled(widget._recipe.recipeInstructions.length, false);
-    super.initState();
   }
 
   @override

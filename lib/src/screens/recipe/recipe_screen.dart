@@ -53,8 +53,8 @@ class RecipeScreenState extends State<RecipeScreen> {
 
   @override
   void initState() {
-    _enableWakelock();
     super.initState();
+    _enableWakelock();
   }
 
   @override
