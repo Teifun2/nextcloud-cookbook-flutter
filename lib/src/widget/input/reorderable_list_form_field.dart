@@ -55,11 +55,12 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
 
   @override
   void initState() {
+    super.initState();
+
     for (int i = 0; i < widget.items.length; ++i) {
       _items.add(ItemData(widget.items[i], ValueKey(i)));
     }
     enabled = widget.state.status != RecipeStatus.updateInProgress;
-    super.initState();
   }
 
   //
@@ -215,8 +216,9 @@ class _ItemState extends State<Item> {
 
   @override
   void initState() {
-    enabled = widget.state.status != RecipeStatus.updateInProgress;
     super.initState();
+
+    enabled = widget.state.status != RecipeStatus.updateInProgress;
   }
 
   Widget _buildChild(BuildContext context, rl.ReorderableItemState state) {

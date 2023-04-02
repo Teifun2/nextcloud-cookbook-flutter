@@ -136,6 +136,7 @@ class _ReorderableListViewState extends State<ReorderableListView> {
   @override
   void initState() {
     super.initState();
+
     _listOverlayEntry = OverlayEntry(
       opaque: true,
       builder: (BuildContext context) {
@@ -261,6 +262,7 @@ class _ReorderableListContentState extends State<_ReorderableListContent>
   @override
   void initState() {
     super.initState();
+
     _entranceController =
         AnimationController(vsync: this, duration: _reorderAnimationDuration);
     _ghostController =

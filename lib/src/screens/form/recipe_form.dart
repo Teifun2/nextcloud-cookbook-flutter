@@ -29,6 +29,8 @@ class _RecipeFormState extends State<RecipeForm> {
 
   @override
   void initState() {
+    super.initState();
+
     _mutableRecipe = RecipeBuilder();
 
     if (widget.recipe != null) {
@@ -36,8 +38,6 @@ class _RecipeFormState extends State<RecipeForm> {
     }
     categoryController =
         TextEditingController(text: _mutableRecipe.recipeCategory);
-
-    super.initState();
   }
 
   @override

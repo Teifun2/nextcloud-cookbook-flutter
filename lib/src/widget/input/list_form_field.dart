@@ -28,11 +28,11 @@ class _ListFormFieldState extends State<ListFormField> {
 
   @override
   void initState() {
+    super.initState();
+
     currentList = widget.list
         .map((item) => ListTile(title: Text(item), key: ValueKey(item)))
         .toList();
-
-    super.initState();
   }
 
   @override
