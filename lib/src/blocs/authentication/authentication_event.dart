@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
+part of 'authentication_bloc.dart';
 
 abstract class AuthenticationEvent extends Equatable {
   const AuthenticationEvent();
@@ -8,7 +7,9 @@ abstract class AuthenticationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AppStarted extends AuthenticationEvent {}
+class AppStarted extends AuthenticationEvent {
+  const AppStarted();
+}
 
 class LoggedIn extends AuthenticationEvent {
   final AppAuthentication appAuthentication;
@@ -22,4 +23,6 @@ class LoggedIn extends AuthenticationEvent {
   String toString() => appAuthentication.toString();
 }
 
-class LoggedOut extends AuthenticationEvent {}
+class LoggedOut extends AuthenticationEvent {
+  const LoggedOut();
+}

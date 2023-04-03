@@ -1,74 +1,84 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
+
+part 'recipe_event.dart';
+part 'recipe_state.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final DataRepository dataRepository = DataRepository();
 
-  RecipeBloc() : super(RecipeInitial());
-
-  @override
-  Stream<RecipeState> mapEventToState(RecipeEvent event) async* {
-    if (event is RecipeLoaded) {
-      yield* _mapRecipeLoadedToState(event);
-    } else if (event is RecipeUpdated) {
-      yield* _mapRecipeUpdatedToState(event);
-    } else if (event is RecipeImported) {
-      yield* _mapRecipeImportedToState(event);
-    } else if (event is RecipeCreated) {
-      yield* _mapRecipeCreatedToState(event);
-    }
+  RecipeBloc() : super(RecipeState()) {
+    on<RecipeLoaded>(_mapRecipeLoadedToState);
+    on<RecipeUpdated>(_mapRecipeUpdatedToState);
+    on<RecipeImported>(_mapRecipeImportedToState);
+    on<RecipeCreated>(_mapRecipeCreatedToState);
   }
 
-  Stream<RecipeState> _mapRecipeLoadedToState(
+  Future<void> _mapRecipeLoadedToState(
     RecipeLoaded recipeLoaded,
-  ) async* {
+    Emitter<RecipeState> emit,
+  ) async {
     try {
-      yield RecipeLoadInProgress();
       final recipe = await dataRepository.fetchRecipe(recipeLoaded.recipeId);
-      yield RecipeLoadSuccess(recipe);
-    } catch (_) {
-      yield RecipeLoadFailure(_.toString());
+      emit(RecipeState(status: RecipeStatus.loadSuccess, recipe: recipe));
+    } catch (e) {
+      emit(RecipeState(status: RecipeStatus.loadFailure, error: e.toString()));
     }
   }
 
-  Stream<RecipeState> _mapRecipeUpdatedToState(
+  Future<void> _mapRecipeUpdatedToState(
     RecipeUpdated recipeUpdated,
-  ) async* {
+    Emitter<RecipeState> emit,
+  ) async {
     try {
-      yield RecipeUpdateInProgress();
-      final String recipeId =
-          await dataRepository.updateRecipe(recipeUpdated.recipe);
-      yield RecipeUpdateSuccess(recipeId);
-    } catch (_) {
-      yield RecipeUpdateFailure(_.toString());
+      emit(RecipeState(status: RecipeStatus.updateInProgress));
+      final recipeId = await dataRepository.updateRecipe(recipeUpdated.recipe);
+      emit(RecipeState(status: RecipeStatus.updateSuccess, recipeId: recipeId));
+    } catch (e) {
+      emit(
+        RecipeState(
+          status: RecipeStatus.updateFailure,
+          error: e.toString(),
+        ),
+      );
     }
   }
 
-  Stream<RecipeState> _mapRecipeCreatedToState(
+  Future<void> _mapRecipeCreatedToState(
     RecipeCreated recipeCreated,
-  ) async* {
+    Emitter<RecipeState> emit,
+  ) async {
     try {
-      yield RecipeCreateInProgress();
-      final String recipeId =
-          await dataRepository.createRecipe(recipeCreated.recipe);
-      yield RecipeCreateSuccess(recipeId);
-    } catch (_) {
-      yield RecipeCreateFailure(_.toString());
+      emit(RecipeState(status: RecipeStatus.createInProgress));
+      final recipeId = await dataRepository.createRecipe(recipeCreated.recipe);
+      emit(RecipeState(status: RecipeStatus.createSuccess, recipeId: recipeId));
+    } catch (e) {
+      emit(
+        RecipeState(
+          status: RecipeStatus.createFailure,
+          error: e.toString(),
+        ),
+      );
     }
   }
 
-  Stream<RecipeState> _mapRecipeImportedToState(
+  Future<void> _mapRecipeImportedToState(
     RecipeImported recipeImported,
-  ) async* {
+    Emitter<RecipeState> emit,
+  ) async {
     try {
-      yield RecipeImportInProgress();
-      final Recipe recipe =
-          await dataRepository.importRecipe(recipeImported.url);
-      yield RecipeImportSuccess(recipe.id);
-    } catch (_) {
-      yield RecipeImportFailure(_.toString());
+      emit(RecipeState(status: RecipeStatus.importInProgress));
+      final recipe = await dataRepository.importRecipe(recipeImported.url);
+      emit(RecipeState(status: RecipeStatus.importSuccess, recipe: recipe));
+    } catch (e) {
+      emit(
+        RecipeState(
+          status: RecipeStatus.importFailure,
+          error: e.toString(),
+        ),
+      );
     }
   }
 }

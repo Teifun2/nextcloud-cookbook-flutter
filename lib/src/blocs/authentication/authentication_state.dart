@@ -1,27 +1,25 @@
-import 'package:equatable/equatable.dart';
+part of 'authentication_bloc.dart';
 
-abstract class AuthenticationState extends Equatable {
-  const AuthenticationState();
-
-  @override
-  List<Object> get props => [];
+enum AuthenticationStatus {
+  unauthenticated,
+  authenticated,
+  invalid,
+  loading,
+  error;
 }
 
-class AuthenticationUninitialized extends AuthenticationState {}
+class AuthenticationState extends Equatable {
+  final AuthenticationStatus status;
+  final String? error;
 
-class AuthenticationAuthenticated extends AuthenticationState {}
-
-class AuthenticationUnauthenticated extends AuthenticationState {}
-
-class AuthenticationInvalid extends AuthenticationState {}
-
-class AuthenticationError extends AuthenticationState {
-  final String errorMsg;
-
-  const AuthenticationError(this.errorMsg);
+  const AuthenticationState({
+    this.status = AuthenticationStatus.loading,
+    this.error,
+  }) : assert(
+          (status != AuthenticationStatus.error && error == null) ||
+              (status == AuthenticationStatus.error && error != null),
+        );
 
   @override
-  List<Object> get props => [errorMsg];
+  List<Object?> get props => [status, error];
 }
-
-class AuthenticationLoading extends AuthenticationState {}

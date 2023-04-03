@@ -61,7 +61,7 @@ class _InstructionListState extends State<InstructionList> {
                             ),
                             color: _instructionsDone[index]
                                 ? Colors.green
-                                : Theme.of(context).backgroundColor,
+                                : Theme.of(context).colorScheme.background,
                           ),
                           child: _instructionsDone[index]
                               ? const Icon(Icons.check)

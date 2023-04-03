@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/simple_bloc_delegatae.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/category/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
@@ -39,7 +39,7 @@ void main() async {
         providers: [
           BlocProvider<AuthenticationBloc>(
             create: (context) {
-              return AuthenticationBloc()..add(AppStarted());
+              return AuthenticationBloc()..add(const AppStarted());
             },
           ),
           BlocProvider<RecipesShortBloc>(
@@ -98,7 +98,6 @@ class _AppState extends State<App> {
         theme: ThemeData(
           brightness: Brightness.light,
           hintColor: Colors.grey,
-          backgroundColor: Colors.grey[400],
         ),
         darkTheme: ThemeData(
           brightness: Brightness.dark,
@@ -106,27 +105,25 @@ class _AppState extends State<App> {
         ),
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
-            if (state is AuthenticationUninitialized) {
-              return const SplashPage();
-            } else if (state is AuthenticationAuthenticated) {
-              IntentRepository().handleIntent();
-              if (BlocProvider.of<CategoriesBloc>(context).state
-                  is CategoriesInitial) {
-                BlocProvider.of<CategoriesBloc>(context)
-                    .add(CategoriesLoaded());
-              }
-              return const CategoryScreen();
-            } else if (state is AuthenticationUnauthenticated) {
-              return const LoginScreen();
-            } else if (state is AuthenticationInvalid) {
-              return const LoginScreen(
-                invalidCredentials: true,
-              );
-            } else if (state is AuthenticationLoading ||
-                state is AuthenticationError) {
-              return const LoadingScreen();
-            } else {
-              return const LoadingScreen();
+            switch (state.status) {
+              case AuthenticationStatus.loading:
+                return const SplashPage();
+              case AuthenticationStatus.authenticated:
+                IntentRepository().handleIntent();
+                final categoryBloc = BlocProvider.of<CategoriesBloc>(context);
+                if (categoryBloc.state.status ==
+                    CategoriesStatus.loadInProgress) {
+                  categoryBloc.add(const CategoriesLoaded());
+                }
+                return const CategoryScreen();
+              case AuthenticationStatus.unauthenticated:
+                return const LoginScreen();
+              case AuthenticationStatus.invalid:
+                return const LoginScreen(
+                  invalidCredentials: true,
+                );
+              case AuthenticationStatus.error:
+                return const LoadingErrorScreen();
             }
           },
         ),

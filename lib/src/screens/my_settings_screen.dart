@@ -28,7 +28,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
         SliderSettingsTile(
           title: translate("settings.recipe_font_size.title"),
           settingKey: SettingKeys.recipe_font_size.name,
-          defaultValue: Theme.of(context).textTheme.bodyText2!.fontSize!,
+          defaultValue: Theme.of(context).textTheme.bodyMedium!.fontSize!,
           min: 10,
           max: 25,
           eagerUpdate: false,

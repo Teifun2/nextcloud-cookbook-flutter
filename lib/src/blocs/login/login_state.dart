@@ -1,24 +1,28 @@
-import 'package:equatable/equatable.dart';
+part of 'login_bloc.dart';
 
-abstract class LoginState extends Equatable {
-  const LoginState();
-
-  @override
-  List<Object> get props => [];
+enum LoginStatus {
+  initial,
+  loading,
+  failure;
 }
 
-class LoginInitial extends LoginState {}
+class LoginState extends Equatable {
+  final LoginStatus status;
+  final String? error;
 
-class LoginLoading extends LoginState {}
-
-class LoginFailure extends LoginState {
-  final String error;
-
-  const LoginFailure({required this.error});
+  const LoginState({
+    this.status = LoginStatus.initial,
+    this.error,
+  }) : assert(
+          (status != LoginStatus.failure && error == null) ||
+              (status == LoginStatus.failure && error != null),
+        );
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [status, error];
 
   @override
-  String toString() => 'LoginFailure { error: $error }';
+  String toString() => status == LoginStatus.failure
+      ? 'LoginFailure { error: $error }'
+      : 'Instance of LoginState';
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
 
 class DurationFormField extends StatefulWidget {
@@ -23,10 +23,12 @@ class DurationFormField extends StatefulWidget {
 
 class _DurationFormFieldState extends State<DurationFormField> {
   late Duration currentDuration;
+  late bool enabled;
 
   @override
   void initState() {
     currentDuration = widget.duration;
+    enabled = widget.state.status != RecipeStatus.updateInProgress;
     super.initState();
   }
 
@@ -51,7 +53,7 @@ class _DurationFormFieldState extends State<DurationFormField> {
             SizedBox(
               width: 70,
               child: IntegerTextFormField(
-                enabled: widget.state is! RecipeUpdateInProgress,
+                enabled: enabled,
                 initialValue: widget.duration.inHours,
                 decoration: InputDecoration(
                   hintText: translate('recipe.fields.time.hours'),
@@ -72,7 +74,7 @@ class _DurationFormFieldState extends State<DurationFormField> {
             SizedBox(
               width: 50,
               child: IntegerTextFormField(
-                enabled: widget.state is! RecipeUpdateInProgress,
+                enabled: enabled,
                 initialValue: widget.duration.inMinutes % 60,
                 maxValue: 60,
                 decoration: InputDecoration(

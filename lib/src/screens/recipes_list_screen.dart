@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
@@ -63,8 +63,10 @@ class RecipesListScreenState extends State<RecipesListScreen> {
               return Future.value();
             },
             child: () {
-              if (recipesShortState is RecipesShortLoadSuccess) {
-                return _buildRecipesShortScreen(recipesShortState.recipesShort);
+              if (recipesShortState.status == RecipesShortStatus.loadSuccess) {
+                return _buildRecipesShortScreen(
+                  recipesShortState.recipesShort!,
+                );
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -75,13 +77,13 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     );
   }
 
-  Widget _buildRecipesShortScreen(List<RecipeShort> data) {
+  Widget _buildRecipesShortScreen(Iterable<RecipeShort> data) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.separated(
         itemCount: data.length,
         itemBuilder: (context, index) {
-          return _buildRecipeShortScreen(data[index]);
+          return _buildRecipeShortScreen(data.elementAt(index));
         },
         separatorBuilder: (context, index) => const Divider(
           color: Colors.black,

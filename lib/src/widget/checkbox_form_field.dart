@@ -19,7 +19,9 @@ class CheckboxFormField extends FormField<bool> {
                   ? Builder(
                       builder: (BuildContext context) => Text(
                         state.errorText!,
-                        style: TextStyle(color: Theme.of(context).errorColor),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
                       ),
                     )
                   : null,

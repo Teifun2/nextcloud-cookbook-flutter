@@ -1,44 +1,67 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_event.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_state.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
+
+part 'recipes_short_event.dart';
+part 'recipes_short_state.dart';
 
 class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
   final DataRepository dataRepository = DataRepository();
 
-  RecipesShortBloc() : super(RecipesShortLoadInProgress());
-
-  @override
-  Stream<RecipesShortState> mapEventToState(RecipesShortEvent event) async* {
-    if (event is RecipesShortLoaded) {
-      yield* _mapRecipesShortLoadedToState(event);
-    } else if (event is RecipesShortLoadedAll) {
-      yield* _mapRecipesShortLoadedAllToState(event);
-    }
+  RecipesShortBloc() : super(RecipesShortState()) {
+    on<RecipesShortLoaded>(_mapRecipesShortLoadedToState);
+    on<RecipesShortLoadedAll>(_mapRecipesShortLoadedAllToState);
   }
 
-  Stream<RecipesShortState> _mapRecipesShortLoadedToState(
+  Future<void> _mapRecipesShortLoadedToState(
     RecipesShortLoaded recipesShortLoaded,
-  ) async* {
+    Emitter<RecipesShortState> emit,
+  ) async {
     try {
       final recipesShort = await dataRepository.fetchRecipesShort(
         category: recipesShortLoaded.category,
       );
-      yield RecipesShortLoadSuccess(recipesShort);
+      emit(
+        RecipesShortState(
+          status: RecipesShortStatus.loadSuccess,
+          recipesShort: recipesShort,
+        ),
+      );
     } catch (_) {
-      yield RecipesShortLoadFailure();
+      emit(
+        RecipesShortState(
+          status: RecipesShortStatus.loadFailure,
+          error: "",
+        ),
+      );
     }
   }
 
-  Stream<RecipesShortState> _mapRecipesShortLoadedAllToState(
+  Future<void> _mapRecipesShortLoadedAllToState(
     RecipesShortLoadedAll recipesShortLoadedAll,
-  ) async* {
+    Emitter<RecipesShortState> emit,
+  ) async {
     try {
-      yield RecipesShortLoadAllInProgress();
+      emit(
+        RecipesShortState(
+          status: RecipesShortStatus.loadAllInProgress,
+        ),
+      );
       final recipesShort = await dataRepository.fetchAllRecipes();
-      yield RecipesShortLoadAllSuccess(recipesShort);
+      emit(
+        RecipesShortState(
+          status: RecipesShortStatus.loadAllSuccess,
+          recipesShort: recipesShort,
+        ),
+      );
     } catch (e) {
-      yield RecipesShortLoadAllFailure(e.toString());
+      emit(
+        RecipesShortState(
+          status: RecipesShortStatus.loadAllFailure,
+          error: "",
+        ),
+      );
     }
   }
 }

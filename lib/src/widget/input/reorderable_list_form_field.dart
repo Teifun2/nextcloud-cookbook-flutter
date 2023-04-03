@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart' as rl;
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 
 class ReorderableListFormField extends StatefulWidget {
   final String title;
@@ -32,6 +32,7 @@ class ItemData {
 
 class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
   final List<ItemData> _items = [];
+  late bool enabled;
 
   _ReorderableListFormFieldState();
 
@@ -56,6 +57,7 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
     for (int i = 0; i < widget.items.length; ++i) {
       _items.add(ItemData(widget.items[i], ValueKey(i)));
     }
+    enabled = widget.state.status != RecipeStatus.updateInProgress;
     super.initState();
   }
 
@@ -117,13 +119,11 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: IconButton(
-                                  enableFeedback:
-                                      widget.state is! RecipeUpdateInProgress,
+                                  enableFeedback: enabled,
                                   icon: const Icon(Icons.add),
                                   onPressed: () {
                                     setState(() {
-                                      if (widget.state
-                                          is! RecipeUpdateInProgress) {
+                                      if (enabled) {
                                         _items.add(
                                           ItemData(
                                             "",
@@ -210,6 +210,14 @@ class Item extends StatefulWidget {
 class _ItemState extends State<Item> {
   _ItemState();
 
+  late bool enabled;
+
+  @override
+  void initState() {
+    enabled = widget.state.status != RecipeStatus.updateInProgress;
+    super.initState();
+  }
+
   Widget _buildChild(BuildContext context, rl.ReorderableItemState state) {
     BoxDecoration decoration;
 
@@ -239,7 +247,7 @@ class _ItemState extends State<Item> {
     // For iOS dragging mode, there will be drag handle on the right that triggers
     // reordering; For android mode it will be just an empty container
     final Widget dragHandle = rl.ReorderableListener(
-      canStart: () => widget.state is! RecipeUpdateInProgress,
+      canStart: () => enabled,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 7),
         color: const Color(0x08000000),
@@ -253,10 +261,10 @@ class _ItemState extends State<Item> {
       color: const Color(0x08000000),
       child: Center(
         child: IconButton(
-          enableFeedback: widget.state is! RecipeUpdateInProgress,
+          enableFeedback: enabled,
           icon: const Icon(Icons.delete, color: Colors.red),
           onPressed: () {
-            if (widget.state is! RecipeUpdateInProgress) {
+            if (enabled) {
               widget.deleteItem();
             }
           },
@@ -283,7 +291,7 @@ class _ItemState extends State<Item> {
                       horizontal: 10.0,
                     ),
                     child: TextFormField(
-                      enabled: widget.state is! RecipeUpdateInProgress,
+                      enabled: enabled,
                       maxLines: 10000,
                       minLines: 1,
                       initialValue: widget.data.text,

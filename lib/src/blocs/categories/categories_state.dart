@@ -1,40 +1,35 @@
-import 'package:equatable/equatable.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+part of 'categories_bloc.dart';
 
-abstract class CategoriesState extends Equatable {
-  const CategoriesState();
-
-  @override
-  List<Object> get props => [];
+enum CategoriesStatus {
+  loadInProgress,
+  loadFailure,
+  loadSuccess,
+  imageLoadSuccess;
 }
 
-class CategoriesInitial extends CategoriesState {}
+class CategoriesState extends Equatable {
+  final CategoriesStatus status;
+  final String? error;
+  final Iterable<Category>? categories;
 
-class CategoriesLoadSuccess extends CategoriesState {
-  final List<Category> categories;
-
-  const CategoriesLoadSuccess({required this.categories});
-
-  @override
-  List<Object> get props => [categories];
-}
-
-class CategoriesImageLoadSuccess extends CategoriesState {
-  final List<Category> categories;
-
-  const CategoriesImageLoadSuccess({required this.categories});
-
-  @override
-  List<Object> get props => [categories];
-}
-
-class CategoriesLoadFailure extends CategoriesState {
-  final String errorMsg;
-
-  const CategoriesLoadFailure(this.errorMsg);
+  CategoriesState({
+    this.status = CategoriesStatus.loadInProgress,
+    this.error,
+    this.categories,
+  }) {
+    switch (status) {
+      case CategoriesStatus.loadInProgress:
+        assert(error == null && categories == null);
+        break;
+      case CategoriesStatus.loadSuccess:
+      case CategoriesStatus.imageLoadSuccess:
+        assert(error == null && categories != null);
+        break;
+      case CategoriesStatus.loadFailure:
+        assert(error != null && categories == null);
+    }
+  }
 
   @override
-  List<Object> get props => [errorMsg];
+  List<Object?> get props => [status, error, categories];
 }
-
-class CategoriesLoadInProgress extends CategoriesState {}

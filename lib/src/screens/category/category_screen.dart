@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories.dart';
-import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
@@ -128,7 +128,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   title: Text(translate('app_bar.logout')),
                   onTap: () {
                     BlocProvider.of<AuthenticationBloc>(context)
-                        .add(LoggedOut());
+                        .add(const LoggedOut());
                   },
                 ),
               ],
@@ -138,14 +138,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
             title: Text(translate('categories.title')),
             actions: <Widget>[
               BlocBuilder<RecipesShortBloc, RecipesShortState>(
-                builder: (context, recipeShortState) {
+                builder: (context, state) {
                   return BlocListener<RecipesShortBloc, RecipesShortState>(
-                    listener: (context, recipeShortState) {
-                      if (recipeShortState is RecipesShortLoadAllSuccess) {
+                    listener: (context, state) {
+                      if (state.status == RecipesShortStatus.loadAllSuccess) {
                         showSearch(
                           context: context,
                           delegate: SearchPage<RecipeShort>(
-                            items: recipeShortState.recipesShort,
+                            items: state.recipesShort!.toList(),
                             searchLabel: translate('search.title'),
                             suggestion: const Center(
                                 // child: Text('Filter people by name, surname or age'),
@@ -173,14 +173,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                           ),
                         );
-                      } else if (recipeShortState
-                          is RecipesShortLoadAllFailure) {
+                      } else if (state.status ==
+                          RecipesShortStatus.loadAllFailure) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
                               translate(
                                 'search.errors.search_failed',
-                                args: {"error_msg": recipeShortState.errorMsg},
+                                args: {"error_msg": state.error},
                               ),
                             ),
                             backgroundColor: Colors.red,
@@ -191,14 +191,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     child: IconButton(
                       icon: Icon(
                         () {
-                          if (recipeShortState
-                              is RecipesShortLoadAllInProgress) {
-                            return Icons.downloading;
-                          } else if (recipeShortState
-                              is RecipesShortLoadAllFailure) {
-                            return Icons.report_problem;
-                          } else {
-                            return Icons.search;
+                          switch (state.status) {
+                            case RecipesShortStatus.loadAllInProgress:
+                              return Icons.downloading;
+                            case RecipesShortStatus.loadAllFailure:
+                              return Icons.report_problem;
+                            default:
+                              return Icons.search;
                           }
                         }(),
                         semanticLabel: translate('app_bar.search'),
@@ -219,7 +218,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 onPressed: () {
                   DefaultCacheManager().emptyCache();
                   BlocProvider.of<CategoriesBloc>(context)
-                      .add(CategoriesLoaded());
+                      .add(const CategoriesLoaded());
                 },
               ),
             ],
@@ -227,48 +226,49 @@ class _CategoryScreenState extends State<CategoryScreen> {
           body: RefreshIndicator(
             onRefresh: () {
               DefaultCacheManager().emptyCache();
-              BlocProvider.of<CategoriesBloc>(context).add(CategoriesLoaded());
+              BlocProvider.of<CategoriesBloc>(context)
+                  .add(const CategoriesLoaded());
               return Future.value();
             },
             child: () {
-              if (categoriesState is CategoriesLoadSuccess) {
-                return _buildCategoriesScreen(categoriesState.categories);
-              } else if (categoriesState is CategoriesImageLoadSuccess) {
-                return _buildCategoriesScreen(categoriesState.categories);
-              } else if (categoriesState is CategoriesLoadInProgress ||
-                  categoriesState is CategoriesInitial) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: SpinKitWave(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    const ApiVersionWarning(),
-                  ],
-                );
-              } else if (categoriesState is CategoriesLoadFailure) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+              switch (categoriesState.status) {
+                case CategoriesStatus.loadSuccess:
+                  return _buildCategoriesScreen(categoriesState.categories!);
+                case CategoriesStatus.imageLoadSuccess:
+                  return _buildCategoriesScreen(categoriesState.categories!);
+                case CategoriesStatus.loadInProgress:
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        translate('categories.errors.plugin_missing'),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Divider(),
-                      Text(
-                        translate(
-                          'categories.errors.load_failed',
-                          args: {'error_msg': categoriesState.errorMsg},
+                      Center(
+                        child: SpinKitWave(
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
+                      const ApiVersionWarning(),
                     ],
-                  ),
-                );
-              } else {
-                return Text(translate('categories.errors.unknown'));
+                  );
+                case CategoriesStatus.loadFailure:
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          translate('categories.errors.plugin_missing'),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const Divider(),
+                        Text(
+                          translate(
+                            'categories.errors.load_failed',
+                            args: {'error_msg': categoriesState.error},
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                default:
+                  return Text(translate('categories.errors.unknown'));
               }
             }(),
           ),
@@ -277,7 +277,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  Widget _buildCategoriesScreen(List<Category> categories) {
+  Widget _buildCategoriesScreen(
+    Iterable<Category> categories,
+  ) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final int axisRatio = (screenWidth / 150).round();
     final int axisCount = axisRatio < 1 ? 1 : axisRatio;

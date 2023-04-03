@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -35,12 +34,12 @@ class AuthenticationProvider {
     try {
       final dio.Dio client = dio.Dio();
       if (isSelfSignedCertificate) {
-        (client.httpClientAdapter as DefaultHttpClientAdapter)
-            .onHttpClientCreate = (HttpClient httpClient) {
-          httpClient.badCertificateCallback =
-              (X509Certificate cert, String host, int port) => true;
-          return null;
-        };
+        client.httpClientAdapter = IOHttpClientAdapter(
+          onHttpClientCreate: (client) {
+            client.badCertificateCallback = (cert, host, port) => true;
+            return client;
+          },
+        );
       }
 
       response = await client.get(
@@ -56,12 +55,12 @@ class AuthenticationProvider {
         cancelToken: _cancelToken,
       );
     } on dio.DioError catch (e) {
-      if (e.message.contains("SocketException")) {
+      if (e.message?.contains("SocketException") ?? false) {
         throw translate(
           "login.errors.not_reachable",
           args: {"server_url": url, "error_msg": e},
         );
-      } else if (e.message.contains("CERTIFICATE_VERIFY_FAILED")) {
+      } else if (e.message?.contains("CERTIFICATE_VERIFY_FAILED") ?? false) {
         throw translate(
           "login.errors.certificate_failed",
           args: {"server_url": url, "error_msg": e},
@@ -80,7 +79,7 @@ class AuthenticationProvider {
             .text;
       } on XmlParserException catch (e) {
         throw translate("login.errors.parse_failed", args: {"error_msg": e});
-      // ignore: avoid_catching_errors
+        // ignore: avoid_catching_errors
       } on StateError catch (e) {
         throw translate("login.errors.parse_missing", args: {"error_msg": e});
       }
@@ -126,12 +125,12 @@ class AuthenticationProvider {
         isSelfSignedCertificate: isSelfSignedCertificate,
       );
     } on dio.DioError catch (e) {
-      if (e.message.contains("SocketException")) {
+      if (e.message?.contains("SocketException") ?? false) {
         throw translate(
           "login.errors.not_reachable",
           args: {"server_url": url, "error_msg": e},
         );
-      } else if (e.message.contains("CERTIFICATE_VERIFY_FAILED")) {
+      } else if (e.message?.contains("CERTIFICATE_VERIFY_FAILED") ?? false) {
         throw translate(
           "login.errors.certificate_failed",
           args: {"server_url": url, "error_msg": e},
@@ -191,12 +190,12 @@ class AuthenticationProvider {
     try {
       final dio.Dio client = dio.Dio();
       if (isSelfSignedCertificate) {
-        (client.httpClientAdapter as DefaultHttpClientAdapter)
-            .onHttpClientCreate = (HttpClient httpClient) {
-          httpClient.badCertificateCallback =
-              (X509Certificate cert, String host, int port) => true;
-          return null;
-        };
+        client.httpClientAdapter = IOHttpClientAdapter(
+          onHttpClientCreate: (client) {
+            client.badCertificateCallback = (cert, host, port) => true;
+            return client;
+          },
+        );
       }
       response = await client.get(
         urlAuthCheck,
