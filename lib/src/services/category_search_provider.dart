@@ -1,5 +1,4 @@
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
+part of 'services.dart';
 
 class CategorySearchProvider {
   List<String> categoryNames = [];

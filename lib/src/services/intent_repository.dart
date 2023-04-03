@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
+part of 'services.dart';
 
 class IntentRepository {
   // Singleton Pattern

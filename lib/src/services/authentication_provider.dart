@@ -1,13 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:dio/dio.dart' as dio;
-import 'package:dio/io.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:xml/xml.dart';
+part of 'services.dart';
 
 class AuthenticationProvider {
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
@@ -21,14 +12,9 @@ class AuthenticationProvider {
     required String originalBasicAuth,
     required bool isSelfSignedCertificate,
   }) async {
-    String url = serverUrl;
-    if (url.substring(0, 4) != 'http') {
-      url = 'https://$url';
-      if (url.endsWith("/")) {
-        url = url.substring(0, url.length - 1);
-      }
-    }
-    final String urlInitialCall = '$url/ocs/v2.php/core/getapppassword';
+    assert(URLUtils.isSanitized(serverUrl));
+
+    final String urlInitialCall = '$serverUrl/ocs/v2.php/core/getapppassword';
 
     dio.Response response;
     try {
@@ -58,12 +44,12 @@ class AuthenticationProvider {
       if (e.message?.contains("SocketException") ?? false) {
         throw translate(
           "login.errors.not_reachable",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       } else if (e.message?.contains("CERTIFICATE_VERIFY_FAILED") ?? false) {
         throw translate(
           "login.errors.certificate_failed",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       }
       throw translate("login.errors.request_failed", args: {"error_msg": e});
@@ -84,11 +70,10 @@ class AuthenticationProvider {
         throw translate("login.errors.parse_missing", args: {"error_msg": e});
       }
 
-      final String basicAuth =
-          'Basic ${base64Encode(utf8.encode('$username:$appPassword'))}';
+      final basicAuth = AppAuthentication.parseBasicAuth(username, appPassword);
 
       return AppAuthentication(
-        server: url,
+        server: serverUrl,
         loginName: username,
         basicAuth: basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
@@ -112,15 +97,12 @@ class AuthenticationProvider {
     required String basicAuth,
     required bool isSelfSignedCertificate,
   }) async {
-    String url = serverUrl;
-    if (url.substring(0, 4) != 'http') {
-      url = 'https://$url';
-    }
+    assert(URLUtils.isSanitized(serverUrl));
 
     bool authenticated;
     try {
       authenticated = await checkAppAuthentication(
-        url,
+        serverUrl,
         basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
       );
@@ -128,12 +110,12 @@ class AuthenticationProvider {
       if (e.message?.contains("SocketException") ?? false) {
         throw translate(
           "login.errors.not_reachable",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       } else if (e.message?.contains("CERTIFICATE_VERIFY_FAILED") ?? false) {
         throw translate(
           "login.errors.certificate_failed",
-          args: {"server_url": url, "error_msg": e},
+          args: {"server_url": serverUrl, "error_msg": e},
         );
       }
       throw translate("login.errors.request_failed", args: {"error_msg": e});
@@ -141,7 +123,7 @@ class AuthenticationProvider {
 
     if (authenticated) {
       return AppAuthentication(
-        server: url,
+        server: serverUrl,
         loginName: username,
         basicAuth: basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
@@ -173,7 +155,7 @@ class AuthenticationProvider {
       throw translate('login.errors.authentication_not_found');
     } else {
       currentAppAuthentication =
-          AppAuthentication.fromJson(appAuthenticationString);
+          AppAuthentication.fromJsonString(appAuthenticationString);
     }
   }
 
@@ -233,7 +215,7 @@ class AuthenticationProvider {
     currentAppAuthentication = appAuthentication;
     await _secureStorage.write(
       key: _appAuthenticationKey,
-      value: appAuthentication.toJson(),
+      value: appAuthentication.toJsonString(),
     );
   }
 

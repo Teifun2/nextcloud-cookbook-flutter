@@ -77,13 +77,13 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     );
   }
 
-  Widget _buildRecipesShortScreen(Iterable<RecipeShort> data) {
+  Widget _buildRecipesShortScreen(Iterable<RecipeStub> data) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.separated(
         itemCount: data.length,
         itemBuilder: (context, index) {
-          return _buildRecipeShortScreen(data.elementAt(index));
+          return _buildRecipeStubScreen(data.elementAt(index));
         },
         separatorBuilder: (context, index) => const Divider(
           color: Colors.black,
@@ -92,11 +92,11 @@ class RecipesListScreenState extends State<RecipesListScreen> {
     );
   }
 
-  ListTile _buildRecipeShortScreen(RecipeShort recipeShort) {
+  ListTile _buildRecipeStubScreen(RecipeStub recipe) {
     return ListTile(
-      title: Text(recipeShort.name),
+      title: Text(recipe.name),
       trailing: AuthenticationCachedNetworkRecipeImage(
-        recipeId: recipeShort.recipeId,
+        recipeId: recipe.recipeId,
         full: false,
         width: 60,
         height: 60,
@@ -105,7 +105,7 @@ class RecipesListScreenState extends State<RecipesListScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RecipeScreen(recipeId: recipeShort.recipeId),
+            builder: (context) => RecipeScreen(recipeId: recipe.recipeId),
           ),
         );
       },

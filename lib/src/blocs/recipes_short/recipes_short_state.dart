@@ -12,7 +12,7 @@ enum RecipesShortStatus {
 class RecipesShortState extends Equatable {
   final RecipesShortStatus status;
   final String? error;
-  final Iterable<RecipeShort>? recipesShort;
+  final Iterable<RecipeStub>? recipesShort;
 
   RecipesShortState({
     this.status = RecipesShortStatus.loadInProgress,

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 
 part 'recipe_event.dart';
 part 'recipe_state.dart';

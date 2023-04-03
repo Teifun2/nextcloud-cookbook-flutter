@@ -7,7 +7,6 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authenticati
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/my_settings_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
@@ -15,7 +14,7 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/timer_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/data_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/api_version_warning.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/authentication_cached_network_recipe_image.dart';
@@ -41,7 +40,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return RecipeCreateScreen(Recipe.empty());
+                    return const RecipeCreateScreen();
                   },
                 ),
               );
@@ -144,7 +143,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       if (state.status == RecipesShortStatus.loadAllSuccess) {
                         showSearch(
                           context: context,
-                          delegate: SearchPage<RecipeShort>(
+                          delegate: SearchPage<RecipeStub>(
                             items: state.recipesShort!.toList(),
                             searchLabel: translate('search.title'),
                             suggestion: const Center(

@@ -1,9 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/network.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
+part of 'services.dart';
 
 class RecipeProvider {
   Future<Recipe> fetchRecipe(int id) async {
@@ -15,7 +10,7 @@ class RecipeProvider {
     // Parse categories
     try {
       final String contents = await Network().get(url);
-      return Recipe(contents);
+      return Recipe.fromJsonString(contents);
     } catch (e) {
       throw Exception(e);
     }
@@ -31,7 +26,7 @@ class RecipeProvider {
           "${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes/${recipe.id}";
       final response = await client.put(
         url,
-        data: recipe.toJson(),
+        data: recipe.toJsonString(),
         options: Options(
           contentType: "application/json;charset=UTF-8",
         ),
@@ -52,7 +47,7 @@ class RecipeProvider {
     try {
       final response = await client.post(
         "${appAuthentication.server}/index.php/apps/cookbook/api/v1/recipes",
-        data: recipe.toJson(),
+        data: recipe.toJsonString(),
         options: Options(
           contentType: "application/json;charset=UTF-8",
         ),
@@ -77,7 +72,7 @@ class RecipeProvider {
         ),
       );
 
-      return Recipe(response.data as String);
+      return Recipe.fromJsonString(response.data as String);
     } on DioError catch (e) {
       throw Exception(e.response);
     } catch (e) {

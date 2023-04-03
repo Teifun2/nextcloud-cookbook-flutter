@@ -1,15 +1,4 @@
-import 'dart:developer';
-
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/categories_provider.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/category_recipes_short_provider.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/category_search_provider.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/net/nextcloud_metadata_api.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/recipe_provider.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/recipes_short_provider.dart';
+part of 'services.dart';
 
 class DataRepository {
   // Singleton
@@ -31,7 +20,7 @@ class DataRepository {
   static String categoryAll = translate('categories.all_categories');
 
   // Actions
-  Future<List<RecipeShort>> fetchRecipesShort({required String category}) {
+  Future<List<RecipeStub>> fetchRecipesShort({required String category}) {
     if (category == categoryAll) {
       return recipesShortProvider.fetchRecipesShort();
     } else {
@@ -71,7 +60,7 @@ class DataRepository {
   }
 
   Future<Category> _fetchCategoryMainRecipe(Category category) async {
-    List<RecipeShort> categoryRecipes = [];
+    List<RecipeStub> categoryRecipes = [];
 
     try {
       if (category.name == translate('categories.all_categories')) {
@@ -91,7 +80,7 @@ class DataRepository {
     return category;
   }
 
-  Future<List<RecipeShort>> fetchAllRecipes() async {
+  Future<List<RecipeStub>> fetchAllRecipes() async {
     return fetchRecipesShort(category: categoryAll);
   }
 

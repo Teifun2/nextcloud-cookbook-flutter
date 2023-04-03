@@ -1,10 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
-import 'package:timezone/data/latest_10y.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+part of 'services.dart';
 
 const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
@@ -93,31 +87,35 @@ class NotificationService {
     for (final element in pendingNotificationRequests) {
       if (element.payload != null) {
         final data = jsonDecode(element.payload!) as Map<String, dynamic>;
-        final Timer timer = Timer.fromJson(data, element.id);
-        if (timer.id > curId) curId = timer.id;
+        final timer = Timer.fromJson(data)..id = element.id;
+        TimerList()._timers.add(timer);
+        if (timer.id! > curId) curId = timer.id!;
       }
     }
   }
 
-  int start(Timer timer) {
-    curId++;
+  void start(Timer timer) {
     timer.id = curId;
+
     _localNotifications.zonedSchedule(
-      curId,
+      curId++,
       timer.title,
       timer.body,
-      timer.done,
+      tz.TZDateTime.from(timer.done, tz.local),
       platformChannelSpecifics,
       payload: jsonEncode(timer.toJson()),
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.wallClockTime,
     );
-    return curId;
   }
 
   void cancel(Timer timer) {
-    _localNotifications.cancel(timer.id);
+    assert(
+      timer.id != null,
+      "The timer should have an ID. If not it probably wasn't started",
+    );
+    _localNotifications.cancel(timer.id!);
   }
 
   void cancelAll() {

@@ -1,8 +1,4 @@
-import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/category.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/network.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
+part of 'services.dart';
 
 class CategoriesProvider {
   Future<List<Category>> fetchCategories() async {

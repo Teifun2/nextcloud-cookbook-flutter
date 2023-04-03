@@ -1,11 +1,7 @@
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/recipe_short.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/network.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/version_provider.dart';
+part of 'services.dart';
 
 class CategoryRecipesShortProvider {
-  Future<List<RecipeShort>> fetchCategoryRecipesShort(String category) async {
+  Future<List<RecipeStub>> fetchCategoryRecipesShort(String category) async {
     final AndroidApiVersion androidApiVersion =
         UserRepository().getAndroidVersion();
 
@@ -25,7 +21,7 @@ class CategoryRecipesShortProvider {
     // Parse categories
     try {
       final String contents = await Network().get(url);
-      return RecipeShort.parseRecipesShort(contents);
+      return RecipeStub.parseRecipesShort(contents);
     } catch (e) {
       throw Exception(e);
     }

@@ -1,5 +1,4 @@
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
+part of '../services.dart';
 
 class NextcloudMetadataApi {
   final AppAuthentication _appAuthentication;

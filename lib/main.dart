@@ -10,9 +10,7 @@ import 'package:nextcloud_cookbook_flutter/src/screens/category/category_screen.
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/login_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/splash_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/intent_repository.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/notification_provider.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/user_repository.dart';
+import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/lifecycle_event_handler.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
