@@ -7,6 +7,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
 
 import 'package:nextcloud_cookbook_flutter/src/blocs/login/login_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/login_qr_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -39,6 +40,16 @@ class _LoginScreenState extends State<LoginScreen> {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
     _loginBloc = LoginBloc(authenticationBloc: authBloc);
     super.didChangeDependencies();
+  }
+
+  Future<void> _authenticateQR() async {
+    final uri = await Navigator.of(context).push<Uri>(
+      MaterialPageRoute(builder: (_) => const LoginQrScreen()),
+    );
+
+    if (uri != null) {
+      _loginBloc.add(LoginQRScenned(uri));
+    }
   }
 
   void onSubmit([String? value]) {
@@ -103,9 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
               onSaved: submit,
             ),
           ),
-          const IconButton(
-            onPressed: null,
-            icon: Icon(
+          IconButton(
+            onPressed: _authenticateQR,
+            icon: const Icon(
               Icons.qr_code_scanner,
               size: 40,
             ),

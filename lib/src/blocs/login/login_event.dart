@@ -12,3 +12,9 @@ class LoginFlowStart extends LoginEvent {
 
   final String serverURL;
 }
+
+class LoginQRScenned extends LoginEvent {
+  const LoginQRScenned(this.uri);
+
+  final Uri uri;
+}
