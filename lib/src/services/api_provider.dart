@@ -8,7 +8,11 @@ class ApiProvider {
     final auth = UserRepository().currentAppAuthentication;
 
     ncCookbookApi = NcCookbookApi(
-      basePathOverride: '${auth.server}/apps/cookbook',
+      dio: Dio(BaseOptions(
+        baseUrl: '${auth.server}/apps/cookbook',
+        connectTimeout: const Duration(milliseconds: 30000),
+        receiveTimeout: const Duration(milliseconds: 30000),
+      ))
     );
 
     ncCookbookApi.setBasicAuth(
