@@ -31,6 +31,12 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
   }
 
   @override
+  void dispose() {
+    _importUrlController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (BuildContext context, RecipeState state) {

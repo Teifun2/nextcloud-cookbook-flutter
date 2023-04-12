@@ -38,6 +38,13 @@ class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       enabled: widget.enabled,
