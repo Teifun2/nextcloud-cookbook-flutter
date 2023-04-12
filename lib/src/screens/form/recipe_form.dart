@@ -41,6 +41,13 @@ class _RecipeFormState extends State<RecipeForm> {
   }
 
   @override
+  void dispose() {
+    categoryController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeBloc, RecipeState>(
       builder: (context, state) {
