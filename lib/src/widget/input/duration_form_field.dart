@@ -44,7 +44,6 @@ class _DurationFormFieldState extends State<DurationFormField> {
           widget.title,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 16,
           ),
         ),
         Row(

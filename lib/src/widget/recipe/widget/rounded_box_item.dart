@@ -46,10 +46,7 @@ class RoundedBoxItem extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Text(
-                value,
-                style: const TextStyle(fontSize: 16),
-              ),
+              child: Text(value),
             ),
           ),
         ],
