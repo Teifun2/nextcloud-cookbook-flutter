@@ -2,11 +2,9 @@ part of '../recipe_screen.dart';
 
 class InstructionList extends StatelessWidget {
   final Recipe recipe;
-  final TextStyle textStyle;
 
   const InstructionList(
     this.recipe,
-    this.textStyle,
   );
 
   @override
@@ -17,7 +15,7 @@ class InstructionList extends StatelessWidget {
       initiallyExpanded: true,
       children: <Widget>[
         for (int i = 0; i < instructions.length; i++)
-          _InstructionListTitem(instructions[i], i, textStyle)
+          _InstructionListTitem(instructions[i], i)
       ],
     );
   }
@@ -26,9 +24,8 @@ class InstructionList extends StatelessWidget {
 class _InstructionListTitem extends StatefulWidget {
   final String instruction;
   final int index;
-  final TextStyle textStyle;
 
-  const _InstructionListTitem(this.instruction, this.index, this.textStyle);
+  const _InstructionListTitem(this.instruction, this.index);
 
   @override
   State<_InstructionListTitem> createState() => _InstructionListTitemState();
@@ -67,7 +64,6 @@ class _InstructionListTitemState extends State<_InstructionListTitem> {
             Expanded(
               child: Text(
                 widget.instruction,
-                style: widget.textStyle,
               ),
             ),
           ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
@@ -9,7 +8,6 @@ import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
-import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/wakelock.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe/recipe_screen.dart';
@@ -70,7 +68,6 @@ class RecipeScreenBody extends StatefulWidget {
 
 class _RecipeScreenBodyState extends State<RecipeScreenBody> {
   late Recipe recipe;
-  late TextStyle settingsBasedTextStyle;
 
   Future<void> _onEdit() async {
     disableWakelock();
@@ -89,17 +86,6 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
   }
 
   @override
-  void didChangeDependencies() {
-    settingsBasedTextStyle = TextStyle(
-      fontSize: Settings.getValue<double>(
-        SettingKeys.recipe_font_size.name,
-        defaultValue: Theme.of(context).textTheme.bodyMedium?.fontSize,
-      ),
-    );
-    super.didChangeDependencies();
-  }
-
-  @override
   void initState() {
     super.initState();
 
@@ -111,9 +97,8 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
   Widget build(BuildContext context) {
     final list = [
       if (recipe.nutritionList.isNotEmpty) NutritionList(recipe.nutritionList),
-      if (recipe.recipeIngredient.isNotEmpty)
-        IngredientList(recipe, settingsBasedTextStyle),
-      InstructionList(recipe, settingsBasedTextStyle),
+      if (recipe.recipeIngredient.isNotEmpty) IngredientList(recipe),
+      InstructionList(recipe),
     ];
 
     final header = SliverList(
@@ -146,11 +131,7 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
 
     final bottom = SliverList(
       delegate: SliverChildListDelegate.fixed([
-        if (recipe.tool.isNotEmpty)
-          ToolList(
-            recipe: recipe,
-            settingsBasedTextStyle: settingsBasedTextStyle,
-          ),
+        if (recipe.tool.isNotEmpty) ToolList(recipe: recipe),
         if (MediaQuery.of(context).size.width > 600)
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

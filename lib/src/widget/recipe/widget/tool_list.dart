@@ -3,11 +3,9 @@ part of '../recipe_screen.dart';
 class ToolList extends StatelessWidget {
   const ToolList({
     required this.recipe,
-    required this.settingsBasedTextStyle,
   });
 
   final Recipe recipe;
-  final TextStyle settingsBasedTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,6 @@ class ToolList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
                 "- ${tool.trim()}",
-                style: settingsBasedTextStyle,
               ),
             ),
           ),

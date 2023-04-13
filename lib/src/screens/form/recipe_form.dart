@@ -67,7 +67,6 @@ class _RecipeFormState extends State<RecipeForm> {
                         translate('recipe.fields.name'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
                       TextFormField(
@@ -86,7 +85,6 @@ class _RecipeFormState extends State<RecipeForm> {
                         translate('recipe.fields.description'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
                       TextFormField(
@@ -107,7 +105,6 @@ class _RecipeFormState extends State<RecipeForm> {
                         translate('recipe.fields.category'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
                       TypeAheadFormField(
@@ -139,7 +136,6 @@ class _RecipeFormState extends State<RecipeForm> {
                         translate('recipe.fields.keywords'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
                       TextFormField(
@@ -158,7 +154,6 @@ class _RecipeFormState extends State<RecipeForm> {
                         translate('recipe.fields.source'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
                       TextFormField(
@@ -177,7 +172,6 @@ class _RecipeFormState extends State<RecipeForm> {
                         translate('recipe.fields.image'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
                       TextFormField(
@@ -197,7 +191,6 @@ class _RecipeFormState extends State<RecipeForm> {
                         translate('recipe.fields.servings'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
                       ),
                       IntegerTextFormField(

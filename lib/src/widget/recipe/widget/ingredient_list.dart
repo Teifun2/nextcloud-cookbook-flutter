@@ -2,11 +2,9 @@ part of '../recipe_screen.dart';
 
 class IngredientList extends StatelessWidget {
   final Recipe recipe;
-  final TextStyle textStyle;
 
   const IngredientList(
     this.recipe,
-    this.textStyle,
   );
 
   @override
@@ -17,7 +15,7 @@ class IngredientList extends StatelessWidget {
       initiallyExpanded: true,
       children: <Widget>[
         for (final ingredient in recipe.recipeIngredient)
-          _IngredientListItem(ingredient, textStyle)
+          _IngredientListItem(ingredient)
       ],
     );
   }
@@ -25,9 +23,8 @@ class IngredientList extends StatelessWidget {
 
 class _IngredientListItem extends StatefulWidget {
   final String ingredient;
-  final TextStyle textStyle;
 
-  const _IngredientListItem(this.ingredient, this.textStyle);
+  const _IngredientListItem(this.ingredient);
 
   @override
   State<_IngredientListItem> createState() => __IngredientListItemState();
@@ -38,11 +35,13 @@ class __IngredientListItemState extends State<_IngredientListItem> {
 
   @override
   Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme.bodyLarge!;
+
     if (widget.ingredient.startsWith('##')) {
       return Text(
         widget.ingredient.replaceFirst(RegExp(r'##\s*'), '').trim(),
-        style: widget.textStyle.copyWith(
-          fontFeatures: [const FontFeature.enable('smcp')],
+        style: const TextStyle(
+          fontFeatures: [FontFeature.enable('smcp')],
         ),
       );
     }
@@ -56,8 +55,8 @@ class __IngredientListItemState extends State<_IngredientListItem> {
         child: Row(
           children: <Widget>[
             Container(
-              width: widget.textStyle.fontSize,
-              height: widget.textStyle.fontSize,
+              width: style.fontSize,
+              height: style.fontSize,
               decoration: ShapeDecoration(
                 shape: const CircleBorder(
                   side: BorderSide(color: Colors.grey),
@@ -69,7 +68,7 @@ class __IngredientListItemState extends State<_IngredientListItem> {
               child: selected
                   ? Icon(
                       Icons.check_outlined,
-                      size: widget.textStyle.fontSize! * 0.75,
+                      size: style.fontSize! * 0.75,
                     )
                   : null,
             ),
@@ -77,7 +76,6 @@ class __IngredientListItemState extends State<_IngredientListItem> {
             Expanded(
               child: Text(
                 widget.ingredient,
-                style: widget.textStyle,
               ),
             ),
           ],
