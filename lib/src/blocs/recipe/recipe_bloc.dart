@@ -14,6 +14,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<RecipeUpdated>(_mapRecipeUpdatedToState);
     on<RecipeImported>(_mapRecipeImportedToState);
     on<RecipeCreated>(_mapRecipeCreatedToState);
+    on<RecipeDeleted>(_mapRecipeDeletedToState);
   }
 
   Future<void> _mapRecipeLoadedToState(
@@ -76,6 +77,24 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       emit(
         RecipeState(
           status: RecipeStatus.importFailure,
+          error: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _mapRecipeDeletedToState(
+    RecipeDeleted recipeDeleted,
+    Emitter<RecipeState> emit,
+  ) async {
+    try {
+      emit(RecipeState(status: RecipeStatus.deleteInProgress));
+      await dataRepository.deleteRecipe(recipeDeleted.recipe);
+      emit(RecipeState(status: RecipeStatus.delteSuccess));
+    } catch (e) {
+      emit(
+        RecipeState(
+          status: RecipeStatus.deleteFailure,
           error: e.toString(),
         ),
       );

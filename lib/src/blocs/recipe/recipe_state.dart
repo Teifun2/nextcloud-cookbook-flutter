@@ -1,8 +1,6 @@
 part of 'recipe_bloc.dart';
 
 enum RecipeStatus {
-  failure,
-  success,
   loadSuccess,
   loadFailure,
   loadInProgress,
@@ -12,6 +10,9 @@ enum RecipeStatus {
   createFailure,
   createSuccess,
   createInProgress,
+  deleteInProgress,
+  deleteFailure,
+  delteSuccess,
   importSuccess,
   importFailure,
   importInProgress;
@@ -34,18 +35,19 @@ class RecipeState extends Equatable {
       case RecipeStatus.updateInProgress:
       case RecipeStatus.createInProgress:
       case RecipeStatus.importInProgress:
+      case RecipeStatus.deleteInProgress:
+      case RecipeStatus.delteSuccess:
         assert(error == null && recipe == null && recipeId == null);
         break;
       case RecipeStatus.createSuccess:
       case RecipeStatus.updateSuccess:
         assert(error == null && recipe == null && recipeId != null);
         break;
-      case RecipeStatus.success:
       case RecipeStatus.loadSuccess:
       case RecipeStatus.importSuccess:
         assert(error == null && recipe != null && recipeId == null);
         break;
-      case RecipeStatus.failure:
+      case RecipeStatus.deleteFailure:
       case RecipeStatus.loadFailure:
       case RecipeStatus.updateFailure:
       case RecipeStatus.createFailure:

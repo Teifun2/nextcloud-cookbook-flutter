@@ -4,10 +4,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/alerts/recipe_delete_alert.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/alerts/recipe_edit_alert.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/duration_form_field.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_field.dart';
@@ -53,6 +55,19 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
   String get translationKey =>
       widget.recipe != null ? 'recipe_edit' : 'recipe_create';
 
+  Future<void> onDelete() async {
+    final decision = await showDialog<bool>(
+      context: context,
+      builder: (context) => DeleteRecipeAlert(recipe: widget.recipe!),
+    );
+
+    if (decision ?? false) {
+      FocusManager.instance.primaryFocus?.unfocus();
+      // ignore: use_build_context_synchronously
+      BlocProvider.of<RecipeBloc>(context).add(RecipeDeleted(widget.recipe!));
+    }
+  }
+
   void onSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
@@ -93,6 +108,16 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(translate('$translationKey.title')),
+        actions: [
+          if (widget.recipe != null) ...[
+            IconButton(
+              icon: const Icon(Icons.delete),
+              tooltip: translate("recipe_edit.delete.title").toLowerCase(),
+              color: Theme.of(context).colorScheme.error,
+              onPressed: onDelete,
+            ),
+          ],
+        ],
       ),
       body: BlocConsumer<RecipeBloc, RecipeState>(
         builder: builder,
@@ -309,6 +334,7 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
     switch (state.status) {
       case RecipeStatus.createFailure:
       case RecipeStatus.updateFailure:
+      case RecipeStatus.deleteFailure:
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
@@ -324,6 +350,11 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
         break;
       case RecipeStatus.updateSuccess:
         BlocProvider.of<RecipeBloc>(context).add(RecipeLoaded(state.recipeId!));
+        Navigator.pop(context);
+        break;
+      case RecipeStatus.delteSuccess:
+        BlocProvider.of<CategoriesBloc>(context).add(const CategoriesLoaded());
+        Navigator.pop(context);
         Navigator.pop(context);
         break;
       case RecipeStatus.createSuccess:

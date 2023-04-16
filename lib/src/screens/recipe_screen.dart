@@ -37,6 +37,7 @@ class RecipeScreen extends StatelessWidget {
         return RecipeScreenBody(recipe: state.recipe!);
       case RecipeStatus.loadFailure:
       case RecipeStatus.createFailure:
+      case RecipeStatus.deleteFailure:
       case RecipeStatus.updateFailure:
       case RecipeStatus.importFailure:
         return Scaffold(
