@@ -1,93 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 
-class IntegerTextFormField extends StatefulWidget {
+class IntegerTextFormField extends StatelessWidget {
   final int initialValue;
   final bool? enabled;
   final InputDecoration? decoration;
-  final void Function(int value)? onChanged;
-  final void Function(int value)? onSaved;
+  final ValueChanged<int>? onSaved;
+  final ValueChanged<int>? onChanged;
+  final TextInputAction? textInputAction;
   final int? minValue;
   final int? maxValue;
+  final TextAlign textAlign;
 
-  const IntegerTextFormField({
+  IntegerTextFormField({
     super.key,
     int? initialValue,
     this.enabled,
     this.decoration,
-    this.onChanged,
     this.onSaved,
+    this.onChanged,
+    this.textInputAction,
     this.minValue,
     this.maxValue,
-  })  : initialValue = initialValue ?? 0,
+    this.textAlign = TextAlign.end,
+  })  : assert(initialValue != null || minValue != null),
+        initialValue = initialValue ?? minValue!,
+        assert(minValue == null || initialValue! >= minValue),
         assert((minValue == null || maxValue == null) || minValue <= maxValue);
-
-  @override
-  State<StatefulWidget> createState() => _IntegerTextFormFieldState();
-}
-
-class _IntegerTextFormFieldState extends State<IntegerTextFormField> {
-  late TextEditingController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    final int curVal = _ensureMinMax(widget.initialValue);
-    controller = TextEditingController(text: curVal.toString());
-
-    controller.addListener(_updateController);
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      enabled: widget.enabled,
-      controller: controller,
-      decoration: widget.decoration,
+      enabled: enabled,
+      initialValue: initialValue.toString(),
+      decoration: decoration,
+      textAlign: textAlign,
       keyboardType: TextInputType.number,
+      textInputAction: textInputAction,
+      onSaved: (newValue) {
+        if (newValue == null) return;
+
+        onSaved?.call(int.parse(newValue));
+      },
+      onChanged: (value) {
+        final int$ = int.tryParse(value);
+        if (int$ != null) {
+          onChanged?.call(int$);
+        }
+      },
+      validator: (value) {
+        if (value == null || !ensureMinMax(int.tryParse(value))) {
+          return translate("form.validators.invalid_number");
+        }
+
+        return null;
+      },
     );
   }
 
-  void _updateController() {
-    final String value = controller.text;
-    if (value.isEmpty) {
-      widget.onChanged?.call(_ensureMinMax(0));
-    } else {
-      final parsedValue = _ensureMinMax(_parseValue(value));
-      if (controller.text != parsedValue.toString()) {
-        controller.value = TextEditingValue(
-          text: parsedValue.toString(),
-          selection: TextSelection.fromPosition(
-            TextPosition(offset: parsedValue.toString().length),
-          ),
-        );
-      }
-      widget.onChanged?.call(parsedValue);
-    }
-  }
+  bool ensureMinMax(int? value) {
+    if (value == null) return false;
 
-  int _ensureMinMax(int value) {
-    final min = widget.minValue;
-    final max = widget.maxValue;
+    if (minValue != null && value < minValue!) return false;
+    if (maxValue != null && value > maxValue!) return false;
 
-    if (min != null && value < min) return min;
-    if (max != null && value > max) return max;
-    return value;
-  }
-
-  int _parseValue(String input) {
-    final regexMatches = RegExp(r'(\d+)').allMatches(input);
-    if (regexMatches.isEmpty) {
-      return 0;
-    } else {
-      return int.parse(regexMatches.elementAt(0).group(0)!);
-    }
+    return true;
   }
 }

@@ -12,7 +12,7 @@ class RecipeYield extends StatelessWidget {
     return Row(
       children: <Widget>[
         Text(
-          "${translate('recipe.fields.servings')}: ${recipe.recipeYield}",
+          "${translate('recipe.fields.servings.else')}: ${recipe.recipeYield}",
           style: style,
         ),
         if (recipe.url.isNotEmpty) ...[

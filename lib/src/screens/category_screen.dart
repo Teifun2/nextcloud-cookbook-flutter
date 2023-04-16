@@ -6,8 +6,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe_create_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/category_grid_delegate.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
@@ -222,7 +223,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const RecipeCreateScreen(),
+              builder: (context) => BlocProvider<RecipeBloc>(
+                create: (context) => RecipeBloc(),
+                child: const RecipeEditScreen(),
+              ),
             ),
           );
         },
