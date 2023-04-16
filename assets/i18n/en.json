@@ -164,7 +164,6 @@
     "title": "Import Recipe",
     "button": "Import",
     "field": "URL to Recipe",
-    "clipboard": "Paste Clipboard",
     "errors": {
       "import_failed": "Import Failed {error_msg}"
     }
