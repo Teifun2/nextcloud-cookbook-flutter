@@ -4,6 +4,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_import_form.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 
 class RecipeImportScreen extends StatelessWidget {
   final String importUrl;
@@ -20,6 +21,9 @@ class RecipeImportScreen extends StatelessWidget {
             child: Text(translate("recipe_import.title")),
             listener: (context, state) {
               if (state.status == RecipeStatus.importFailure) {
+                final theme = Theme.of(context)
+                    .extension<SnackBarThemes>()!
+                    .errorSnackBar;
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
@@ -27,8 +31,9 @@ class RecipeImportScreen extends StatelessWidget {
                         'recipe_import.errors.import_failed',
                         args: {"error_msg": state.error},
                       ),
+                      style: theme.contentTextStyle,
                     ),
-                    backgroundColor: Colors.red,
+                    backgroundColor: theme.backgroundColor,
                   ),
                 );
               } else if (state.status == RecipeStatus.importSuccess) {

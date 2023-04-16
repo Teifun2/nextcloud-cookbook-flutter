@@ -4,6 +4,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 
 class RecipeEditScreen extends StatelessWidget {
   final Recipe recipe;
@@ -15,6 +16,8 @@ class RecipeEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<SnackBarThemes>()!.errorSnackBar;
+
     return WillPopScope(
       onWillPop: () {
         final RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
@@ -35,8 +38,9 @@ class RecipeEditScreen extends StatelessWidget {
                         'recipe_edit.errors.update_failed',
                         args: {"error_msg": state.error},
                       ),
+                      style: theme.contentTextStyle,
                     ),
-                    backgroundColor: Colors.red,
+                    backgroundColor: theme.backgroundColor,
                   ),
                 );
               } else if (state.status == RecipeStatus.updateSuccess) {

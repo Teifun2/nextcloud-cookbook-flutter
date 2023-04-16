@@ -15,6 +15,7 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart
 import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/timer_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/category_card.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/user_image.dart';
@@ -36,6 +37,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Future<void> checkApiCallback(Duration _) async {
+    final theme = Theme.of(context).extension<SnackBarThemes>()!;
+
     try {
       final APIVersion apiVersion = await UserRepository().fetchApiVersion();
 
@@ -52,7 +55,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 },
               ),
             ),
-            backgroundColor: Colors.orange,
+            backgroundColor: theme.warningSnackBar.backgroundColor,
           ),
         );
       }
@@ -62,13 +65,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           content: Text(
             translate(
               "categories.errors.api_version_check_failed",
-              args: {"error_msg": e.toString()},
+              args: {"error_msg": e},
             ),
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onError,
-            ),
+            style: theme.errorSnackBar.contentTextStyle,
           ),
-          backgroundColor: Theme.of(context).colorScheme.error,
+          backgroundColor: theme.errorSnackBar.backgroundColor,
         ),
       );
     }
@@ -207,6 +208,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         );
                       } else if (state.status ==
                           RecipesShortStatus.loadAllFailure) {
+                        final theme = Theme.of(context)
+                            .extension<SnackBarThemes>()!
+                            .errorSnackBar;
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -214,8 +219,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 'search.errors.search_failed',
                                 args: {"error_msg": state.error},
                               ),
+                              style: theme.contentTextStyle,
                             ),
-                            backgroundColor: Colors.red,
+                            backgroundColor: theme.backgroundColor,
                           ),
                         );
                       }

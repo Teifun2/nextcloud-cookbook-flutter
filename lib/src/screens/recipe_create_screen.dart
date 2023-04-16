@@ -5,6 +5,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/recipe_form.dart';
 
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 
 class RecipeCreateScreen extends StatelessWidget {
   const RecipeCreateScreen({
@@ -20,6 +21,10 @@ class RecipeCreateScreen extends StatelessWidget {
           title: BlocListener<RecipeBloc, RecipeState>(
             listener: (BuildContext context, RecipeState state) {
               if (state.status == RecipeStatus.createFailure) {
+                final theme = Theme.of(context)
+                    .extension<SnackBarThemes>()!
+                    .errorSnackBar;
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
@@ -27,8 +32,9 @@ class RecipeCreateScreen extends StatelessWidget {
                         'recipe_create.errors.update_failed',
                         args: {"error_msg": state.error},
                       ),
+                      style: theme.contentTextStyle,
                     ),
-                    backgroundColor: Colors.red,
+                    backgroundColor: theme.backgroundColor,
                   ),
                 );
               } else if (state.status == RecipeStatus.createSuccess) {

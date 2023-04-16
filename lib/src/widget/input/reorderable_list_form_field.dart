@@ -258,7 +258,7 @@ class _ItemState extends State<Item> {
     final Widget delete = IconButton(
       tooltip: translate("recipe_create.remove_field"),
       enableFeedback: enabled,
-      icon: const Icon(Icons.delete, color: Colors.red),
+      icon: Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
       onPressed: () {
         if (enabled) {
           widget.deleteItem();

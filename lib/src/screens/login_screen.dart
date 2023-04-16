@@ -5,6 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/login/login_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/form/login_form.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 
 class LoginScreen extends StatelessWidget {
   final bool invalidCredentials;
@@ -35,10 +36,15 @@ class LoginScreen extends StatelessWidget {
 
   void notifyIfInvalidCredentials(BuildContext context) {
     if (invalidCredentials) {
+      final theme =
+          Theme.of(context).extension<SnackBarThemes>()!.errorSnackBar;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(translate('login.errors.credentials_invalid')),
-          backgroundColor: Colors.red,
+          content: Text(
+            translate('login.errors.credentials_invalid'),
+            style: theme.contentTextStyle,
+          ),
+          backgroundColor: theme.backgroundColor,
         ),
       );
     }
