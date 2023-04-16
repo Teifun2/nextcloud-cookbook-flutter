@@ -4,14 +4,14 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/animated_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/recipe.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/recipe_edit_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/wakelock.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/timer_list_item.dart';
 
 class RecipeScreen extends StatelessWidget {
   final String recipeId;
@@ -67,7 +67,11 @@ class RecipeScreenBody extends StatefulWidget {
 }
 
 class _RecipeScreenBodyState extends State<RecipeScreenBody> {
+  final GlobalKey<SliverAnimatedListState> _listKey =
+      GlobalKey<SliverAnimatedListState>();
+
   late Recipe recipe;
+  late AnimatedTimerList _list;
 
   Future<void> _onEdit() async {
     disableWakelock();
@@ -85,12 +89,46 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
     enableWakelock();
   }
 
+  Widget _buildTimerItem(
+    BuildContext context,
+    int index,
+    Animation<double> animation,
+  ) {
+    return TimerListItem(
+      animation: animation,
+      item: _list[index],
+      dense: true,
+      onDismissed: () {
+        _list.removeAt(index);
+      },
+    );
+  }
+
+  Widget _buildRemovedTimerItem(
+    Timer item,
+    BuildContext context,
+    Animation<double> animation,
+  ) {
+    return TimerListItem(
+      animation: animation,
+      item: item,
+      dense: true,
+      enabled: false,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
 
     recipe = widget.recipe;
     enableWakelock();
+
+    _list = AnimatedTimerList.forId(
+      listKey: _listKey,
+      removedItemBuilder: _buildRemovedTimerItem,
+      recipeId: recipe.id!,
+    );
   }
 
   @override
@@ -115,18 +153,10 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
       ]),
     );
 
-    final timerList = SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          final timer = TimerList().timers[index];
-
-          return TimerListItem(
-            timer: timer,
-            onPressed: () => setState(() => TimerList().remove(timer)),
-          );
-        },
-        childCount: TimerList().timers.length,
-      ),
+    final timerList = SliverAnimatedList(
+      key: _listKey,
+      initialItemCount: _list.length,
+      itemBuilder: _buildTimerItem,
     );
 
     final bottom = SliverList(
@@ -186,31 +216,7 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
       body: body,
       floatingActionButton: RecipeScreenFab(
         enabled: recipe.cookTime != null,
-        onPressed: () => setState(() => TimerList().add(Timer(recipe))),
-      ),
-    );
-  }
-}
-
-class TimerListItem extends StatelessWidget {
-  const TimerListItem({
-    required this.timer,
-    this.onPressed,
-    super.key,
-  });
-
-  final Timer timer;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      key: UniqueKey(),
-      title: AnimatedTimeProgressBar(timer: timer),
-      trailing: IconButton(
-        icon: const Icon(Icons.cancel_outlined),
-        tooltip: translate("timer.button.cancel"),
-        onPressed: onPressed,
+        onPressed: () => _list.add(Timer(recipe)),
       ),
     );
   }

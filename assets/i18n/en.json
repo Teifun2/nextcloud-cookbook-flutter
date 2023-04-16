@@ -157,7 +157,8 @@
       "cancel": "cancel timer"
     },
     "done": "Timer is done.",
-    "missing": "You need to set the cooking time to use a timer."
+    "missing": "You need to set the cooking time to use a timer.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "App Settings",

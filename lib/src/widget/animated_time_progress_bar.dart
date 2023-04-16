@@ -3,7 +3,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/duration_utils.dart';
 
-class AnimatedTimeProgressBar extends StatefulWidget {
+class AnimatedTimeProgressBar extends StatelessWidget {
   final Timer timer;
 
   const AnimatedTimeProgressBar({
@@ -12,49 +12,15 @@ class AnimatedTimeProgressBar extends StatefulWidget {
   });
 
   @override
-  _AnimatedTimeProgressBarState createState() =>
-      _AnimatedTimeProgressBarState();
-}
-
-class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
-    with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Timer _timer;
-  late Tween<num> _timerTween;
-
-  _AnimatedTimeProgressBarState();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _timer = widget.timer;
-
-    _timerTween = Tween(
-      begin: _timer.progress,
-      end: 1.0,
-    );
-
-    _controller = AnimationController(
-      duration: _timer.remaining,
-      vsync: this,
-    );
-
-    _controller.forward().whenCompleteOrCancel(() {});
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) {
-        if (_controller.isCompleted) {
+    return TweenAnimationBuilder<double>(
+      duration: timer.remaining,
+      tween: Tween(
+        begin: timer.progress,
+        end: 1.0,
+      ),
+      builder: (context, value, child) {
+        if (value == 1.0) {
           return Text(translate('timer.done'));
         }
 
@@ -63,21 +29,22 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(_timer.remaining.formatSeconds()),
-                Text(_timer.duration.formatSeconds()),
+                Text(timer.remaining.formatSeconds()),
+                child!,
               ],
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
               child: LinearProgressIndicator(
-                value: _timerTween.evaluate(_controller) as double,
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.75),
-                semanticsLabel: _timer.title,
+                value: value,
+                color: Theme.of(context).colorScheme.primaryContainer,
+                semanticsLabel: timer.title,
               ),
             ),
           ],
         );
       },
+      child: Text(timer.duration.formatSeconds()),
     );
   }
 }
