@@ -3,6 +3,16 @@
     "logout": "Logout",
     "clear_all": "Clear all"
   },
+  "alert": {
+    "discard": "Discard",
+    "clear": "Clear"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
+  },
   "login": {
     "title": "Login",
     "server_url": {
@@ -75,18 +85,21 @@
     "cook": "Cooking time",
     "total": "Total time",
     "fields": {
-      "name": "Recipe Name:",
-      "description": "Recipe Description:",
-      "keywords": "Keywords:",
-      "category": "Category:",
-      "servings": "Servings:",
-      "source": "Source:",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "Keywords",
+      "category": "Category",
+      "servings": {
+        "1": "Serving",
+        "else": "Servings"
+      },
+      "source": "Source",
       "source_button": "Source",
-      "image": "Image:",
+      "image": "Image",
       "time": {
-        "prep": "Preparation time:",
-        "cook": "Cooking time:",
-        "total": "Total time:",
+        "prep": "Preparation time",
+        "cook": "Cooking time",
+        "total": "Total time",
         "hours": "Hours",
         "minutes": "Minutes"
       },
@@ -107,9 +120,11 @@
           "unsaturatedFatContent": "Unsaturated-fat content"
         }
       },
-      "tools": "Tools:",
-      "ingredients": "Ingredients:",
-      "instructions": "Instructions:"
+      "general": "General",
+      "times": "Times",
+      "tools": "Tools",
+      "ingredients": "Ingredients",
+      "instructions": "Instructions"
     },
     "errors": {
       "load_failed": "Failed to load Recipe!"
@@ -129,6 +144,16 @@
     "remove_field": "remove",
     "errors": {
       "update_failed": "Create Failed {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Cancel edit",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {

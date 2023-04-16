@@ -82,7 +82,7 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
       MaterialPageRoute(
         builder: (context) => BlocProvider.value(
           value: recipeBloc,
-          child: RecipeEditScreen(recipe),
+          child: RecipeEditScreen(recipe: recipe),
         ),
       ),
     );
