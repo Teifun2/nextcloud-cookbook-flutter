@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
@@ -32,6 +33,9 @@ void main() async {
   await Settings.init();
   // Wait for Notifications to be ready
   await NotificationService().init();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   runApp(
     LocalizedApp(
       delegate,
@@ -67,8 +71,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final UserRepository userRepository = UserRepository();
-
   @override
   void initState() {
     super.initState();
@@ -97,7 +99,7 @@ class _AppState extends State<App> {
         themeMode: themeMode,
         theme: AppTheme.lightThemeData,
         darkTheme: AppTheme.darkThemeData,
-        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        home: BlocConsumer<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             SystemChrome.setSystemUIOverlayStyle(
               SystemUiOverlayStyle(
@@ -110,7 +112,6 @@ class _AppState extends State<App> {
               case AuthenticationStatus.loading:
                 return const SplashPage();
               case AuthenticationStatus.authenticated:
-                IntentRepository().handleIntent();
                 return const CategoryScreen();
               case AuthenticationStatus.unauthenticated:
                 return const LoginScreen();
@@ -120,6 +121,13 @@ class _AppState extends State<App> {
                 );
               case AuthenticationStatus.error:
                 return LoadingErrorScreen(message: state.error!);
+            }
+          },
+          listener: (context, state) async {
+            if (state.status != AuthenticationStatus.loading) {
+              FlutterNativeSplash.remove();
+            } else if (state.status == AuthenticationStatus.authenticated) {
+              await IntentRepository().handleIntent();
             }
           },
         ),

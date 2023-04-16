@@ -97,6 +97,7 @@ dependencies:
   intl: ^0.18.0
 
   sliver_tools: ^0.2.8
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0
