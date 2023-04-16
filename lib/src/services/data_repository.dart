@@ -14,6 +14,8 @@ class DataRepository {
 
   // Data
   static final String categoryAll = translate('categories.all_categories');
+  static final String categoryUncategorized =
+      translate('categories.uncategorized');
 
   // Actions
   Future<Iterable<RecipeStub>?> fetchRecipesShort({
@@ -22,7 +24,7 @@ class DataRepository {
     if (category == categoryAll) {
       final response = await api.recipeApi.listRecipes();
       return response.data;
-    } else if (category == "*") {
+    } else if (category == categoryUncategorized) {
       final response = await api.categoryApi.recipesInCategory(category: "_");
       return response.data;
     } else {
@@ -72,6 +74,19 @@ class DataRepository {
         allCategory.build(),
       );
     }
+
+    final uncategorizedBuilder = CategoryBuilder();
+
+    categories?.removeWhere((c) {
+      if (c.name == "*") {
+        uncategorizedBuilder.replace(c);
+        uncategorizedBuilder.name = categoryUncategorized;
+        return true;
+      }
+      return false;
+    });
+
+    categories?.add(uncategorizedBuilder.build());
 
     return categories?.build();
   }

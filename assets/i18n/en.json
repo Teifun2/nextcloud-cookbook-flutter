@@ -1,6 +1,5 @@
 {
   "app_bar": {
-    "search": "Search",
     "logout": "Logout",
     "clear_all": "Clear all"
   },
@@ -45,6 +44,12 @@
   "categories": {
     "title": "Cookbook",
     "all_categories": "All",
+    "uncategorized": "Uncategorized",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Import Recipe",
       "settings": "Settings"
