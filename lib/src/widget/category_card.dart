@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
-import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipes_list_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -14,68 +14,73 @@ class CategoryCard extends StatelessWidget {
     super.key,
   });
 
+  static const double _spacer = 8;
+  static const _labelPadding = EdgeInsets.symmetric(horizontal: 8.0);
+
+  static TextStyle _nameStyle(BuildContext context) =>
+      Theme.of(context).textTheme.labelSmall!;
+
+  static TextStyle _itemStyle(BuildContext context) =>
+      Theme.of(context).textTheme.labelSmall!;
+
+  static double hightExtend(BuildContext context) {
+    return _spacer +
+        _itemStyle(context).fontSize! +
+        _itemStyle(context).fontSize! +
+        2 * _labelPadding.horizontal;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      elevation: 7,
-      child: Stack(
-        fit: StackFit.passthrough,
-        children: <Widget>[
-          ShaderMask(
-            blendMode: BlendMode.srcATop,
-            shaderCallback: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.center,
-              colors: <Color>[Colors.black, Colors.transparent],
-            ).createShader,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: RecipeImage(
-                id: imageID,
-                size: const Size.square(250),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              category.name,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.fade,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: Settings.getValue<double>(
-                  SettingKeys.category_font_size.name,
-                  defaultValue: 16,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.deepOrange,
-                  border: Border.all(color: Colors.deepOrangeAccent, width: 2),
-                ),
-                child: Center(
-                  child: Text(
-                    category.recipeCount.toString(),
-                    style: const TextStyle(color: Colors.white),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final size = constraints.maxWidth;
+
+        final String itemsText = translatePlural(
+          'categories.items',
+          category.recipeCount,
+        );
+
+        return GestureDetector(
+          child: Card(
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: RecipeImage(
+                    id: imageID,
+                    size: Size.square(size),
                   ),
                 ),
-              ),
+                const SizedBox(height: _spacer),
+                Padding(
+                  padding: _labelPadding,
+                  child: Text(
+                    category.name,
+                    maxLines: 1,
+                    style: _nameStyle(context),
+                  ),
+                ),
+                Padding(
+                  padding: _labelPadding,
+                  child: Text(
+                    itemsText,
+                    style: _itemStyle(context),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipesListScreen(category: category.name),
+            ),
+          ),
+        );
+      },
     );
   }
 }

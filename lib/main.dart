@@ -7,7 +7,7 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authenticati
 import 'package:nextcloud_cookbook_flutter/src/blocs/categories/categories_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/simple_bloc_delegatae.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/category/category_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/category_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/loading_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/login_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/screens/splash_screen.dart';
