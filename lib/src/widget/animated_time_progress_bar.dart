@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/duration_utils.dart';
 
 class AnimatedTimeProgressBar extends StatefulWidget {
   final Timer timer;
@@ -52,8 +53,7 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller,
-      child: Container(),
-      builder: (context, child) {
+      builder: (context, _) {
         if (_controller.isCompleted) {
           return Text(translate('timer.done'));
         }
@@ -63,18 +63,18 @@ class _AnimatedTimeProgressBarState extends State<AnimatedTimeProgressBar>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "${_timer.remaining.inHours.toString().padLeft(2, '0')}:${_timer.remaining.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.remaining.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                ),
-                Text(
-                  "${_timer.duration.inHours.toString().padLeft(2, '0')}:${_timer.duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(_timer.duration.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                ),
+                Text(_timer.remaining.formatSeconds()),
+                Text(_timer.duration.formatSeconds()),
               ],
             ),
-            LinearProgressIndicator(
-              value: _timerTween.evaluate(_controller) as double?,
-              semanticsLabel: _timer.title,
-            )
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                value: _timerTween.evaluate(_controller) as double,
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.75),
+                semanticsLabel: _timer.title,
+              ),
+            ),
           ],
         );
       },

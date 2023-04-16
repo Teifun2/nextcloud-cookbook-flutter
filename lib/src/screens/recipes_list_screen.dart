@@ -4,7 +4,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
 class RecipesListScreen extends StatelessWidget {

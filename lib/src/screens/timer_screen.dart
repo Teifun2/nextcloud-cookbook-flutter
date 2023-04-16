@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe/recipe_screen.dart';
+import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
