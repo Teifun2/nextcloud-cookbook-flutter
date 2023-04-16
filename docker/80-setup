@@ -12,8 +12,4 @@ tar -zxf /config/www/nextcloud/apps/Cookbook-"${COOKBOOK}".tar.gz -C /config/www
 rm /config/www/nextcloud/apps/Cookbook-"${COOKBOOK}".tar.gz
 occ app:enable cookbook
 
-# Setup Cookbook Library
-rm -R /config/www/nextcloud/data/admin/files
-cp -R /config/www/nextcloud/data/preset /config/www/nextcloud/data/admin/files
-chown abc:users -R /config/www/nextcloud/data/admin/files/
-occ files:scan admin
+bash /etc/setup_library

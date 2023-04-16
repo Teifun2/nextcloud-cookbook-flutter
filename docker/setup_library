@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+# Setup Cookbook Library
+rm -R /config/www/nextcloud/data/admin/files
+cp -R /config/www/nextcloud/data/preset /config/www/nextcloud/data/admin/files
+chown abc:users -R /config/www/nextcloud/data/admin/files/
+occ files:scan admin
