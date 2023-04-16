@@ -24,13 +24,11 @@ class CategoryCard extends StatelessWidget {
         children: <Widget>[
           ShaderMask(
             blendMode: BlendMode.srcATop,
-            shaderCallback: (bounds) {
-              return const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.center,
-                colors: <Color>[Colors.black, Colors.transparent],
-              ).createShader(bounds);
-            },
+            shaderCallback: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.center,
+              colors: <Color>[Colors.black, Colors.transparent],
+            ).createShader,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: RecipeImage(
