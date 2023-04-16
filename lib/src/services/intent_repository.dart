@@ -15,9 +15,7 @@ class IntentRepository {
     if (importUrl != null) {
       _navigationKey.currentState?.pushAndRemoveUntil(
         MaterialPageRoute<void>(
-          builder: (BuildContext context) => () {
-            return RecipeImportScreen(importUrl);
-          }(),
+          builder: (context) => RecipeImportScreen(importUrl),
         ),
         ModalRoute.withName('/'),
       );

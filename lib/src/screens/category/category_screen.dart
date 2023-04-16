@@ -80,17 +80,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
       builder: (context, categoriesState) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
+            tooltip: translate("recipe_edit.title").toLowerCase(),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) {
-                    return const RecipeCreateScreen();
-                  },
+                  builder: (context) => const RecipeCreateScreen(),
                 ),
               );
             },
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.add_outlined),
           ),
           drawer: Drawer(
             child: ListView(
@@ -134,16 +133,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) {
-                          return const RecipeImportScreen();
-                        },
+                        builder: (context) => const RecipeImportScreen(),
                       ),
                     );
                   },
                 ),
                 ListTile(
                   trailing: Icon(
-                    Icons.settings,
+                    Icons.settings_outlined,
                     semanticLabel: translate('categories.drawer.settings'),
                   ),
                   title: Text(translate('categories.drawer.settings')),
@@ -158,7 +155,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
                 ListTile(
                   trailing: Icon(
-                    Icons.exit_to_app,
+                    Icons.exit_to_app_outlined,
                     semanticLabel: translate('app_bar.logout'),
                   ),
                   title: Text(translate('app_bar.logout')),
@@ -228,15 +225,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         () {
                           switch (state.status) {
                             case RecipesShortStatus.loadAllInProgress:
-                              return Icons.downloading;
+                              return Icons.downloading_outlined;
                             case RecipesShortStatus.loadAllFailure:
-                              return Icons.report_problem;
+                              return Icons.report_problem_outlined;
                             default:
-                              return Icons.search;
+                              return Icons.search_outlined;
                           }
                         }(),
-                        semanticLabel: translate('app_bar.search'),
                       ),
+                      tooltip: translate('app_bar.search'),
                       onPressed: () async {
                         BlocProvider.of<RecipesShortBloc>(context)
                             .add(RecipesShortLoadedAll());
@@ -246,10 +243,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 },
               ),
               IconButton(
-                icon: Icon(
-                  Icons.refresh,
-                  semanticLabel: translate('app_bar.refresh'),
-                ),
+                icon: const Icon(Icons.refresh_outlined),
+                tooltip: translate('app_bar.refresh'),
                 onPressed: () {
                   DefaultCacheManager().emptyCache();
                   BlocProvider.of<CategoriesBloc>(context)

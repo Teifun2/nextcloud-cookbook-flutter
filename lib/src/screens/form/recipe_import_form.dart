@@ -16,17 +16,17 @@ class RecipeImportForm extends StatefulWidget {
 }
 
 class _RecipeImportFormState extends State<RecipeImportForm> {
-  final _importUrlController = TextEditingController();
+  late TextEditingController _importUrlController;
 
   @override
   void initState() {
     super.initState();
 
-    _importUrlController.text = widget.importUrl;
+    _importUrlController = TextEditingController(text: widget.importUrl);
     if (widget.importUrl.isNotEmpty) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         BlocProvider.of<RecipeBloc>(context)
-            .add(RecipeImported(_importUrlController.text));
+            .add(RecipeImported(widget.importUrl));
       });
     }
   }
@@ -61,37 +61,36 @@ class _RecipeImportFormState extends State<RecipeImportForm> {
                           final text = clipboard?.text;
                           if (text != null) _importUrlController.text = text;
                         },
-                        icon: const Icon(Icons.content_copy),
+                        icon: const Icon(Icons.content_copy_outlined),
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        if (enabled) {
-                          BlocProvider.of<RecipeBloc>(context)
-                              .add(RecipeImported(_importUrlController.text));
-                        }
-                      },
-                      child: enabled
-                          ? Row(
-                              children: [
-                                const Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 9.0),
-                                  child:
-                                      Text(translate("recipe_import.button")),
-                                ),
-                                const Icon(Icons.cloud_download_outlined),
-                                const Spacer(),
-                              ],
-                            )
-                          : SpinKitWave(
-                              color: Theme.of(context).primaryColor,
-                              size: 30.0,
+                    child: enabled
+                        ? OutlinedButton.icon(
+                            onPressed: () {
+                              if (enabled) {
+                                BlocProvider.of<RecipeBloc>(context).add(
+                                  RecipeImported(_importUrlController.text),
+                                );
+                              }
+                            },
+                            icon: const Icon(Icons.cloud_download_outlined),
+                            label: Text(translate("recipe_import.button")),
+                            style: OutlinedButton.styleFrom(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
                             ),
-                    ),
-                  )
+                          )
+                        : SpinKitWave(
+                            color: Theme.of(context).iconTheme.color,
+                            size: 30.0,
+                          ),
+                  ),
                 ],
               ),
             ),

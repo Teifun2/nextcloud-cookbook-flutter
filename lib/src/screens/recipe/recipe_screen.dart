@@ -78,9 +78,8 @@ class RecipeScreenState extends State<RecipeScreen> {
                 actions: <Widget>[
                   // action button
                   IconButton(
-                    icon: const Icon(
-                      Icons.edit,
-                    ),
+                    icon: const Icon(Icons.edit_outlined),
+                    tooltip: translate("recipe_create.title").toLowerCase(),
                     onPressed: () async {
                       if (state.status == RecipeStatus.loadSuccess) {
                         _disableWakelock();
@@ -147,10 +146,11 @@ class RecipeScreenState extends State<RecipeScreen> {
           }
         }
       },
+      tooltip: translate("timer.button.start"),
       backgroundColor: enabled
           ? Theme.of(context).colorScheme.secondary
           : Theme.of(context).disabledColor,
-      child: const Icon(Icons.access_alarm),
+      child: const Icon(Icons.access_alarm_outlined),
     );
   }
 
@@ -223,7 +223,6 @@ class RecipeScreenState extends State<RecipeScreen> {
                         const Spacer(),
                         if (recipe.url.isNotEmpty)
                           ElevatedButton(
-                            style: const ButtonStyle(),
                             onPressed: () async {
                               if (await launchUrlString(recipe.url)) {
                                 await launchUrlString(recipe.url);
@@ -366,7 +365,8 @@ class RecipeScreenState extends State<RecipeScreen> {
         timer: timer,
       ),
       trailing: IconButton(
-        icon: const Icon(Icons.cancel),
+        icon: const Icon(Icons.cancel_outlined),
+        tooltip: translate("timer.button.cancel"),
         onPressed: () {
           TimerList().remove(timer);
           setState(() {});
