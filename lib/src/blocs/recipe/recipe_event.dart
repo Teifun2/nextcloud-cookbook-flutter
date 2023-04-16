@@ -42,3 +42,12 @@ class RecipeImported extends RecipeEvent {
   @override
   List<Object> get props => [url];
 }
+
+class RecipeDeleted extends RecipeEvent {
+  final Recipe recipe;
+
+  const RecipeDeleted(this.recipe);
+
+  @override
+  List<Object> get props => [recipe];
+}

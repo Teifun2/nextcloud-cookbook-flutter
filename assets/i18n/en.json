@@ -135,6 +135,10 @@
     "button": "Save",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
