@@ -5,6 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/login/login_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/checkbox_form_field.dart';
 
@@ -84,10 +85,15 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.failure) {
+          final theme =
+              Theme.of(context).extension<SnackBarThemes>()!.errorSnackBar;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.error!),
-              backgroundColor: Colors.red,
+              content: Text(
+                state.error!,
+                style: theme.contentTextStyle,
+              ),
+              backgroundColor: theme.backgroundColor,
             ),
           );
         }

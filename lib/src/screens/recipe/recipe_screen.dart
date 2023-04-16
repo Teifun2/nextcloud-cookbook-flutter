@@ -132,18 +132,14 @@ class RecipeScreenState extends State<RecipeScreen> {
     final enabled = recipe.cookTime != null;
     return FloatingActionButton(
       onPressed: () {
-        {
-          if (enabled) {
-            TimerList().timers.add(Timer(recipe));
-            setState(() {});
-            final snackBar =
-                SnackBar(content: Text(translate('timer.started')));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          } else {
-            final snackBar =
-                SnackBar(content: Text(translate('timer.missing')));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
+        if (enabled) {
+          TimerList().timers.add(Timer(recipe));
+          setState(() {});
+          final snackBar = SnackBar(content: Text(translate('timer.started')));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          final snackBar = SnackBar(content: Text(translate('timer.missing')));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       },
       tooltip: translate("timer.button.start"),
