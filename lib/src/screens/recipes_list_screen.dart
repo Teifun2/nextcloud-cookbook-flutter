@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/recipe_list_item.dart';
 
-class RecipesListScreen extends StatelessWidget {
+class RecipesListScreen extends StatefulWidget {
   final String category;
 
   const RecipesListScreen({
@@ -16,88 +14,65 @@ class RecipesListScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    BlocProvider.of<RecipesShortBloc>(context)
-        .add(RecipesShortLoaded(category: category));
+  State<RecipesListScreen> createState() => _RecipesListScreenState();
+}
 
-    return BlocBuilder<RecipesShortBloc, RecipesShortState>(
-      builder: (context, recipesShortState) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              translate(
-                'recipe_list.title_category',
-                args: {'category': category},
-              ),
-            ),
-            actions: <Widget>[
-              // action button
-              IconButton(
-                icon: const Icon(Icons.refresh_outlined),
-                tooltip: translate('app_bar.refresh'),
-                onPressed: () {
-                  DefaultCacheManager().emptyCache();
-                  BlocProvider.of<RecipesShortBloc>(context)
-                      .add(RecipesShortLoaded(category: category));
-                },
-              ),
-            ],
-          ),
-          body: RefreshIndicator(
-            onRefresh: () {
-              DefaultCacheManager().emptyCache();
-              BlocProvider.of<RecipesShortBloc>(context)
-                  .add(RecipesShortLoaded(category: category));
-              return Future.value();
-            },
-            child: () {
-              if (recipesShortState.status == RecipesShortStatus.loadSuccess) {
-                return _buildRecipesShortScreen(
-                  recipesShortState.recipesShort!,
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }(),
-          ),
-        );
-      },
-    );
+class _RecipesListScreenState extends State<RecipesListScreen> {
+  Future<void> refresh() async {
+    DefaultCacheManager().emptyCache();
+    BlocProvider.of<RecipesShortBloc>(context)
+        .add(RecipesShortLoaded(category: widget.category));
   }
 
-  Widget _buildRecipesShortScreen(Iterable<RecipeStub> data) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.separated(
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          return _buildRecipeShortScreen(context, data.elementAt(index));
-        },
-        separatorBuilder: (context, index) => const Divider(
-          color: Colors.black,
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<RecipesShortBloc>(context)
+        .add(RecipesShortLoaded(category: widget.category));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          translate(
+            'recipe_list.title_category',
+            args: {'category': widget.category},
+          ),
+        ),
+        actions: <Widget>[
+          // action button
+          IconButton(
+            icon: const Icon(Icons.refresh_outlined),
+            tooltip:
+                MaterialLocalizations.of(context).refreshIndicatorSemanticLabel,
+            onPressed: refresh,
+          ),
+        ],
+      ),
+      body: RefreshIndicator(
+        onRefresh: refresh,
+        child: BlocBuilder<RecipesShortBloc, RecipesShortState>(
+          builder: (context, recipesShortState) {
+            if (recipesShortState.status == RecipesShortStatus.loadSuccess) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.separated(
+                  itemCount: recipesShortState.recipesShort!.length,
+                  itemBuilder: (context, index) => RecipeListItem(
+                    recipe: recipesShortState.recipesShort!.elementAt(index),
+                  ),
+                  separatorBuilder: (context, index) => const Divider(),
+                ),
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
-    );
-  }
-
-  ListTile _buildRecipeShortScreen(
-    BuildContext context,
-    RecipeStub recipe,
-  ) {
-    return ListTile(
-      title: Text(recipe.name),
-      trailing: RecipeImage(
-        id: recipe.recipeId,
-        size: const Size.square(60),
-      ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeScreen(recipeId: recipe.recipeId),
-          ),
-        );
-      },
     );
   }
 }
