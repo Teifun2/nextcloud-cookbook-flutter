@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -14,6 +15,7 @@ import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/lifecycle_event_handler.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/setting_keys.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/supported_locales.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/theme_mode_manager.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/translate_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
@@ -93,16 +95,17 @@ class _AppState extends State<App> {
       builder: (ThemeMode themeMode) => MaterialApp(
         navigatorKey: IntentRepository().getNavigationKey(),
         themeMode: themeMode,
-        theme: ThemeData(
-          brightness: Brightness.light,
-          hintColor: Colors.grey,
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          hintColor: Colors.grey,
-        ),
+        theme: AppTheme.lightThemeData,
+        darkTheme: AppTheme.darkThemeData,
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                systemNavigationBarColor:
+                    Theme.of(context).scaffoldBackgroundColor,
+              ),
+            );
+
             switch (state.status) {
               case AuthenticationStatus.loading:
                 return const SplashPage();

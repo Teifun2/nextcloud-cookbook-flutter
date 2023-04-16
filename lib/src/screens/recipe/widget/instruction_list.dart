@@ -65,7 +65,7 @@ class _InstructionListState extends State<InstructionList> {
                                 : Theme.of(context).colorScheme.background,
                           ),
                           child: _instructionsDone[index]
-                              ? const Icon(Icons.check)
+                              ? const Icon(Icons.check_outlined)
                               : Center(child: Text("${index + 1}")),
                         ),
                         Expanded(

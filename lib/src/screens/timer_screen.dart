@@ -23,21 +23,18 @@ class _TimerScreen extends State<TimerScreen> {
         title: Text(translate('timer.title')),
         actions: <Widget>[
           // action button
-          IconButton(
-            icon: Icon(
-              Icons.clear_all,
-              semanticLabel: translate('app_bar.clear_all'),
+          if (_list.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.clear_all_outlined),
+              tooltip: translate('app_bar.clear_all'),
+              onPressed: () {
+                TimerList().clear();
+                setState(() {});
+              },
             ),
-            onPressed: () {
-              TimerList().clear();
-              setState(() {});
-            },
-          ),
         ],
       ),
-      body: () {
-        return _buildTimerScreen(_list);
-      }(),
+      body: _buildTimerScreen(_list),
     );
   }
 
@@ -69,7 +66,8 @@ class _TimerScreen extends State<TimerScreen> {
       ),
       isThreeLine: true,
       trailing: IconButton(
-        icon: const Icon(Icons.cancel),
+        icon: const Icon(Icons.cancel_outlined),
+        tooltip: translate("timer.button.cancel"),
         onPressed: () {
           TimerList().remove(timer);
           setState(() {});

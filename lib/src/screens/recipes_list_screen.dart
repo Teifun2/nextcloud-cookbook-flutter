@@ -33,10 +33,8 @@ class RecipesListScreen extends StatelessWidget {
             actions: <Widget>[
               // action button
               IconButton(
-                icon: Icon(
-                  Icons.refresh,
-                  semanticLabel: translate('app_bar.refresh'),
-                ),
+                icon: const Icon(Icons.refresh_outlined),
+                tooltip: translate('app_bar.refresh'),
                 onPressed: () {
                   DefaultCacheManager().emptyCache();
                   BlocProvider.of<RecipesShortBloc>(context)

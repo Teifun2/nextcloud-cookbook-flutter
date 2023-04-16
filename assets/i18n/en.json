@@ -121,6 +121,8 @@
   "recipe_create": {
     "title": "Create Recipe",
     "button": "Create",
+    "add_field": "add",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Create Failed {error_msg}"
     }
@@ -145,6 +147,10 @@
     "title": "Your timers",
     "started": "Timer started.",
     "finished": "is finished.",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "Timer is done.",
     "missing": "You need to set the cooking time to use a timer."
   },

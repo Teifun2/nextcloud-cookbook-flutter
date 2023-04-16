@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart' as rl;
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipe/recipe_bloc.dart';
 
 class ReorderableListFormField extends StatefulWidget {
@@ -111,30 +112,27 @@ class _ReorderableListFormFieldState extends State<ReorderableListFormField> {
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
                           if (index == _items.length) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
+                            return OutlinedButton.icon(
+                              onPressed: () {
+                                if (enabled) {
+                                  setState(() {
+                                    _items.add(
+                                      ItemData(
+                                        "",
+                                        ValueKey(_items.length),
+                                      ),
+                                    );
+                                  });
+                                }
+                              },
+                              icon: const Icon(Icons.add_outlined),
+                              label: Text(
+                                translate("recipe_create.add_field"),
                               ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).hintColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: IconButton(
-                                  enableFeedback: enabled,
-                                  icon: const Icon(Icons.add),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (enabled) {
-                                        _items.add(
-                                          ItemData(
-                                            "",
-                                            ValueKey(_items.length),
-                                          ),
-                                        );
-                                      }
-                                    });
-                                  },
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                 ),
                               ),
                             );
@@ -251,28 +249,21 @@ class _ItemState extends State<Item> {
     // reordering; For android mode it will be just an empty container
     final Widget dragHandle = rl.ReorderableListener(
       canStart: () => enabled,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 7),
-        color: const Color(0x08000000),
-        child: const Center(
-          child: Icon(Icons.reorder),
-        ),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 7),
+        child: Icon(Icons.reorder_outlined),
       ),
     );
 
-    final Widget delete = ColoredBox(
-      color: const Color(0x08000000),
-      child: Center(
-        child: IconButton(
-          enableFeedback: enabled,
-          icon: const Icon(Icons.delete, color: Colors.red),
-          onPressed: () {
-            if (enabled) {
-              widget.deleteItem();
-            }
-          },
-        ),
-      ),
+    final Widget delete = IconButton(
+      tooltip: translate("recipe_create.remove_field"),
+      enableFeedback: enabled,
+      icon: const Icon(Icons.delete, color: Colors.red),
+      onPressed: () {
+        if (enabled) {
+          widget.deleteItem();
+        }
+      },
     );
 
     final Widget content = Container(
