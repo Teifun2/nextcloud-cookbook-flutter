@@ -119,7 +119,7 @@ class _AppState extends State<App> {
                   invalidCredentials: true,
                 );
               case AuthenticationStatus.error:
-                return const LoadingErrorScreen();
+                return LoadingErrorScreen(message: state.error!);
             }
           },
         ),
