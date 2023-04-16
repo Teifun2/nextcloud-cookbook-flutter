@@ -97,6 +97,7 @@ dependencies:
       ref: 5465b2fd64fb71cb7cd588989d1709fd48884457
 
   built_collection: ^5.1.1
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0

@@ -1,7 +1,6 @@
 {
   "app_bar": {
     "search": "Search",
-    "refresh": "Refresh",
     "logout": "Logout",
     "clear_all": "Clear all"
   },
