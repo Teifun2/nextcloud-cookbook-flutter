@@ -19,10 +19,4 @@ class TimerList {
     NotificationService().cancel(timer);
     _timers.remove(timer);
   }
-
-  void clear() {
-    for (final timer in _timers) {
-      remove(timer);
-    }
-  }
 }

@@ -1,20 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:nextcloud_cookbook_flutter/src/models/animated_list.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/timer.dart';
-import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
-import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/animated_time_progress_bar.dart';
-import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
+import 'package:nextcloud_cookbook_flutter/src/widget/timer_list_item.dart';
 
 class TimerScreen extends StatefulWidget {
   const TimerScreen({super.key});
 
   @override
-  _TimerScreen createState() => _TimerScreen();
+  State<TimerScreen> createState() => _TimerScreenState();
 }
 
-class _TimerScreen extends State<TimerScreen> {
-  final List<Timer> _list = TimerList().timers;
+class _TimerScreenState extends State<TimerScreen> {
+  final GlobalKey<SliverAnimatedListState> _listKey =
+      GlobalKey<SliverAnimatedListState>();
+  late AnimatedTimerList _list;
+
+  @override
+  void initState() {
+    super.initState();
+    _list = AnimatedTimerList(
+      listKey: _listKey,
+      removedItemBuilder: _buildRemovedItem,
+    );
+  }
+
+  Widget _buildItem(
+    BuildContext context,
+    int index,
+    Animation<double> animation,
+  ) {
+    return TimerListItem(
+      animation: animation,
+      item: _list[index],
+      onDismissed: () {
+        _list.removeAt(index);
+      },
+    );
+  }
+
+  Widget _buildRemovedItem(
+    Timer item,
+    BuildContext context,
+    Animation<double> animation,
+  ) {
+    return TimerListItem(
+      animation: animation,
+      item: item,
+      enabled: false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,65 +57,30 @@ class _TimerScreen extends State<TimerScreen> {
       appBar: AppBar(
         title: Text(translate('timer.title')),
         actions: <Widget>[
-          // action button
           if (_list.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.clear_all_outlined),
               tooltip: translate('app_bar.clear_all'),
-              onPressed: () {
-                TimerList().clear();
-                setState(() {});
-              },
+              onPressed: _list.removeAll,
             ),
         ],
       ),
-      body: _buildTimerScreen(_list),
-    );
-  }
-
-  Widget _buildTimerScreen(List<Timer> data) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.separated(
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          return _buildListItem(data[index]);
-        },
-        separatorBuilder: (context, index) => const Divider(
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-
-  ListTile _buildListItem(Timer timer) {
-    return ListTile(
-      key: UniqueKey(),
-      leading: RecipeImage(
-        id: timer.recipeId,
-        size: const Size.square(60),
-      ),
-      title: Text(timer.title),
-      subtitle: AnimatedTimeProgressBar(
-        timer: timer,
-      ),
-      isThreeLine: true,
-      trailing: IconButton(
-        icon: const Icon(Icons.cancel_outlined),
-        tooltip: translate("timer.button.cancel"),
-        onPressed: () {
-          TimerList().remove(timer);
-          setState(() {});
-        },
-      ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeScreen(recipeId: timer.recipeId),
-          ),
-        );
-      },
+      body: _list.isNotEmpty
+          ? CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  sliver: SliverAnimatedList(
+                    key: _listKey,
+                    initialItemCount: _list.length,
+                    itemBuilder: _buildItem,
+                  ),
+                ),
+              ],
+            )
+          : Center(
+              child: Text(translate('timer.empty_list')),
+            ),
     );
   }
 }
