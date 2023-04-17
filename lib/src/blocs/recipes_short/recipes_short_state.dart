@@ -10,10 +10,6 @@ enum RecipesShortStatus {
 }
 
 class RecipesShortState extends Equatable {
-  final RecipesShortStatus status;
-  final String? error;
-  final Iterable<RecipeStub>? recipesShort;
-
   RecipesShortState({
     this.status = RecipesShortStatus.loadInProgress,
     this.error,
@@ -34,6 +30,9 @@ class RecipesShortState extends Equatable {
         break;
     }
   }
+  final RecipesShortStatus status;
+  final String? error;
+  final Iterable<RecipeStub>? recipesShort;
 
   @override
   List<Object?> get props => [status, error, recipesShort];

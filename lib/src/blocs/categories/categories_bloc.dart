@@ -7,11 +7,10 @@ part 'categories_event.dart';
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
-  final DataRepository dataRepository = DataRepository();
-
   CategoriesBloc() : super(CategoriesState()) {
     on<CategoriesLoaded>(_mapCategoriesLoadedEventToState);
   }
+  final DataRepository dataRepository = DataRepository();
 
   Future<void> _mapCategoriesLoadedEventToState(
     CategoriesLoaded event,

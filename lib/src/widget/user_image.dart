@@ -16,11 +16,11 @@ class UserImage extends StatelessWidget {
     return ClipOval(
       child: CachedNetworkImage(
         cacheManager: CustomCacheManager().instance,
-        cacheKey: "avatar",
+        cacheKey: 'avatar',
         fit: BoxFit.fill,
         httpHeaders: {
-          "Authorization": appAuthentication.basicAuth,
-          "Accept": "image/jpeg"
+          'Authorization': appAuthentication.basicAuth,
+          'Accept': 'image/jpeg'
         },
         imageUrl: url,
         placeholder: (context, url) => ColoredBox(

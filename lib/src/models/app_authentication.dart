@@ -9,13 +9,6 @@ part 'app_authentication.g.dart';
 
 @JsonSerializable()
 class AppAuthentication extends Equatable {
-  final String server;
-  final String loginName;
-  final String basicAuth;
-  final bool isSelfSignedCertificate;
-
-  final Dio authenticatedClient = Dio();
-
   AppAuthentication({
     required this.server,
     required this.loginName,
@@ -23,8 +16,8 @@ class AppAuthentication extends Equatable {
     required this.isSelfSignedCertificate,
   }) {
     authenticatedClient.options
-      ..headers["authorization"] = basicAuth
-      ..headers["User-Agent"] = "Cookbook App"
+      ..headers['authorization'] = basicAuth
+      ..headers['User-Agent'] = 'Cookbook App'
       ..responseType = ResponseType.plain;
 
     if (isSelfSignedCertificate) {
@@ -48,21 +41,27 @@ class AppAuthentication extends Equatable {
       // ignore: avoid_catching_errors
     } on TypeError {
       final basicAuth = parseBasicAuth(
-        jsonData["loginName"] as String,
-        jsonData["appPassword"] as String,
+        jsonData['loginName'] as String,
+        jsonData['appPassword'] as String,
       );
 
       final selfSignedCertificate =
           jsonData['isSelfSignedCertificate'] as bool? ?? false;
 
       return AppAuthentication(
-        server: jsonData["server"] as String,
-        loginName: jsonData["loginName"] as String,
+        server: jsonData['server'] as String,
+        loginName: jsonData['loginName'] as String,
         basicAuth: basicAuth,
         isSelfSignedCertificate: selfSignedCertificate,
       );
     }
   }
+  final String server;
+  final String loginName;
+  final String basicAuth;
+  final bool isSelfSignedCertificate;
+
+  final Dio authenticatedClient = Dio();
 
   String toJsonString() => json.encode(toJson());
   Map<String, dynamic> toJson() => _$AppAuthenticationToJson(this);
@@ -70,13 +69,12 @@ class AppAuthentication extends Equatable {
   String get password {
     final base64 = basicAuth.substring(6);
     final string = utf8.decode(base64Decode(base64));
-    final auth = string.split(":");
+    final auth = string.split(':');
     return auth[1];
   }
 
-  static String parseBasicAuth(String loginName, String appPassword) {
-    return 'Basic ${base64Encode(utf8.encode('$loginName:$appPassword'))}';
-  }
+  static String parseBasicAuth(String loginName, String appPassword) =>
+      'Basic ${base64Encode(utf8.encode('$loginName:$appPassword'))}';
 
   @override
   String toString() =>

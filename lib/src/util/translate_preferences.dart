@@ -19,7 +19,5 @@ class TranslatePreferences implements ITranslatePreferences {
   }
 
   @override
-  Future savePreferredLocale(Locale locale) {
-    return Future.value(true);
-  }
+  Future savePreferredLocale(Locale locale) => Future.value(true);
 }

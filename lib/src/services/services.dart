@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -20,11 +21,11 @@ import 'package:timezone/data/latest_10y.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:xml/xml.dart';
 
-part "api_provider.dart";
-part "authentication_provider.dart";
-part "data_repository.dart";
-part "intent_repository.dart";
-part "net/nextcloud_metadata_api.dart";
-part "notification_provider.dart";
-part "user_repository.dart";
+part 'api_provider.dart';
+part 'authentication_provider.dart';
+part 'data_repository.dart';
+part 'intent_repository.dart';
+part 'net/nextcloud_metadata_api.dart';
+part 'notification_provider.dart';
+part 'user_repository.dart';
 part 'timer_repository.dart';

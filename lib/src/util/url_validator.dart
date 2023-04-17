@@ -24,25 +24,25 @@ class URLUtils {
 
   /// Punycode encodes an entire [url].
   static String _punyEncodeUrl(String url) {
-    String prefix = "";
-    String punycodeUrl = url;
-    if (url.startsWith("https://")) {
-      punycodeUrl = url.replaceFirst("https://", "");
-      prefix = "https://";
-    } else if (url.startsWith("http://")) {
-      punycodeUrl = url.replaceFirst("http://", "");
-      prefix = "http://";
+    var prefix = '';
+    var punycodeUrl = url;
+    if (url.startsWith('https://')) {
+      punycodeUrl = url.replaceFirst('https://', '');
+      prefix = 'https://';
+    } else if (url.startsWith('http://')) {
+      punycodeUrl = url.replaceFirst('http://', '');
+      prefix = 'http://';
     }
 
-    const String pattern = r"(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)";
-    final RegExp expression = RegExp(pattern, caseSensitive: false);
+    const pattern = r'(?:\.|^)([^.]*?[^\x00-\x7F][^.]*?)(?:\.|$)';
+    final expression = RegExp(pattern, caseSensitive: false);
 
     final matches = expression.allMatches(punycodeUrl);
     for (final exp in matches) {
-      final String match = exp.group(1)!;
+      final match = exp.group(1)!;
 
       punycodeUrl =
-          punycodeUrl.replaceFirst(match, "xn--${punycodeEncode(match)}");
+          punycodeUrl.replaceFirst(match, 'xn--${punycodeEncode(match)}');
     }
 
     return prefix + punycodeUrl;
@@ -68,15 +68,15 @@ class URLUtils {
   static String sanitizeUrl(String url) {
     if (!isValid(url)) {
       throw const FormatException(
-        "given url is not valid. Please validate first with URLUtils.isValid(url)",
+        'given url is not valid. Please validate first with URLUtils.isValid(url)',
       );
     }
 
-    String encodedUrl = _punyEncodeUrl(url);
+    var encodedUrl = _punyEncodeUrl(url);
     if (encodedUrl.substring(0, 4) != 'http') {
       encodedUrl = 'https://$encodedUrl';
     }
-    if (encodedUrl.endsWith("/")) {
+    if (encodedUrl.endsWith('/')) {
       encodedUrl = encodedUrl.substring(0, encodedUrl.length - 1);
     }
 

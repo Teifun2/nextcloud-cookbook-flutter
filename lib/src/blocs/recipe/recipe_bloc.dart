@@ -7,8 +7,6 @@ part 'recipe_event.dart';
 part 'recipe_state.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
-  final DataRepository dataRepository = DataRepository();
-
   RecipeBloc() : super(RecipeState()) {
     on<RecipeLoaded>(_mapRecipeLoadedToState);
     on<RecipeUpdated>(_mapRecipeUpdatedToState);
@@ -16,6 +14,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<RecipeCreated>(_mapRecipeCreatedToState);
     on<RecipeDeleted>(_mapRecipeDeletedToState);
   }
+  final DataRepository dataRepository = DataRepository();
 
   Future<void> _mapRecipeLoadedToState(
     RecipeLoaded recipeLoaded,

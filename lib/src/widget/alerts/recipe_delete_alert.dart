@@ -11,27 +11,25 @@ class DeleteRecipeAlert extends StatelessWidget {
   final Recipe recipe;
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      icon: const Icon(Icons.delete_forever),
-      iconColor: Theme.of(context).colorScheme.error,
-      title: Text(translate("recipe_edit.delete.title")),
-      content: Text(
-        translate(
-          "recipe_edit.delete.dialog",
-          args: {"recipe": recipe.name},
+  Widget build(BuildContext context) => AlertDialog(
+        icon: const Icon(Icons.delete_forever),
+        iconColor: Theme.of(context).colorScheme.error,
+        title: Text(translate('recipe_edit.delete.title')),
+        content: Text(
+          translate(
+            'recipe_edit.delete.dialog',
+            args: {'recipe': recipe.name},
+          ),
         ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: Navigator.of(context).pop,
-          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(true),
-          child: Text(MaterialLocalizations.of(context).deleteButtonTooltip),
-        ),
-      ],
-    );
-  }
+        actions: [
+          TextButton(
+            onPressed: Navigator.of(context).pop,
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(MaterialLocalizations.of(context).deleteButtonTooltip),
+          ),
+        ],
+      );
 }

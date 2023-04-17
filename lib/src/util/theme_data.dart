@@ -29,7 +29,7 @@ class AppTheme {
     ],
   );
 
-  static const nextCloudBlue = Color.fromRGBO(00, 130, 201, 1.0);
+  static const nextCloudBlue = Color.fromRGBO(00, 130, 201, 1);
 
   static final lightColorSheme = ColorScheme.fromSeed(
     seedColor: nextCloudBlue,
@@ -73,11 +73,9 @@ class SnackBarThemes extends ThemeExtension<SnackBarThemes> {
       );
 
   @override
-  SnackBarThemes copyWith({ColorScheme? colorScheme}) {
-    return SnackBarThemes(
-      colorScheme: colorScheme ?? this.colorScheme,
-    );
-  }
+  SnackBarThemes copyWith({ColorScheme? colorScheme}) => SnackBarThemes(
+        colorScheme: colorScheme ?? this.colorScheme,
+      );
 
   @override
   SnackBarThemes lerp(SnackBarThemes? other, double t) {

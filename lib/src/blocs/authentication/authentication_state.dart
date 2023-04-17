@@ -22,9 +22,6 @@ enum AuthenticationStatus {
 }
 
 class AuthenticationState extends Equatable {
-  final AuthenticationStatus status;
-  final String? error;
-
   const AuthenticationState({
     this.status = AuthenticationStatus.loading,
     this.error,
@@ -32,6 +29,8 @@ class AuthenticationState extends Equatable {
           (status != AuthenticationStatus.error && error == null) ||
               (status == AuthenticationStatus.error && error != null),
         );
+  final AuthenticationStatus status;
+  final String? error;
 
   @override
   List<Object?> get props => [status, error];

@@ -8,9 +8,8 @@ abstract class RecipesShortEvent extends Equatable {
 }
 
 class RecipesShortLoaded extends RecipesShortEvent {
-  final String category;
-
   const RecipesShortLoaded({required this.category});
+  final String category;
 
   @override
   List<String> get props => [category];

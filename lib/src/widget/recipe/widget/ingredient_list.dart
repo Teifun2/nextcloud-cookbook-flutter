@@ -1,30 +1,27 @@
 part of '../recipe_screen.dart';
 
 class IngredientList extends StatelessWidget {
+  const IngredientList(
+    this.recipe, {
+    super.key,
+  });
   final Recipe recipe;
 
-  const IngredientList(
-    this.recipe,
-  );
-
   @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      childrenPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-      title: Text(translate('recipe.fields.ingredients')),
-      initiallyExpanded: true,
-      children: <Widget>[
-        for (final ingredient in recipe.recipeIngredient)
-          _IngredientListItem(ingredient)
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExpansionTile(
+        childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
+        title: Text(translate('recipe.fields.ingredients')),
+        initiallyExpanded: true,
+        children: <Widget>[
+          for (final ingredient in recipe.recipeIngredient)
+            _IngredientListItem(ingredient)
+        ],
+      );
 }
 
 class _IngredientListItem extends StatefulWidget {
-  final String ingredient;
-
   const _IngredientListItem(this.ingredient);
+  final String ingredient;
 
   @override
   State<_IngredientListItem> createState() => __IngredientListItemState();
@@ -47,7 +44,7 @@ class __IngredientListItemState extends State<_IngredientListItem> {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: GestureDetector(
         onTap: () => setState(() {
           selected = !selected;

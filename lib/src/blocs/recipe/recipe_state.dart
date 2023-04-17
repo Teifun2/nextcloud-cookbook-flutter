@@ -19,11 +19,6 @@ enum RecipeStatus {
 }
 
 class RecipeState extends Equatable {
-  final RecipeStatus status;
-  final String? error;
-  final Recipe? recipe;
-  final String? recipeId;
-
   RecipeState({
     this.status = RecipeStatus.loadInProgress,
     this.error,
@@ -55,6 +50,10 @@ class RecipeState extends Equatable {
         assert(error != null && recipe == null && recipeId == null);
     }
   }
+  final RecipeStatus status;
+  final String? error;
+  final Recipe? recipe;
+  final String? recipeId;
 
   @override
   List<Object?> get props => [status, error, recipe, recipeId];

@@ -17,13 +17,12 @@ final FlutterLocalNotificationsPlugin _localNotifications =
     FlutterLocalNotificationsPlugin();
 
 class NotificationService {
-  static final NotificationService _notificationService =
-      NotificationService._();
-  int curId = 0;
-
   factory NotificationService() => _notificationService;
 
   NotificationService._();
+  static final NotificationService _notificationService =
+      NotificationService._();
+  int curId = 0;
 
   Future<void> init() async {
     // initialize Timezone Database
@@ -32,7 +31,7 @@ class NotificationService {
       tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()),
     );
 
-    const AndroidInitializationSettings initializationSettingsAndroid =
+    const initializationSettingsAndroid =
         AndroidInitializationSettings('notification_icon');
 
     Future onDidReceiveLocalNotification(
@@ -60,13 +59,11 @@ class NotificationService {
       ); */
     }
 
-    final DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings(
+    final initializationSettingsIOS = DarwinInitializationSettings(
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
+    final initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
@@ -89,15 +86,17 @@ class NotificationService {
         final data = jsonDecode(element.payload!) as Map<String, dynamic>;
         final timer = Timer.fromJson(data)..id = element.id;
         TimerList()._timers.add(timer);
-        if (timer.id! > curId) curId = timer.id!;
+        if (timer.id! > curId) {
+          curId = timer.id!;
+        }
       }
     }
   }
 
-  void start(Timer timer) {
+  Future<void> start(Timer timer) async {
     timer.id = curId;
 
-    _localNotifications.zonedSchedule(
+    await _localNotifications.zonedSchedule(
       curId++,
       timer.title,
       timer.body,
@@ -110,15 +109,15 @@ class NotificationService {
     );
   }
 
-  void cancel(Timer timer) {
+  Future<void> cancel(Timer timer) async {
     assert(
       timer.id != null,
       "The timer should have an ID. If not it probably wasn't started",
     );
-    _localNotifications.cancel(timer.id!);
+    await _localNotifications.cancel(timer.id!);
   }
 
-  void cancelAll() {
-    _localNotifications.cancelAll();
+  Future<void> cancelAll() async {
+    await _localNotifications.cancelAll();
   }
 }

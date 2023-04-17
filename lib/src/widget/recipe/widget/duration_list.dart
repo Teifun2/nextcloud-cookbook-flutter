@@ -1,11 +1,11 @@
 part of '../recipe_screen.dart';
 
 class DurationList extends StatelessWidget {
-  final Recipe recipe;
-
   const DurationList({
     required this.recipe,
+    super.key,
   });
+  final Recipe recipe;
 
   @override
   Widget build(BuildContext context) {

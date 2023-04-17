@@ -7,9 +7,6 @@ enum LoginStatus {
 }
 
 class LoginState extends Equatable {
-  final LoginStatus status;
-  final String? error;
-
   const LoginState({
     this.status = LoginStatus.initial,
     this.error,
@@ -17,6 +14,8 @@ class LoginState extends Equatable {
           (status != LoginStatus.failure && error == null) ||
               (status == LoginStatus.failure && error != null),
         );
+  final LoginStatus status;
+  final String? error;
 
   @override
   List<Object?> get props => [status, error];

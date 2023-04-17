@@ -5,49 +5,46 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_screen.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
 class RecipeListItem extends StatelessWidget {
+  const RecipeListItem({
+    required this.recipe,
+    super.key,
+  });
   final RecipeStub recipe;
 
-  const RecipeListItem({
-    super.key,
-    required this.recipe,
-  });
-
   @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(5),
-        child: RecipeImage(
-          id: recipe.recipeId,
-          size: const Size.square(80),
+  Widget build(BuildContext context) => ListTile(
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: RecipeImage(
+            id: recipe.recipeId,
+            size: const Size.square(80),
+          ),
         ),
-      ),
-      title: Text(recipe.name),
-      subtitle: Row(
-        children: [
-          _RecipeListDate(
-            Icons.edit_calendar_outlined,
-            recipe.dateCreated,
-          ),
-          if (recipe.dateModified != null &&
-              recipe.dateModified != recipe.dateCreated) ...[
+        title: Text(recipe.name),
+        subtitle: Row(
+          children: [
             _RecipeListDate(
-              Icons.edit_outlined,
-              recipe.dateModified!,
+              Icons.edit_calendar_outlined,
+              recipe.dateCreated,
             ),
+            if (recipe.dateModified != null &&
+                recipe.dateModified != recipe.dateCreated) ...[
+              _RecipeListDate(
+                Icons.edit_outlined,
+                recipe.dateModified!,
+              ),
+            ],
           ],
-        ],
-      ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeScreen(recipeId: recipe.recipeId),
-          ),
-        );
-      },
-    );
-  }
+        ),
+        onTap: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RecipeScreen(recipeId: recipe.recipeId),
+            ),
+          );
+        },
+      );
 }
 
 class _RecipeListDate extends StatelessWidget {
@@ -68,7 +65,7 @@ class _RecipeListDate extends StatelessWidget {
     return Card(
       color: colorScheme.secondaryContainer,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 4),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

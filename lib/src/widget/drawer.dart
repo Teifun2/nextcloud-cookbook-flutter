@@ -14,65 +14,63 @@ class MainDrawer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
+  Widget build(BuildContext context) => Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+              ),
+              child: const UserImage(),
             ),
-            child: const UserImage(),
-          ),
-          DrawerItem(
-            icon: Icons.alarm_add_outlined,
-            title: translate('timer.title'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const TimerScreen(),
-                ),
-              );
-            },
-          ),
-          DrawerItem(
-            icon: Icons.cloud_download_outlined,
-            title: translate('categories.drawer.import'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RecipeImportScreen(),
-                ),
-              );
-            },
-          ),
-          DrawerItem(
-            icon: Icons.settings_outlined,
-            title: translate('categories.drawer.settings'),
-            onTap: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MySettingsScreen(),
-                ),
-              );
-            },
-          ),
-          DrawerItem(
-            icon: Icons.exit_to_app_outlined,
-            title: translate('app_bar.logout'),
-            onTap: () {
-              BlocProvider.of<AuthenticationBloc>(context)
-                  .add(const LoggedOut());
-            },
-          ),
-        ],
-      ),
-    );
-  }
+            DrawerItem(
+              icon: Icons.alarm_add_outlined,
+              title: translate('timer.title'),
+              onTap: () async {
+                Navigator.pop(context);
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TimerScreen(),
+                  ),
+                );
+              },
+            ),
+            DrawerItem(
+              icon: Icons.cloud_download_outlined,
+              title: translate('categories.drawer.import'),
+              onTap: () async {
+                Navigator.pop(context);
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RecipeImportScreen(),
+                  ),
+                );
+              },
+            ),
+            DrawerItem(
+              icon: Icons.settings_outlined,
+              title: translate('categories.drawer.settings'),
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MySettingsScreen(),
+                  ),
+                );
+              },
+            ),
+            DrawerItem(
+              icon: Icons.exit_to_app_outlined,
+              title: translate('app_bar.logout'),
+              onTap: () {
+                BlocProvider.of<AuthenticationBloc>(context)
+                    .add(const LoggedOut());
+              },
+            ),
+          ],
+        ),
+      );
 }

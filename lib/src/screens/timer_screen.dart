@@ -29,58 +29,54 @@ class _TimerScreenState extends State<TimerScreen> {
     BuildContext context,
     int index,
     Animation<double> animation,
-  ) {
-    return TimerListItem(
-      animation: animation,
-      item: _list[index],
-      onDismissed: () {
-        _list.removeAt(index);
-      },
-    );
-  }
+  ) =>
+      TimerListItem(
+        animation: animation,
+        item: _list[index],
+        onDismissed: () {
+          _list.removeAt(index);
+        },
+      );
 
   Widget _buildRemovedItem(
     Timer item,
     BuildContext context,
     Animation<double> animation,
-  ) {
-    return TimerListItem(
-      animation: animation,
-      item: item,
-      enabled: false,
-    );
-  }
+  ) =>
+      TimerListItem(
+        animation: animation,
+        item: item,
+        enabled: false,
+      );
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(translate('timer.title')),
-        actions: <Widget>[
-          if (_list.isNotEmpty)
-            IconButton(
-              icon: const Icon(Icons.clear_all_outlined),
-              tooltip: translate('app_bar.clear_all'),
-              onPressed: _list.removeAll,
-            ),
-        ],
-      ),
-      body: _list.isNotEmpty
-          ? CustomScrollView(
-              slivers: [
-                SliverPadding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  sliver: SliverAnimatedList(
-                    key: _listKey,
-                    initialItemCount: _list.length,
-                    itemBuilder: _buildItem,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(translate('timer.title')),
+          actions: <Widget>[
+            if (_list.isNotEmpty)
+              IconButton(
+                icon: const Icon(Icons.clear_all_outlined),
+                tooltip: translate('app_bar.clear_all'),
+                onPressed: _list.removeAll,
+              ),
+          ],
+        ),
+        body: _list.isNotEmpty
+            ? CustomScrollView(
+                slivers: [
+                  SliverPadding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    sliver: SliverAnimatedList(
+                      key: _listKey,
+                      initialItemCount: _list.length,
+                      itemBuilder: _buildItem,
+                    ),
                   ),
-                ),
-              ],
-            )
-          : Center(
-              child: Text(translate('timer.empty_list')),
-            ),
-    );
-  }
+                ],
+              )
+            : Center(
+                child: Text(translate('timer.empty_list')),
+              ),
+      );
 }

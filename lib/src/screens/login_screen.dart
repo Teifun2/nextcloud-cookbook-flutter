@@ -8,31 +8,29 @@ import 'package:nextcloud_cookbook_flutter/src/screens/form/login_form.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 
 class LoginScreen extends StatelessWidget {
-  final bool invalidCredentials;
   const LoginScreen({
     super.key,
     this.invalidCredentials = false,
   });
+  final bool invalidCredentials;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(translate('login.title')),
-      ),
-      body: BlocProvider<LoginBloc>(
-        create: (context) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            notifyIfInvalidCredentials(context);
-          });
-          return LoginBloc(
-            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
-          );
-        },
-        child: const LoginForm(),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(translate('login.title')),
+        ),
+        body: BlocProvider<LoginBloc>(
+          create: (context) {
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              notifyIfInvalidCredentials(context);
+            });
+            return LoginBloc(
+              authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+            );
+          },
+          child: const LoginForm(),
+        ),
+      );
 
   void notifyIfInvalidCredentials(BuildContext context) {
     if (invalidCredentials) {

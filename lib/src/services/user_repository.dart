@@ -1,11 +1,11 @@
 part of 'services.dart';
 
 class UserRepository {
-  // Singleton
-  static final UserRepository _userRepository = UserRepository._();
   factory UserRepository() => _userRepository;
 
   UserRepository._();
+  // Singleton
+  static final UserRepository _userRepository = UserRepository._();
 
   AuthenticationProvider authenticationProvider = AuthenticationProvider();
 
@@ -14,70 +14,60 @@ class UserRepository {
     String username,
     String originalBasicAuth, {
     required bool isSelfSignedCertificate,
-  }) async {
-    return authenticationProvider.authenticate(
-      serverUrl: serverUrl,
-      username: username,
-      originalBasicAuth: originalBasicAuth,
-      isSelfSignedCertificate: isSelfSignedCertificate,
-    );
-  }
+  }) async =>
+      authenticationProvider.authenticate(
+        serverUrl: serverUrl,
+        username: username,
+        originalBasicAuth: originalBasicAuth,
+        isSelfSignedCertificate: isSelfSignedCertificate,
+      );
 
   Future<AppAuthentication> authenticateAppPassword(
     String serverUrl,
     String username,
     String basicAuth, {
     required bool isSelfSignedCertificate,
-  }) async {
-    return authenticationProvider.authenticateAppPassword(
-      serverUrl: serverUrl,
-      username: username,
-      basicAuth: basicAuth,
-      isSelfSignedCertificate: isSelfSignedCertificate,
-    );
-  }
+  }) async =>
+      authenticationProvider.authenticateAppPassword(
+        serverUrl: serverUrl,
+        username: username,
+        basicAuth: basicAuth,
+        isSelfSignedCertificate: isSelfSignedCertificate,
+      );
 
   void stopAuthenticate() {
     authenticationProvider.stopAuthenticate();
   }
 
-  AppAuthentication get currentAppAuthentication {
-    return authenticationProvider.currentAppAuthentication!;
-  }
+  AppAuthentication get currentAppAuthentication =>
+      authenticationProvider.currentAppAuthentication!;
 
-  Dio get authenticatedClient {
-    return currentAppAuthentication.authenticatedClient;
-  }
+  Dio get authenticatedClient => currentAppAuthentication.authenticatedClient;
 
-  Future<bool> hasAppAuthentication() async {
-    return authenticationProvider.hasAppAuthentication();
-  }
+  Future<bool> hasAppAuthentication() async =>
+      authenticationProvider.hasAppAuthentication();
 
-  Future<void> loadAppAuthentication() async {
-    return authenticationProvider.loadAppAuthentication();
-  }
+  Future<void> loadAppAuthentication() async =>
+      authenticationProvider.loadAppAuthentication();
 
-  Future<bool> checkAppAuthentication() async {
-    return authenticationProvider.checkAppAuthentication(
-      currentAppAuthentication.server,
-      currentAppAuthentication.basicAuth,
-      isSelfSignedCertificate: currentAppAuthentication.isSelfSignedCertificate,
-    );
-  }
+  Future<bool> checkAppAuthentication() async =>
+      authenticationProvider.checkAppAuthentication(
+        currentAppAuthentication.server,
+        currentAppAuthentication.basicAuth,
+        isSelfSignedCertificate:
+            currentAppAuthentication.isSelfSignedCertificate,
+      );
 
   Future<void> persistAppAuthentication(
     AppAuthentication appAuthentication,
-  ) async {
-    return authenticationProvider.persistAppAuthentication(appAuthentication);
-  }
+  ) async =>
+      authenticationProvider.persistAppAuthentication(appAuthentication);
 
-  Future<void> deleteAppAuthentication() async {
-    return authenticationProvider.deleteAppAuthentication();
-  }
+  Future<void> deleteAppAuthentication() async =>
+      authenticationProvider.deleteAppAuthentication();
 
-  bool isVersionSupported(APIVersion version) {
-    return ApiProvider().ncCookbookApi.isSupportedSync(version);
-  }
+  bool isVersionSupported(APIVersion version) =>
+      ApiProvider().ncCookbookApi.isSupportedSync(version);
 
   Future<APIVersion> fetchApiVersion() async {
     final response = await ApiProvider().miscApi.version();

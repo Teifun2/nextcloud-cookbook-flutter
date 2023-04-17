@@ -36,7 +36,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     final theme = Theme.of(context).extension<SnackBarThemes>()!;
 
     try {
-      final APIVersion apiVersion = await UserRepository().fetchApiVersion();
+      final apiVersion = await UserRepository().fetchApiVersion();
 
       if (!UserRepository().isVersionSupported(apiVersion)) {
         // ignore: use_build_context_synchronously
@@ -44,10 +44,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
           SnackBar(
             content: Text(
               translate(
-                "categories.errors.api_version_above_confirmed",
+                'categories.errors.api_version_above_confirmed',
                 args: {
-                  "version":
-                      "${apiVersion.epoch}.${apiVersion.major}.${apiVersion.minor}"
+                  'version':
+                      '${apiVersion.epoch}.${apiVersion.major}.${apiVersion.minor}'
                 },
               ),
             ),
@@ -60,8 +60,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
         SnackBar(
           content: Text(
             translate(
-              "categories.errors.api_version_check_failed",
-              args: {"error_msg": e},
+              'categories.errors.api_version_check_failed',
+              args: {'error_msg': e},
             ),
             style: theme.errorSnackBar.contentTextStyle,
           ),
@@ -77,89 +77,91 @@ class _CategoryScreenState extends State<CategoryScreen> {
     BlocProvider.of<CategoriesBloc>(context).add(const CategoriesLoaded());
   }
 
-  Widget bodyBuilder(BuildContext context, CategoriesState state) {
-    return RefreshIndicator(
-      onRefresh: refresh,
-      child: Builder(
-        builder: (context) {
-          switch (state.status) {
-            case CategoriesStatus.loadSuccess:
-            case CategoriesStatus.imageLoadSuccess:
-              final categories = state.categories!.toList();
-              final recipe = state.recipes?.toList();
+  Widget bodyBuilder(BuildContext context, CategoriesState state) =>
+      RefreshIndicator(
+        onRefresh: refresh,
+        child: Builder(
+          builder: (context) {
+            switch (state.status) {
+              case CategoriesStatus.loadSuccess:
+              case CategoriesStatus.imageLoadSuccess:
+                final categories = state.categories!.toList();
+                final recipe = state.recipes?.toList();
 
-              final extent = CategoryCard.hightExtend(context);
-              return GridView.builder(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 75),
-                gridDelegate: CategoryGridDelegate(extent: extent),
-                semanticChildCount: categories.length,
-                itemCount: categories.length,
-                itemBuilder: (context, index) => CategoryCard(
-                  categories[index],
-                  recipe?[index]?.recipeId,
-                ),
-              );
-            case CategoriesStatus.loadInProgress:
-              BlocProvider.of<CategoriesBloc>(context)
-                  .add(const CategoriesLoaded());
+                final extent = CategoryCard.hightExtend(context);
+                return GridView.builder(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 75),
+                  gridDelegate: CategoryGridDelegate(extent: extent),
+                  semanticChildCount: categories.length,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) => CategoryCard(
+                    categories[index],
+                    recipe?[index]?.recipeId,
+                  ),
+                );
+              case CategoriesStatus.loadInProgress:
+                BlocProvider.of<CategoriesBloc>(context)
+                    .add(const CategoriesLoaded());
 
-              return Center(
-                child: SpinKitWave(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              );
-            case CategoriesStatus.loadFailure:
-              return Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      translate('categories.errors.plugin_missing'),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const Divider(),
-                    Text(
-                      translate(
-                        'categories.errors.load_failed',
-                        args: {'error_msg': state.error},
+                return Center(
+                  child: SpinKitWave(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                );
+              case CategoriesStatus.loadFailure:
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        translate('categories.errors.plugin_missing'),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            default:
-              throw StateError('invalid CategoryState');
-          }
-        },
-      ),
-    );
-  }
+                      const Divider(),
+                      Text(
+                        translate(
+                          'categories.errors.load_failed',
+                          args: {'error_msg': state.error},
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              default:
+                throw StateError('invalid CategoryState');
+            }
+          },
+        ),
+      );
 
-  Widget iconBuilder(BuildContext context, RecipesShortState state) {
-    return IconButton(
-      icon: Builder(
-        builder: (context) {
-          switch (state.status) {
-            case RecipesShortStatus.loadAllInProgress:
-              return const Icon(Icons.downloading_outlined);
-            case RecipesShortStatus.loadAllFailure:
-              return const Icon(Icons.report_problem_outlined);
-            default:
-              return const Icon(Icons.search_outlined);
-          }
+  Widget iconBuilder(BuildContext context, RecipesShortState state) =>
+      IconButton(
+        icon: Builder(
+          builder: (context) {
+            switch (state.status) {
+              case RecipesShortStatus.loadAllInProgress:
+                return const Icon(Icons.downloading_outlined);
+              case RecipesShortStatus.loadAllFailure:
+                return const Icon(Icons.report_problem_outlined);
+              default:
+                return const Icon(Icons.search_outlined);
+            }
+          },
+        ),
+        tooltip: MaterialLocalizations.of(context).searchFieldLabel,
+        onPressed: () async {
+          BlocProvider.of<RecipesShortBloc>(context)
+              .add(RecipesShortLoadedAll());
         },
-      ),
-      tooltip: MaterialLocalizations.of(context).searchFieldLabel,
-      onPressed: () async {
-        BlocProvider.of<RecipesShortBloc>(context).add(RecipesShortLoadedAll());
-      },
-    );
-  }
+      );
 
-  void recipeListener(BuildContext context, RecipesShortState state) {
+  Future<void> recipeListener(
+    BuildContext context,
+    RecipesShortState state,
+  ) async {
     if (state.status == RecipesShortStatus.loadAllSuccess) {
-      showSearch(
+      await showSearch(
         context: context,
         delegate: SearchPage<RecipeStub>(
           items: state.recipesShort!.toList(),
@@ -185,7 +187,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           content: Text(
             translate(
               'search.errors.search_failed',
-              args: {"error_msg": state.error},
+              args: {'error_msg': state.error},
             ),
             style: theme.contentTextStyle,
           ),
@@ -196,42 +198,40 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(translate('categories.title')),
-        actions: <Widget>[
-          BlocConsumer<RecipesShortBloc, RecipesShortState>(
-            builder: iconBuilder,
-            listener: recipeListener,
-          ),
-          IconButton(
-            icon: const Icon(Icons.refresh_outlined),
-            tooltip:
-                MaterialLocalizations.of(context).refreshIndicatorSemanticLabel,
-            onPressed: refresh,
-          ),
-        ],
-      ),
-      drawer: const MainDrawer(),
-      body: BlocBuilder<CategoriesBloc, CategoriesState>(
-        builder: bodyBuilder,
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: translate("recipe_edit.title").toLowerCase(),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BlocProvider<RecipeBloc>(
-                create: (context) => RecipeBloc(),
-                child: const RecipeEditScreen(),
-              ),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(translate('categories.title')),
+          actions: <Widget>[
+            BlocConsumer<RecipesShortBloc, RecipesShortState>(
+              builder: iconBuilder,
+              listener: recipeListener,
             ),
-          );
-        },
-        child: const Icon(Icons.add_outlined),
-      ),
-    );
-  }
+            IconButton(
+              icon: const Icon(Icons.refresh_outlined),
+              tooltip: MaterialLocalizations.of(context)
+                  .refreshIndicatorSemanticLabel,
+              onPressed: refresh,
+            ),
+          ],
+        ),
+        drawer: const MainDrawer(),
+        body: BlocBuilder<CategoriesBloc, CategoriesState>(
+          builder: bodyBuilder,
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: translate('recipe_edit.title').toLowerCase(),
+          onPressed: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider<RecipeBloc>(
+                  create: (context) => RecipeBloc(),
+                  child: const RecipeEditScreen(),
+                ),
+              ),
+            );
+          },
+          child: const Icon(Icons.add_outlined),
+        ),
+      );
 }

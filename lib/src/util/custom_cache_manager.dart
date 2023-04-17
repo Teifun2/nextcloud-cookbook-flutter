@@ -5,10 +5,10 @@ import 'package:http/io_client.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 
 class CustomCacheManager {
-  static final CustomCacheManager _cacheManager = CustomCacheManager._();
   factory CustomCacheManager() => _cacheManager;
 
   CustomCacheManager._();
+  static final CustomCacheManager _cacheManager = CustomCacheManager._();
 
   static const key = 'customCacheKey';
 
@@ -17,9 +17,7 @@ class CustomCacheManager {
       key,
       fileService: HttpFileService(
         httpClient: IOClient(
-          HttpClient()
-            ..badCertificateCallback =
-                (X509Certificate cert, String host, int port) => true,
+          HttpClient()..badCertificateCallback = (cert, host, port) => true,
         ),
       ),
     ),
