@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
-import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 
@@ -24,24 +23,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginState(status: LoginStatus.loading));
 
     try {
-      AppAuthentication appAuthentication;
       assert(URLUtils.isSanitized(event.serverURL));
 
-      if (!event.isAppPassword) {
-        appAuthentication = await userRepository.authenticate(
-          event.serverURL,
-          event.username,
-          event.originalBasicAuth,
-          isSelfSignedCertificate: event.isSelfSignedCertificate,
-        );
-      } else {
-        appAuthentication = await userRepository.authenticateAppPassword(
-          event.serverURL,
-          event.username,
-          event.originalBasicAuth,
-          isSelfSignedCertificate: event.isSelfSignedCertificate,
-        );
-      }
+      final appAuthentication = await userRepository.authenticateAppPassword(
+        event.serverURL,
+        event.username,
+        event.appPassword,
+        isSelfSignedCertificate: event.isSelfSignedCertificate,
+      );
 
       authenticationBloc.add(LoggedIn(appAuthentication: appAuthentication));
       emit(LoginState());

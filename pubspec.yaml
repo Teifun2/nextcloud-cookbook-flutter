@@ -67,8 +67,6 @@ dependencies:
   # Screen always on
   wakelock: ^0.6.1
 
-  xml: ^6.1.0
-
   flutter_spinkit: ^5.0.0
   validators: ^3.0.0
 

@@ -9,19 +9,6 @@ class UserRepository {
 
   AuthenticationProvider authenticationProvider = AuthenticationProvider();
 
-  Future<AppAuthentication> authenticate(
-    String serverUrl,
-    String username,
-    String originalBasicAuth, {
-    required bool isSelfSignedCertificate,
-  }) async =>
-      authenticationProvider.authenticate(
-        serverUrl: serverUrl,
-        username: username,
-        originalBasicAuth: originalBasicAuth,
-        isSelfSignedCertificate: isSelfSignedCertificate,
-      );
-
   Future<AppAuthentication> authenticateAppPassword(
     String serverUrl,
     String username,
@@ -42,21 +29,16 @@ class UserRepository {
   AppAuthentication get currentAppAuthentication =>
       authenticationProvider.currentAppAuthentication!;
 
-  Dio get authenticatedClient => currentAppAuthentication.authenticatedClient;
-
-  Future<bool> hasAppAuthentication() async =>
-      authenticationProvider.hasAppAuthentication();
+  Future<bool> hasAppAuthentication() async => authenticationProvider.hasAppAuthentication();
 
   Future<void> loadAppAuthentication() async =>
       authenticationProvider.loadAppAuthentication();
 
-  Future<bool> checkAppAuthentication() async =>
-      authenticationProvider.checkAppAuthentication(
-        currentAppAuthentication.server,
-        currentAppAuthentication.basicAuth,
-        isSelfSignedCertificate:
-            currentAppAuthentication.isSelfSignedCertificate,
-      );
+  Future<bool> checkAppAuthentication() async => authenticationProvider.checkAppAuthentication(
+      currentAppAuthentication.server,
+      currentAppAuthentication.appPassword,
+      isSelfSignedCertificate: currentAppAuthentication.isSelfSignedCertificate,
+    );
 
   Future<void> persistAppAuthentication(
     AppAuthentication appAuthentication,

@@ -30,7 +30,7 @@ class ApiProvider {
     ncCookbookApi.setBasicAuth(
       'app_password',
       auth.loginName,
-      auth.password,
+      auth.appPassword,
     );
     recipeApi = ncCookbookApi.getRecipesApi();
     categoryApi = ncCookbookApi.getCategoriesApi();

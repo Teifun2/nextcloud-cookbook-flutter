@@ -6,91 +6,6 @@ class AuthenticationProvider {
   AppAuthentication? currentAppAuthentication;
   dio.CancelToken? _cancelToken;
 
-  Future<AppAuthentication> authenticate({
-    required String serverUrl,
-    required String username,
-    required String originalBasicAuth,
-    required bool isSelfSignedCertificate,
-  }) async {
-    assert(URLUtils.isSanitized(serverUrl));
-
-    final urlInitialCall = '$serverUrl/ocs/v2.php/core/getapppassword';
-
-    dio.Response response;
-    try {
-      final client = dio.Dio();
-      if (isSelfSignedCertificate) {
-        client.httpClientAdapter = IOHttpClientAdapter(
-          onHttpClientCreate: (client) {
-            client.badCertificateCallback = (cert, host, port) => true;
-            return client;
-          },
-        );
-      }
-
-      response = await client.get(
-        urlInitialCall,
-        options: dio.Options(
-          headers: {
-            'OCS-APIREQUEST': 'true',
-            'User-Agent': 'Cookbook App',
-            'authorization': originalBasicAuth
-          },
-          validateStatus: (status) => status! < 500,
-        ),
-        cancelToken: _cancelToken,
-      );
-    } on dio.DioError catch (e) {
-      if (e.message?.contains('SocketException') ?? false) {
-        throw translate(
-          'login.errors.not_reachable',
-          args: {'server_url': serverUrl, 'error_msg': e},
-        );
-      } else if (e.message?.contains('CERTIFICATE_VERIFY_FAILED') ?? false) {
-        throw translate(
-          'login.errors.certificate_failed',
-          args: {'server_url': serverUrl, 'error_msg': e},
-        );
-      }
-      throw translate('login.errors.request_failed', args: {'error_msg': e});
-    }
-    _cancelToken = null;
-
-    if (response.statusCode == 200) {
-      String appPassword;
-      try {
-        appPassword = XmlDocument.parse(response.data as String)
-            .findAllElements('apppassword')
-            .first
-            .text;
-      } on XmlParserException catch (e) {
-        throw translate('login.errors.parse_failed', args: {'error_msg': e});
-        // ignore: avoid_catching_errors
-      } on StateError catch (e) {
-        throw translate('login.errors.parse_missing', args: {'error_msg': e});
-      }
-
-      final basicAuth = AppAuthentication.parseBasicAuth(username, appPassword);
-
-      return AppAuthentication(
-        server: serverUrl,
-        loginName: username,
-        basicAuth: basicAuth,
-        isSelfSignedCertificate: isSelfSignedCertificate,
-      );
-    } else if (response.statusCode == 401) {
-      throw translate('login.errors.auth_failed');
-    } else {
-      throw translate(
-        'login.errors.failure',
-        args: {
-          'status_code': response.statusCode,
-          'status_message': response.statusMessage,
-        },
-      );
-    }
-  }
-
   Future<AppAuthentication> authenticateAppPassword({
     required String serverUrl,
     required String username,
@@ -125,7 +40,7 @@ class AuthenticationProvider {
       return AppAuthentication(
         server: serverUrl,
         loginName: username,
-        basicAuth: basicAuth,
+        appPassword: basicAuth,
         isSelfSignedCertificate: isSelfSignedCertificate,
       );
     } else {
@@ -221,10 +136,14 @@ class AuthenticationProvider {
   Future<void> deleteAppAuthentication() async {
     dio.Response? response;
     try {
-      response = await currentAppAuthentication?.authenticatedClient.delete(
+      response = await Dio().delete(
         '${currentAppAuthentication!.server}/ocs/v2.php/core/apppassword',
         options: dio.Options(
           headers: {
+            'Authorization': AppAuthentication.parsePassword(
+              currentAppAuthentication!.loginName,
+              currentAppAuthentication!.appPassword,
+            ),
             'OCS-APIREQUEST': 'true',
           },
         ),

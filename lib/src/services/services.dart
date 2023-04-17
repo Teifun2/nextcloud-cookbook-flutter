@@ -19,7 +19,6 @@ import 'package:nextcloud_cookbook_flutter/src/screens/recipe_import_screen.dart
 import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 import 'package:timezone/data/latest_10y.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:xml/xml.dart';
 
 part 'api_provider.dart';
 part 'authentication_provider.dart';

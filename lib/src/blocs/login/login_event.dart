@@ -11,13 +11,13 @@ class LoginButtonPressed extends LoginEvent {
   const LoginButtonPressed({
     required this.serverURL,
     required this.username,
-    required this.originalBasicAuth,
+    required this.appPassword,
     required this.isAppPassword,
     required this.isSelfSignedCertificate,
   });
   final String serverURL;
   final String username;
-  final String originalBasicAuth;
+  final String appPassword;
   final bool isAppPassword;
   final bool isSelfSignedCertificate;
 
