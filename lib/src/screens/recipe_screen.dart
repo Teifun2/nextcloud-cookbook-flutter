@@ -132,7 +132,8 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
   @override
   Widget build(BuildContext context) {
     final list = [
-      if (recipe.nutritionList.isNotEmpty) NutritionList(recipe.nutritionList),
+      if (recipe.nutrition.asMap.isNotEmpty)
+        NutritionList(recipe.nutrition.asMap),
       if (recipe.recipeIngredient.isNotEmpty) IngredientList(recipe),
       InstructionList(recipe),
     ];
