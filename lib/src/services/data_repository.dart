@@ -1,16 +1,22 @@
 part of 'services.dart';
 
 class DataRepository {
-  factory DataRepository() => _dataRepository;
+  factory DataRepository() => _dataRepository ??= const DataRepository._();
 
-  DataRepository._();
+  // coverage:ignore-start
+  @visibleForTesting
+  factory DataRepository.mocked(DataRepository mock) =>
+      _dataRepository ??= mock;
+  // coverage:ignore-end
+
+  const DataRepository._();
   // Singleton
-  static final DataRepository _dataRepository = DataRepository._();
+  static DataRepository? _dataRepository;
 
   // Provider List
-  final ApiProvider api = ApiProvider();
+  static final api = ApiProvider();
 
-  final NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
+  static final _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
   static final String categoryAll = translate('categories.all_categories');

@@ -17,11 +17,18 @@ final FlutterLocalNotificationsPlugin _localNotifications =
     FlutterLocalNotificationsPlugin();
 
 class NotificationService {
-  factory NotificationService() => _notificationService;
+
+  factory NotificationService() =>
+      _notificationService ??= NotificationService._();
+
+  // coverage:ignore-start
+  @visibleForTesting
+  factory NotificationService.mocked(NotificationService mock) =>
+      _notificationService ??= mock;
+  // coverage:ignore-end
 
   NotificationService._();
-  static final NotificationService _notificationService =
-      NotificationService._();
+  static NotificationService? _notificationService;
   int curId = 0;
 
   Future<void> init() async {

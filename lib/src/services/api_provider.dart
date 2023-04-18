@@ -1,7 +1,13 @@
 part of 'services.dart';
 
 class ApiProvider {
-  factory ApiProvider() => _apiProvider;
+  factory ApiProvider() => _apiProvider ??= ApiProvider._();
+
+  // coverage:ignore-start
+  @visibleForTesting
+  factory ApiProvider.mocked(ApiProvider mock) => _apiProvider ??= mock;
+  // coverage:ignore-end
+
   ApiProvider._() {
     final auth = UserRepository().currentAppAuthentication;
 
@@ -37,7 +43,7 @@ class ApiProvider {
     miscApi = ncCookbookApi.getMiscApi();
     tagsApi = ncCookbookApi.getTagsApi();
   }
-  static final ApiProvider _apiProvider = ApiProvider._();
+  static ApiProvider? _apiProvider;
 
   late NcCookbookApi ncCookbookApi;
   late RecipesApi recipeApi;
