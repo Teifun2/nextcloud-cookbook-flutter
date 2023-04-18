@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/custom_cache_manager.dart';
 
 class UserImage extends StatelessWidget {
   const UserImage({
@@ -14,6 +15,7 @@ class UserImage extends StatelessWidget {
 
     return ClipOval(
       child: CachedNetworkImage(
+        cacheManager: CustomCacheManager().instance,
         cacheKey: "avatar",
         fit: BoxFit.fill,
         httpHeaders: {
