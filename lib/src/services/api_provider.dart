@@ -7,14 +7,23 @@ class ApiProvider {
   ApiProvider._() {
     final auth = UserRepository().currentAppAuthentication;
 
-    ncCookbookApi = NcCookbookApi(
-      dio: Dio(
-        BaseOptions(
-          baseUrl: '${auth.server}/apps/cookbook',
-          connectTimeout: const Duration(milliseconds: 30000),
-          receiveTimeout: const Duration(milliseconds: 30000),
-        ),
+    final client = Dio(
+      BaseOptions(
+        baseUrl: '${auth.server}/apps/cookbook',
+        connectTimeout: const Duration(milliseconds: 30000),
+        receiveTimeout: const Duration(milliseconds: 30000),
       ),
+    );
+
+    if (auth.isSelfSignedCertificate) {
+      client.httpClientAdapter = IOHttpClientAdapter(
+        onHttpClientCreate: (client) =>
+            client..badCertificateCallback = (cert, host, port) => true,
+      );
+    }
+
+    ncCookbookApi = NcCookbookApi(
+      dio: client,
     );
 
     ncCookbookApi.setBasicAuth(
