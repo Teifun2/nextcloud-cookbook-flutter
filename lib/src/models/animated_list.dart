@@ -8,7 +8,7 @@ typedef RemovedItemBuilder<T> = Widget Function(
   Animation<double> animation,
 );
 
-abstract class AnimatedListModel<E> {
+abstract class AnimatedListModel<E> extends Iterable<E> {
   AnimatedListModel({
     required this.listKey,
     required this.removedItemBuilder,
@@ -54,13 +54,16 @@ abstract class AnimatedListModel<E> {
     }
   }
 
+  @override
   bool get isNotEmpty => _items.isNotEmpty;
 
+  @override
   int get length => _items.length;
 
   E operator [](int index) => _items[index];
 
-  int indexOf(E item) => _items.indexOf(item);
+  @override
+  Iterator<E> get iterator => _items.iterator;
 }
 
 class AnimatedTimerList extends AnimatedListModel<Timer> {
