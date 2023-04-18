@@ -114,16 +114,11 @@ class DataRepository {
   }
 
   Future<RecipeStub?> _fetchCategoryMainRecipe(Category category) async {
-    try {
-      final categoryRecipes = await fetchRecipesShort(category: category.name);
-      if (categoryRecipes != null && categoryRecipes.isNotEmpty) {
-        return categoryRecipes.first;
-      }
-    } catch (e) {
-      log('Could not load main recipe of Category!');
-      rethrow;
-    }
+    final categoryRecipes = await fetchRecipesShort(category: category.name);
 
+    if (categoryRecipes != null && categoryRecipes.isNotEmpty) {
+      return categoryRecipes.first;
+    }
     return null;
   }
 
