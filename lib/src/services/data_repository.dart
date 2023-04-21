@@ -1,16 +1,22 @@
 part of 'services.dart';
 
 class DataRepository {
-  factory DataRepository() => _dataRepository;
+  factory DataRepository() => _dataRepository ??= const DataRepository._();
 
-  DataRepository._();
+  // coverage:ignore-start
+  @visibleForTesting
+  factory DataRepository.mocked(DataRepository mock) =>
+      _dataRepository ??= mock;
+  // coverage:ignore-end
+
+  const DataRepository._();
   // Singleton
-  static final DataRepository _dataRepository = DataRepository._();
+  static DataRepository? _dataRepository;
 
   // Provider List
-  final ApiProvider api = ApiProvider();
+  static final api = ApiProvider();
 
-  final NextcloudMetadataApi _nextcloudMetadataApi = NextcloudMetadataApi();
+  static final _nextcloudMetadataApi = NextcloudMetadataApi();
 
   // Data
   static final String categoryAll = translate('categories.all_categories');
@@ -108,16 +114,11 @@ class DataRepository {
   }
 
   Future<RecipeStub?> _fetchCategoryMainRecipe(Category category) async {
-    try {
-      final categoryRecipes = await fetchRecipesShort(category: category.name);
-      if (categoryRecipes != null && categoryRecipes.isNotEmpty) {
-        return categoryRecipes.first;
-      }
-    } catch (e) {
-      log('Could not load main recipe of Category!');
-      rethrow;
-    }
+    final categoryRecipes = await fetchRecipesShort(category: category.name);
 
+    if (categoryRecipes != null && categoryRecipes.isNotEmpty) {
+      return categoryRecipes.first;
+    }
     return null;
   }
 

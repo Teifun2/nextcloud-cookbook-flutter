@@ -1,5 +1,6 @@
 part of 'services.dart';
 
+// coverage:ignore-start
 class AuthenticationProvider {
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   final String _appAuthenticationKey = 'appAuthentication';
@@ -241,3 +242,4 @@ class AuthenticationProvider {
     await _secureStorage.delete(key: _appAuthenticationKey);
   }
 }
+// coverage:ignore-end

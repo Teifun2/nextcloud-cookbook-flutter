@@ -1,11 +1,18 @@
 part of 'services.dart';
 
 class IntentRepository {
-  factory IntentRepository() => _intentRepository;
+  factory IntentRepository() =>
+      _intentRepository ??= const IntentRepository._();
 
-  IntentRepository._();
+  // coverage:ignore-start
+  @visibleForTesting
+  factory IntentRepository.mocked(IntentRepository mock) =>
+      _intentRepository ??= mock;
+  // coverage:ignore-end
+
+  const IntentRepository._();
   // Singleton Pattern
-  static final IntentRepository _intentRepository = IntentRepository._();
+  static IntentRepository? _intentRepository;
 
   static final _navigationKey = GlobalKey<NavigatorState>();
   static const platform = MethodChannel('app.channel.shared.data');

@@ -1,43 +1,43 @@
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 
-extension RecipeExtension on Recipe {
-  Map<String, String> get nutritionList {
+extension NutritionExtension on Nutrition {
+  Map<String, String> get asMap {
     final items = <String, String>{};
-    if (nutrition.calories != null) {
-      items['calories'] = nutrition.calories!;
+    if (calories != null) {
+      items['calories'] = calories!;
     }
-    if (nutrition.carbohydrateContent != null) {
-      items['carbohydrateContent'] = nutrition.carbohydrateContent!;
+    if (carbohydrateContent != null) {
+      items['carbohydrateContent'] = carbohydrateContent!;
     }
-    if (nutrition.cholesterolContent != null) {
-      items['cholesterolContent'] = nutrition.cholesterolContent!;
+    if (cholesterolContent != null) {
+      items['cholesterolContent'] = cholesterolContent!;
     }
-    if (nutrition.fatContent != null) {
-      items['fatContent'] = nutrition.fatContent!;
+    if (fatContent != null) {
+      items['fatContent'] = fatContent!;
     }
-    if (nutrition.fiberContent != null) {
-      items['fiberContent'] = nutrition.fiberContent!;
+    if (fiberContent != null) {
+      items['fiberContent'] = fiberContent!;
     }
-    if (nutrition.proteinContent != null) {
-      items['proteinContent'] = nutrition.proteinContent!;
+    if (proteinContent != null) {
+      items['proteinContent'] = proteinContent!;
     }
-    if (nutrition.saturatedFatContent != null) {
-      items['saturatedFatContent'] = nutrition.saturatedFatContent!;
+    if (saturatedFatContent != null) {
+      items['saturatedFatContent'] = saturatedFatContent!;
     }
-    if (nutrition.servingSize != null) {
-      items['servingSize'] = nutrition.servingSize!;
+    if (servingSize != null) {
+      items['servingSize'] = servingSize!;
     }
-    if (nutrition.sodiumContent != null) {
-      items['sodiumContent'] = nutrition.sodiumContent!;
+    if (sodiumContent != null) {
+      items['sodiumContent'] = sodiumContent!;
     }
-    if (nutrition.sugarContent != null) {
-      items['sugarContent'] = nutrition.sugarContent!;
+    if (sugarContent != null) {
+      items['sugarContent'] = sugarContent!;
     }
-    if (nutrition.transFatContent != null) {
-      items['transFatContent'] = nutrition.transFatContent!;
+    if (transFatContent != null) {
+      items['transFatContent'] = transFatContent!;
     }
-    if (nutrition.unsaturatedFatContent != null) {
-      items['unsaturatedFatContent'] = nutrition.unsaturatedFatContent!;
+    if (unsaturatedFatContent != null) {
+      items['unsaturatedFatContent'] = unsaturatedFatContent!;
     }
 
     return items;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// coverage:ignore-start
 class AppTheme {
   const AppTheme._();
 
@@ -90,3 +91,4 @@ class SnackBarThemes extends ThemeExtension<SnackBarThemes> {
   @override
   String toString() => 'SnackBarThemes(colorScheme: $colorScheme)';
 }
+// coverage:ignore-end

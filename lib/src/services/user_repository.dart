@@ -1,13 +1,19 @@
 part of 'services.dart';
 
 class UserRepository {
-  factory UserRepository() => _userRepository;
+  factory UserRepository() => _userRepository ??= const UserRepository._();
 
-  UserRepository._();
+  // coverage:ignore-start
+  @visibleForTesting
+  factory UserRepository.mocked(UserRepository mock) =>
+      _userRepository ??= mock;
+  // coverage:ignore-end
+
+  const UserRepository._();
   // Singleton
-  static final UserRepository _userRepository = UserRepository._();
+  static UserRepository? _userRepository;
 
-  AuthenticationProvider authenticationProvider = AuthenticationProvider();
+  static final authenticationProvider = AuthenticationProvider();
 
   Future<AppAuthentication> authenticate(
     String serverUrl,

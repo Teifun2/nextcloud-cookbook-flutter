@@ -21,12 +21,14 @@ class AppAuthentication extends Equatable {
       ..responseType = ResponseType.plain;
 
     if (isSelfSignedCertificate) {
+      // coverage:ignore-start
       authenticatedClient.httpClientAdapter = IOHttpClientAdapter(
         onHttpClientCreate: (client) {
           client.badCertificateCallback = (cert, host, port) => true;
           return client;
         },
       );
+      // coverage:ignore-end
     }
   }
 

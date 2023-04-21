@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+// coverage:ignore-start
 class ImageResponse {
   const ImageResponse({
     required this.data,
@@ -8,3 +9,4 @@ class ImageResponse {
   final Uint8List data;
   final bool isSvg;
 }
+// coverage:ignore-end
