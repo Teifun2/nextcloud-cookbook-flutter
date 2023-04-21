@@ -8,13 +8,6 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/duration_utils.dart';
 
 class DurationFormField extends StatefulWidget {
-  final bool? enabled;
-  final Duration? initialValue;
-  final InputDecoration? decoration;
-  final void Function(Duration? value)? onSaved;
-  final TextAlign textAlign;
-  final FocusNode? focusNode;
-
   const DurationFormField({
     super.key,
     this.enabled,
@@ -24,6 +17,12 @@ class DurationFormField extends StatefulWidget {
     this.focusNode,
     this.textAlign = TextAlign.end,
   });
+  final bool? enabled;
+  final Duration? initialValue;
+  final InputDecoration? decoration;
+  final void Function(Duration? value)? onSaved;
+  final TextAlign textAlign;
+  final FocusNode? focusNode;
 
   @override
   _DurationFormFieldState createState() => _DurationFormFieldState();
@@ -71,23 +70,21 @@ class _DurationFormFieldState extends State<DurationFormField> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      readOnly: true,
-      showCursor: false,
-      enabled: widget.enabled,
-      onTap: onTap,
-      focusNode: focusNode,
-      decoration: widget.decoration,
-      textAlign: widget.textAlign,
-      onSaved: (value) {
-        if (value != null && value.isNotEmpty) {
-          widget.onSaved?.call(duration);
-        }
-      },
-    );
-  }
+  Widget build(BuildContext context) => TextFormField(
+        controller: controller,
+        readOnly: true,
+        showCursor: false,
+        enabled: widget.enabled,
+        onTap: onTap,
+        focusNode: focusNode,
+        decoration: widget.decoration,
+        textAlign: widget.textAlign,
+        onSaved: (value) {
+          if (value != null && value.isNotEmpty) {
+            widget.onSaved?.call(duration);
+          }
+        },
+      );
 }
 
 const Duration _kDialogSizeAnimationDuration = Duration(milliseconds: 200);
@@ -95,14 +92,13 @@ const Duration _kVibrateCommitDelay = Duration(milliseconds: 100);
 
 enum _DurationPickerMode { hour, minute }
 
-const double _kDurationPickerHeaderControlHeight = 80.0;
+const double _kDurationPickerHeaderControlHeight = 80;
 
-const double _kDurationPickerWidthPortrait = 328.0;
+const double _kDurationPickerWidthPortrait = 328;
 
-const double _kDurationPickerHeightInput = 226.0;
+const double _kDurationPickerHeightInput = 226;
 
-const BorderRadius _kDefaultBorderRadius =
-    BorderRadius.all(Radius.circular(4.0));
+const BorderRadius _kDefaultBorderRadius = BorderRadius.all(Radius.circular(4));
 const ShapeBorder _kDefaultShape =
     RoundedRectangleBorder(borderRadius: _kDefaultBorderRadius);
 
@@ -128,7 +124,7 @@ class RestorableDuration extends RestorableValue<Duration> {
 
   @override
   Duration fromPrimitives(Object? data) {
-    final List<Object?> timeData = data! as List<Object?>;
+    final timeData = data! as List<Object?>;
     return Duration(
       minutes: timeData[0]! as int,
       hours: value.inHours,
@@ -145,26 +141,26 @@ class _StringFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TimePickerThemeData durationPickerTheme = TimePickerTheme.of(context);
-    final TextStyle hourMinuteStyle = durationPickerTheme.hourMinuteTextStyle ??
+    final theme = Theme.of(context);
+    final durationPickerTheme = TimePickerTheme.of(context);
+    final hourMinuteStyle = durationPickerTheme.hourMinuteTextStyle ??
         theme.textTheme.displayMedium!;
-    final Color textColor =
+    final textColor =
         durationPickerTheme.hourMinuteTextColor ?? theme.colorScheme.onSurface;
 
     return ExcludeSemantics(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Center(
           child: Text(
-            ":",
+            ':',
             style: hourMinuteStyle.apply(
               color: MaterialStateProperty.resolveAs(
                 textColor,
                 <MaterialState>{},
               ),
             ),
-            textScaleFactor: 1.0,
+            textScaleFactor: 1,
           ),
         ),
       ),
@@ -241,7 +237,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
       return null;
     }
 
-    final int? newHour = int.tryParse(value);
+    final newHour = int.tryParse(value);
     if (newHour == null) {
       return null;
     }
@@ -258,7 +254,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
       return null;
     }
 
-    final int? newMinute = int.tryParse(value);
+    final newMinute = int.tryParse(value);
     if (newMinute == null) {
       return null;
     }
@@ -270,7 +266,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
   }
 
   void _handleHourSavedSubmitted(String? value) {
-    final int? newHour = _parseHour(value);
+    final newHour = _parseHour(value);
     if (newHour != null) {
       _selectedTime.value = Duration(
         hours: newHour,
@@ -281,7 +277,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
   }
 
   void _handleHourChanged(String value) {
-    final int? newHour = _parseHour(value);
+    final newHour = _parseHour(value);
     if (newHour != null && value.length == 2) {
       // If a valid hour is typed, move focus to the minute TextField.
       FocusScope.of(context).nextFocus();
@@ -289,7 +285,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
   }
 
   void _handleMinuteSavedSubmitted(String? value) {
-    final int? newMinute = _parseMinute(value);
+    final newMinute = _parseMinute(value);
     if (newMinute != null) {
       _selectedTime.value = Duration(
         hours: _selectedTime.value.inHours,
@@ -300,7 +296,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
   }
 
   String? _validateHour(String? value) {
-    final int? newHour = _parseHour(value);
+    final newHour = _parseHour(value);
     setState(() {
       hourHasError.value = newHour == null;
     });
@@ -311,7 +307,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
   }
 
   String? _validateMinute(String? value) {
-    final int? newMinute = _parseMinute(value);
+    final newMinute = _parseMinute(value);
     setState(() {
       minuteHasError.value = newMinute == null;
     });
@@ -324,13 +320,12 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
-    final ThemeData theme = Theme.of(context);
-    final TextStyle hourMinuteStyle =
-        TimePickerTheme.of(context).hourMinuteTextStyle ??
-            theme.textTheme.displayMedium!;
+    final theme = Theme.of(context);
+    final hourMinuteStyle = TimePickerTheme.of(context).hourMinuteTextStyle ??
+        theme.textTheme.displayMedium!;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -340,7 +335,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
             style: TimePickerTheme.of(context).helpTextStyle ??
                 theme.textTheme.labelSmall,
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             // Hour/minutes should not change positions in RTL locales.
@@ -350,7 +345,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(height: 8.0),
+                    const SizedBox(height: 8),
                     _HourTextField(
                       restorationId: 'hour_text_field',
                       selectedTime: _selectedTime.value,
@@ -361,7 +356,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
                       onChanged: _handleHourChanged,
                       hourLabelText: widget.hourLabelText,
                     ),
-                    const SizedBox(height: 8.0),
+                    const SizedBox(height: 8),
                     if (!hourHasError.value && !minuteHasError.value)
                       ExcludeSemantics(
                         child: Text(
@@ -377,7 +372,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 8.0),
+                margin: const EdgeInsets.only(top: 8),
                 height: _kDurationPickerHeaderControlHeight,
                 child: const _StringFragment(),
               ),
@@ -385,7 +380,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(height: 8.0),
+                    const SizedBox(height: 8),
                     _MinuteTextField(
                       restorationId: 'minute_text_field',
                       selectedTime: _selectedTime.value,
@@ -395,7 +390,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
                       onSavedSubmitted: _handleMinuteSavedSubmitted,
                       minuteLabelText: widget.minuteLabelText,
                     ),
-                    const SizedBox(height: 8.0),
+                    const SizedBox(height: 8),
                     if (!hourHasError.value && !minuteHasError.value)
                       ExcludeSemantics(
                         child: Text(
@@ -420,7 +415,7 @@ class _DurationPickerInputState extends State<_DurationPickerInput>
                   .copyWith(color: theme.colorScheme.error),
             )
           else
-            const SizedBox(height: 2.0),
+            const SizedBox(height: 2),
         ],
       ),
     );
@@ -449,20 +444,18 @@ class _HourTextField extends StatelessWidget {
   final String? restorationId;
 
   @override
-  Widget build(BuildContext context) {
-    return _HourMinuteTextField(
-      restorationId: restorationId,
-      selectedTime: selectedTime,
-      isHour: true,
-      autofocus: autofocus,
-      style: style,
-      semanticHintText: hourLabelText ??
-          MaterialLocalizations.of(context).timePickerHourLabel,
-      validator: validator,
-      onSavedSubmitted: onSavedSubmitted,
-      onChanged: onChanged,
-    );
-  }
+  Widget build(BuildContext context) => _HourMinuteTextField(
+        restorationId: restorationId,
+        selectedTime: selectedTime,
+        isHour: true,
+        autofocus: autofocus,
+        style: style,
+        semanticHintText: hourLabelText ??
+            MaterialLocalizations.of(context).timePickerHourLabel,
+        validator: validator,
+        onSavedSubmitted: onSavedSubmitted,
+        onChanged: onChanged,
+      );
 }
 
 class _MinuteTextField extends StatelessWidget {
@@ -485,19 +478,17 @@ class _MinuteTextField extends StatelessWidget {
   final String? restorationId;
 
   @override
-  Widget build(BuildContext context) {
-    return _HourMinuteTextField(
-      restorationId: restorationId,
-      selectedTime: selectedTime,
-      isHour: false,
-      autofocus: autofocus,
-      style: style,
-      semanticHintText: minuteLabelText ??
-          MaterialLocalizations.of(context).timePickerMinuteLabel,
-      validator: validator,
-      onSavedSubmitted: onSavedSubmitted,
-    );
-  }
+  Widget build(BuildContext context) => _HourMinuteTextField(
+        restorationId: restorationId,
+        selectedTime: selectedTime,
+        isHour: false,
+        autofocus: autofocus,
+        style: style,
+        semanticHintText: minuteLabelText ??
+            MaterialLocalizations.of(context).timePickerMinuteLabel,
+        validator: validator,
+        onSavedSubmitted: onSavedSubmitted,
+      );
 }
 
 class _HourMinuteTextField extends StatefulWidget {
@@ -570,20 +561,17 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
     registerForRestoration(controllerHasBeenSet, 'has_controller_been_set');
   }
 
-  String get _formattedValue {
-    return !widget.isHour
-        ? widget.selectedTime.inMinutes.remainder(60).toString().padLeft(2, '0')
-        : widget.selectedTime.inHours.remainder(60).toString().padLeft(2, '0');
-  }
+  String get _formattedValue => !widget.isHour
+      ? widget.selectedTime.inMinutes.remainder(60).toString().padLeft(2, '0')
+      : widget.selectedTime.inHours.remainder(60).toString().padLeft(2, '0');
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TimePickerThemeData durationPickerTheme = TimePickerTheme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
+    final theme = Theme.of(context);
+    final durationPickerTheme = TimePickerTheme.of(context);
+    final colorScheme = theme.colorScheme;
 
-    final InputDecorationTheme? inputDecorationTheme =
-        durationPickerTheme.inputDecorationTheme;
+    final inputDecorationTheme = durationPickerTheme.inputDecorationTheme;
     InputDecoration inputDecoration;
     if (inputDecorationTheme != null) {
       inputDecoration =
@@ -596,24 +584,24 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
           borderSide: BorderSide(color: Colors.transparent),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: colorScheme.error, width: 2.0),
+          borderSide: BorderSide(color: colorScheme.error, width: 2),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: colorScheme.primary, width: 2.0),
+          borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: colorScheme.error, width: 2.0),
+          borderSide: BorderSide(color: colorScheme.error, width: 2),
         ),
         hintStyle: widget.style
             .copyWith(color: colorScheme.onSurface.withOpacity(0.36)),
         // TODO(rami-a): Remove this logic once https://github.com/flutter/flutter/issues/54104 is fixed.
         errorStyle: const TextStyle(
-          fontSize: 0.0,
-          height: 0.0,
+          fontSize: 0,
+          height: 0,
         ), // Prevent the error text from appearing.
       );
     }
-    final Color unfocusedFillColor = durationPickerTheme.hourMinuteColor ??
+    final unfocusedFillColor = durationPickerTheme.hourMinuteColor ??
         colorScheme.onSurface.withOpacity(0.12);
     // If screen reader is in use, make the hint text say hours/minutes.
     // Otherwise, remove the hint text when focused because the centered cursor
@@ -621,7 +609,7 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
     //
     // TODO(rami-a): Once https://github.com/flutter/flutter/issues/67571 is
     // resolved, remove the window check for semantics being enabled on web.
-    final String? hintText = MediaQuery.of(context).accessibleNavigation ||
+    final hintText = MediaQuery.of(context).accessibleNavigation ||
             WidgetsBinding.instance.window.semanticsEnabled
         ? widget.semanticHintText
         : (focusNode.hasFocus ? null : _formattedValue);
@@ -635,7 +623,7 @@ class _HourMinuteTextFieldState extends State<_HourMinuteTextField>
     return SizedBox(
       height: _kDurationPickerHeaderControlHeight,
       child: MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
         child: UnmanagedRestorationScope(
           bucket: bucket,
           child: TextFormField(
@@ -864,7 +852,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog>
       case TargetPlatform.windows:
         _vibrateTimer?.cancel();
         _vibrateTimer = Timer(_kVibrateCommitDelay, () {
-          HapticFeedback.vibrate();
+          unawaited(HapticFeedback.vibrate());
           _vibrateTimer = null;
         });
         break;
@@ -921,7 +909,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog>
   }
 
   void _handleOk() {
-    final FormState form = _formKey.currentState!;
+    final form = _formKey.currentState!;
     if (!form.validate()) {
       setState(() {
         _autovalidateMode.value = AutovalidateMode.always;
@@ -949,17 +937,16 @@ class _DurationPickerDialogState extends State<DurationPickerDialog>
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
-    final ThemeData theme = Theme.of(context);
-    final ShapeBorder shape =
-        TimePickerTheme.of(context).shape ?? _kDefaultShape;
+    final theme = Theme.of(context);
+    final shape = TimePickerTheme.of(context).shape ?? _kDefaultShape;
 
     final Widget actions = Row(
       children: <Widget>[
-        const SizedBox(width: 10.0),
+        const SizedBox(width: 10),
         Expanded(
           child: Container(
             alignment: AlignmentDirectional.centerEnd,
-            constraints: const BoxConstraints(minHeight: 52.0),
+            constraints: const BoxConstraints(minHeight: 52),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: OverflowBar(
               spacing: 8,
@@ -1008,13 +995,13 @@ class _DurationPickerDialogState extends State<DurationPickerDialog>
       ),
     );
 
-    final Size dialogSize = _dialogSize(context);
+    final dialogSize = _dialogSize(context);
     return Dialog(
       shape: shape,
       backgroundColor: TimePickerTheme.of(context).backgroundColor ??
           theme.colorScheme.surface,
       insetPadding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
+        horizontal: 16,
       ),
       child: AnimatedContainer(
         width: dialogSize.width,
@@ -1035,5 +1022,5 @@ class _DurationPickerDialogState extends State<DurationPickerDialog>
 }
 
 void _announceToAccessibility(BuildContext context, String message) {
-  SemanticsService.announce(message, Directionality.of(context));
+  unawaited(SemanticsService.announce(message, Directionality.of(context)));
 }

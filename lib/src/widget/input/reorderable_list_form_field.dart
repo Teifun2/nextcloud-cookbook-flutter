@@ -5,7 +5,6 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 class ReordarableListFormField extends FormField<ListBuilder<String>> {
   ReordarableListFormField({
-    super.key,
     required String title,
     ListBuilder<String>? initialValues,
     super.onSaved,
@@ -14,36 +13,34 @@ class ReordarableListFormField extends FormField<ListBuilder<String>> {
     AutovalidateMode? autovalidateMode,
     InputDecoration decoration = const InputDecoration(),
     super.restorationId,
+    super.key,
   }) : super(
           initialValue: initialValues,
           autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-          builder: (FormFieldState<ListBuilder<String>> state) {
-            return UnmanagedRestorationScope(
-              bucket: state.bucket,
-              child: ReordarableListField(
-                title: title,
-                items: initialValues?.build().toList(),
-                enabled: enabled,
-                decoration: decoration,
-              ),
-            );
-          },
+          builder: (state) => UnmanagedRestorationScope(
+            bucket: state.bucket,
+            child: ReordarableListField(
+              title: title,
+              items: initialValues?.build().toList(),
+              enabled: enabled,
+              decoration: decoration,
+            ),
+          ),
         );
 }
 
 class ReordarableListField extends StatefulWidget {
-  final String title;
-  final List<String>? items;
-  final bool enabled;
-  final InputDecoration decoration;
-
   const ReordarableListField({
-    super.key,
     required this.title,
     this.items,
     this.enabled = true,
     this.decoration = const InputDecoration(),
+    super.key,
   });
+  final String title;
+  final List<String>? items;
+  final bool enabled;
+  final InputDecoration decoration;
 
   @override
   _ReordarableListFieldState createState() => _ReordarableListFieldState();
@@ -81,17 +78,15 @@ class _ReordarableListFieldState extends State<ReordarableListField> {
     });
   }
 
-  Widget _buildItem(BuildContext context, int index) {
-    return Item(
-      key: UniqueKey(),
-      controller: _items[index],
-      index: index,
-      focus: index == _items.length - 1,
-      onDismissed: () {
-        setState(() => _items.removeAt(index));
-      },
-    );
-  }
+  Widget _buildItem(BuildContext context, int index) => Item(
+        key: UniqueKey(),
+        controller: _items[index],
+        index: index,
+        focus: index == _items.length - 1,
+        onDismissed: () {
+          setState(() => _items.removeAt(index));
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +103,7 @@ class _ReordarableListFieldState extends State<ReordarableListField> {
     );
 
     final items = SliverPadding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8),
       sliver: SliverReorderableList(
         onReorder: _reorderCallback,
         itemCount: _items.length,
@@ -121,7 +116,7 @@ class _ReordarableListFieldState extends State<ReordarableListField> {
       focusNode: focusNode,
       icon: const Icon(Icons.add_outlined),
       label: Text(
-        translate("recipe_create.add_field"),
+        translate('recipe_create.add_field'),
       ),
       onPressed: () {
         if (widget.enabled) {
@@ -142,14 +137,14 @@ class _ReordarableListFieldState extends State<ReordarableListField> {
 
 class Item extends StatefulWidget {
   const Item({
-    super.key,
     required VoidCallback this.onDismissed,
     required TextEditingController this.controller,
     required this.index,
     this.focus = false,
+    super.key,
   });
 
-  const Item.prototype()
+  const Item.prototype({super.key})
       : onDismissed = null,
         controller = null,
         index = 0,
@@ -192,7 +187,7 @@ class _ItemState extends State<Item> {
     );
 
     final deleteButton = IconButton(
-      tooltip: translate("recipe_create.remove_field"),
+      tooltip: translate('recipe_create.remove_field'),
       icon: Icon(
         Icons.delete,
         color: Theme.of(context).colorScheme.error,

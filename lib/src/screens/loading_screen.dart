@@ -9,35 +9,33 @@ class LoadingErrorScreen extends StatelessWidget {
   final String message;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(message),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<AuthenticationBloc>(context)
-                      .add(const AppStarted());
-                },
-                child: Text(translate("login.retry")),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<AuthenticationBloc>(context)
-                      .add(const LoggedOut());
-                },
-                child: Text(translate("login.reset")),
-              ),
-            ],
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(message),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(const AppStarted());
+                  },
+                  child: Text(translate('login.retry')),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(const LoggedOut());
+                  },
+                  child: Text(translate('login.reset')),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

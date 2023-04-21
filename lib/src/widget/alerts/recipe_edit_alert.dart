@@ -18,7 +18,7 @@ class CancelEditAlert extends StatelessWidget {
       content: Text(
         translate(
           'recipe_form.$key.dialog',
-          args: {"recipe": recipe?.name},
+          args: {'recipe': recipe?.name},
         ),
       ),
       actions: [

@@ -10,9 +10,12 @@ import 'package:nextcloud_cookbook_flutter/src/util/theme_data.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 
 class RecipeImportScreen extends StatefulWidget {
-  final String importUrl;
+  const RecipeImportScreen({
+    this.importUrl = '',
+    super.key,
+  });
 
-  const RecipeImportScreen([this.importUrl = '']);
+  final String importUrl;
 
   @override
   State<RecipeImportScreen> createState() => _RecipeImportScreenState();
@@ -78,22 +81,20 @@ class _RecipeImportScreenState extends State<RecipeImportScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<RecipeBloc>(
-      create: (context) => RecipeBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(translate("recipe_import.title")),
+  Widget build(BuildContext context) => BlocProvider<RecipeBloc>(
+        create: (context) => RecipeBloc(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(translate('recipe_import.title')),
+          ),
+          body: BlocConsumer<RecipeBloc, RecipeState>(
+            builder: builder,
+            listener: listener,
+          ),
         ),
-        body: BlocConsumer<RecipeBloc, RecipeState>(
-          builder: builder,
-          listener: listener,
-        ),
-      ),
-    );
-  }
+      );
 
-  void listener(BuildContext context, RecipeState state) {
+  Future<void> listener(BuildContext context, RecipeState state) async {
     if (state.status == RecipeStatus.importFailure) {
       final theme =
           Theme.of(context).extension<SnackBarThemes>()!.errorSnackBar;
@@ -102,7 +103,7 @@ class _RecipeImportScreenState extends State<RecipeImportScreen> {
           content: Text(
             translate(
               'recipe_import.errors.import_failed',
-              args: {"error_msg": state.error},
+              args: {'error_msg': state.error},
             ),
             style: theme.contentTextStyle,
           ),
@@ -110,12 +111,10 @@ class _RecipeImportScreenState extends State<RecipeImportScreen> {
         ),
       );
     } else if (state.status == RecipeStatus.importSuccess) {
-      Navigator.push(
+      await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) {
-            return RecipeScreen(recipeId: state.recipe!.id!);
-          },
+          builder: (context) => RecipeScreen(recipeId: state.recipe!.id!),
         ),
       );
     }
@@ -126,7 +125,7 @@ class _RecipeImportScreenState extends State<RecipeImportScreen> {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10),
         child: Form(
           key: _formKey,
           child: Column(
@@ -138,7 +137,7 @@ class _RecipeImportScreenState extends State<RecipeImportScreen> {
                 onSaved: import,
                 onEditingComplete: onSubmit,
                 decoration: InputDecoration(
-                  hintText: translate("recipe_import.field"),
+                  hintText: translate('recipe_import.field'),
                   suffixIcon: IconButton(
                     tooltip: MaterialLocalizations.of(context).pasteButtonLabel,
                     onPressed: pasteClipboard,
@@ -152,7 +151,7 @@ class _RecipeImportScreenState extends State<RecipeImportScreen> {
                     ? OutlinedButton.icon(
                         onPressed: enabled ? onSubmit : null,
                         icon: const Icon(Icons.cloud_download_outlined),
-                        label: Text(translate("recipe_import.button")),
+                        label: Text(translate('recipe_import.button')),
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           side: BorderSide(
@@ -162,7 +161,7 @@ class _RecipeImportScreenState extends State<RecipeImportScreen> {
                       )
                     : SpinKitWave(
                         color: Theme.of(context).colorScheme.primary,
-                        size: 30.0,
+                        size: 30,
                       ),
               ),
             ],

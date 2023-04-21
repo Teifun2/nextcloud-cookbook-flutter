@@ -12,9 +12,8 @@ class AppStarted extends AuthenticationEvent {
 }
 
 class LoggedIn extends AuthenticationEvent {
-  final AppAuthentication appAuthentication;
-
   const LoggedIn({required this.appAuthentication});
+  final AppAuthentication appAuthentication;
 
   @override
   List<Object> get props => [appAuthentication];

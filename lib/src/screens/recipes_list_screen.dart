@@ -6,12 +6,11 @@ import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_list_item.dart';
 
 class RecipesListScreen extends StatefulWidget {
-  final String category;
-
   const RecipesListScreen({
-    super.key,
     required this.category,
+    super.key,
   });
+  final String category;
 
   @override
   State<RecipesListScreen> createState() => _RecipesListScreenState();
@@ -19,7 +18,8 @@ class RecipesListScreen extends StatefulWidget {
 
 class _RecipesListScreenState extends State<RecipesListScreen> {
   Future<void> refresh() async {
-    DefaultCacheManager().emptyCache();
+    await DefaultCacheManager().emptyCache();
+    // ignore: use_build_context_synchronously
     BlocProvider.of<RecipesShortBloc>(context)
         .add(RecipesShortLoaded(category: widget.category));
   }
@@ -33,46 +33,44 @@ class _RecipesListScreenState extends State<RecipesListScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          translate(
-            'recipe_list.title_category',
-            args: {'category': widget.category},
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            translate(
+              'recipe_list.title_category',
+              args: {'category': widget.category},
+            ),
           ),
+          actions: <Widget>[
+            // action button
+            IconButton(
+              icon: const Icon(Icons.refresh_outlined),
+              tooltip: MaterialLocalizations.of(context)
+                  .refreshIndicatorSemanticLabel,
+              onPressed: refresh,
+            ),
+          ],
         ),
-        actions: <Widget>[
-          // action button
-          IconButton(
-            icon: const Icon(Icons.refresh_outlined),
-            tooltip:
-                MaterialLocalizations.of(context).refreshIndicatorSemanticLabel,
-            onPressed: refresh,
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: refresh,
-        child: BlocBuilder<RecipesShortBloc, RecipesShortState>(
-          builder: (context, recipesShortState) {
-            if (recipesShortState.status == RecipesShortStatus.loadSuccess) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.separated(
-                  itemCount: recipesShortState.recipesShort!.length,
-                  itemBuilder: (context, index) => RecipeListItem(
-                    recipe: recipesShortState.recipesShort!.elementAt(index),
+        body: RefreshIndicator(
+          onRefresh: refresh,
+          child: BlocBuilder<RecipesShortBloc, RecipesShortState>(
+            builder: (context, recipesShortState) {
+              if (recipesShortState.status == RecipesShortStatus.loadSuccess) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ListView.separated(
+                    itemCount: recipesShortState.recipesShort!.length,
+                    itemBuilder: (context, index) => RecipeListItem(
+                      recipe: recipesShortState.recipesShort!.elementAt(index),
+                    ),
+                    separatorBuilder: (context, index) => const Divider(),
                   ),
-                  separatorBuilder: (context, index) => const Divider(),
-                ),
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

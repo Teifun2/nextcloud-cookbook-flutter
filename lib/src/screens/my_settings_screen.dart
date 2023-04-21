@@ -11,53 +11,52 @@ class MySettingsScreen extends StatelessWidget {
   const MySettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SettingsScreen(
-      title: translate("settings.title"),
-      children: [
-        SwitchSettingsTile(
-          title: translate("settings.stay_awake.title"),
-          settingKey: SettingKeys.stay_awake.name,
-          subtitle: translate("settings.stay_awake.subtitle"),
-        ),
-        DropDownSettingsTile<String>(
-          title: translate("settings.dark_mode.title"),
-          settingKey: SettingKeys.dark_mode.name,
-          values: <String, String>{
-            ThemeMode.system.toString(): translate("settings.dark_mode.system"),
-            ThemeMode.dark.toString(): translate("settings.dark_mode.dark"),
-            ThemeMode.light.toString(): translate("settings.dark_mode.light"),
-          },
-          selected: ThemeModeHandler.of(context)!.themeMode.toString(),
-          onChange: (value) {
-            final theme = ThemeMode.values.firstWhere(
-              (v) => v.toString() == value,
-              orElse: () => ThemeMode.system,
-            );
-            ThemeModeHandler.of(context)?.saveThemeMode(theme);
-          },
-        ),
-        DropDownSettingsTile(
-          title: translate("settings.language.title"),
-          settingKey: SettingKeys.language.name,
-          selected: Settings.getValue<String>(
-            SettingKeys.language.name,
-            defaultValue: 'default',
+  Widget build(BuildContext context) => SettingsScreen(
+        title: translate('settings.title'),
+        children: [
+          SwitchSettingsTile(
+            title: translate('settings.stay_awake.title'),
+            settingKey: SettingKeys.stay_awake.name,
+            subtitle: translate('settings.stay_awake.subtitle'),
           ),
-          values: Map.from(
-            <String, String>{
-              'default': translate("settings.dark_mode.system"),
+          DropDownSettingsTile<String>(
+            title: translate('settings.dark_mode.title'),
+            settingKey: SettingKeys.dark_mode.name,
+            values: <String, String>{
+              ThemeMode.system.toString():
+                  translate('settings.dark_mode.system'),
+              ThemeMode.dark.toString(): translate('settings.dark_mode.dark'),
+              ThemeMode.light.toString(): translate('settings.dark_mode.light'),
             },
-          )..addAll(SupportedLocales.locales),
-          onChange: (dynamic value) {
-            if (value == 'default') {
-              changeLocale(context, Platform.localeName);
-            } else {
-              changeLocale(context, value as String?);
-            }
-          },
-        )
-      ],
-    );
-  }
+            selected: ThemeModeHandler.of(context)!.themeMode.toString(),
+            onChange: (value) async {
+              final theme = ThemeMode.values.firstWhere(
+                (v) => v.toString() == value,
+                orElse: () => ThemeMode.system,
+              );
+              await ThemeModeHandler.of(context)?.saveThemeMode(theme);
+            },
+          ),
+          DropDownSettingsTile<String>(
+            title: translate('settings.language.title'),
+            settingKey: SettingKeys.language.name,
+            selected: Settings.getValue<String>(
+              SettingKeys.language.name,
+              defaultValue: 'default',
+            )!,
+            values: Map.from(
+              <String, String>{
+                'default': translate('settings.dark_mode.system'),
+              },
+            )..addAll(SupportedLocales.locales),
+            onChange: (value) async {
+              if (value == 'default') {
+                await changeLocale(context, Platform.localeName);
+              } else {
+                await changeLocale(context, value);
+              }
+            },
+          )
+        ],
+      );
 }

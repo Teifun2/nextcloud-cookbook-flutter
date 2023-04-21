@@ -8,11 +8,6 @@ enum CategoriesStatus {
 }
 
 class CategoriesState extends Equatable {
-  final CategoriesStatus status;
-  final String? error;
-  final Iterable<Category>? categories;
-  final Iterable<RecipeStub?>? recipes;
-
   CategoriesState({
     this.status = CategoriesStatus.loadInProgress,
     this.error,
@@ -33,6 +28,10 @@ class CategoriesState extends Equatable {
         assert(error != null && categories == null && recipes == null);
     }
   }
+  final CategoriesStatus status;
+  final String? error;
+  final Iterable<Category>? categories;
+  final Iterable<RecipeStub?>? recipes;
 
   @override
   List<Object?> get props => [status, error, categories];

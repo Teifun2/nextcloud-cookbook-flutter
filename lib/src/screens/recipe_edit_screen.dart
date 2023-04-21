@@ -16,12 +16,11 @@ import 'package:nextcloud_cookbook_flutter/src/widget/input/integer_text_form_fi
 import 'package:nextcloud_cookbook_flutter/src/widget/input/reorderable_list_form_field.dart';
 
 class RecipeEditScreen extends StatefulWidget {
-  final Recipe? recipe;
-
   const RecipeEditScreen({
     this.recipe,
     super.key,
   });
+  final Recipe? recipe;
 
   @override
   State<RecipeEditScreen> createState() => _RecipeEditScreenState();
@@ -85,7 +84,7 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
 
   Future<bool> onWillPop() async {
     if (widget.recipe != null) {
-      final RecipeBloc recipeBloc = BlocProvider.of<RecipeBloc>(context);
+      final recipeBloc = BlocProvider.of<RecipeBloc>(context);
       if (recipeBloc.state.status == RecipeStatus.updateFailure) {
         recipeBloc.add(RecipeLoaded(widget.recipe!.id!));
       }
@@ -104,32 +103,30 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(translate('$translationKey.title')),
-        actions: [
-          if (widget.recipe != null) ...[
-            IconButton(
-              icon: const Icon(Icons.delete),
-              tooltip: translate("recipe_edit.delete.title").toLowerCase(),
-              color: Theme.of(context).colorScheme.error,
-              onPressed: onDelete,
-            ),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(translate('$translationKey.title')),
+          actions: [
+            if (widget.recipe != null) ...[
+              IconButton(
+                icon: const Icon(Icons.delete),
+                tooltip: translate('recipe_edit.delete.title').toLowerCase(),
+                color: Theme.of(context).colorScheme.error,
+                onPressed: onDelete,
+              ),
+            ],
           ],
-        ],
-      ),
-      body: BlocConsumer<RecipeBloc, RecipeState>(
-        builder: builder,
-        listener: listener,
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: translate('$translationKey.button'),
-        onPressed: onSubmit,
-        child: const Icon(Icons.check_outlined),
-      ),
-    );
-  }
+        ),
+        body: BlocConsumer<RecipeBloc, RecipeState>(
+          builder: builder,
+          listener: listener,
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: translate('$translationKey.button'),
+          onPressed: onSubmit,
+          child: const Icon(Icons.check_outlined),
+        ),
+      );
 
   Widget builder(BuildContext context, RecipeState state) {
     final theme = Theme.of(context);
@@ -155,7 +152,7 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
         autofocus: true,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return translate("form.validators.required");
+            return translate('form.validators.required');
           }
 
           return null;
@@ -185,13 +182,10 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
           textInputAction: TextInputAction.next,
         ),
         suggestionsCallback: DataRepository().getMatchingCategoryNames,
-        itemBuilder: (context, String suggestion) {
-          return ListTile(
-            title: Text(suggestion),
-          );
-        },
-        onSuggestionSelected: (String? suggestion) {
-          if (suggestion == null) return;
+        itemBuilder: (context, suggestion) => ListTile(
+          title: Text(suggestion),
+        ),
+        onSuggestionSelected: (suggestion) {
           categoryController.text = suggestion;
         },
         onSaved: (value) => _mutableRecipe.recipeCategory = value,
@@ -277,7 +271,7 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
       if (state.status == RecipeStatus.updateInProgress)
         SpinKitWave(
           color: Theme.of(context).colorScheme.onSecondary,
-          size: 30.0,
+          size: 30,
         ),
     ];
 
@@ -328,7 +322,7 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
     );
   }
 
-  void listener(BuildContext context, RecipeState state) {
+  Future<void> listener(BuildContext context, RecipeState state) async {
     final theme = Theme.of(context).extension<SnackBarThemes>()!.errorSnackBar;
 
     switch (state.status) {
@@ -340,7 +334,7 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
             content: Text(
               translate(
                 '$translationKey.errors.update_failed',
-                args: {"error_msg": state.error},
+                args: {'error_msg': state.error},
               ),
               style: theme.contentTextStyle,
             ),
@@ -358,7 +352,7 @@ class _RecipeEditScreenState extends State<RecipeEditScreen> {
         Navigator.pop(context);
         break;
       case RecipeStatus.createSuccess:
-        Navigator.pushReplacement(
+        await Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => RecipeScreen(recipeId: state.recipeId!),

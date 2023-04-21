@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -5,23 +7,8 @@ import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 
 part 'timer.g.dart';
 
-@JsonSerializable(constructor: "restore")
+@JsonSerializable(constructor: 'restore')
 class Timer {
-  @visibleForTesting
-  @JsonKey(
-    toJson: _recipeToJson,
-    fromJson: _recipeFromJson,
-  )
-  final Recipe? recipe;
-  final DateTime done;
-
-  final String? _title;
-  final String? _body;
-  final Duration? _duration;
-  final String? _recipeId;
-
-  int? id;
-
   Timer(Recipe this.recipe)
       : _title = null,
         _body = null,
@@ -67,6 +54,20 @@ class Timer {
       );
     }
   }
+  @visibleForTesting
+  @JsonKey(
+    toJson: _recipeToJson,
+    fromJson: _recipeFromJson,
+  )
+  final Recipe? recipe;
+  final DateTime done;
+
+  final String? _title;
+  final String? _body;
+  final Duration? _duration;
+  final String? _recipeId;
+
+  int? id;
 
   Map<String, dynamic> toJson() => _$TimerToJson(this);
 
@@ -91,7 +92,7 @@ class Timer {
   /// Prgogrss of the timer in percent.
   double get progress {
     if (remaining == Duration.zero) {
-      return 1.0;
+      return 1;
     }
 
     return 1.0 - (remaining.inMicroseconds / duration.inMicroseconds);

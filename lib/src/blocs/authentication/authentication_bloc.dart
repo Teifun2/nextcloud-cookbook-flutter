@@ -8,19 +8,18 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final UserRepository userRepository = UserRepository();
-
   AuthenticationBloc() : super(AuthenticationState()) {
     on<AppStarted>(_mapAppStartedEventToState);
     on<LoggedIn>(_mapLoggedInEventToState);
     on<LoggedOut>(_mapLoggedOutEventToState);
   }
+  final UserRepository userRepository = UserRepository();
 
   Future<void> _mapAppStartedEventToState(
     AppStarted event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final bool hasToken = await userRepository.hasAppAuthentication();
+    final hasToken = await userRepository.hasAppAuthentication();
 
     if (hasToken) {
       await userRepository.loadAppAuthentication();

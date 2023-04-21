@@ -15,18 +15,18 @@ class CategoryGridDelegate extends SliverGridDelegate {
 
   @override
   SliverGridLayout getLayout(SliverConstraints constraints) {
-    int crossAxisCount =
+    var crossAxisCount =
         (constraints.crossAxisExtent / (maxCrossAxisExtent + crossAxisSpacing))
             .ceil();
     // Ensure a minimum count of 1, can be zero and result in an infinite extent
     // below when the window size is 0.
     crossAxisCount = math.max(1, crossAxisCount);
     final double usableCrossAxisExtent = math.max(
-      0.0,
+      0,
       constraints.crossAxisExtent - crossAxisSpacing * (crossAxisCount - 1),
     );
-    final double childCrossAxisExtent = usableCrossAxisExtent / crossAxisCount;
-    final double childMainAxisExtent = childCrossAxisExtent + extent;
+    final childCrossAxisExtent = usableCrossAxisExtent / crossAxisCount;
+    final childMainAxisExtent = childCrossAxisExtent + extent;
 
     return SliverGridRegularTileLayout(
       crossAxisCount: crossAxisCount,
@@ -39,7 +39,6 @@ class CategoryGridDelegate extends SliverGridDelegate {
   }
 
   @override
-  bool shouldRelayout(CategoryGridDelegate oldDelegate) {
-    return oldDelegate.extent != extent;
-  }
+  bool shouldRelayout(CategoryGridDelegate oldDelegate) =>
+      oldDelegate.extent != extent;
 }

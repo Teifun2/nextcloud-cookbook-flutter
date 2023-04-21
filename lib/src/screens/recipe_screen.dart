@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -14,22 +16,19 @@ import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/timer_list_item.dart';
 
 class RecipeScreen extends StatelessWidget {
-  final String recipeId;
-
   const RecipeScreen({
     required this.recipeId,
     super.key,
   });
+  final String recipeId;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<RecipeBloc>(
-      create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId)),
-      child: BlocBuilder<RecipeBloc, RecipeState>(
-        builder: builder,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => BlocProvider<RecipeBloc>(
+        create: (context) => RecipeBloc()..add(RecipeLoaded(recipeId)),
+        child: BlocBuilder<RecipeBloc, RecipeState>(
+          builder: builder,
+        ),
+      );
 
   Widget builder(BuildContext context, RecipeState state) {
     switch (state.status) {
@@ -75,7 +74,7 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
   late AnimatedTimerList _list;
 
   Future<void> _onEdit() async {
-    disableWakelock();
+    unawaited(disableWakelock());
 
     final recipeBloc = BlocProvider.of<RecipeBloc>(context);
     await Navigator.push(
@@ -87,43 +86,41 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
         ),
       ),
     );
-    enableWakelock();
+    unawaited(enableWakelock());
   }
 
   Widget _buildTimerItem(
     BuildContext context,
     int index,
     Animation<double> animation,
-  ) {
-    return TimerListItem(
-      animation: animation,
-      item: _list[index],
-      dense: true,
-      onDismissed: () {
-        _list.removeAt(index);
-      },
-    );
-  }
+  ) =>
+      TimerListItem(
+        animation: animation,
+        item: _list[index],
+        dense: true,
+        onDismissed: () {
+          _list.removeAt(index);
+        },
+      );
 
   Widget _buildRemovedTimerItem(
     Timer item,
     BuildContext context,
     Animation<double> animation,
-  ) {
-    return TimerListItem(
-      animation: animation,
-      item: item,
-      dense: true,
-      enabled: false,
-    );
-  }
+  ) =>
+      TimerListItem(
+        animation: animation,
+        item: item,
+        dense: true,
+        enabled: false,
+      );
 
   @override
   void initState() {
     super.initState();
 
     recipe = widget.recipe;
-    enableWakelock();
+    unawaited(enableWakelock());
 
     _list = AnimatedTimerList.forId(
       listKey: _listKey,
@@ -174,7 +171,10 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
     );
 
     final body = WillPopScope(
-      onWillPop: disableWakelock,
+      onWillPop: () async {
+        unawaited(disableWakelock());
+        return true;
+      },
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: CustomScrollView(
@@ -186,15 +186,15 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               sliver: header,
             ),
             SliverPadding(
-              padding: const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 16),
               sliver: timerList,
             ),
             SliverPadding(
-              padding: const EdgeInsets.only(bottom: 75.0),
+              padding: const EdgeInsets.only(bottom: 75),
               sliver: bottom,
             ),
           ],
@@ -207,7 +207,7 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.edit_outlined),
-            tooltip: translate("recipe_create.title").toLowerCase(),
+            tooltip: translate('recipe_create.title').toLowerCase(),
             onPressed: _onEdit,
           ),
         ],
@@ -253,7 +253,7 @@ class RecipeScreenFab extends StatelessWidget {
 
     return FloatingActionButton(
       onPressed: callback,
-      tooltip: translate("timer.button.start"),
+      tooltip: translate('timer.button.start'),
       backgroundColor: color,
       child: const Icon(Icons.access_alarm_outlined),
     );

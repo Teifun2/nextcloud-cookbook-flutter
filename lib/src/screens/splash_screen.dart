@@ -5,13 +5,11 @@ class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SpinKitWave(
-          color: Theme.of(context).colorScheme.primary,
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(
+          child: SpinKitWave(
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

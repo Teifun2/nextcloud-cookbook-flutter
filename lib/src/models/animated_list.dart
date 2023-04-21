@@ -27,13 +27,12 @@ abstract class AnimatedListModel<E> {
   }
 
   E removeAt(int index) {
-    final E removedItem = _items.removeAt(index);
+    final removedItem = _items.removeAt(index);
     if (removedItem != null) {
       _animatedList.removeItem(
         index,
-        (BuildContext context, Animation<double> animation) {
-          return removedItemBuilder(removedItem, context, animation);
-        },
+        (context, animation) =>
+            removedItemBuilder(removedItem, context, animation),
       );
     }
     return removedItem;

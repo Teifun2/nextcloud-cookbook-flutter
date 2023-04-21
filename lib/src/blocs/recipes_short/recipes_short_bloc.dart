@@ -7,12 +7,11 @@ part 'recipes_short_event.dart';
 part 'recipes_short_state.dart';
 
 class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
-  final DataRepository dataRepository = DataRepository();
-
   RecipesShortBloc() : super(RecipesShortState()) {
     on<RecipesShortLoaded>(_mapRecipesShortLoadedToState);
     on<RecipesShortLoadedAll>(_mapRecipesShortLoadedAllToState);
   }
+  final DataRepository dataRepository = DataRepository();
 
   Future<void> _mapRecipesShortLoadedToState(
     RecipesShortLoaded recipesShortLoaded,
@@ -32,7 +31,7 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
       emit(
         RecipesShortState(
           status: RecipesShortStatus.loadFailure,
-          error: "",
+          error: '',
         ),
       );
     }
@@ -59,7 +58,7 @@ class RecipesShortBloc extends Bloc<RecipesShortEvent, RecipesShortState> {
       emit(
         RecipesShortState(
           status: RecipesShortStatus.loadAllFailure,
-          error: "",
+          error: '',
         ),
       );
     }

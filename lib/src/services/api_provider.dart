@@ -1,8 +1,6 @@
 part of 'services.dart';
 
 class ApiProvider {
-  static final ApiProvider _apiProvider = ApiProvider._();
-
   factory ApiProvider() => _apiProvider;
   ApiProvider._() {
     final auth = UserRepository().currentAppAuthentication;
@@ -13,7 +11,10 @@ class ApiProvider {
         connectTimeout: const Duration(milliseconds: 30000),
         receiveTimeout: const Duration(milliseconds: 30000),
       ),
-    );
+    )..httpClientAdapter = IOHttpClientAdapter(
+        onHttpClientCreate: (client) =>
+            client..badCertificateCallback = (cert, host, port) => true,
+      );
 
     if (auth.isSelfSignedCertificate) {
       client.httpClientAdapter = IOHttpClientAdapter(
@@ -27,7 +28,7 @@ class ApiProvider {
     );
 
     ncCookbookApi.setBasicAuth(
-      "app_password",
+      'app_password',
       auth.loginName,
       auth.password,
     );
@@ -36,6 +37,7 @@ class ApiProvider {
     miscApi = ncCookbookApi.getMiscApi();
     tagsApi = ncCookbookApi.getTagsApi();
   }
+  static final ApiProvider _apiProvider = ApiProvider._();
 
   late NcCookbookApi ncCookbookApi;
   late RecipesApi recipeApi;

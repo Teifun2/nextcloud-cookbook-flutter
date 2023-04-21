@@ -9,14 +9,13 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final UserRepository userRepository = UserRepository();
-  final AuthenticationBloc authenticationBloc;
-
   LoginBloc({
     required this.authenticationBloc,
   }) : super(LoginState()) {
     on<LoginButtonPressed>(_mapLoginButtonPressedEventToState);
   }
+  final UserRepository userRepository = UserRepository();
+  final AuthenticationBloc authenticationBloc;
 
   Future<void> _mapLoginButtonPressedEventToState(
     LoginButtonPressed event,

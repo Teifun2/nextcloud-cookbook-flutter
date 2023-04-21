@@ -1,11 +1,11 @@
 part of 'services.dart';
 
 class DataRepository {
-  // Singleton
-  static final DataRepository _dataRepository = DataRepository._();
   factory DataRepository() => _dataRepository;
 
   DataRepository._();
+  // Singleton
+  static final DataRepository _dataRepository = DataRepository._();
 
   // Provider List
   final ApiProvider api = ApiProvider();
@@ -25,7 +25,7 @@ class DataRepository {
       final response = await api.recipeApi.listRecipes();
       return response.data;
     } else if (category == categoryUncategorized) {
-      final response = await api.categoryApi.recipesInCategory(category: "_");
+      final response = await api.categoryApi.recipesInCategory(category: '_');
       return response.data;
     } else {
       final response =
@@ -83,9 +83,10 @@ class DataRepository {
     final uncategorizedBuilder = CategoryBuilder();
 
     categories?.removeWhere((c) {
-      if (c.name == "*") {
-        uncategorizedBuilder.replace(c);
-        uncategorizedBuilder.name = categoryUncategorized;
+      if (c.name == '*') {
+        uncategorizedBuilder
+          ..replace(c)
+          ..name = categoryUncategorized;
         return true;
       }
       return false;
@@ -99,7 +100,9 @@ class DataRepository {
   Future<Iterable<RecipeStub?>?> fetchCategoryMainRecipes(
     Iterable<Category>? categories,
   ) async {
-    if (categories == null) return null;
+    if (categories == null) {
+      return null;
+    }
 
     return Future.wait(categories.map(_fetchCategoryMainRecipe));
   }
@@ -111,20 +114,17 @@ class DataRepository {
         return categoryRecipes.first;
       }
     } catch (e) {
-      log("Could not load main recipe of Category!");
+      log('Could not load main recipe of Category!');
       rethrow;
     }
 
     return null;
   }
 
-  Future<Iterable<RecipeStub>?> fetchAllRecipes() async {
-    return fetchRecipesShort(category: categoryAll);
-  }
+  Future<Iterable<RecipeStub>?> fetchAllRecipes() async =>
+      fetchRecipesShort(category: categoryAll);
 
-  String getUserAvatarUrl() {
-    return _nextcloudMetadataApi.getUserAvatarUrl();
-  }
+  String getUserAvatarUrl() => _nextcloudMetadataApi.getUserAvatarUrl();
 
   Future<Iterable<String>> getMatchingCategoryNames(String pattern) async {
     final categories = await fetchCategories();
@@ -137,24 +137,24 @@ class DataRepository {
   Future<ImageResponse?> fetchImage(String recipeId, Size size) async {
     final String sizeParam;
     if (size.longestSide <= 16) {
-      sizeParam = "thumb16";
+      sizeParam = 'thumb16';
     } else if (size.longestSide <= 250) {
-      sizeParam = "thumb";
+      sizeParam = 'thumb';
     } else {
-      sizeParam = "full";
+      sizeParam = 'full';
     }
 
     final response = await api.recipeApi.getImage(
       id: recipeId,
       headers: {
-        "Accept": "image/jpeg, image/svg+xml",
+        'Accept': 'image/jpeg, image/svg+xml',
       },
       size: sizeParam,
     );
     if (response.data != null) {
       return ImageResponse(
         data: response.data!,
-        isSvg: response.headers.value("content-type") == "image/svg+xml",
+        isSvg: response.headers.value('content-type') == 'image/svg+xml',
       );
     }
 

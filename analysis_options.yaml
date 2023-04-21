@@ -5,3 +5,24 @@ include: package:lint/strict.yaml
 linter:
   rules:
     sort_pub_dependencies: false
+    prefer_final_parameters: false
+    prefer_asserts_with_message: false
+    only_throw_errors: false
+
+    prefer_mixin: true
+    discarded_futures: true
+    unawaited_futures: true
+    prefer_expression_function_bodies: true
+    always_put_control_body_on_new_line: true
+    use_key_in_widget_constructors: true
+    always_put_required_named_parameters_first: true
+    prefer_single_quotes: true
+    sort_constructors_first: true
+    omit_local_variable_types: true
+    prefer_int_literals: true
+    cascade_invocations: true
+    avoid_equals_and_hash_code_on_mutable_classes: true
+    avoid_types_on_closure_parameters: true
+    use_decorated_box: true
+    unnecessary_lambdas: true
+    prefer_foreach: true

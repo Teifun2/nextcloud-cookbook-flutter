@@ -1,8 +1,11 @@
 part of '../recipe_screen.dart';
 
 class RecipeYield extends StatelessWidget {
+  const RecipeYield({
+    required this.recipe,
+    super.key,
+  });
   final Recipe recipe;
-  const RecipeYield({required this.recipe});
 
   @override
   Widget build(BuildContext context) {

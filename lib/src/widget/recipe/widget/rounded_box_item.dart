@@ -1,17 +1,17 @@
 part of '../recipe_screen.dart';
 
 class RoundedBoxItem extends StatelessWidget {
-  final String name;
-  final String value;
-  final double? height;
-  final EdgeInsets? padding;
-
   const RoundedBoxItem({
     required this.name,
     required this.value,
     this.height,
     this.padding,
+    super.key,
   });
+  final String name;
+  final String value;
+  final double? height;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {

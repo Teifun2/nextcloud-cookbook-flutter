@@ -8,12 +8,6 @@ abstract class LoginEvent extends Equatable {
 }
 
 class LoginButtonPressed extends LoginEvent {
-  final String serverURL;
-  final String username;
-  final String originalBasicAuth;
-  final bool isAppPassword;
-  final bool isSelfSignedCertificate;
-
   const LoginButtonPressed({
     required this.serverURL,
     required this.username,
@@ -21,6 +15,11 @@ class LoginButtonPressed extends LoginEvent {
     required this.isAppPassword,
     required this.isSelfSignedCertificate,
   });
+  final String serverURL;
+  final String username;
+  final String originalBasicAuth;
+  final bool isAppPassword;
+  final bool isSelfSignedCertificate;
 
   @override
   List<Object> get props =>

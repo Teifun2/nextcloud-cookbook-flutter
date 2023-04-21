@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,19 +44,13 @@ void main() async {
       MultiBlocProvider(
         providers: [
           BlocProvider<AuthenticationBloc>(
-            create: (context) {
-              return AuthenticationBloc()..add(const AppStarted());
-            },
+            create: (context) => AuthenticationBloc()..add(const AppStarted()),
           ),
           BlocProvider<RecipesShortBloc>(
-            create: (context) {
-              return RecipesShortBloc();
-            },
+            create: (context) => RecipesShortBloc(),
           ),
           BlocProvider<CategoriesBloc>(
-            create: (context) {
-              return CategoriesBloc();
-            },
+            create: (context) => CategoriesBloc(),
           )
         ],
         child: const App(),
@@ -87,51 +83,49 @@ class _AppState extends State<App> {
     final savedLocalization = Settings.getValue<String>(
       SettingKeys.language.name,
     );
-    changeLocale(context, savedLocalization);
+    unawaited(changeLocale(context, savedLocalization));
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ThemeModeHandler(
-      manager: ThemeModeManager(),
-      builder: (ThemeMode themeMode) => MaterialApp(
-        navigatorKey: IntentRepository().getNavigationKey(),
-        themeMode: themeMode,
-        theme: AppTheme.lightThemeData,
-        darkTheme: AppTheme.darkThemeData,
-        home: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-            SystemChrome.setSystemUIOverlayStyle(
-              SystemUiOverlayStyle(
-                systemNavigationBarColor:
-                    Theme.of(context).scaffoldBackgroundColor,
-              ),
-            );
+  Widget build(BuildContext context) => ThemeModeHandler(
+        manager: ThemeModeManager(),
+        builder: (themeMode) => MaterialApp(
+          navigatorKey: IntentRepository().getNavigationKey(),
+          themeMode: themeMode,
+          theme: AppTheme.lightThemeData,
+          darkTheme: AppTheme.darkThemeData,
+          home: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+              SystemChrome.setSystemUIOverlayStyle(
+                SystemUiOverlayStyle(
+                  systemNavigationBarColor:
+                      Theme.of(context).scaffoldBackgroundColor,
+                ),
+              );
 
-            switch (state.status) {
-              case AuthenticationStatus.loading:
-                return const SplashPage();
-              case AuthenticationStatus.authenticated:
-                return const CategoryScreen();
-              case AuthenticationStatus.unauthenticated:
-                return const LoginScreen();
-              case AuthenticationStatus.invalid:
-                return const LoginScreen(
-                  invalidCredentials: true,
-                );
-              case AuthenticationStatus.error:
-                return LoadingErrorScreen(message: state.error!);
-            }
-          },
-          listener: (context, state) async {
-            if (state.status != AuthenticationStatus.loading) {
-              FlutterNativeSplash.remove();
-            } else if (state.status == AuthenticationStatus.authenticated) {
-              await IntentRepository().handleIntent();
-            }
-          },
+              switch (state.status) {
+                case AuthenticationStatus.loading:
+                  return const SplashPage();
+                case AuthenticationStatus.authenticated:
+                  return const CategoryScreen();
+                case AuthenticationStatus.unauthenticated:
+                  return const LoginScreen();
+                case AuthenticationStatus.invalid:
+                  return const LoginScreen(
+                    invalidCredentials: true,
+                  );
+                case AuthenticationStatus.error:
+                  return LoadingErrorScreen(message: state.error!);
+              }
+            },
+            listener: (context, state) async {
+              if (state.status != AuthenticationStatus.loading) {
+                FlutterNativeSplash.remove();
+              } else if (state.status == AuthenticationStatus.authenticated) {
+                await IntentRepository().handleIntent();
+              }
+            },
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -7,11 +7,12 @@ import 'package:nextcloud_cookbook_flutter/src/widget/recipe_image.dart';
 
 class TimerListItem extends StatelessWidget {
   const TimerListItem({
+    required this.animation,
+    required this.item,
     this.onDismissed,
     this.dense = false,
     this.enabled = true,
-    required this.animation,
-    required this.item,
+    super.key,
   });
 
   final Animation<double> animation;
@@ -33,8 +34,8 @@ class TimerListItem extends StatelessWidget {
       timer: item,
     );
 
-    void onPressed() {
-      Navigator.push(
+    Future<void> onPressed() async {
+      await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => RecipeScreen(recipeId: item.recipeId),
@@ -50,7 +51,7 @@ class TimerListItem extends StatelessWidget {
         subtitle: dense ? null : progressBar,
         trailing: IconButton(
           icon: const Icon(Icons.cancel_outlined),
-          tooltip: translate("timer.button.cancel"),
+          tooltip: translate('timer.button.cancel'),
           onPressed: enabled ? onDismissed : null,
         ),
         onTap: (enabled && !dense) ? onPressed : null,
