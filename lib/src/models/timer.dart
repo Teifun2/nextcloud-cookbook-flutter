@@ -56,8 +56,8 @@ class Timer {
   }
   @visibleForTesting
   @JsonKey(
-    toJson: _recipeToJson,
-    fromJson: _recipeFromJson,
+    toJson: recipeToJson,
+    fromJson: recipeFromJson,
   )
   final Recipe? recipe;
   final DateTime done;
@@ -114,10 +114,18 @@ class Timer {
         duration,
         recipeId,
       );
+  // coverage:ignore-start
+  @override
+  String toString() =>
+      'Timer(done: $done, id: $id, title: $title, body: $body, duration: $duration, recipeId: $recipeId)';
+  // coverage:ignore-end
 }
 
-Recipe _recipeFromJson(String data) =>
-    standardSerializers.fromJson<Recipe>(Recipe.serializer, data)!;
-
-String? _recipeToJson(Object? data) =>
-    data != null ? standardSerializers.toJson(Recipe.serializer, data) : null;
+@visibleForTesting
+Recipe recipeFromJson(Map<String, dynamic>? data) =>
+    standardSerializers.deserializeWith<Recipe>(Recipe.serializer, data)!;
+@visibleForTesting
+Map<String, dynamic>? recipeToJson(Object? data) => data != null
+    ? standardSerializers.serializeWith(Recipe.serializer, data)
+        as Map<String, dynamic>?
+    : null;
