@@ -131,12 +131,6 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    final list = [
-      if (recipe.nutritionList.isNotEmpty) NutritionList(recipe.nutritionList),
-      if (recipe.recipeIngredient.isNotEmpty) IngredientList(recipe),
-      InstructionList(recipe),
-    ];
-
     final header = SliverList(
       delegate: SliverChildListDelegate.fixed([
         Padding(
@@ -159,14 +153,45 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
 
     final bottom = SliverList(
       delegate: SliverChildListDelegate.fixed([
-        if (recipe.tool.isNotEmpty) ToolList(recipe: recipe),
         if (MediaQuery.of(context).size.width > 600)
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: list.map((e) => Expanded(flex: 5, child: e)).toList(),
-          )
+          ...[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (recipe.tool.isNotEmpty)
+                  Expanded(
+                    flex: 5,
+                    child: ToolList(recipe: recipe),
+                  ),
+                if (recipe.nutritionList.isNotEmpty)
+                  Expanded(
+                    flex: 5,
+                    child: NutritionList(recipe.nutritionList),
+                  ),
+              ]
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (recipe.recipeIngredient.isNotEmpty)
+                  Expanded(
+                    flex: 5,
+                    child: IngredientList(recipe),
+                  ),
+                Expanded(
+                  flex: 10,
+                  child: InstructionList(recipe),
+                ),
+              ]
+            ),
+          ]
         else
-          ...list,
+          ...[
+            if (recipe.tool.isNotEmpty) ToolList(recipe: recipe),
+            if (recipe.nutritionList.isNotEmpty) NutritionList(recipe.nutritionList),
+            if (recipe.recipeIngredient.isNotEmpty) IngredientList(recipe),
+            InstructionList(recipe),
+          ]
       ]),
     );
 
