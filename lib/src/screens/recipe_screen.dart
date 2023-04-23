@@ -160,15 +160,13 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
               children: [
                 if (recipe.tool.isNotEmpty)
                   Expanded(
-                    flex: 5,
                     child: ToolList(recipe: recipe),
                   ),
                 if (recipe.nutritionList.isNotEmpty)
                   Expanded(
-                    flex: 5,
                     child: NutritionList(recipe.nutritionList),
                   ),
-              ]
+              ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,7 +180,7 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
                   flex: 10,
                   child: InstructionList(recipe),
                 ),
-              ]
+              ],
             ),
           ]
         else
