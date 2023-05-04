@@ -16,7 +16,7 @@ class RecipeListItem extends StatelessWidget {
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: RecipeImage(
-            id: recipe.recipeId,
+            id: recipe.recipeId.oneOf.value.toString(),
             size: const Size.square(80),
           ),
         ),
@@ -40,7 +40,9 @@ class RecipeListItem extends StatelessWidget {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => RecipeScreen(recipeId: recipe.recipeId),
+              builder: (context) => RecipeScreen(
+                recipeId: recipe.recipeId.oneOf.value.toString(),
+              ),
             ),
           );
         },
