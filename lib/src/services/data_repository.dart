@@ -42,12 +42,12 @@ class DataRepository {
   Future<String?> updateRecipe(Recipe recipe) async {
     final response =
         await api.recipeApi.updateRecipe(id: recipe.id!, recipe: recipe);
-    return response.data;
+    return response.data?.toString();
   }
 
   Future<String?> createRecipe(Recipe recipe) async {
     final response = await api.recipeApi.newRecipe(recipe: recipe);
-    return response.data;
+    return response.data?.toString();
   }
 
   Future<String?> deleteRecipe(Recipe recipe) async {

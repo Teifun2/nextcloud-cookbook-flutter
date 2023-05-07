@@ -91,7 +91,7 @@ dependencies:
   nc_cookbook_api:
     git:
       url: https://github.com/Leptopoda/nextcloud_cookbook_dart_api.git
-      ref: 5465b2fd64fb71cb7cd588989d1709fd48884457
+      ref: bb48c5ccebf4c6d5e6619eac2823ecbf090a1f0c
 
   built_collection: ^5.1.1
   intl: ^0.18.0

@@ -96,7 +96,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   itemCount: categories.length,
                   itemBuilder: (context, index) => CategoryCard(
                     categories[index],
-                    recipe?[index]?.recipeId,
+                    recipe?[index]?.recipeId.oneOf.value.toString(),
                   ),
                 );
               case CategoriesStatus.loadInProgress:
