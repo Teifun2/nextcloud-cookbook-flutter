@@ -21,29 +21,69 @@ jobs:
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
           architecture: x64
-      - name: 🔐 Retrieve base64 keystore and decode it to a file
-        env:
-          KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEY }}
-        run: sudo bash -c 'base64 --decode <<< "$KEYSTORE_BASE64" > ${{ github.workspace }}/android/app/key.jks'
-      - name: 📝🔐 Create keystore.properties file
-        env:
-          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
-        run: |
-          echo '${{ inputs.flavor }}StoreFile=key.jks' > $KEYSTORE_PROPERTIES_PATH
-          echo '${{ inputs.flavor }}KeyAlias=${{ secrets.ANDROID_KEY_ALIAS }}' >> $KEYSTORE_PROPERTIES_PATH
-          echo '${{ inputs.flavor }}StorePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
-          echo '${{ inputs.flavor }}KeyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
 #        This is seems to be only needed when running github actions locally with act
 #      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.13.0-x64
-      - run: flutter pub get
+      - name: 📥 Downloading Dependencies
+        run: flutter pub get
 #        There are many issues currently that first need to be fixed to allow this rule
 #      - run: flutter analyze --fatal-infos ./
-      - run: dart format -o show --set-exit-if-changed ./
-      - run: flutter test
-      - run: flutter build apk
-      - run: flutter build appbundle
+      - name: 📝 Format
+        run: dart format -o none --set-exit-if-changed ./
+      - name: 🧪 Testing
+        run: flutter test
+      - name: 🛠️ Build APK
+        run: flutter build apk
+      - name: 🛠️ Build AppBundle
+        run: flutter build appbundle
+      - name: 🔐 Sign app APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app_apk
+        with:
+          releaseDirectory: ${{ github.workspace }}/build/app/outputs/apk/release
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      - name: 🔐 Sign app AAB
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app_aab
+        with:
+          releaseDirectory: ${{ github.workspace }}/build/app/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      - name: 🗃️ Rename the Release File
+        run: cp ${{ steps.sign_app_apk.outputs.signedReleaseFile }} ${{ github.workspace }}/app-release.apk
+      - name: 📄 Extract Version Number
+        id: flutter-version
+        uses: NiklasLehnfeld/flutter-version-number-action@main
+        with:
+          file-path: ${{ github.workspace }}/pubspec.yaml
+      - name: ✂️ Split Version Number
+        uses: jungwinter/split@v1
+        id: flutter-version-split
+        with:
+          msg: ${{ steps.flutter-version.outputs.version-number }}
+          seperator: '+'
       - name: ⬆️ Github Release
         uses: softprops/action-gh-release@v1
         with:
+          name: ${{ steps.flutter-version-split.outputs._0 }}
+          tag_name: ${{ steps.flutter-version-split.outputs._0 }}
+          body_path: ${{ github.workspace }}/fastlane/metadata/android/en-US/changelogs/${{ steps.flutter-version-split.outputs._1 }}.txt
           draft: true
-          files: ${{ github.workspace }}/build/app/outputs/apk/release/app-release.apk
+          files: "${{ github.workspace }}/app-release.apk"
+          fail_on_unmatched_files: true
+#          Prepared for the Automatic Upload to Google Play Store
+#      - name: 🚀 Upload Release to Google Play Store
+#        uses: r0adkll/upload-google-play@v1
+#        with:
+#          serviceAccountJsonPlainText: ${{ SERVICE_ACCOUNT_JSON }}
+#          packageName: com.example.MyApp
+#          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+#          track: production
+#          status: inProgress
+#          whatsNewDirectory: distribution/whatsnew
+#          mappingFile: app/build/outputs/mapping/release/mapping.txt
+#          debugSymbols: app/intermediates/merged_native_libs/release/out/lib
