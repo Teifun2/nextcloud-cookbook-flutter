@@ -69,9 +69,9 @@ jobs:
       - name: ⬆️ Github Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ steps.flutter-version-split._0 }}
-          tag_name: ${{ steps.flutter-version-split._0 }}
-          body_path: ${{ github.workspace }}/fastlane/metadata/android/en-US/changelogs/${{ steps.flutter-version-split._1 }}.txt
+          name: ${{ steps.flutter-version-split.outputs._0 }}
+          tag_name: ${{ steps.flutter-version-split.outputs._0 }}
+          body_path: ${{ github.workspace }}/fastlane/metadata/android/en-US/changelogs/${{ steps.flutter-version-split.outputs._1 }}.txt
           draft: true
           files: "${{ github.workspace }}/app-release.apk"
           fail_on_unmatched_files: true
