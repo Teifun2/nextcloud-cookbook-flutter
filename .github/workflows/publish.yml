@@ -24,7 +24,7 @@ jobs:
       - name: 🔐 Retrieve base64 keystore and decode it to a file
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEY }}
-        run: echo $KEYSTORE_BASE64 | base64 --decode > "${{ github.workspace }}/android/app/key.jks"
+        run: sudo bash -c 'base64 --decode <<< "$KEYSTORE_BASE64" > ${{ github.workspace }}/android/app/key.jks'
       - name: 📝🔐 Create keystore.properties file
         env:
           KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
