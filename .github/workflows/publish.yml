@@ -21,18 +21,18 @@ jobs:
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
           architecture: x64
-      - name: 🔐 Retrieve base64 keystore and decode it to a file
-        env:
-          KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEY }}
-        run: sudo bash -c 'base64 --decode <<< "$KEYSTORE_BASE64" > ${{ github.workspace }}/android/app/key.jks'
-      - name: 📝🔐 Create keystore.properties file
-        env:
-          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
-        run: |
-          echo '${{ inputs.flavor }}StoreFile=key.jks' > $KEYSTORE_PROPERTIES_PATH
-          echo '${{ inputs.flavor }}KeyAlias=${{ secrets.ANDROID_KEY_ALIAS }}' >> $KEYSTORE_PROPERTIES_PATH
-          echo '${{ inputs.flavor }}StorePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
-          echo '${{ inputs.flavor }}KeyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
+#      - name: 🔐 Retrieve base64 keystore and decode it to a file
+#        env:
+#          KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEY }}
+#        run: sudo bash -c 'base64 --decode <<< "$KEYSTORE_BASE64" > ${{ github.workspace }}/android/app/key.jks'
+#      - name: 📝🔐 Create keystore.properties file
+#        env:
+#          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
+#        run: |
+#          echo '${{ inputs.flavor }}StoreFile=key.jks' > $KEYSTORE_PROPERTIES_PATH
+#          echo '${{ inputs.flavor }}KeyAlias=${{ secrets.ANDROID_KEY_ALIAS }}' >> $KEYSTORE_PROPERTIES_PATH
+#          echo '${{ inputs.flavor }}StorePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
+#          echo '${{ inputs.flavor }}KeyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
 #        This is seems to be only needed when running github actions locally with act
 #      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.13.0-x64
       - run: flutter pub get
@@ -42,8 +42,21 @@ jobs:
       - run: flutter test
       - run: flutter build apk
       - run: flutter build appbundle
+      - name: 🔐 Sign app APK
+        uses: r0adkll/sign-android-release@v1
+        # ID used to access action output
+        id: sign_app_apk
+        with:
+          releaseDirectory: ${{ github.workspace }}/build/app/outputs/apk/release
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+#        env:
+#          # override default build-tools version (29.0.3) -- optional
+#          BUILD_TOOLS_VERSION: "30.0.2"
       - name: ⬆️ Github Release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
-          files: ${{ github.workspace }}/build/app/outputs/apk/release/app-release.apk
+          files: ${{ steps.sign_app_apk.outputs.signedReleaseFile }}
