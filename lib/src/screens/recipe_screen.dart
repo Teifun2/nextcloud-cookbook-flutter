@@ -153,43 +153,41 @@ class _RecipeScreenBodyState extends State<RecipeScreenBody> {
 
     final bottom = SliverList(
       delegate: SliverChildListDelegate.fixed([
-        if (MediaQuery.of(context).size.width > 600)
-          ...[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (recipe.tool.isNotEmpty)
-                  Expanded(
-                    child: ToolList(recipe: recipe),
-                  ),
-                if (recipe.nutritionList.isNotEmpty)
-                  Expanded(
-                    child: NutritionList(recipe.nutritionList),
-                  ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (recipe.recipeIngredient.isNotEmpty)
-                  Expanded(
-                    flex: 5,
-                    child: IngredientList(recipe),
-                  ),
+        if (MediaQuery.of(context).size.width > 600) ...[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (recipe.tool.isNotEmpty)
                 Expanded(
-                  flex: 10,
-                  child: InstructionList(recipe),
+                  child: ToolList(recipe: recipe),
                 ),
-              ],
-            ),
-          ]
-        else
-          ...[
-            if (recipe.tool.isNotEmpty) ToolList(recipe: recipe),
-            if (recipe.nutritionList.isNotEmpty) NutritionList(recipe.nutritionList),
-            if (recipe.recipeIngredient.isNotEmpty) IngredientList(recipe),
-            InstructionList(recipe),
-          ]
+              if (recipe.nutritionList.isNotEmpty)
+                Expanded(
+                  child: NutritionList(recipe.nutritionList),
+                ),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (recipe.recipeIngredient.isNotEmpty)
+                Expanded(
+                  flex: 5,
+                  child: IngredientList(recipe),
+                ),
+              Expanded(
+                flex: 10,
+                child: InstructionList(recipe),
+              ),
+            ],
+          ),
+        ] else ...[
+          if (recipe.tool.isNotEmpty) ToolList(recipe: recipe),
+          if (recipe.nutritionList.isNotEmpty)
+            NutritionList(recipe.nutritionList),
+          if (recipe.recipeIngredient.isNotEmpty) IngredientList(recipe),
+          InstructionList(recipe),
+        ]
       ]),
     );
 
