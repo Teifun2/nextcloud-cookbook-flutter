@@ -9,24 +9,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+      - name: ⚙️ Setup Java
+        uses: actions/setup-java@v3
         with:
           java-version: '12.x'
           distribution: 'adopt'
           cache: 'gradle'
-      - uses: subosito/flutter-action@v2
+      - name: ⚙️ Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
           architecture: x64
-#        This is seems to be only needed when running github actions locally with act
-#      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.13.0-x64
-      - run: flutter pub get
-#        There are many issues currently that first need to be fixed to allow this rule
-#      - run: flutter analyze --fatal-infos ./
-      - run: dart format -o show --set-exit-if-changed ./
-      - run: flutter test
-      - run: flutter build apk --debug
+      #        This is seems to be only needed when running github actions locally with act
+      #      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.13.0-x64
+      - name: 📥 Downloading Dependencies
+        run: flutter pub get
+      #        There are many issues currently that first need to be fixed to allow this rule
+      #      - run: flutter analyze --fatal-infos ./
+      - name: 📝 Format
+        run: dart format -o none --set-exit-if-changed ./
+      - name: 🧪 Testing
+        run: flutter test
+      - name: 🛠️ Build APK
+        run: flutter build apk --debug

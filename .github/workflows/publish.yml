@@ -28,7 +28,7 @@ jobs:
 #        There are many issues currently that first need to be fixed to allow this rule
 #      - run: flutter analyze --fatal-infos ./
       - name: 📝 Format
-        run: dart format -o show --set-exit-if-changed ./
+        run: dart format -o none --set-exit-if-changed ./
       - name: 🧪 Testing
         run: flutter test
       - name: 🛠️ Build APK
@@ -53,11 +53,11 @@ jobs:
           alias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-      - name: 🗃️ Rename the Release File
-        uses: canastro/copy-file-action@master
-        with:
-          source: "${{ steps.sign_app_apk.outputs.signedReleaseFile }}"
-          target: "${{ github.workspace }}/app-release.apk"
+#      - name: 🗃️ Rename the Release File
+#        uses: canastro/copy-file-action@master
+#        with:
+#          source: "${{ steps.sign_app_apk.outputs.signedReleaseFile }}"
+#          target: "${{ github.workspace }}/app-release.apk"
       - name: 📄 Extract Version Number
         id: flutter-version
         uses: NiklasLehnfeld/flutter-version-number-action@main
@@ -76,5 +76,6 @@ jobs:
           tag_name: ${{ steps.flutter-version-split._0 }}
           body_path: ${{ github.workspace }}/fastlane/metadata/android/en-US/changelogs/${{ steps.flutter-version-split._1 }}.txt
           draft: true
-          files: "${{ github.workspace }}/app-release.apk"
+#          files: "${{ github.workspace }}/app-release.apk"
+          files: ${{ steps.sign_app_apk.outputs.signedReleaseFile }}
           fail_on_unmatched_files: true
