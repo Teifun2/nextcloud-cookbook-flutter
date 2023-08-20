@@ -12,6 +12,7 @@ class IngredientList extends StatelessWidget {
         childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
         title: Text(translate('recipe.fields.ingredients')),
         initiallyExpanded: true,
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           for (final ingredient in recipe.recipeIngredient)
             _IngredientListItem(ingredient)

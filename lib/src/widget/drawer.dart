@@ -22,7 +22,7 @@ class MainDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primaryContainer,
               ),
-              child: const UserImage(),
+              child: const Center(child: UserImage()),
             ),
             DrawerItem(
               icon: Icons.alarm_add_outlined,
