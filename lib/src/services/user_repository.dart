@@ -7,64 +7,68 @@ class UserRepository {
   // Singleton
   static final UserRepository _userRepository = UserRepository._();
 
-  AuthenticationProvider authenticationProvider = AuthenticationProvider();
+  AppAuthentication? _currentAppAuthentication;
 
-  Future<AppAuthentication> authenticate(
-    String serverUrl,
-    String username,
-    String originalBasicAuth, {
-    required bool isSelfSignedCertificate,
-  }) async =>
-      authenticationProvider.authenticate(
-        serverUrl: serverUrl,
-        username: username,
-        originalBasicAuth: originalBasicAuth,
-        isSelfSignedCertificate: isSelfSignedCertificate,
-      );
+  AppAuthentication get currentAppAuthentication => _currentAppAuthentication!;
 
-  Future<AppAuthentication> authenticateAppPassword(
-    String serverUrl,
-    String username,
-    String basicAuth, {
-    required bool isSelfSignedCertificate,
-  }) async =>
-      authenticationProvider.authenticateAppPassword(
-        serverUrl: serverUrl,
-        username: username,
-        basicAuth: basicAuth,
-        isSelfSignedCertificate: isSelfSignedCertificate,
-      );
+  static const _authKey = 'appAuthentication';
 
-  void stopAuthenticate() {
-    authenticationProvider.stopAuthenticate();
+  bool get hasAuthentidation => _currentAppAuthentication != null;
+
+  /// Loads the authentication from storage
+  ///
+  /// Throws a [LoadAuthException] when none is saved.
+  Future<void> loadAppAuthentication() async {
+    final auth = await const FlutterSecureStorage().read(key: _authKey);
+    if (auth == null || auth.isEmpty) {
+      throw LoadAuthException();
+    }
+    _currentAppAuthentication = AppAuthentication.fromJsonString(auth);
   }
 
-  AppAuthentication get currentAppAuthentication =>
-      authenticationProvider.currentAppAuthentication!;
-
-  Dio get authenticatedClient => currentAppAuthentication.authenticatedClient;
-
-  Future<bool> hasAppAuthentication() async =>
-      authenticationProvider.hasAppAuthentication();
-
-  Future<void> loadAppAuthentication() async =>
-      authenticationProvider.loadAppAuthentication();
-
-  Future<bool> checkAppAuthentication() async =>
-      authenticationProvider.checkAppAuthentication(
-        currentAppAuthentication.server,
-        currentAppAuthentication.basicAuth,
-        isSelfSignedCertificate:
-            currentAppAuthentication.isSelfSignedCertificate,
-      );
+  Future<bool> checkAppAuthentication() async {
+    if (!hasAuthentidation) {
+      return false;
+    }
+    try {
+      await ApiProvider().miscApi.version();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   Future<void> persistAppAuthentication(
     AppAuthentication appAuthentication,
-  ) async =>
-      authenticationProvider.persistAppAuthentication(appAuthentication);
+  ) async {
+    _currentAppAuthentication = appAuthentication;
+    await const FlutterSecureStorage().write(
+      key: _authKey,
+      value: appAuthentication.toJsonString(),
+    );
+  }
 
-  Future<void> deleteAppAuthentication() async =>
-      authenticationProvider.deleteAppAuthentication();
+  Future<void> deleteAppAuthentication() async {
+    try {
+      await Dio().delete(
+        '${currentAppAuthentication.server}/ocs/v2.php/core/apppassword',
+        options: Options(
+          headers: {
+            'Authorization': AppAuthentication.parsePassword(
+              currentAppAuthentication.loginName,
+              currentAppAuthentication.appPassword,
+            ),
+            'OCS-APIREQUEST': 'true',
+          },
+        ),
+      );
+    } on DioError {
+      debugPrint(translate('login.errors.failed_remove_remote'));
+    }
+
+    _currentAppAuthentication = null;
+    await const FlutterSecureStorage().delete(key: _authKey);
+  }
 
   bool isVersionSupported(APIVersion version) =>
       ApiProvider().ncCookbookApi.isSupportedSync(version);

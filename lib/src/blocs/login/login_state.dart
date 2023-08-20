@@ -10,12 +10,11 @@ class LoginState extends Equatable {
   const LoginState({
     this.status = LoginStatus.initial,
     this.error,
-  }) : assert(
-          (status != LoginStatus.failure && error == null) ||
-              (status == LoginStatus.failure && error != null),
-        );
+    this.url,
+  }) : assert(error == null || status == LoginStatus.failure);
   final LoginStatus status;
   final String? error;
+  final String? url;
 
   @override
   List<Object?> get props => [status, error];
