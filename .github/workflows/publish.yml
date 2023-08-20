@@ -1,0 +1,49 @@
+name: "Publish"
+on:
+  workflow_dispatch:
+jobs:
+  publish-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+      - name: ⚙️ Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '12.x'
+          distribution: 'adopt'
+          cache: 'gradle'
+      - name: ⚙️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
+          architecture: x64
+      - name: 🔐 Retrieve base64 keystore and decode it to a file
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEY }}
+        run: echo $KEYSTORE_BASE64 | base64 --decode > "${{ github.workspace }}/android/app/key.jks"
+      - name: 📝🔐 Create keystore.properties file
+        env:
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
+        run: |
+          echo '${{ inputs.flavor }}StoreFile=key.jks' > $KEYSTORE_PROPERTIES_PATH
+          echo '${{ inputs.flavor }}KeyAlias=${{ secrets.ANDROID_KEY_ALIAS }}' >> $KEYSTORE_PROPERTIES_PATH
+          echo '${{ inputs.flavor }}StorePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
+          echo '${{ inputs.flavor }}KeyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}' >> $KEYSTORE_PROPERTIES_PATH
+#        This is seems to be only needed when running github actions locally with act
+#      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.13.0-x64
+      - run: flutter pub get
+#        There are many issues currently that first need to be fixed to allow this rule
+#      - run: flutter analyze --fatal-infos ./
+      - run: dart format -o show --set-exit-if-changed ./
+      - run: flutter test
+      - run: flutter build apk
+      - run: flutter build appbundle
+      - name: ⬆️ Github Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: ${{ github.workspace }}/build/app/outputs/apk/release/app-release.apk

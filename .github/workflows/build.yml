@@ -22,10 +22,11 @@ jobs:
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
           architecture: x64
+#        This is seems to be only needed when running github actions locally with act
 #      - run: git config --global --add safe.directory /opt/hostedtoolcache/flutter/stable-3.13.0-x64
       - run: flutter pub get
-      #      - run: flutter analyze --fatal-infos ./
-      - run: dart format -o none --set-exit-if-changed ./
+#        There are many issues currently that first need to be fixed to allow this rule
+#      - run: flutter analyze --fatal-infos ./
+      - run: dart format -o show --set-exit-if-changed ./
       - run: flutter test
-      - run: flutter build apk
-      - run: flutter build appbundle
+      - run: flutter build apk --debug
