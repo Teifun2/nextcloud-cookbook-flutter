@@ -1,0 +1,215 @@
+{
+  "app_bar": {
+    "logout": "Logga ut",
+    "clear_all": "Rensa allt"
+  },
+  "alert": {
+    "discard": "Ignorera",
+    "clear": "Rensa"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "inte ett giltigt nummer",
+      "required": "obligatorisk"
+    }
+  },
+  "login": {
+    "title": "Logga in",
+    "server_url": {
+      "field": "Serverwebbadress",
+      "validator": {
+        "empty": "Vänligen ange webbadressen till din Nextcloud instans.",
+        "pattern": "Vänligen ange en giltig webbadress"
+      }
+    },
+    "username": {
+      "field": "Användarnamn"
+    },
+    "password": {
+      "field": "Lösenord"
+    },
+    "settings": {
+      "title": "Avancerade inställningar",
+      "app_password": "Använd egengenerarat applösenord.\nBehövs för användare med 2FA.",
+      "self_signed_certificate": "Ignorera ogiltigt certifikat.\nBehövs för självsignerade certifikat.\n(Använd på egen risk!)"
+    },
+    "button": "Logga in",
+    "retry": "Försök logga in igen!",
+    "reset": "Återställ Användaruppgifter!",
+    "errors": {
+      "not_reachable": "Kan inte nå: {server_url}\n{error_msg}",
+      "certificate_failed": "Servercertifikatet kunde inte valideras:\n{server_url}\n{error_msg}",
+      "request_failed": "Begäran av applösenord misslyckades:\n{error_msg}",
+      "parse_failed": "Kan inte läsa av svar på applösenord!\n{error_msg}",
+      "parse_missing": "Kan inte identifiera applösenord i svar!\n{error_msg}",
+      "auth_failed": "Användarnamn och/eller Lösenord felaktigt!",
+      "authentication_not_found": "Ingen autentisering hittades i lagringen",
+      "failed_remove_remote": "Det gick inte att ta bort fjärrapplösenord!",
+      "failure": "Inloggningsprocessen kunde inte slutföras korrekt.\n{status_code}\n{status_message}",
+      "credentials_invalid": "De lagrade inloggningsuppgifterna var inte längre giltiga och du har blivit utloggad!",
+      "no_internet": "Autentiseringen misslyckades.\nKanske finns det ingen internetanslutning?\nFelmeddelande: {error_msg}",
+      "wrong_status": "Autentiseringen misslyckades.\nKanske är den angivna servern inte korrekt?\nFelmeddelande: {error_msg}"
+    }
+  },
+  "categories": {
+    "title": "Kokbok",
+    "all_categories": "Alla",
+    "uncategorized": "Okategoriserade",
+    "items": {
+      "0": "inga objekt",
+      "1": "1 objekt",
+      "else": "{{value}} objekt"
+    },
+    "drawer": {
+      "import": "Importera recept",
+      "settings": "Inställningar"
+    },
+    "errors": {
+      "unknown": "Kategorier i okänt tillstånd",
+      "load_failed": "Laddning av kategori misslyckades: {error_msg}",
+      "load_no_response": "Kunde inte hämta kategorierna från servern.",
+      "api_version_check_failed": "Misslyckades med att kontrollera API-versionen för servern:\n{error_msg}",
+      "api_version_above_confirmed": "API-versionen av servern har uppdaterats. Vissa funktioner kanske inte fungerar som förväntat. Vänligen vänta på en uppdatering!\n{version}",
+      "plugin_missing": "Kategorier kunde inte laddas. Se till att Cookbook-tillägget är installerat på denna Nextcloud-instans!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategori: {category}",
+    "errors": {
+      "load_failed": "Det gick inte att ladda korta recept!"
+    }
+  },
+  "recipe": {
+    "title": "Recept:",
+    "prep": "Förberedningstid",
+    "cook": "Tillagningstid",
+    "total": "Total tid",
+    "fields": {
+      "name": "Receptnamn",
+      "description": "Receptbeskrivning",
+      "keywords": "Nyckelord",
+      "category": "Kategori",
+      "servings": {
+        "1": "Servering",
+        "else": "Portioner"
+      },
+      "source": "Källa",
+      "source_button": "Källa",
+      "image": "Bild",
+      "time": {
+        "prep": "Förberedningstid",
+        "cook": "Tillagningstid",
+        "total": "Total tid",
+        "hours": "Timmar",
+        "minutes": "Minuter"
+      },
+      "nutrition": {
+        "title": "Näringsinformation",
+        "items": {
+          "calories": "Energi",
+          "carbohydrateContent": "Kolhydrater",
+          "cholesterolContent": "Kolesterol",
+          "fatContent": "Fett totalt",
+          "fiberContent": "Fiber",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Mättat fett",
+          "servingSize": "Portionstorlek",
+          "sodiumContent": "Natrium",
+          "sugarContent": "Socker",
+          "transFatContent": "Transfett",
+          "unsaturatedFatContent": "Omättat fett"
+        }
+      },
+      "general": "Allmänt",
+      "times": "Tider",
+      "tools": "Verktyg",
+      "ingredients": "Ingredienser",
+      "instructions": "Instruktioner"
+    },
+    "errors": {
+      "load_failed": "Kunde inte ladda receptet!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Redigera recept",
+    "button": "Spara",
+    "errors": {
+      "update_failed": "Uppdateringen misslyckades {error_msg}"
+    },
+    "delete": {
+      "title": "Ta bort recept",
+      "dialog": "Är du säker på att du vill radera {recipe} permanent?"
+    }
+  },
+  "recipe_create": {
+    "title": "Skapa recept",
+    "button": "Skapa",
+    "add_field": "lägg till",
+    "remove_field": "ta bort",
+    "errors": {
+      "update_failed": "Skapa misslyckades {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Avbryt redigering",
+      "dialog": "Är du säker på att du vill ignorera dina ändringar av {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Avbryt skapa",
+      "dialog": "Är du säker på att du vill ignorera skapandet?"
+    }
+  },
+  "recipe_import": {
+    "title": "Importera recept",
+    "button": "Importera",
+    "field": "Länk till Recept",
+    "errors": {
+      "import_failed": "Import misslyckades {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Söka Recept",
+    "description": "Sök efter recept med namn eller nyckelord",
+    "nothing_found": "Inga recept funna",
+    "errors": {
+      "search_failed": "Kan inte ladda alla recept!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Dina timers",
+    "started": "Timer startad.",
+    "finished": "är klar.",
+    "button": {
+      "start": "starta timer",
+      "cancel": "avbryt timer"
+    },
+    "done": "Timer är klar.",
+    "missing": "Du behöver ställa in tillagningstiden för att använda en timer.",
+    "empty_list": "Dina aktiva timers kommer att visas här."
+  },
+  "settings": {
+    "title": "Appinställningar",
+    "dark_mode": {
+      "title": "Mörkt läge",
+      "system": "Systemstandard",
+      "dark": "Alltid",
+      "light": "Aldrig"
+    },
+    "language": {
+      "title": "Språk"
+    },
+    "stay_awake": {
+      "title": "Håll vaken",
+      "subtitle": "Skärmen förblir på medan på receptskärmen."
+    },
+    "recipe_font_size": {
+      "title": "Receptets teckenstorlek",
+      "subtitle": "Ändrar teckenstorleken för receptverktyg, ingredienser och instruktioner för bättre läsbarhet."
+    },
+    "category_font_size": {
+      "title": "Kategori Teckenstorlek",
+      "subtitle": "Ändrar teckenstorleken på kategorirubriken. Detta kan vara användbart om du har långa kategorinamn."
+    }
+  }
+}

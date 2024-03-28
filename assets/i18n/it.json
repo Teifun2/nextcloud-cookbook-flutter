@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Cerca",
-    "refresh": "Aggiorna",
     "logout": "Esci",
     "clear_all": "Cancella tutto"
+  },
+  "alert": {
+    "discard": "Scarta",
+    "clear": "Pulisci"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "Accedi",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Impossibile rimuovere la password dell'applicazione remota!",
       "failure": "L'accesso non è stato completato correttamente.\n{status_code}\n{status_message}",
       "credentials_invalid": "Le credenziali memorizzate non sono più valide e sei stato disconnesso!",
-      "no_internet": "La verifica dell'autenticazione non è riuscita.\nForse non c'è connessione a Internet?\nMessaggio di errore: {error_msg}",
-      "wrong_status": "La verifica dell'autenticazione non è riuscita.\nÈ possibile che l'host del server fornito non sia corretto?\nMessaggio di errore: {error_msg}"
+      "no_internet": "Autenticazione non riuscita\nPotrebbe essere che non sei connesso a Internet?\nMessaggio d'errore: {error_msg}",
+      "wrong_status": "Autenticazione non riuscita\nPotrebbe essere che il server host che hai inserito non sia corretto?\nMessaggio d'errore: {error_msg}"
     }
   },
   "categories": {
     "title": "Ricettario",
     "all_categories": "Tutte",
+    "uncategorized": "Senza categoria",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Importa ricetta",
       "settings": "Impostazioni"
@@ -71,18 +85,21 @@
     "cook": "Tempo di cottura",
     "total": "Tempo totale",
     "fields": {
-      "name": "Nome della ricetta:",
-      "description": "Descrizione della ricetta:",
-      "keywords": "Parole chiave:",
-      "category": "Categoria:",
-      "servings": "Porzioni:",
-      "source": "Fonte:",
+      "name": "Nome della ricetta",
+      "description": "Descrizione della ricetta",
+      "keywords": "Parole chiave",
+      "category": "Categoria",
+      "servings": {
+        "1": "Serving",
+        "else": "Porzioni"
+      },
+      "source": "Fonte",
       "source_button": "Fonte",
-      "image": "Immagine:",
+      "image": "Immagine",
       "time": {
-        "prep": "Tempo di preparazione:",
-        "cook": "Tempo di cottura:",
-        "total": "Tempo totale:",
+        "prep": "Tempo di preparazione",
+        "cook": "Tempo di cottura",
+        "total": "Tempo totale",
         "hours": "Ore",
         "minutes": "Minuti"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Contenuto di grassi insaturi"
         }
       },
-      "tools": "Strumenti:",
-      "ingredients": "Ingredienti:",
-      "instructions": "Istruzioni:"
+      "general": "Generale",
+      "times": "Times",
+      "tools": "Strumenti",
+      "ingredients": "Ingredienti",
+      "instructions": "Istruzioni"
     },
     "errors": {
       "load_failed": "Caricamento della ricetta non riuscito!"
@@ -116,26 +135,42 @@
     "button": "Salva",
     "errors": {
       "update_failed": "Aggiornamento non riuscito {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Crea ricetta",
     "button": "Crea",
+    "add_field": "aggiungi",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Creazione non riuscita {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Annulla modifica",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "Importa ricetta",
     "button": "Importa",
     "field": "URL della ricetta",
-    "clipboard": "Incolla gli appunti",
     "errors": {
       "import_failed": "Importazione non riuscita {error_msg}"
     }
   },
   "search": {
     "title": "Cerca ricetta",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "Nessuna ricetta trovata",
     "errors": {
       "search_failed": "Impossibile caricare tutte le ricette!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "I tuoi timer",
     "started": "Il timer è partito.",
     "finished": "è terminato.",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "Il timer è terminato.",
-    "missing": "You need to set the cooking time to use a timer."
+    "missing": "You need to set the cooking time to use a timer.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "Impostazioni dell'applicazione",

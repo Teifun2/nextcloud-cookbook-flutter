@@ -1,0 +1,215 @@
+{
+  "app_bar": {
+    "logout": "Logg ut",
+    "clear_all": "Tøm alle"
+  },
+  "alert": {
+    "discard": "Slett",
+    "clear": "Tøm"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "ikke et gyldig nummer",
+      "required": "kreves"
+    }
+  },
+  "login": {
+    "title": "Logg inn",
+    "server_url": {
+      "field": "Server-URL",
+      "validator": {
+        "empty": "Vennligst angi nettadressen til Nextcloud-forekomsten din.",
+        "pattern": "Angi en gyldig URL"
+      }
+    },
+    "username": {
+      "field": "Brukernavn"
+    },
+    "password": {
+      "field": "PassordP"
+    },
+    "settings": {
+      "title": "Avanserte innstillinger",
+      "app_password": "Bruk selvgenerert app-passord.\nNødvendig for kontoer med 2FA.",
+      "self_signed_certificate": "Ignorer ugyldig sertifikat.\nNødvendig for selvsignerte sertifikater.\n(Bruk på egen risiko!)"
+    },
+    "button": "Logg inn",
+    "retry": "Prøv å logge inn på nytt!",
+    "reset": "Tilbakestill legitimasjon!",
+    "errors": {
+      "not_reachable": "Kan ikke nå: {server_url}\n{error_msg}",
+      "certificate_failed": "Sertifikatet til serveren kan ikke bekreftes: {server_url}\n{error_msg}",
+      "request_failed": "Forespørsel om app-passord feilet:\n{error_msg}",
+      "parse_failed": "Kan ikke analysere app-passord-svaret!\n{error_msg}",
+      "parse_missing": "Kan ikke finne app-passord i svaret!\n{error_msg}",
+      "auth_failed": "Brukernavn og / eller passord er feil!",
+      "authentication_not_found": "Finner ingen autentisering i Lagring",
+      "failed_remove_remote": " Fjerning av eksternt App-passord feilet!",
+      "failure": "Påloggingsprosessen kunne ikke fullføres ordentlig.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Den lagrede legitimasjonen er ikke lenger gyldig og du har blitt logget ut!",
+      "no_internet": "Autentisering var ikke vellykket.\nKanskje det er ingen internettforbindelse?\nFeilmelding: {error_msg}",
+      "wrong_status": "Autentisering var ikke vellykket.\nKanskje den oppgitte serververten ikke er riktig?\nFeilmelding: {error_msg}"
+    }
+  },
+  "categories": {
+    "title": "Kokebok",
+    "all_categories": "Alle",
+    "uncategorized": "Ukategorisert",
+    "items": {
+      "0": "ingen elementer",
+      "1": "1 element",
+      "else": "{{value}} elementer"
+    },
+    "drawer": {
+      "import": "Importer oppskrift",
+      "settings": "Innstillinger"
+    },
+    "errors": {
+      "unknown": "Kategorier i ukjent tilstand",
+      "load_failed": "Lasting av kategori feilet: {error_msg}",
+      "load_no_response": "Kunne ikke hente kategoriene fra serveren.",
+      "api_version_check_failed": "Kan ikke sjekke API-versjonen til serveren:\n{error_msg}",
+      "api_version_above_confirmed": "API-versjonen til serveren ble oppdatert. Noen funksjoner fungerer kanskje ikke som forventet. Vent på en oppdatering!\n{version}",
+      "plugin_missing": "Kategorier kan ikke lastes inn. Kontroller at Cookbook-programtillegget er installert på denne Nextcloud-forekomsten!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Kategori: {category}",
+    "errors": {
+      "load_failed": "Lasting av korte oppskrifter feilet!"
+    }
+  },
+  "recipe": {
+    "title": "Oppskrift:",
+    "prep": "Forberedelsestid",
+    "cook": "Koketid",
+    "total": "Totalt tidsforbruk",
+    "fields": {
+      "name": "Oppskriftsnavn",
+      "description": "Beskrivelse av oppskrift",
+      "keywords": "Nøkkelord",
+      "category": "Kategori",
+      "servings": {
+        "1": "Porsjon",
+        "else": "Porsjoner"
+      },
+      "source": "Kilde",
+      "source_button": "Kilde",
+      "image": "Bilde",
+      "time": {
+        "prep": "Forberedelsestid",
+        "cook": "Koketid",
+        "total": "Totalt tidsforbruk",
+        "hours": "Timer",
+        "minutes": "Minutter"
+      },
+      "nutrition": {
+        "title": "Næringsinnhold",
+        "items": {
+          "calories": "Energi",
+          "carbohydrateContent": "Karbohydrat",
+          "cholesterolContent": "Kolesterol",
+          "fatContent": "Fett totalt",
+          "fiberContent": "Fiber",
+          "proteinContent": "Protein",
+          "saturatedFatContent": "Mettet fett",
+          "servingSize": "Porsjonsstørrelse",
+          "sodiumContent": "Natrium",
+          "sugarContent": "Sukker",
+          "transFatContent": "Transfettinnhold",
+          "unsaturatedFatContent": "Innhold av umettet fett"
+        }
+      },
+      "general": "Generell",
+      "times": "Ganger",
+      "tools": "Verktøy",
+      "ingredients": "Ingredienser",
+      "instructions": "Instruksjoner"
+    },
+    "errors": {
+      "load_failed": "Lasting av oppskrift feilet!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Rediger oppskrift",
+    "button": "Lagre",
+    "errors": {
+      "update_failed": "Oppdatering feilet {error_msg}"
+    },
+    "delete": {
+      "title": "Slett oppskrift",
+      "dialog": "Er du sikker på at du vil slette {recipe} permanent?"
+    }
+  },
+  "recipe_create": {
+    "title": "Opprett oppskrift",
+    "button": "Opprett",
+    "add_field": "legg til",
+    "remove_field": "fjern",
+    "errors": {
+      "update_failed": "Oppretting feilet {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Avbryt endring",
+      "dialog": "Er du sikker på at du vil forkaste endringene dine til {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Avbryt oppretting",
+      "dialog": "Er du sikker på du vil forkaste opprettingen?"
+    }
+  },
+  "recipe_import": {
+    "title": "Importer oppskrift",
+    "button": "Importer",
+    "field": "URL til oppskriften",
+    "errors": {
+      "import_failed": "Importen feilet {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Søk oppskrift",
+    "description": "Søk etter oppskrifter etter navn eller nøkkelord",
+    "nothing_found": "Ingen oppskrift funnet!",
+    "errors": {
+      "search_failed": "Ikke i stand til å laste alle oppskrifter!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Tidtakerne dine",
+    "started": "Tidtaker startet.",
+    "finished": "er ferdig.",
+    "button": {
+      "start": "start tidtaker",
+      "cancel": "avbryt tidtaker"
+    },
+    "done": "Tidtaker er ferdig.",
+    "missing": "Du må stille inn tilberedningstiden for å bruke en tidtaker.",
+    "empty_list": "Tikkende tidtakerne dine vil vises her."
+  },
+  "settings": {
+    "title": "App-innstillinger",
+    "dark_mode": {
+      "title": "Mørk modus",
+      "system": "System standard",
+      "dark": "Alltid",
+      "light": "Aldri"
+    },
+    "language": {
+      "title": "Språk"
+    },
+    "stay_awake": {
+      "title": "Hold deg våken",
+      "subtitle": "Skjermen forblir på mens du er på oppskriftsskjermen."
+    },
+    "recipe_font_size": {
+      "title": "Skriftstørrelse for oppskrift",
+      "subtitle": "Endrer skriftstørrelsen på oppskriftsredsaker, ingredienser og instruksjoner for bedre lesbarhet."
+    },
+    "category_font_size": {
+      "title": "Skriftstørrelse for kategori",
+      "subtitle": "Endrer skriftstørrelsen for kategoritittelen. Dette kan være nyttig hvis du har lange kategorinavn."
+    }
+  }
+}

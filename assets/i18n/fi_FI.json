@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Etsi",
-    "refresh": "Päivitä",
     "logout": "Kirjaudu ulos",
     "clear_all": "Tyhjennä kaikki"
+  },
+  "alert": {
+    "discard": "Hylkää",
+    "clear": "Tyhjennä"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "Kirjaudu sisään",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Sovellussalasanan poisto epäonnistui!",
       "failure": "Kirjautuminen ei onnistunut.\n {status_code}\n {status_message}",
       "credentials_invalid": "Tallennetut tunnistetiedot eivät ole enää kelvollisia, sinut on kirjattu ulos!",
-      "no_internet": "Tunnistautuminen epäonnistui.\nOnhan internetyhteys käytettävissä?\nVirheilmoitus: {error_msg}",
-      "wrong_status": "Tunnistautuminen epäonnistui.\nOnhan palveliuntarjoaja valittu oikein?\nVirheilmoitus: {error_msg}"
+      "no_internet": "Authentication was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Keittokirja",
     "all_categories": "Kaikki",
+    "uncategorized": "Luokittelematon",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Tuo resepti",
       "settings": "Asetukset"
@@ -71,18 +85,21 @@
     "cook": "Kokkausaika",
     "total": "Kokonaiskesto",
     "fields": {
-      "name": "Reseptin nimi:",
-      "description": "Reseptin kuvaus:",
-      "keywords": "Avainsanat:",
-      "category": "Luokka:",
-      "servings": "Annoksia:",
-      "source": "Lähde:",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "Avainsanat",
+      "category": "Kategoria",
+      "servings": {
+        "1": "Serving",
+        "else": "Annokset"
+      },
+      "source": "Lähde",
       "source_button": "Lähde",
-      "image": "Kuva:",
+      "image": "Kuva",
       "time": {
-        "prep": "Esivalmistelujen kesto:",
-        "cook": "Valmistuksen kesto:",
-        "total": "Kokonaiskesto:",
+        "prep": "Valmisteluaika",
+        "cook": "Kokkausaika",
+        "total": "Kokonaiskesto",
         "hours": "Tunnit",
         "minutes": "Minuutit"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Tyydyttymätön rasva"
         }
       },
-      "tools": "Työvälineet:",
-      "ingredients": "Ainesosat:",
-      "instructions": "Ohjeet:"
+      "general": "Yleiset",
+      "times": "Times",
+      "tools": "Työvälineet",
+      "ingredients": "Ainesosat",
+      "instructions": "Ohjeet"
     },
     "errors": {
       "load_failed": "Reseptin lataus epäonnistui!"
@@ -116,26 +135,42 @@
     "button": "Tallenna",
     "errors": {
       "update_failed": "Päivitys epäonnistui {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Luo resepti",
     "button": "Luo",
+    "add_field": "lisää",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Luonti epäonnistui {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Peruuta muokkaus",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "Tuo resepti",
     "button": "Tuo",
     "field": "Reseptin URL",
-    "clipboard": "Liitä leikepöydältä",
     "errors": {
       "import_failed": "Tuonti epäonnistui {error_msg}"
     }
   },
   "search": {
     "title": "Etsi resepti",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "Reseptiä ei löytynyt!",
     "errors": {
       "search_failed": "Reseptien lataus ei onnistunut!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Ajastimesi",
     "started": "Ajastin käynnistyi.",
     "finished": "päättynyt.",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "Ajastin valmistui.",
-    "missing": "You need to set the cooking time to use a timer."
+    "missing": "You need to set the cooking time to use a timer.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "Sovelluksen asetukset",

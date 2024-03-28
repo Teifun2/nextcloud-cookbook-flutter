@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Search",
-    "refresh": "Endurnýja",
     "logout": "Útskráning",
     "clear_all": "Clear all"
+  },
+  "alert": {
+    "discard": "Fleygja",
+    "clear": "Hreinsa"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "Innskráning",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Failed to remove remote App Password!",
       "failure": "Login Process could not finish properly.\n{status_code}\n{status_message}",
       "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Authentication was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Uppskriftabók",
     "all_categories": "Allt",
+    "uncategorized": "Óflokkað",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Import Recipe",
       "settings": "Stillingar"
@@ -71,18 +85,21 @@
     "cook": "Eldunartími",
     "total": "Heildartími",
     "fields": {
-      "name": "Recipe Name:",
-      "description": "Recipe Description:",
-      "keywords": "Keywords:",
-      "category": "Category:",
-      "servings": "Servings:",
-      "source": "Source:",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "Stikkorð",
+      "category": "Flokkur",
+      "servings": {
+        "1": "Serving",
+        "else": "Nóg fyrir"
+      },
+      "source": "Heimild",
       "source_button": "Heimild",
-      "image": "Image:",
+      "image": "Mynd",
       "time": {
-        "prep": "Preparation time:",
-        "cook": "Cooking time:",
-        "total": "Total time:",
+        "prep": "Undirbúningstími",
+        "cook": "Eldunartími",
+        "total": "Heildartími",
         "hours": "klukkustundir",
         "minutes": "mínútur"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Unsaturated-fat content"
         }
       },
-      "tools": "Tools:",
-      "ingredients": "Ingredients:",
-      "instructions": "Instructions:"
+      "general": "Almennt",
+      "times": "Times",
+      "tools": "Áhöld",
+      "ingredients": "Innihaldsefni",
+      "instructions": "Leiðbeiningar"
     },
     "errors": {
       "load_failed": "Failed to load Recipe!"
@@ -116,26 +135,42 @@
     "button": "Vista",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Create Recipe",
     "button": "Búa til",
+    "add_field": "bæta við",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Create Failed {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Hætta við breytingar",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "Import Recipe",
     "button": "Flytja inn",
     "field": "URL to Recipe",
-    "clipboard": "Paste Clipboard",
     "errors": {
       "import_failed": "Import Failed {error_msg}"
     }
   },
   "search": {
     "title": "Search Recipe",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "No recipe found!",
     "errors": {
       "search_failed": "Unable to load all Recipes!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Your timers",
     "started": "Timer started.",
     "finished": "is finished.",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "Timer is done.",
-    "missing": "You need to set the cooking time to use a timer."
+    "missing": "You need to set the cooking time to use a timer.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "App Settings",

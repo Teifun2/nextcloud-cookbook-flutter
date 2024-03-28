@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Rechercher",
-    "refresh": "Actualiser",
     "logout": "Se déconnecter",
     "clear_all": "Effacer tout"
+  },
+  "alert": {
+    "discard": "ignorer",
+    "clear": "Effacer"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "pas un nombre valide",
+      "required": "obligatoire"
+    }
   },
   "login": {
     "title": "S'identifier",
@@ -22,7 +30,7 @@
     },
     "settings": {
       "title": "Paramètres avancés",
-      "app_password": "Utiliser un mot de passe d'application.\nNécessaire pour les comptes avec 2FA.",
+      "app_password": "Utiliser un mot de passe d'application auto-généré.\nNécessaire pour les comptes avec A2F.",
       "self_signed_certificate": "Ignorer les certificats invalides.\nNécessaire pour les certificats autosignés.\n(À utiliser à vos risques et périls !)"
     },
     "button": "S'identifier",
@@ -32,20 +40,26 @@
       "not_reachable": "Impossible d'atteindre : {server_url} \n {error_msg}",
       "certificate_failed": "Le certificat du serveur ne peut pas être vérifié : {server_url}\n{error_msg}",
       "request_failed": "La demande du mot de passe de l'application a échoué :\n{error_msg}",
-      "parse_failed": "Impossible de lire la réponse du mot de passe d'application\n{error_msg}",
-      "parse_missing": "Impossible de trouver le mot de passe de l'application dans la réponse\n{error_msg}",
+      "parse_failed": "Impossible de lire la réponse du mot de passe d'application !\n{error_msg}",
+      "parse_missing": "Impossible de trouver le mot de passe de l'application dans la réponse !\n{error_msg}",
       "auth_failed": "Nom d’utilisateur et / ou mot de passe incorrect !",
       "authentication_not_found": "Aucune authentification trouvée dans l'espace de stockage",
-      "failed_remove_remote": "Impossible de supprimer le mot de passe d'application distant",
+      "failed_remove_remote": "Impossible de supprimer le mot de passe d'application distant !",
       "failure": "L'opération de connexion ne sait pas terminée correctement.\n{status_code}\n{status_message}",
       "credentials_invalid": "Les informations d'identification stockées ne sont plus valables et vous avez été déconnecté !",
-      "no_internet": "L'authentification a échoué.\nPeut-être n'y-a-t-il pas de connexion internet ?\nMessage d'erreur : {error_msg}",
-      "wrong_status": "L'authentification a échoué.\nPeut-être le serveur indiqué est-il incorrect ?\nMessage d'erreur : {error_msg}"
+      "no_internet": "L'authentification n'a pas réussi.\nPeut-être n'y a-t-il pas de connexion Internet ?\nMessage d'erreur : {error_msg}",
+      "wrong_status": "L'authentification n'a pas réussi.\nPeut-être que l'hôte serveur configuré est incorrect ?\nMessage d'erreur : {error_msg}"
     }
   },
   "categories": {
     "title": "Livre de recettes",
     "all_categories": "Tout",
+    "uncategorized": "Non catégorisé",
+    "items": {
+      "0": "aucun élément",
+      "1": "1 élément",
+      "else": "{{value}} éléments"
+    },
     "drawer": {
       "import": "Importer une recette",
       "settings": "Paramètres"
@@ -62,7 +76,7 @@
   "recipe_list": {
     "title_category": "Catégorie : {category}",
     "errors": {
-      "load_failed": "Impossible de charger le raccourci de recette!"
+      "load_failed": "Impossible de charger le raccourci de recette !"
     }
   },
   "recipe": {
@@ -71,18 +85,21 @@
     "cook": "Durée de cuisson",
     "total": "Temps total",
     "fields": {
-      "name": "Titre de la recette : ",
-      "description": "Description de la recette : ",
-      "keywords": "Mots-clés : ",
-      "category": "Catégorie : ",
-      "servings": "Portions :",
-      "source": "Source :",
+      "name": "Nom de la recette",
+      "description": "Description de la recette",
+      "keywords": "Mots-clefs",
+      "category": "Catégorie",
+      "servings": {
+        "1": "Portion",
+        "else": "Portions"
+      },
+      "source": "Source",
       "source_button": "Source",
-      "image": "Image : ",
+      "image": "Image",
       "time": {
-        "prep": "Durée de préparation :",
-        "cook": "Durée de cuisson :",
-        "total": "Durée totale : ",
+        "prep": "Durée de préparation",
+        "cook": "Durée de cuisson",
+        "total": "Temps total",
         "hours": "Heures",
         "minutes": "Minutes"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Teneur en graisses insaturées"
         }
       },
-      "tools": "Ustensiles :",
-      "ingredients": "Ingrédients :",
-      "instructions": "Instructions :"
+      "general": "Général",
+      "times": "Times",
+      "tools": "Ustensiles",
+      "ingredients": "Ingrédients",
+      "instructions": "Instructions"
     },
     "errors": {
       "load_failed": "Impossible de charger la recette !"
@@ -116,26 +135,42 @@
     "button": "Enregistrer",
     "errors": {
       "update_failed": "Échec de mise à jour {error_msg}"
+    },
+    "delete": {
+      "title": "Supprimer la recette",
+      "dialog": "Êtes-vous sûr de vouloir effacer définitivement {recipe} ?"
     }
   },
   "recipe_create": {
     "title": "Créer une recette",
     "button": "Créer",
+    "add_field": "additionner",
+    "remove_field": "supprimer",
     "errors": {
       "update_failed": "La création a échoué {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Annuler les modifications",
+      "dialog": "Êtes-vous sûr de vouloir abandonner vos modifications sur {recipe} ?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Êtes-vous sûr de vouloir abandonner la création ?"
     }
   },
   "recipe_import": {
     "title": "Importer une recette",
     "button": "Importer",
     "field": "Adresse de la recette",
-    "clipboard": "Coller le presse-papier",
     "errors": {
       "import_failed": "L'importation a échoué {error_msg}"
     }
   },
   "search": {
     "title": "Rechercher une recette",
+    "description": "Rechercher des recettes par nom ou par mot-clé",
     "nothing_found": "Aucune recette trouvée",
     "errors": {
       "search_failed": "Impossible de charger toutes les recettes !\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Vos minuteurs",
     "started": "Minuteur démarré.",
     "finished": "est terminé.",
+    "button": {
+      "start": "démarrer le minuteur",
+      "cancel": "annuler le minuteur"
+    },
     "done": "Minutage terminé.",
-    "missing": "Vous devez renseigner la durée de cuisson avant d'utiliser un minuteur."
+    "missing": "Vous devez renseigner la durée de cuisson avant d'utiliser un minuteur.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "Paramètres de l'application",

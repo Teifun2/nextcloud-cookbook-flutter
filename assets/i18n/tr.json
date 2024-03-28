@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Ara",
-    "refresh": "Yenlle",
     "logout": "Oturumu kapat",
     "clear_all": "Tümünü temizle"
+  },
+  "alert": {
+    "discard": "Yok say",
+    "clear": "Temizle"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "geçerli bir sayı değil",
+      "required": "zorunlu"
+    }
   },
   "login": {
     "title": "Oturum aç",
@@ -22,7 +30,7 @@
     },
     "settings": {
       "title": "Gelişmiş ayarlar",
-      "app_password": "Otomatik oluşturulan AppPassword kullanılsın.\nİki aşamalı kimlik doğrulaması kullanan hesaplar için gereklidir",
+      "app_password": "Otomatik oluşturulan AppPassword kullanılsın.\nİki adımlı doğrulama kullanan hesaplar için gereklidir",
       "self_signed_certificate": "Hatalı sertifika yok sayılsın\nKendinden imzalı sertifikalar için gereklidir\n(Kullanımdan doğacak riskler size aittir!)"
     },
     "button": "Oturum aç",
@@ -39,15 +47,21 @@
       "failed_remove_remote": "Uzak AppPassword silinemedi!",
       "failure": "Oturum açma işlemi düzgün şekilde tamamlanamadı.\n{status_code}\n{status_message}",
       "credentials_invalid": "Kaydedilmiş kimlik doğrulama bilgileri artık geçerli olmadığından oturumunuz kapatıldı!",
-      "no_internet": "Kimlik doğrulama denetimi yapılamadı.\nİnternet bağlantısı kesik olabilir mi?\nHata iletisi: {error_msg}",
-      "wrong_status": "Kimlik doğrulama denetimi yapılamadı.\nBelirtilen sunucu adı yanlış olabilir mi?\nHata iletisi: {error_msg}"
+      "no_internet": "Kimlik doğrulanamadı.\nİnternet bağlantısı kesik olabilir mi?\nHata iletisi: {error_msg}",
+      "wrong_status": "Kimlik doğrulanamadı.\nBelirtilen sunucu adı yanlış olabilir mi?\nHata iletisi: {error_msg}"
     }
   },
   "categories": {
     "title": "Yemek kitabı",
     "all_categories": "Tümü",
+    "uncategorized": "Kategorisiz",
+    "items": {
+      "0": "Herhangi bir öge yok",
+      "1": "1 öge",
+      "else": "{{value}} öge"
+    },
     "drawer": {
-      "import": "İçe tarif aktar",
+      "import": "Tarifi içe aktar",
       "settings": "Ayarlar"
     },
     "errors": {
@@ -71,18 +85,21 @@
     "cook": "Pişirme süresi",
     "total": "Toplam süre",
     "fields": {
-      "name": "Tarif adı:",
-      "description": "Tarif açıklaması:",
-      "keywords": "Anahtar sözcükler:",
-      "category": "Kategori:",
-      "servings": "Porsiyon:",
-      "source": "Kaynak:",
+      "name": "Tarif adı",
+      "description": "Tarif açıklaması",
+      "keywords": "Anahtar sözcükler",
+      "category": "Kategori",
+      "servings": {
+        "1": "Kaç kişilik",
+        "else": "Kaç kişilik"
+      },
+      "source": "Kaynak",
       "source_button": "Kaynak",
-      "image": "Görsel:",
+      "image": "Görsel",
       "time": {
-        "prep": "Hazırlama süresi:",
-        "cook": "Pişirme süresi:",
-        "total": "Toplam süre:",
+        "prep": "Hazırlama süresi",
+        "cook": "Pişirme süresi",
+        "total": "Toplam süre",
         "hours": "Saat",
         "minutes": "Dakika"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Doymamış yağ miktarı"
         }
       },
-      "tools": "Araçlar:",
-      "ingredients": "Malzemeler:",
-      "instructions": "Hazırlanışı:"
+      "general": "Genel",
+      "times": "Süreler",
+      "tools": "Araçlar",
+      "ingredients": "Malzemeler",
+      "instructions": "Nasıl yapılır"
     },
     "errors": {
       "load_failed": "Tarif yüklenemedi!"
@@ -116,37 +135,58 @@
     "button": "Kaydet",
     "errors": {
       "update_failed": "Güncellenemedi {error_msg}"
+    },
+    "delete": {
+      "title": "Tarifi sil",
+      "dialog": "{recipe} tarifini silmek istediğinize emin misiniz?"
     }
   },
   "recipe_create": {
-    "title": "Yemek tarifi ekle",
+    "title": "Tarif ekle",
     "button": "Ekle",
+    "add_field": "ekle",
+    "remove_field": "sil",
     "errors": {
       "update_failed": "Eklenemedi {error_msg}"
     }
   },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Düzenlemeyi iptal et",
+      "dialog": "{recipe} tarifinde yaptığınız değişiklikleri yok saymak istediğinize emin misiniz?"
+    },
+    "dismiss_create": {
+      "title": "Eklemeyi iptal et",
+      "dialog": "Eklemeyi iptal etmek istediğinize emin misiniz?"
+    }
+  },
   "recipe_import": {
-    "title": "İçe tarif aktar",
+    "title": "Tarifi içe aktar",
     "button": "İçe aktar",
     "field": "Tarif adresi",
-    "clipboard": "Panodan yapıştır",
     "errors": {
       "import_failed": "İçe aktarılamadı {error_msg}"
     }
   },
   "search": {
-    "title": "Yemek tarifi ara",
+    "title": "Tarif ara",
+    "description": "Ada ya da anahtar sözcüğe göre tarif ara",
     "nothing_found": "Herhangi bir tarif bulunamadı!",
     "errors": {
-      "search_failed": "Tüm yemek tarifleri yüklenemedi!\n{error_msg}"
+      "search_failed": "Tüm tarifler yüklenemedi!\n{error_msg}"
     }
   },
   "timer": {
     "title": "Zamanlayıcılarınız",
     "started": "Zamanlayıcı başlatıldı.",
     "finished": "tamamlandı.",
+    "button": {
+      "start": "zamanlayıcıyı başlat",
+      "cancel": "zamanlayıcıyı iptal et"
+    },
     "done": "Zamanlayıcı tamamlandı.",
-    "missing": "Bir zamanlayıcı kullanmak için pişirme süresini ayarlamanız gerekir."
+    "missing": "Bir zamanlayıcı kullanmak için pişirme süresini ayarlamanız gerekir.",
+    "empty_list": "Çalışan zamanlayıcılarınız burada görüntülenir."
   },
   "settings": {
     "title": "Uygulama ayarları",
@@ -161,10 +201,10 @@
     },
     "stay_awake": {
       "title": "Uyanık kalınsın",
-      "subtitle": "Yemek tarifi ekranındayken ekran uykuya dalmaz"
+      "subtitle": "Tarif ekranındayken ekran uykuya dalmaz"
     },
     "recipe_font_size": {
-      "title": "Yemek tarifi yazı boyutu",
+      "title": "Tarif yazı boyutu",
       "subtitle": "Daha iyi okunabilirlik için tarif araçlarının, malzemelerin ve yönergelerin yazı boyutunu değiştirir."
     },
     "category_font_size": {

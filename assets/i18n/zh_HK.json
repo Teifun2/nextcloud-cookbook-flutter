@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "搜尋",
-    "refresh": "刷新",
     "logout": "登出",
     "clear_all": "清除全部"
+  },
+  "alert": {
+    "discard": "取消",
+    "clear": "清除"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "不是有效號碼",
+      "required": "需要"
+    }
   },
   "login": {
     "title": "登入",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "無法刪除遠端應用程式密碼！",
       "failure": "登入過程無法正確完成。\n{status_code}\n{status_message}",
       "credentials_invalid": "存儲的身分驗證不再有效，系統已註銷您！",
-      "no_internet": "身份驗證檢查不成功。\n也許沒有互聯網連接？\n錯誤消息：{error_msg}",
-      "wrong_status": "身份驗證檢查不成功。\n也許提供的伺服器主機不正確？\n錯誤消息：{error_msg}"
+      "no_internet": "身份驗證不成功。\n也許沒有互聯網連接？\n錯誤訊息：{error_msg}",
+      "wrong_status": "身份驗證不成功。\n也許提供的伺服器主機不正確？\n錯誤訊息：{error_msg}"
     }
   },
   "categories": {
     "title": "食譜",
     "all_categories": "全部",
+    "uncategorized": "未分類",
+    "items": {
+      "0": "沒有項目",
+      "1": "一個項目",
+      "else": "{{value}} 個項目"
+    },
     "drawer": {
       "import": "導入食譜",
       "settings": "設定"
@@ -71,18 +85,21 @@
     "cook": "烹調時間",
     "total": "總時間",
     "fields": {
-      "name": "食譜名稱：",
-      "description": "食譜描述：",
-      "keywords": "關鍵詞：",
-      "category": "分類：",
-      "servings": "份量：",
-      "source": "來源：",
+      "name": "食譜名稱",
+      "description": "食譜描述",
+      "keywords": "關鍵詞",
+      "category": "分類",
+      "servings": {
+        "1": "份量",
+        "else": "份量"
+      },
+      "source": "來源",
       "source_button": "來源",
-      "image": "圖像：",
+      "image": "圖像",
       "time": {
-        "prep": "準備時間：",
-        "cook": "烹調時間：",
-        "total": "總時間：",
+        "prep": "準備時間",
+        "cook": "烹調時間",
+        "total": "總時間",
         "hours": "小時",
         "minutes": "分鐘"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "不飽和脂肪含量"
         }
       },
-      "tools": "工具：",
-      "ingredients": "材料：",
-      "instructions": "製法："
+      "general": "常規",
+      "times": "時間",
+      "tools": "工具",
+      "ingredients": "材料",
+      "instructions": "烹飪方法"
     },
     "errors": {
       "load_failed": "載入食譜失敗!"
@@ -116,26 +135,42 @@
     "button": "保存",
     "errors": {
       "update_failed": "更新失敗 {error_msg}"
+    },
+    "delete": {
+      "title": "刪除食譜",
+      "dialog": "您確定要永久移除「{recipe}」嗎？"
     }
   },
   "recipe_create": {
     "title": "創建食譜",
     "button": "創建",
+    "add_field": "添加",
+    "remove_field": "移除",
     "errors": {
       "update_failed": "創建失敗 {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "取消編輯",
+      "dialog": "您確定要放棄對「{recipe}」的更改嗎？"
+    },
+    "dismiss_create": {
+      "title": "取消創建",
+      "dialog": "您確定要放棄創建嗎？"
     }
   },
   "recipe_import": {
     "title": "導入食譜",
     "button": "導入",
     "field": "食譜 URL",
-    "clipboard": "從剪貼板粘貼",
     "errors": {
       "import_failed": "導入失敗 {error_msg}"
     }
   },
   "search": {
     "title": "搜尋食譜",
+    "description": "按名稱或關鍵字搜索食譜",
     "nothing_found": "找不到食譜!",
     "errors": {
       "search_failed": "無法加載所有食譜！\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "你的計時器",
     "started": "計時器已啟動。",
     "finished": "已完成。",
+    "button": {
+      "start": "開始計時",
+      "cancel": "取消計時"
+    },
     "done": "計時结束。",
-    "missing": "您需要設置烹飪時間才能使用計時器。"
+    "missing": "您需要設置烹飪時間才能使用計時器。",
+    "empty_list": "您正在運行的計時器將顯示在此處。"
   },
   "settings": {
     "title": "應用程式設定",
@@ -165,7 +205,7 @@
     },
     "recipe_font_size": {
       "title": "食譜字體大小",
-      "subtitle": "更改食譜工具、配料和烹調說明的字體大小，以提高可讀性。"
+      "subtitle": "更改食譜工具、材料和烹調說明的字體大小，以提高可讀性。"
     },
     "category_font_size": {
       "title": "分類字體大小",

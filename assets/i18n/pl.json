@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Szukaj",
-    "refresh": "Odśwież",
     "logout": "Wyloguj",
     "clear_all": "Wyczyść wszystko"
+  },
+  "alert": {
+    "discard": "Odrzuć",
+    "clear": "Wyczyść "
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "Zaloguj",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Nie udało się usunąć zdalnego hasła do aplikacji!",
       "failure": "Proces logowania nie mógł zakończyć się poprawnie.\n{status_code}\n{status_message}",
       "credentials_invalid": "Zapisane dane uwierzytelniające są już nie ważne i zostałeś wylogowany!",
-      "no_internet": "Sprawdzenie uwierzytelniania nie powiodło się.\nMoże nie ma połączenia z internetem?\nKomunikat o błędzie: {error_msg}",
-      "wrong_status": "Sprawdzenie uwierzytelniania nie powiodło się.\nMoże podany host serwera nie jest poprawny?\nKomunikat o błędzie: {error_msg}"
+      "no_internet": "Uwierzytelnianie nie powiodło się.\nMoże nie ma połączenia z internetem?\nKomunikat o błędzie: {error_msg}",
+      "wrong_status": "Uwierzytelnianie nie powiodło się.\nMoże podany host serwera jest nieprawidłowy?\nKomunikat o błędzie: {error_msg}"
     }
   },
   "categories": {
     "title": "Książka kucharska",
     "all_categories": "Wszystkie",
+    "uncategorized": "Bez kategorii",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Importuj przepis",
       "settings": "Ustawienia"
@@ -71,18 +85,21 @@
     "cook": "Czas gotowania",
     "total": "Czas całkowity",
     "fields": {
-      "name": "Nazwa przepisu:",
-      "description": "Opis przepisu:",
-      "keywords": "Słowa kluczowe:",
-      "category": "Kategoria:",
-      "servings": "Porcje:",
-      "source": "Źródło:",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "Słowa kluczowe",
+      "category": "Kategoria",
+      "servings": {
+        "1": "Serving",
+        "else": "Porcje"
+      },
+      "source": "Źródło",
       "source_button": "Źródło",
-      "image": "Obraz:",
+      "image": "Obraz",
       "time": {
-        "prep": "Czas przygotowania:",
-        "cook": "Czas gotowania:",
-        "total": "Czas całkowity:",
+        "prep": "Czas przygotowania",
+        "cook": "Czas gotowania",
+        "total": "Czas całkowity",
         "hours": "Godziny",
         "minutes": "Minuty"
       },
@@ -103,7 +120,9 @@
           "unsaturatedFatContent": "Zawartość tłuszczu nienasyconego"
         }
       },
-      "tools": "Przybory:",
+      "general": "Ogólne",
+      "times": "Times",
+      "tools": "Przybory",
       "ingredients": "Składniki:",
       "instructions": "Instrukcje:"
     },
@@ -116,26 +135,42 @@
     "button": "Zapisz",
     "errors": {
       "update_failed": "Aktualizacja nie powiodła się {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Utwórz przepis",
     "button": "Utwórz",
+    "add_field": "dodaj",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Utworzenie nie powiodło się {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Anuluj edycję",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "Importuj przepis",
     "button": "Importuj",
     "field": "Adres URL do przepisu",
-    "clipboard": "Wklej ze schowka",
     "errors": {
       "import_failed": "Import nieudany {error_msg}"
     }
   },
   "search": {
     "title": "Szukaj przepisu",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "Nie znaleziono przepisu!",
     "errors": {
       "search_failed": "Nie można załadować wszystkich przepisów!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Twój czas",
     "started": "Uruchomiony minutnik.",
     "finished": "zakończone.",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "Minutnik jest gotowy.",
-    "missing": "Aby korzystać z minutnika, musisz ustawić czas gotowania."
+    "missing": "Aby korzystać z minutnika, musisz ustawić czas gotowania.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "Ustawienia aplikacji",

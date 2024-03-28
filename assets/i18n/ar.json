@@ -1,0 +1,215 @@
+{
+  "app_bar": {
+    "logout": "تسجيل الخروج",
+    "clear_all": "محو الكل"
+  },
+  "alert": {
+    "discard": "تجاهل",
+    "clear": "محو"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "ليس رقماً صحيحاً",
+      "required": "لازمٌ"
+    }
+  },
+  "login": {
+    "title": "الدخول",
+    "server_url": {
+      "field": "عنوان URL للخادوم",
+      "validator": {
+        "empty": "يُرجى إدخال عنوان URL لخادوم نكست كلاود خاصّتك.",
+        "pattern": "يُرجي إدخال عنوان URL صحيح"
+      }
+    },
+    "username": {
+      "field": "اسم المستخدم"
+    },
+    "password": {
+      "field": "كلمة السر"
+    },
+    "settings": {
+      "title": "الإعدادات المتقدمة",
+      "app_password": "استخدم كلمة مرور التطبيق المُولّدى ذاتيًا. \nمطلوبة للحسابات في حالة التحقُّق المُثَنّى من الهُوِيّة \"2FA\"",
+      "self_signed_certificate": "تجاهل الشهادة غير الصالحة. \nمطلوبة للحصول على شهادات موقعة ذاتياً. \n(استخدمها على مسؤوليتك الخاصة!)"
+    },
+    "button": "الدخول",
+    "retry": "معاودة الدخول",
+    "reset": "إعادة تعيين حيثيّات الدخول credentials",
+    "errors": {
+      "not_reachable": "لا يمكن الوصول إلى: {server_url} \n{error_msg}",
+      "certificate_failed": "تعذر التحقق من شهادة الخادوم: {server_url}\n {error_msg}",
+      "request_failed": "فشل طلب كلمة مرور التطبيق:\n {error_msg}",
+      "parse_failed": "لا يمكن تحليل استجابة كلمة مرور التطبيق! \n{error_msg}",
+      "parse_missing": "لا يمكن العثور على كلمة مرور التطبيق في الرد! {error_msg}",
+      "auth_failed": "اسم المستخدم و/ أو كلمة المرور غير صحيحة!",
+      "authentication_not_found": "لم يُمكن العثور على مصادقة في وحدة التخزين",
+      "failed_remove_remote": "فشل حذف كلمة مرور التطبيق القصِي remote!",
+      "failure": "تعذر إنهاء عملية تسجيل الدخول بشكل صحيح.\n {status_code}\n {status_message}",
+      "credentials_invalid": "حيثيات الدخول credentials المخزنة لم تعد صالحة وقد تم تسجيل خروجك!",
+      "no_internet": "لم تكن المصادقة ناجحة. ربما لا يوجد اتصال بالإنترنت؟ رسالة خطأ: {error_msg}",
+      "wrong_status": "لم تكن المصادقة ناجحة. ربما لم يكن مضيف الخادوم المقدم صحيحًا؟ رسالة الخطأ: {error_msg}"
+    }
+  },
+  "categories": {
+    "title": "كتاب الطهو Cookbook",
+    "all_categories": "الكل",
+    "uncategorized": "غير مُصنّفة",
+    "items": {
+      "0": "لا توجد أي عناصر",
+      "1": "1 عنصر",
+      "else": "{{value}} عنصر"
+    },
+    "drawer": {
+      "import": "استيراد وصفة ",
+      "settings": "الإعدادات"
+    },
+    "errors": {
+      "unknown": "التصنيفات في حالة غير معروفة",
+      "load_failed": "فشل تحميل الفئة: {error_msg}",
+      "load_no_response": "تعذّر استرداد التصنيفات من الخادوم.",
+      "api_version_check_failed": "فشل التحقُّق من إصدار API للخادوم: \n{error_msg}",
+      "api_version_above_confirmed": "تمّ تحديث إصدار API للخادوم. قد لا تعمل بعض الميزات كما هو متوقع. من فضلك انتظر التحديث!\n {version}",
+      "plugin_missing": "لا يمكن تحميل التصنيفات. تأكد من تنصيب المكون الإضافي Cookbook plugin على خادوم نكست كلاود هذا!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "الفئة: {category}",
+    "errors": {
+      "load_failed": "فشل تحميل الوصفات!"
+    }
+  },
+  "recipe": {
+    "title": "الوصفة:",
+    "prep": "وقت التحضير",
+    "cook": "وقت الطهو",
+    "total": "الوقت الكُلِّي",
+    "fields": {
+      "name": "اسم الوصفة",
+      "description": "وصف الوصفة",
+      "keywords": "الكلمات المفتاحية",
+      "category": "التصنيف",
+      "servings": {
+        "1": "عدد حصص الوصفة أي الأشخاص",
+        "else": "عدد حصص الوصفة"
+      },
+      "source": "المصدر",
+      "source_button": "المصدر",
+      "image": "صورة",
+      "time": {
+        "prep": "زمن التحضير",
+        "cook": "زمن الطهي",
+        "total": "الزمن الكُلِّي",
+        "hours": "ساعات",
+        "minutes": "دقائق"
+      },
+      "nutrition": {
+        "title": "المعلومات الغذائية",
+        "items": {
+          "calories": "الطاقة",
+          "carbohydrateContent": "الكربوهيدرات",
+          "cholesterolContent": "الكوليسترول",
+          "fatContent": "إجمالي الدهون",
+          "fiberContent": "الألياف",
+          "proteinContent": "البروتين",
+          "saturatedFatContent": "الدهون المشبعة",
+          "servingSize": "حجم حصة التقديم لكل شخصٍ",
+          "sodiumContent": "الصوديوم",
+          "sugarContent": "السكر",
+          "transFatContent": "محتوى الدهون المتحولة",
+          "unsaturatedFatContent": "محتوى الدهون غير المشبعة"
+        }
+      },
+      "general": "العامة",
+      "times": "الأوقات",
+      "tools": "الأدوات",
+      "ingredients": "المُكوِّنات و المَقَادِير",
+      "instructions": "التعليمات"
+    },
+    "errors": {
+      "load_failed": "فشل تحميل الوصفة!"
+    }
+  },
+  "recipe_edit": {
+    "title": "تعديل الوصفة",
+    "button": "حفظ",
+    "errors": {
+      "update_failed": "فشل التحديث {error_msg}"
+    },
+    "delete": {
+      "title": "حذف الوصفة ",
+      "dialog": "هل أنت متأكد من أنك تريد حذف {recipe} نهائيًا؟"
+    }
+  },
+  "recipe_create": {
+    "title": "إنشاء وصفة",
+    "button": "إنشاء",
+    "add_field": "إضافة",
+    "remove_field": "حذف",
+    "errors": {
+      "update_failed": "فشل الإنشاء {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "إلغاء التعديل",
+      "dialog": "هل أنت متأكد أنك تريد تجاهل التغييرات التي أجريتها على {recipe}؟"
+    },
+    "dismiss_create": {
+      "title": "إلغاء الإنشاء",
+      "dialog": "هل أنت متأكد أنك تريد تجاهل الإنشاء؟"
+    }
+  },
+  "recipe_import": {
+    "title": "إستيراد وصفة ",
+    "button": "إستيراد",
+    "field": "عنوان URL للوصفة",
+    "errors": {
+      "import_failed": "فشل الاستيراد {error_msg}"
+    }
+  },
+  "search": {
+    "title": "بحث في الوصفات",
+    "description": "ابحث عن وصفات بالاسم أو الكلمة الدلالية",
+    "nothing_found": "لم يتم العثور على وصفة!",
+    "errors": {
+      "search_failed": "تعذر تحميل كافة الوصفات! {error_msg}"
+    }
+  },
+  "timer": {
+    "title": "مُؤقِّتَاتُك",
+    "started": "بَدَأَ المُؤَقِّت",
+    "finished": "إنتهي",
+    "button": {
+      "start": "وقت البداية",
+      "cancel": "إلغِ المُؤَقِّت"
+    },
+    "done": "إنتهى المُؤَقِّت",
+    "missing": "يجب أن تقوم بتعيين وقت الطهو ليمكنك استعمال المُؤَقِّت",
+    "empty_list": "مُؤَقِّتَاتك ستظهر هنا عندما تعمل,"
+  },
+  "settings": {
+    "title": "إعدادات التطبيق",
+    "dark_mode": {
+      "title": "الوضع الداكن",
+      "system": "افتراضات النظام",
+      "dark": "دائماً",
+      "light": "مُطلَقاً"
+    },
+    "language": {
+      "title": "اللغة"
+    },
+    "stay_awake": {
+      "title": "إبقَ يَقِظاً",
+      "subtitle": "ستظل الشاشة قيد التشغيل طوال مدة عرض شاشة الوصفة."
+    },
+    "recipe_font_size": {
+      "title": "حجم خط الوصفة",
+      "subtitle": "أدوات تغيير حجم خط الوصفات والمكونات والتعليمات لتسهيل القراءة."
+    },
+    "category_font_size": {
+      "title": "حجم خط التصنيفات",
+      "subtitle": "تغيير حجم خط عنوان التصنيفات. يمكن أن يكون هذا مفيدًا إذا كان لديك أسماء تصنيفات طويلة."
+    }
+  }
+}

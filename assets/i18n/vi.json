@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Tìm kiếm",
-    "refresh": "Tải mới",
     "logout": "Đăng xuất",
     "clear_all": "Xóa tât cả"
+  },
+  "alert": {
+    "discard": "Bỏ qua thay đổi",
+    "clear": "Xóa"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "Đăng nhập",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Không xóa được mật khẩu ứng dụng từ xa!",
       "failure": "Quá trình đăng nhập không thể kết thúc đúng cách.\n{status_code}\n{status_message}",
       "credentials_invalid": "Các thông tin xác thực được lưu trữ không còn hợp lệ, và bạn đã đăng xuất!",
-      "no_internet": "Kiểm tra xác thực không thành công.\nCó thể không có kết nối internet?\nThông báo lỗi: {error_msg}",
-      "wrong_status": "Kiểm tra xác thực không thành công.\nCó thể máy chủ lưu trữ được cung cấp không đúng?\nThông báo lỗi: {error_msg}"
+      "no_internet": "Authentication was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Sách dạy nấu ăn",
     "all_categories": "Tất cả",
+    "uncategorized": "Chưa phân loại",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Nhập công thức",
       "settings": "Cài đặt"
@@ -71,18 +85,21 @@
     "cook": "Thời gian nấu",
     "total": "Tổng thời gian",
     "fields": {
-      "name": "Tên công thức",
-      "description": "Mô tả công thức ",
-      "keywords": "Từ khóa:",
-      "category": "Danh mục:",
-      "servings": "Khẩu phần ăn:",
-      "source": "Nguồn:",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "Từ khóa",
+      "category": "Hạng mục",
+      "servings": {
+        "1": "Serving",
+        "else": "Khẩu phần ăn"
+      },
+      "source": "Nguồn",
       "source_button": "Nguồn",
-      "image": "Hình",
+      "image": "Hình ảnh",
       "time": {
-        "prep": "Thời gian chuẩn bị:",
-        "cook": "Thời gian nấu ăn:",
-        "total": "Tổng thời gian:",
+        "prep": "Thời gian chuẩn sự bị",
+        "cook": "Thời gian nấu",
+        "total": "Tổng thời gian",
         "hours": "Giờ",
         "minutes": "Phút"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Hàm lượng chất béo không bão hòa"
         }
       },
-      "tools": "Công cụ:",
-      "ingredients": "Thành phần:",
-      "instructions": "Hướng dẫn:"
+      "general": "Cài đặt chung",
+      "times": "Times",
+      "tools": "Công cụ",
+      "ingredients": "Thành phần",
+      "instructions": "Hướng dẫn"
     },
     "errors": {
       "load_failed": "Không thể tải công thức!"
@@ -116,26 +135,42 @@
     "button": "Lưu",
     "errors": {
       "update_failed": "Cập nhật không thành công {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Tạo công thức",
     "button": "‎Tạo‎",
+    "add_field": "add",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Tạo không thành công {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Hủy chỉnh sửa",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "Nhập công thức",
     "button": "Nhập vào",
     "field": "URL của công thức",
-    "clipboard": "Dán khay nhớ tạm",
     "errors": {
       "import_failed": "Nhập không thành công {error_msg}"
     }
   },
   "search": {
     "title": "Tìm kiếm công thức",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "Không tìm thấy công thức!",
     "errors": {
       "search_failed": "Không thể tải tất cả các Công thức!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Hẹn giờ của bạn",
     "started": "Đã bắt đầu hẹn giờ.",
     "finished": "đã hoàn thành",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "Hẹn giờ đã xong.",
-    "missing": "You need to set the cooking time to use a timer."
+    "missing": "You need to set the cooking time to use a timer.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "Cài đặt ứng dụng",

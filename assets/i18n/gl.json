@@ -1,15 +1,24 @@
 {
   "app_bar": {
-    "search": "Buscar",
-    "refresh": "Actualizar",
-    "logout": "Saír"
+    "logout": "Saír",
+    "clear_all": "Limpar todo"
+  },
+  "alert": {
+    "discard": "Desbortar",
+    "clear": "Limpar"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "non é un número válido",
+      "required": "obrigatorio"
+    }
   },
   "login": {
     "title": "Acceder",
     "server_url": {
       "field": "URL do servidor",
       "validator": {
-        "empty": "Introduza o URL da súa instancia do Nextcloud.",
+        "empty": "Introduza o URL da súa instancia de Nextcloud.",
         "pattern": "Introduza un URL correcto"
       }
     },
@@ -21,10 +30,12 @@
     },
     "settings": {
       "title": "Axustes avanzados",
-      "app_password": "Use un contrasinal de aplicación autoxerado.\nNecesario para contas con 2FA",
+      "app_password": "Use un contrasinal de aplicación autoxerado.\nNecesario para contas con A2F",
       "self_signed_certificate": "Ignorar o certificado non válido\nNecesario para os certificados autoasinados\n(Utilíceo baixo a súa propia responsabilidade!)"
     },
     "button": "Acceder",
+    "retry": "Tentar acceder outra vez!",
+    "reset": "Restabelecer as credenciais!",
     "errors": {
       "not_reachable": "Non é posíbel acadar: {server_url}\n{error_msg}",
       "certificate_failed": "Non foi posíbel verificar o certificado do servidor: {server_url}\n{error_msg}",
@@ -33,24 +44,33 @@
       "parse_missing": "Non foi posíbel atopar o  contrasinal de aplicación na resposta.\n{error_msg}",
       "auth_failed": "O nome de usuario e / ou o contrasinal son incorrectos.",
       "authentication_not_found": "Non se atopou ningunha autenticación no almacenamento",
-      "failed_remove_remote": "Produciuse un erro ao eliminar o contrasinal de aplicación remoto.",
+      "failed_remove_remote": "Produciuse un erro ao retirar o contrasinal da aplicación remota.",
       "failure": "O proceso de acceso non puido rematar correctamente.\n{status_code}\n{status_message}",
-      "credentials_invalid": "As credenciais almacenadas xa non son válidas e foi pechada a sesión."
+      "credentials_invalid": "As credenciais almacenadas xa non son válidas e foi pechada a sesión.",
+      "no_internet": "A autenticación non se realizou correctamente.\nQuizais non hai conexión a internet?\nMensaxe de erro: {error_msg}",
+      "wrong_status": "A autenticación non se realizou correctamente.\nQuizais o servidor fornecido non sexa correcto?\nMensaxe de erro: {error_msg}"
     }
   },
   "categories": {
-    "title": "Libro de cociña",
+    "title": "Receitas de cociña",
     "all_categories": "Todo",
+    "uncategorized": "Sen categorizar",
+    "items": {
+      "0": "non hai elementos",
+      "1": "1 elemento",
+      "else": "{{value}} elementos"
+    },
     "drawer": {
-      "import": "Import Recipe"
+      "import": "Importar receita",
+      "settings": "Axustes"
     },
     "errors": {
       "unknown": "Categorías en estado descoñecido",
-      "load_failed": "Produciuse un fallo ao cargar a categoría {error_msg}",
+      "load_failed": "Produciuse un fallo ao cargar a categoría: {error_msg}",
       "load_no_response": "Non foi posíbel recuperar as categorías do servidor.",
       "api_version_check_failed": "Produciuse un fallo ao comprobar a versión da API do servidor:\n{error_msg}",
       "api_version_above_confirmed": "Actualizouse a versión da API do servidor. É posíbel que algunhas funcións non traballen como se agardaba. Agarde por unha actualización.\n{version}",
-      "plugin_missing": "Categories could not be loaded. Make sure that the cookbook plugin is installed on this nextcloud instance!"
+      "plugin_missing": "Non foi posíbel cargar as categorías. Asegúrese de que o complemento «Cookbook» estea instalado nesta instancia de Nextcloud."
     }
   },
   "recipe_list": {
@@ -61,23 +81,50 @@
   },
   "recipe": {
     "title": "Receita:",
+    "prep": "Tempo de preparación",
+    "cook": "Tempo de cociñado",
+    "total": "Tempo total",
     "fields": {
-      "name": "Nome da receita:",
-      "description": "Descrición da receita:",
-      "keywords": "Palabras clave:",
-      "category": "Categoría:",
-      "servings": "Racións:",
-      "source": "Orixe:",
-      "source_button": "Orixe",
-      "image": "Imaxe:",
-      "time": {
-        "prep": "Tempo de preparación:",
-        "cook": "Tempo de cociñado:",
-        "total": "Tempo total:"
+      "name": "Nome da receita",
+      "description": "Descrición da receita",
+      "keywords": "Palabras clave",
+      "category": "Categoría",
+      "servings": {
+        "1": "Ración",
+        "else": "Racións"
       },
-      "tools": "Trebellos:",
-      "ingredients": "Ingredientes:",
-      "instructions": "Elaboración:"
+      "source": "Orixe",
+      "source_button": "Orixe",
+      "image": "Imaxe",
+      "time": {
+        "prep": "Tempo de preparación",
+        "cook": "Tempo de cociñado",
+        "total": "Tempo total",
+        "hours": "Horas",
+        "minutes": "Minutos"
+      },
+      "nutrition": {
+        "title": "Información nutricional",
+        "items": {
+          "calories": "Calorias",
+          "carbohydrateContent": "Carbohidratos",
+          "cholesterolContent": "Colesterol",
+          "fatContent": "Graxa total",
+          "fiberContent": "Fibra",
+          "proteinContent": "Proteinas",
+          "saturatedFatContent": "Grasas saturadas",
+          "servingSize": "Tamaño da ración",
+          "sodiumContent": "Sodio",
+          "sugarContent": "Azucre",
+          "transFatContent": "Contido de graxas trans",
+          "unsaturatedFatContent": "Contido de graxa insaturada"
+        }
+      },
+      "general": "Xeral",
+      "times": "Veces",
+      "tools": "Utensilios",
+      "ingredients": "Ingredientes",
+      "instructions": "Elaboración"
     },
     "errors": {
       "load_failed": "Produciuse un fallo ao cargar a receita!"
@@ -85,32 +132,84 @@
   },
   "recipe_edit": {
     "title": "Editar a receita",
-    "button": "Actualizar a receita",
+    "button": "Gardar",
     "errors": {
-      "update_failed": "Produciuse un fallo ao actualizar {error_msg}"
+      "update_failed": "Produciuse un fallo na actualización {error_msg}"
+    },
+    "delete": {
+      "title": "Eliminar a receita",
+      "dialog": "Confirma que quere eliminar definitivamente {recipe}?"
     }
   },
   "recipe_create": {
-    "title": "Create Recipe",
-    "button": "Create Recipe",
+    "title": "Crear unha receita",
+    "button": "Crear",
+    "add_field": "engadir",
+    "remove_field": "retirar",
     "errors": {
-      "update_failed": "Create Failed {error_msg}"
+      "update_failed": "Produciuse un fallo na creación {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Cancelar a edición",
+      "dialog": "Confirma que quere desbotar os seus cambios en {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancelar a creación",
+      "dialog": "Confirma que quere desbotar a creación?"
     }
   },
   "recipe_import": {
-    "title": "Import Recipe",
-    "button": "Import",
-    "field": "URL to Recipe",
-    "clipboard": "Paste Clipboard",
+    "title": "Importar receita",
+    "button": "Importar",
+    "field": "URL para a receita",
     "errors": {
-      "import_failed": "Import Failed {error_msg}"
+      "import_failed": "Produciuse un fallo na importación {error_msg}"
     }
   },
   "search": {
-    "title": "Search Recipe",
+    "title": "Buscar receita",
+    "description": "Buscar receitas polo nome ou por palabra clave",
     "nothing_found": "Non se atopou ningunha receita.",
     "errors": {
-      "search_failed": "Unable to load all Recipes!\n{error_msg}"
+      "search_failed": "Non é posíbel cargar todas as receitas!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Os seus temporizadores",
+    "started": "Comezou o temporizador.",
+    "finished": "rematou.",
+    "button": {
+      "start": "iniciar o temporizador",
+      "cancel": "cancelar o temporizador"
+    },
+    "done": "O temporizador rematou.",
+    "missing": "Ten que estabelecer o tempo de cocción para usar un temporizador.",
+    "empty_list": "Os seus temporizadores de execución amosaranse aquí."
+  },
+  "settings": {
+    "title": "Axustes da aplicación",
+    "dark_mode": {
+      "title": "Modo escuro",
+      "system": "Predeterminado do sistema",
+      "dark": "Sempre",
+      "light": "Nunca"
+    },
+    "language": {
+      "title": "Idioma"
+    },
+    "stay_awake": {
+      "title": "Manter acesa",
+      "subtitle": "A pantalla permanecerá acesa mentres está na pantalla da receita."
+    },
+    "recipe_font_size": {
+      "title": "Tamaño da letra da receita",
+      "subtitle": "Cambia o tamaño da letra dos utensilios, ingredientes e instrucións para unha mellor lexibilidade."
+    },
+    "category_font_size": {
+      "title": "Tamaño da letra da categoría",
+      "subtitle": "Cambia o tamaño da letra do título da categoría. Isto pode ser útil se ten nomes de categoría longos."
     }
   }
 }

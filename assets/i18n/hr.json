@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Traži",
-    "refresh": "Osvježi",
     "logout": "Odjava",
     "clear_all": "Izbriši sve"
+  },
+  "alert": {
+    "discard": "Odbaci",
+    "clear": "Izbriši"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "Prijava",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Uklanjanje udaljenog servisa App Password nije uspjelo!",
       "failure": "Postupak prijave nije pravilno završen.\n{status_code}\n{status_message}",
       "credentials_invalid": "Pohranjene vjerodajnice više nisu važeće i odjavljeni ste!",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Authentication was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Kuharica",
     "all_categories": "Sve",
+    "uncategorized": "Nekategorizirani",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Uvezi recept",
       "settings": "Postavke"
@@ -71,18 +85,21 @@
     "cook": "Vrijeme kuhanja",
     "total": "Ukupno vrijeme",
     "fields": {
-      "name": "Naziv recepta:",
-      "description": "Opis recepta:",
-      "keywords": "Ključne riječi:",
-      "category": "Kategorija:",
-      "servings": "Obroci:",
-      "source": "Izvor:",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "Ključne riječi",
+      "category": "Kategorija",
+      "servings": {
+        "1": "Serving",
+        "else": "Obroci"
+      },
+      "source": "Izvor",
       "source_button": "Izvor",
-      "image": "Slika:",
+      "image": "Slika",
       "time": {
-        "prep": "Vrijeme pripreme:",
-        "cook": "Vrijeme kuhanja:",
-        "total": "Ukupno vrijeme:",
+        "prep": "Vrijeme pripreme",
+        "cook": "Vrijeme kuhanja",
+        "total": "Ukupno vrijeme",
         "hours": "Sati",
         "minutes": "Minute"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Udio nezasićenih masnih kiselina"
         }
       },
-      "tools": "Alati:",
-      "ingredients": "Sastojci:",
-      "instructions": "Upute:"
+      "general": "Općenito",
+      "times": "Times",
+      "tools": "Alati",
+      "ingredients": "Sastojci",
+      "instructions": "Upute"
     },
     "errors": {
       "load_failed": "Učitavanje recepta nije uspjelo!"
@@ -116,26 +135,42 @@
     "button": "Spremi",
     "errors": {
       "update_failed": "Ažuriranje nije uspjelo {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Stvori recept",
     "button": "Stvori",
+    "add_field": "add",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Stvaranje nije uspjelo {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Otkaži uređivanje",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "Uvezi recept",
     "button": "Uvezi",
     "field": "URL recepta",
-    "clipboard": "Zalijepi sadržaj međuspremnika",
     "errors": {
       "import_failed": "Uvoz nije uspio {error_msg}"
     }
   },
   "search": {
     "title": "Traži recept",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "Nije pronađen nijedan recept!",
     "errors": {
       "search_failed": "Nije moguće učitati sve recepte!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Vaši brojači vremena",
     "started": "Brojač vremena je pokrenut.",
     "finished": "is finished.",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "Brojač vremena je završio.",
-    "missing": "You need to set the cooking time to use a timer."
+    "missing": "You need to set the cooking time to use a timer.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "Postavke aplikacije",

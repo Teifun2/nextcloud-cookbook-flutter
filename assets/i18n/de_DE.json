@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Suche",
-    "refresh": "Aktualisieren",
     "logout": "Abmelden",
     "clear_all": "Alles löschen"
+  },
+  "alert": {
+    "discard": "Verwerfen",
+    "clear": "Leeren"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "Keine zulässige Zahl",
+      "required": "Erforderlich"
+    }
   },
   "login": {
     "title": "Anmelden",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Remote-App-Passwort konnte nicht entfernt werden!",
       "failure": "Anmeldevorgang konnte nicht ordnungsgemäß beendet werden.\n{status_code}\n{status_message}",
       "credentials_invalid": "Die gespeicherten Anmeldedaten waren nicht mehr gültig und Sie wurden abgemeldet!",
-      "no_internet": "Die Authentifizierungsprüfung war nicht erfolgreich.\nVielleicht gibt es keine Internetverbindung?\nFehlermeldung: {error_msg}",
-      "wrong_status": "Die Authentifizierungsprüfung war nicht erfolgreich.\nVielleicht ist der angegebene Server-Host nicht korrekt?\nFehlermeldung: {error_msg}"
+      "no_internet": "Die Authentifizierung war nicht erfolgreich.\nVielleicht gibt es keine Internetverbindung?\nFehlermeldung: {error_msg}",
+      "wrong_status": "Die Authentifizierung war nicht erfolgreich.\nVielleicht ist der angegebene Server-Host nicht korrekt?\nFehlermeldung: {error_msg}"
     }
   },
   "categories": {
     "title": "Kochbuch",
     "all_categories": "Alle",
+    "uncategorized": "Ohne Kategorie",
+    "items": {
+      "0": "Keine Elemente",
+      "1": "1 Element",
+      "else": "{{value}} Elemente"
+    },
     "drawer": {
       "import": "Rezept importieren",
       "settings": "Einstellungen"
@@ -71,18 +85,21 @@
     "cook": "Kochdauer",
     "total": "Gesamtzeit",
     "fields": {
-      "name": "Rezept-Name:",
-      "description": "Rezept-Beschreibung:",
-      "keywords": "Schlüsselwörter:",
-      "category": "Kategorie:",
-      "servings": "Portionen:",
-      "source": "Quelle:",
+      "name": "Rezeptname",
+      "description": "Rezeptbeschreibung:",
+      "keywords": "Schlüsselwörter",
+      "category": "Kategorie",
+      "servings": {
+        "1": "Portion",
+        "else": "Portionen"
+      },
+      "source": "Quelle",
       "source_button": "Quelle",
-      "image": "Bild:",
+      "image": "Bild",
       "time": {
-        "prep": "Vorbereitungsdauer:",
-        "cook": "Kochdauer:",
-        "total": "Gesamtzeit:",
+        "prep": "Vorbereitungsdauer",
+        "cook": "Kochdauer",
+        "total": "Gesamtzeit",
         "hours": "Stunden",
         "minutes": "Minuten"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Gehalt an ungesättigten Fettsäuren"
         }
       },
-      "tools": "Utensilien:",
-      "ingredients": "Zutaten:",
-      "instructions": "Zubereitung:"
+      "general": "Allgemein",
+      "times": "Zeiten",
+      "tools": "Utensilien",
+      "ingredients": "Zutaten",
+      "instructions": "Zubereitung"
     },
     "errors": {
       "load_failed": "Laden des Rezepts fehlgeschlagen!"
@@ -116,26 +135,42 @@
     "button": "Speichern",
     "errors": {
       "update_failed": "Aktualisierung fehlgeschlagen {error_msg}"
+    },
+    "delete": {
+      "title": "Rezept löschen",
+      "dialog": "Möchten Sie {recipe} endgültig löschen?"
     }
   },
   "recipe_create": {
     "title": "Rezept erstellen",
     "button": "Erstellen",
+    "add_field": "Hinzufügen",
+    "remove_field": "Entfernen",
     "errors": {
       "update_failed": "Erstellung fehlgeschlagen {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Bearbeiten abbrechen",
+      "dialog": "Möchten Sie Ihre Änderungen an {recipe} verwerfen?"
+    },
+    "dismiss_create": {
+      "title": "Erstellung abbrechen",
+      "dialog": "Möchten Sie die Erstellung verwerfen?"
     }
   },
   "recipe_import": {
     "title": "Rezept importieren",
     "button": "Importieren",
     "field": "URL zum Rezept",
-    "clipboard": "Zwischenablage einfügen",
     "errors": {
       "import_failed": "Import fehlgeschlagen {error_msg}"
     }
   },
   "search": {
     "title": "Rezept suchen",
+    "description": "Rezepte nach Name oder Schlüsselwort suchen",
     "nothing_found": "Kein Rezept gefunden!",
     "errors": {
       "search_failed": "Es konnten nicht alle Rezepte geladen werden!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Ihre Timer",
     "started": "Timer gestartet.",
     "finished": "ist abgeschlossen.",
+    "button": {
+      "start": "Timer starten",
+      "cancel": "Timer abbrechen"
+    },
     "done": "Timer ist fertig.",
-    "missing": "Um einen Timer zu verwenden, müssen Sie die Kochzeit angeben."
+    "missing": "Um einen Timer zu verwenden, müssen Sie die Kochzeit angeben.",
+    "empty_list": "Ihre laufenden Timer werden hier angezeigt."
   },
   "settings": {
     "title": "App-Einstellungen",

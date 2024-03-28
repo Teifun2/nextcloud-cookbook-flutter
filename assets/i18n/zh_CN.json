@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "搜索",
-    "refresh": "刷新",
     "logout": "注销",
     "clear_all": "清除全部"
+  },
+  "alert": {
+    "discard": "丢弃",
+    "clear": "清空"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "登录",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "移除远程应用密码失败！",
       "failure": "无法正常完成登录过程。{status_code}{status_message}",
       "credentials_invalid": "储存的凭据不再有效，你已被登出！",
-      "no_internet": "Authentication check was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication check was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
+      "no_internet": "Authentication was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Cookbook",
     "all_categories": "所有",
+    "uncategorized": "未分类",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "导入菜谱",
       "settings": "设置"
@@ -54,7 +68,7 @@
       "unknown": "处于未知状态的类别",
       "load_failed": "分类加载失败：{error_msg}",
       "load_no_response": "无法从服务器取得类别",
-      "api_version_check_failed": "检查服务器的 API 版本失败：\n{error_msg}",
+      "api_version_check_failed": "检查服务器API版本失败：\n{error_msg}",
       "api_version_above_confirmed": "已更新服务器的 API 版本。有些功能可能不能如预期的那样工作。请等待更新！\n{version}",
       "plugin_missing": "类别无法加载。请确保在这个 Nextcloud 实例上安装了 Cookbook 插件！"
     }
@@ -62,7 +76,7 @@
   "recipe_list": {
     "title_category": "类别：{category}",
     "errors": {
-      "load_failed": "加载 Recipes Short 失败！"
+      "load_failed": "加载Recipes Short失败！"
     }
   },
   "recipe": {
@@ -71,18 +85,21 @@
     "cook": "烹饪时间",
     "total": "总时间",
     "fields": {
-      "name": "菜谱名：",
-      "description": "菜谱描述：",
-      "keywords": "关键词：",
-      "category": "类别：",
-      "servings": "份数：",
-      "source": "原材料：",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "关键词",
+      "category": "分类",
+      "servings": {
+        "1": "Serving",
+        "else": "份数"
+      },
+      "source": "来源",
       "source_button": "来源",
-      "image": "图片：",
+      "image": "图片",
       "time": {
-        "prep": "准备时间：",
+        "prep": "准备时间",
         "cook": "烹饪时间",
-        "total": "总时间：",
+        "total": "总时间",
         "hours": "小时",
         "minutes": "分钟"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "不饱和脂肪含量"
         }
       },
-      "tools": "工具：",
-      "ingredients": "配料：",
-      "instructions": "步骤："
+      "general": "常规",
+      "times": "Times",
+      "tools": "工具",
+      "ingredients": "佐料",
+      "instructions": "步骤"
     },
     "errors": {
       "load_failed": "加载菜谱失败！"
@@ -116,26 +135,42 @@
     "button": "保存",
     "errors": {
       "update_failed": "更新失败 {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "创建食谱",
     "button": "创建",
+    "add_field": "添加",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "创建失败 {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "取消编辑",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancel create",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "导入菜谱",
     "button": "导入",
     "field": "菜谱URL",
-    "clipboard": "粘贴剪贴板",
     "errors": {
       "import_failed": "导入失败 {error_msg}"
     }
   },
   "search": {
     "title": "搜索食谱",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "未找到菜谱！",
     "errors": {
       "search_failed": "无法加载所有食谱 ！\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "你的计时器",
     "started": "计时开始",
     "finished": "is finished.",
+    "button": {
+      "start": "start timer",
+      "cancel": "cancel timer"
+    },
     "done": "计时结束",
-    "missing": "You need to set the cooking time to use a timer."
+    "missing": "You need to set the cooking time to use a timer.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "应用设置",
