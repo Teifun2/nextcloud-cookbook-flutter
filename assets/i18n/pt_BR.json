@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Pesquisar",
-    "refresh": "Atualizar",
     "logout": "Sair",
     "clear_all": "Apagar tudo"
+  },
+  "alert": {
+    "discard": "Descartar",
+    "clear": "Limpar"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "Nenhuma conta disponível...",
+      "required": "obrigatório"
+    }
   },
   "login": {
     "title": "Entrar",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Falha ao remover a senha do app remoto! ",
       "failure": "O processo de login não pôde terminar corretamente. \n{status_code}\n{status_message}",
       "credentials_invalid": "As credenciais armazenadas não eram mais válidas e você foi desconectado!",
-      "no_internet": "A verificação de autenticação não foi bem-sucedida.\nTalvez não haja conexão com a internet?\nMensagem de erro: {error_msg}",
-      "wrong_status": "A verificação de autenticação não foi bem-sucedida.\nTalvez o host do servidor fornecido não esteja correto?\nMensagem de erro: {error_msg}"
+      "no_internet": "A autenticação não foi bem-sucedida.\nTalvez não haja conexão com a internet?\nMensagem de Erro: {error_msg}",
+      "wrong_status": "A autenticação não foi bem-sucedida.\nTalvez o host do servidor fornecido não esteja correto?\nMensagem de Erro: {error_msg}"
     }
   },
   "categories": {
     "title": "Livro de receitas",
     "all_categories": "Tudo",
+    "uncategorized": "Sem categoria",
+    "items": {
+      "0": "obrigatório",
+      "1": "1 item",
+      "else": "{{value}} itens"
+    },
     "drawer": {
       "import": "Importar Receita",
       "settings": "Configurações"
@@ -71,18 +85,21 @@
     "cook": "Tempo de Cozimento",
     "total": "Tempo total",
     "fields": {
-      "name": "Nome da receita:",
-      "description": "Descrição da receita:",
-      "keywords": "Palavras chave:",
-      "category": "Categoria:",
-      "servings": "Porções:",
-      "source": "Origem:",
+      "name": "Nome da Receita",
+      "description": "Descrição da Receita",
+      "keywords": "Palavras-chave",
+      "category": "Categoria",
+      "servings": {
+        "1": "Servindo",
+        "else": "Porções"
+      },
+      "source": "Origem",
       "source_button": "Origem",
-      "image": "Imagem:",
+      "image": "Imagem",
       "time": {
-        "prep": "Tempo de preparo:",
-        "cook": "Tempo de cozimento:",
-        "total": "Tempo total:",
+        "prep": "Tempo de preparação",
+        "cook": "Tempo de Cozimento",
+        "total": "Tempo total",
         "hours": "Horas",
         "minutes": "Minutos"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Conteúdo de gordura insaturada"
         }
       },
-      "tools": "Utensílios:",
-      "ingredients": "Ingredientes:",
-      "instructions": "Instruções:"
+      "general": "Geral",
+      "times": "Horários",
+      "tools": "Ferramentas",
+      "ingredients": "Ingredientes",
+      "instructions": "Instruções"
     },
     "errors": {
       "load_failed": "Erro ao carregar a receita!"
@@ -116,26 +135,42 @@
     "button": "Salvar",
     "errors": {
       "update_failed": "Erro na atualização {error_msg}"
+    },
+    "delete": {
+      "title": "Excluir receita",
+      "dialog": "Tem certeza de que deseja excluir {receita} permanentemente?"
     }
   },
   "recipe_create": {
     "title": "Criar Receita ",
     "button": "Criar",
+    "add_field": "adicionar",
+    "remove_field": "remover",
     "errors": {
       "update_failed": "Falha ao criar {error_msg} "
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Cancelar edição",
+      "dialog": "Tem certeza de que deseja descartar suas alterações em {receita}?"
+    },
+    "dismiss_create": {
+      "title": "Cancelar criação",
+      "dialog": "Tem certeza de que deseja descartar a criação?"
     }
   },
   "recipe_import": {
     "title": "Importar Receita",
     "button": "Importar",
     "field": "URL para Receita",
-    "clipboard": "Colar área de transferência",
     "errors": {
       "import_failed": "Importar Falhou {error_msg}"
     }
   },
   "search": {
     "title": "Pesquisa de Receita",
+    "description": "Pesquise receitas por nome ou palavra-chave",
     "nothing_found": "Nenhuma receita encontrada!",
     "errors": {
       "search_failed": "Não foi possível carregar todas as receitas!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Seus temporizadores",
     "started": "Cronômetro inicializado.",
     "finished": "está finalizado.",
+    "button": {
+      "start": "iniciar cronômetro",
+      "cancel": "cancelar cronônmetro"
+    },
     "done": "Temporizador finalizou..",
-    "missing": "Você precisa definir o tempo de cozimento para usar um cronômetro."
+    "missing": "Você precisa definir o tempo de cozimento para usar um cronômetro.",
+    "empty_list": "Seus cronômetros de execução serão mostrados aqui."
   },
   "settings": {
     "title": "Configurações do Aplicativo",

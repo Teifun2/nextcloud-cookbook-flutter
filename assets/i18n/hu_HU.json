@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Keresés",
-    "refresh": "Frissítés",
     "logout": "Kijelentkezés",
     "clear_all": "Összes törlése"
+  },
+  "alert": {
+    "discard": "Elvetés",
+    "clear": "Törlés"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "nem érvényes szám",
+      "required": "kötelező"
+    }
   },
   "login": {
     "title": "Bejelentkezés",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "Nem sikerült eltávolítani a távoli alkalmazásjelszót.",
       "failure": "A bejelentkezési folyamat nem fejeződött be megfelelően.\n{status_code}\n{status_message}",
       "credentials_invalid": "A tárolt hitelesítő adatok már nem érvényesek, így ki lett jelentkeztetve.",
-      "no_internet": "A hitelesítési ellenőrzés sikertelen volt.\nTalán nincs internetkapcsolat?\nHibaüzenet: {error_msg}",
-      "wrong_status": "A hitelesítési ellenőrzés sikertelen volt.\nTalán a megadott kiszolgáló helytelen?\nHibaüzenet: {error_msg}"
+      "no_internet": "A hitelesítés nem sikerült.\nLehet, hogy nincs internetkapcsolat?\nHibaüzenet: {error_msg}",
+      "wrong_status": "A hitelesítés nem sikerült.\nLehet, hogy a megadott kiszolgáló helytelen?\nHibaüzenet: {error_msg}"
     }
   },
   "categories": {
     "title": "Receptkönyv",
     "all_categories": "Mind",
+    "uncategorized": "Kategorizálatlan",
+    "items": {
+      "0": "nincsenek elemek",
+      "1": "1 elem",
+      "else": "{{value}} elem"
+    },
     "drawer": {
       "import": "Recept importálása",
       "settings": "Beállítások"
@@ -71,18 +85,21 @@
     "cook": "Főzési idő",
     "total": "Teljes idő",
     "fields": {
-      "name": "Recept neve:",
-      "description": "Recept leírása:",
-      "keywords": "Kulcsszavak:",
-      "category": "Kategória:",
-      "servings": "Adagok:",
-      "source": "Forrás:",
+      "name": "Recept neve",
+      "description": "Recept leírása",
+      "keywords": "Kulcsszavak",
+      "category": "Kategória",
+      "servings": {
+        "1": "Adag",
+        "else": "Adagok"
+      },
+      "source": "Forrás",
       "source_button": "Forrás",
-      "image": "Kép:",
+      "image": "Kép",
       "time": {
-        "prep": "Elkészítési idő:",
-        "cook": "Főzési idő:",
-        "total": "Teljes idő:",
+        "prep": "Előkészítési idő",
+        "cook": "Főzési idő",
+        "total": "Teljes idő",
         "hours": "Óra",
         "minutes": "Perc"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Telítetlen zsírtartalom"
         }
       },
-      "tools": "Eszközök:",
-      "ingredients": "Hozzávalók:",
-      "instructions": "Leírások:"
+      "general": "Általános",
+      "times": "Idők",
+      "tools": "Eszközök",
+      "ingredients": "Hozzávalók",
+      "instructions": "Utasítások"
     },
     "errors": {
       "load_failed": "Nem sikerült betölteni a receptet."
@@ -116,26 +135,42 @@
     "button": "Mentés",
     "errors": {
       "update_failed": "Sikertelen frissítés {error_msg}"
+    },
+    "delete": {
+      "title": "Recept törlése",
+      "dialog": "Biztos, hogy véglegesen törli a következőt: {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Recept létrehozása",
     "button": "Létrehozás",
+    "add_field": "hozzáadás",
+    "remove_field": "eltávolítás",
     "errors": {
       "update_failed": "Sikertelen létrehozás {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Változások elvetése",
+      "dialog": "Biztos, hogy törli ezt a következő recept változtatásait: {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Létrehozás megszakítása",
+      "dialog": "Biztos, hogy elveti a létrehozást?"
     }
   },
   "recipe_import": {
     "title": "Recept importálása",
     "button": "Importálás",
     "field": "Recept webcíme",
-    "clipboard": "Vágólap beillesztése",
     "errors": {
       "import_failed": "Sikertelen importálás {error_msg}"
     }
   },
   "search": {
     "title": "Recept keresése",
+    "description": "Receptek keresése név vagy kulcsszó alapján",
     "nothing_found": "Nem található recept!",
     "errors": {
       "search_failed": "Nem tölthető be az összes recept!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Saját időzítők",
     "started": "Az időzítő elindult.",
     "finished": " befejeződött.",
+    "button": {
+      "start": "időzítő indítása",
+      "cancel": "időzítő megszakítása"
+    },
     "done": "Az időzítő kész.",
-    "missing": "Az időzítő használatához be kell állítania a főzési időt."
+    "missing": "Az időzítő használatához be kell állítania a főzési időt.",
+    "empty_list": "A futó időzítők itt fognak megjelenni."
   },
   "settings": {
     "title": "Alkalmazásbeállítások",

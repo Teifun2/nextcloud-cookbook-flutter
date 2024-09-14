@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Buscar",
-    "refresh": "Actualizar",
     "logout": "Desconectar",
     "clear_all": "Borrar todo"
+  },
+  "alert": {
+    "discard": "Descartar",
+    "clear": "Borrar"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "no es un número válido",
+      "required": "requerido"
+    }
   },
   "login": {
     "title": "Iniciar sesión",
@@ -39,13 +47,19 @@
       "failed_remove_remote": "¡Fallo al eliminar la contaseña de aplicación remota!",
       "failure": "El proceso de inicio de sesión no se ha completado adecuadamente.\n{status_code}\n{status_message}",
       "credentials_invalid": "¡Las credenciales almacenadas ya no son válidas y has sido desconectado!",
-      "no_internet": "La comprobación de autenticación no ha tenido éxito. ¿Puede que no haya conexión a internet?\nMensaje de error: {error_msg}",
-      "wrong_status": "La comprobación de autenticación no ha tenido éxito. ¿Puede que noel alojamiento del servidor no sea correcto?\nMensaje de error: {error_msg}"
+      "no_internet": "La autenticación ha fallado\n¿Tal vez no haya conexión a internet?\nMensaje de error: {error_msg}",
+      "wrong_status": "La autenticación ha fallado\n¿Tal vez el servidor especificado es incorrecto?\nMensaje de error: {error_msg}"
     }
   },
   "categories": {
     "title": "Cookbook",
     "all_categories": "Todo",
+    "uncategorized": "Sin categoría",
+    "items": {
+      "0": "sin ítems",
+      "1": "1 ítem",
+      "else": "{{value}} ítems"
+    },
     "drawer": {
       "import": "Importar receta",
       "settings": "Ajustes"
@@ -71,18 +85,21 @@
     "cook": "Tiempo de cocción",
     "total": "Tiempo total",
     "fields": {
-      "name": "Nombre de la receta:",
-      "description": "Descripción de la receta:",
-      "keywords": "Palabras clave:",
-      "category": "Categoría:",
-      "servings": "Porciones:",
-      "source": "Origen:",
+      "name": "Nombre de Recet",
+      "description": "Descripción de la Receta",
+      "keywords": "Palabras clave",
+      "category": "Categoría",
+      "servings": {
+        "1": "Porción",
+        "else": "Porciones"
+      },
+      "source": "Origen",
       "source_button": "Origen",
-      "image": "Imagen:",
+      "image": "Imagen",
       "time": {
-        "prep": "Tiempo de preparación:",
-        "cook": "Tiempo de cocción:",
-        "total": "Tiempo total:",
+        "prep": "Tiempo de preparación",
+        "cook": "Tiempo de cocción",
+        "total": "Tiempo total",
         "hours": "Horas",
         "minutes": "Minutos"
       },
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Contenido de grasas insaturadas"
         }
       },
-      "tools": "Herramientas:",
-      "ingredients": "Ingredientes:",
-      "instructions": "Instrucciones:"
+      "general": "General",
+      "times": "Veces",
+      "tools": "Herramientas",
+      "ingredients": "Ingredientes",
+      "instructions": "Instrucciones"
     },
     "errors": {
       "load_failed": "¡Fallo al cargar la receta!"
@@ -116,26 +135,42 @@
     "button": "Guardar",
     "errors": {
       "update_failed": "La actualización falló {error_msg}"
+    },
+    "delete": {
+      "title": "Borrar Receta",
+      "dialog": "¿Está seguro de que quiere eliminar permanentemente la receta {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Crear receta",
     "button": "Crear",
+    "add_field": "añadir",
+    "remove_field": "quitar",
     "errors": {
       "update_failed": "Fallo al crear  {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Cacelar edición",
+      "dialog": "¿Está seguro de que quiere descartar sus cambios a {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancelar creación",
+      "dialog": "¿Está seguro que desea descartar la creación?"
     }
   },
   "recipe_import": {
     "title": "Impotar receta",
     "button": "Importar",
     "field": "URL  de la receta",
-    "clipboard": "Pegar del portapapeles",
     "errors": {
       "import_failed": "Fallo al importar: {error_msg}"
     }
   },
   "search": {
     "title": "Buscar receta",
+    "description": "Buscar recetas por nombre o palabra clave",
     "nothing_found": "¡No se ha encontrado la receta!",
     "errors": {
       "search_failed": "¡No es posible cargar todas las recetas!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Tus temporizadores",
     "started": "Temporizador iniciado.",
     "finished": "ha terminado.",
+    "button": {
+      "start": "iniciar temporizador",
+      "cancel": "cancelar temporizador"
+    },
     "done": "El temporizador ha terminado.",
-    "missing": "Necesitas configurar el tiempo de cocinado para usar un temporizador."
+    "missing": "Necesitas configurar el tiempo de cocinado para usar un temporizador.",
+    "empty_list": "Sus temporizadores en ejecución se mostrarán aquí."
   },
   "settings": {
     "title": "Ajustes de la Aplicación",

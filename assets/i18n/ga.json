@@ -1,0 +1,215 @@
+{
+  "app_bar": {
+    "logout": "Logáil Amach",
+    "clear_all": "Soiléir ar fad"
+  },
+  "alert": {
+    "discard": "Caith amach",
+    "clear": "Glan"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "nach uimhir bhailí í",
+      "required": "ag teastáil"
+    }
+  },
+  "login": {
+    "title": "Logáil isteach",
+    "server_url": {
+      "field": "URL an fhreastalaí",
+      "validator": {
+        "empty": "Cuir isteach an URL chuig do shampla Nextcloud le do thoil.",
+        "pattern": "Cuir isteach URL bailí le do thoil"
+      }
+    },
+    "username": {
+      "field": "Ainm úsáideora"
+    },
+    "password": {
+      "field": "Pasfhocal"
+    },
+    "settings": {
+      "title": "Ardsocruithe",
+      "app_password": "Úsáid Pasfhocal Aipe féinghinte.\nAg teastáil le haghaidh cuntais le 2FA.",
+      "self_signed_certificate": "Déan neamhaird de theastas neamhbhailí.\nAg teastáil le haghaidh deimhnithe féin-shínithe.\n(Úsáid ar do phriacal féin!)"
+    },
+    "button": "Logáil isteach",
+    "retry": "Bain triail eile as Logáil Isteach!",
+    "reset": "Athshocraigh Dintiúir!",
+    "errors": {
+      "not_reachable": "Ní féidir teacht ar: {server_url}\n{error_msg}",
+      "certificate_failed": "Níorbh fhéidir teastas an fhreastalaí a fhíorú: {server_url}\n{error_msg}",
+      "request_failed": "Theip ar iarratas Pasfhocal Aipe:\n{error_msg}",
+      "parse_failed": "Ní féidir freagra Pasfhocal na hAipe a pharsáil!\n{error_msg}",
+      "parse_missing": "Ní féidir Pasfhocal Aipe a aimsiú mar fhreagra!\n{error_msg}",
+      "auth_failed": "Tá an t-ainm úsáideora agus / nó an pasfhocal mícheart!",
+      "authentication_not_found": "Níor aimsíodh aon fhíordheimhniú sa Stóráil",
+      "failed_remove_remote": "Theip ar bhaint Pasfhocal Aipe cianda!",
+      "failure": "Níorbh fhéidir an Próiseas Logála a chríochnú i gceart.\n{status_code}\n{status_message}",
+      "credentials_invalid": "Na dintiúir stóráilte nach bhfuil bailí a thuilleadh agus logáilte amach thú!",
+      "no_internet": "Níor éirigh leis an bhfíordheimhniú.\nB’fhéidir nach bhfuil nasc idirlín ann?\nTeachtaireacht Earráide: {error_msg}",
+      "wrong_status": "Níor éirigh leis an bhfíordheimhniú.\nB'fhéidir nach bhfuil an t-óstach freastalaí a cuireadh ar fáil ceart?\nTeachtaireacht Earráide: {error_msg}"
+    }
+  },
+  "categories": {
+    "title": "Leabhar cócaireachta",
+    "all_categories": "Gach",
+    "uncategorized": "Gan catagóir",
+    "items": {
+      "0": "gan míreanna",
+      "1": "1 mhír",
+      "else": "{{value}} mhír"
+    },
+    "drawer": {
+      "import": "Iompórtáil oideas",
+      "settings": "Socruithe"
+    },
+    "errors": {
+      "unknown": "Catagóirí i stát anaithnid",
+      "load_failed": "Theip ar luchtú na catagóire: {error_msg}",
+      "load_no_response": "Níorbh fhéidir na Catagóirí a aisghabháil ón bhfreastalaí.",
+      "api_version_check_failed": "Theip ar an leagan API den fhreastalaí a sheiceáil:\n{error_msg}",
+      "api_version_above_confirmed": "Nuashonraíodh an leagan API den fhreastalaí. Seans nach n-oibreoidh roinnt gnéithe mar a bhíothas ag súil leis. Fan le do thoil le nuashonrú!\n{version}",
+      "plugin_missing": "Níorbh fhéidir na catagóirí a lódáil. Cinntigh go bhfuil an breiseán Cookbook suiteáilte ar an ásc Nextcloud seo!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Catagóir: {category}",
+    "errors": {
+      "load_failed": "Theip ar lódáil Recipes Short!"
+    }
+  },
+  "recipe": {
+    "title": "Oideas:",
+    "prep": "Am ullmhúcháin",
+    "cook": "Am cócaireachta",
+    "total": "Am iomlán",
+    "fields": {
+      "name": "Ainm Oideas",
+      "description": "Cur síos ar an oideas",
+      "keywords": "Eochairfhocail",
+      "category": "Catagóir",
+      "servings": {
+        "1": "Ag freastal",
+        "else": "Freastaluithe"
+      },
+      "source": "Foinse",
+      "source_button": "Foinse",
+      "image": "Íomha",
+      "time": {
+        "prep": "Am ullmhúcháin",
+        "cook": "Am cócaireachta",
+        "total": "Am iomlán",
+        "hours": "Uaireanta",
+        "minutes": "Nóiméad"
+      },
+      "nutrition": {
+        "title": "Eolas Cothaithe",
+        "items": {
+          "calories": "Fuinneamh",
+          "carbohydrateContent": "Carbaihiodráit",
+          "cholesterolContent": "Cholesterol",
+          "fatContent": "Iomlán saill",
+          "fiberContent": "Snáithín",
+          "proteinContent": "Próitéin",
+          "saturatedFatContent": "Saill Sáithithe",
+          "servingSize": "Méid ag freastal",
+          "sodiumContent": "Sóidiam",
+          "sugarContent": "Siúcra",
+          "transFatContent": "Ábhar tras-saill",
+          "unsaturatedFatContent": "Ábhar saille neamhsháithithe"
+        }
+      },
+      "general": "Ginearálta",
+      "times": "Amanna",
+      "tools": "Uirlisí",
+      "ingredients": "Comhábhair",
+      "instructions": "Comhaid Nextcloud ag teastáil"
+    },
+    "errors": {
+      "load_failed": "Theip ar lódáil an t-oideas!"
+    }
+  },
+  "recipe_edit": {
+    "title": "Cuir Oid in Eagar",
+    "button": "Sábháil",
+    "errors": {
+      "update_failed": "Theip ar Nuashonrú {error_msg}"
+    },
+    "delete": {
+      "title": "Scrios Oideas",
+      "dialog": "An bhfuil tú cinnte gur mhaith leat {recipe} a scriosadh go buan?"
+    }
+  },
+  "recipe_create": {
+    "title": "Cruthaigh Oideas",
+    "button": "Cruthaigh",
+    "add_field": "cuir",
+    "remove_field": "bain",
+    "errors": {
+      "update_failed": "Theip ar chruthú {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Cealaigh eagarthóireacht",
+      "dialog": "An bhfuil tú cinnte gur mhaith leat d'athruithe ar {oideas} a scriosadh?"
+    },
+    "dismiss_create": {
+      "title": "Cealaigh cruthú",
+      "dialog": "An bhfuil tú cinnte gur mhaith leat an cruthú a scriosadh?"
+    }
+  },
+  "recipe_import": {
+    "title": "Iompórtáil oideas",
+    "button": "Iompórtáil",
+    "field": "URL chuig an Oideas",
+    "errors": {
+      "import_failed": "Theip ar Iompórtáil {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Cuardach Oideas",
+    "description": "Cuardaigh oidis de réir ainm nó eochairfhocail",
+    "nothing_found": "Níor aimsíodh aon oideas!",
+    "errors": {
+      "search_failed": "Ní féidir gach oideas a lódáil!\n{error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Do lasc ama",
+    "started": "Thosaigh an t-amadóir.",
+    "finished": "críochnaithe.",
+    "button": {
+      "start": "lasc ama tosaithe",
+      "cancel": "lasc ama a chur ar ceal"
+    },
+    "done": "Déantar an t-amadóir.",
+    "missing": "Ní mór duit an t-am cócaireachta a shocrú chun lasc ama a úsáid.",
+    "empty_list": "Taispeánfar d'amadóirí reatha anseo."
+  },
+  "settings": {
+    "title": "Socruithe Aipe",
+    "dark_mode": {
+      "title": "Mód Dorcha",
+      "system": "Réamhshocrú Córais",
+      "dark": "I gcónaí",
+      "light": "Riamh"
+    },
+    "language": {
+      "title": "Teanga"
+    },
+    "stay_awake": {
+      "title": "Fan Dúisigh",
+      "subtitle": "Fanfaidh an scáileán ar agus ar an scáileán oidis."
+    },
+    "recipe_font_size": {
+      "title": "Méid Cló Oideas",
+      "subtitle": "Athraítear clómhéid na n-uirlisí oidis, na gcomhábhar agus na dtreoracha ar mhaithe le hinléiteacht níos fearr."
+    },
+    "category_font_size": {
+      "title": "Catagóir Clómhéid",
+      "subtitle": "Athraítear clómhéid teideal na catagóire. Is féidir é seo a bheith úsáideach má tá ainmneacha catagóirí fada agat."
+    }
+  }
+}

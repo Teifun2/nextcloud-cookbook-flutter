@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Hľadať",
-    "refresh": "Obnoviť",
     "logout": "Odhlásiť",
     "clear_all": "Vyčistiť všetko"
+  },
+  "alert": {
+    "discard": "Odstrániť",
+    "clear": "Vyčistiť"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "not a valid number",
+      "required": "required"
+    }
   },
   "login": {
     "title": "Prihlásenie",
@@ -34,18 +42,24 @@
       "request_failed": "Požiadavka na Heslo aplikácie zlyhala:\n{error_msg}",
       "parse_failed": "Nemôžem prečítať odpoveď na Heslo aplikácie !\n{error_msg}",
       "parse_missing": "Nemôžem nájisť Heslo aplikácie v odpovedi!\n{error_msg}",
-      "auth_failed": "Uživateľské meno a / alebo Heslo je nesprávne!",
+      "auth_failed": "Meno používateľa a/alebo heslo je nesprávne!",
       "authentication_not_found": "Žiadne overenie nenájdené v úložisku.",
       "failed_remove_remote": "Vymazanie hesla vzdialenej Aplikácie zlyhalo!",
       "failure": "Prihlasovací proces nemohol byť korektne ukončený.\n{status_code}\n{status_message}",
       "credentials_invalid": "Uložené prihlasovacie údaje nie sú naďalej platné a budete odhlásený!",
-      "no_internet": "Kontrola overenia nebola úspešná.\nMožno nemáte internetové pripojenie?\nChybové hlásenie: {error_msg}",
-      "wrong_status": "Kontrola overenia nebola úspešná.\nMožno nemáte internetové pripojenie?\nChybové hlásenie: {error_msg}"
+      "no_internet": "Authentication was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
+      "wrong_status": "Authentication was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Kuchárska kniha",
     "all_categories": "Všetko",
+    "uncategorized": "Nezaradené",
+    "items": {
+      "0": "no items",
+      "1": "1 item",
+      "else": "{{value}} items"
+    },
     "drawer": {
       "import": "Importovať Recept",
       "settings": "Nastavenia"
@@ -71,18 +85,21 @@
     "cook": "Čas varenia",
     "total": "Celkový čas",
     "fields": {
-      "name": "Názov receptu:",
-      "description": "Popis receptu:",
-      "keywords": "Kľúčové slová:",
-      "category": "Kategória:",
-      "servings": "Počet porcií:",
-      "source": "Zdroj:",
+      "name": "Recipe Name",
+      "description": "Recipe Description",
+      "keywords": "Kľúčové slová",
+      "category": "Kategória",
+      "servings": {
+        "1": "Serving",
+        "else": "Počet porcií"
+      },
+      "source": "Zdroj",
       "source_button": "Zdroj",
-      "image": "Obrázok:",
+      "image": "Obrázok",
       "time": {
-        "prep": "Doba prípravy:",
-        "cook": "Doba varenia:",
-        "total": "Celkový čas:",
+        "prep": "Doba prípravy",
+        "cook": "Čas varenia",
+        "total": "Celkový čas",
         "hours": "Hodín",
         "minutes": "Minúty"
       },
@@ -90,7 +107,7 @@
         "title": "Informácie o výžive",
         "items": {
           "calories": "Energia",
-          "carbohydrateContent": "Karbohydráty",
+          "carbohydrateContent": "Sacharidy",
           "cholesterolContent": "Cholesterol",
           "fatContent": "Celkom tukov",
           "fiberContent": "Vláknina",
@@ -103,9 +120,11 @@
           "unsaturatedFatContent": "Obsah nenasýtených tukov"
         }
       },
-      "tools": "Nástroje:",
-      "ingredients": "Prísady:",
-      "instructions": "Postup:"
+      "general": "Všeobecné",
+      "times": "Times",
+      "tools": "Nástroje",
+      "ingredients": "Prísady",
+      "instructions": "Postup"
     },
     "errors": {
       "load_failed": "Nepodarilo sa načítať Recept!"
@@ -116,26 +135,42 @@
     "button": "Uložiť",
     "errors": {
       "update_failed": "Aktualizácia zlyhala {error_msg}"
+    },
+    "delete": {
+      "title": "Delete Recipe",
+      "dialog": "Are you sure you want to permanently delete {recipe}?"
     }
   },
   "recipe_create": {
     "title": "Vytvoriť Recept",
     "button": "Vytvoriť",
+    "add_field": "pridať",
+    "remove_field": "remove",
     "errors": {
       "update_failed": "Vytváranie zlyhalo {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Zrušiť upravovanie",
+      "dialog": "Are you sure you want to discard your changes to {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Zrušiť vytvorenie",
+      "dialog": "Are you sure you want to discard the creation?"
     }
   },
   "recipe_import": {
     "title": "Importovať Recept",
     "button": "Import",
     "field": "URL k Receptu",
-    "clipboard": "Vložiť zo schránky",
     "errors": {
       "import_failed": "Aktualizácia zlyhala {error_msg}"
     }
   },
   "search": {
     "title": "Vyhľadať Recept",
+    "description": "Search for recipes by name or keyword",
     "nothing_found": "Nenašiel sa žiadny recept!",
     "errors": {
       "search_failed": "Nie je možné načítať všetky Recepty!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Vaše budíky",
     "started": "Budík spustený.",
     "finished": "skončilo.",
+    "button": {
+      "start": "start timer",
+      "cancel": "zrušiť časovač"
+    },
     "done": "Budík skončil.",
-    "missing": "Ak chcete použiť časovač, musíte nastaviť dobu varenia."
+    "missing": "Ak chcete použiť časovač, musíte nastaviť dobu varenia.",
+    "empty_list": "Your running timers will be shown here."
   },
   "settings": {
     "title": "Nastavenia Aplikácie",

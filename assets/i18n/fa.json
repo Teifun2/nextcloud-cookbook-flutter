@@ -1,11 +1,11 @@
 {
   "app_bar": {
-    "logout": "Logout",
+    "logout": "خروج از حساب کاربری",
     "clear_all": "Clear all"
   },
   "alert": {
-    "discard": "Discard",
-    "clear": "Clear"
+    "discard": "لغو تغییرات",
+    "clear": "پاک کردن"
   },
   "form": {
     "validators": {
@@ -14,26 +14,26 @@
     }
   },
   "login": {
-    "title": "Login",
+    "title": "ورود",
     "server_url": {
-      "field": "Server URL",
+      "field": "URL سرور",
       "validator": {
         "empty": "Please enter the URL to your Nextcloud instance.",
         "pattern": "Please enter a valid URL"
       }
     },
     "username": {
-      "field": "Username"
+      "field": "نام کاربری"
     },
     "password": {
-      "field": "Password"
+      "field": "کلمه عبور"
     },
     "settings": {
-      "title": "Advanced Settings",
+      "title": "تنظمیات پیش‌رفته",
       "app_password": "Use self generated App Password.\nNeeded for accounts with 2FA.",
       "self_signed_certificate": "Ignore invalid certificate.\nNeeded for self signed certificates.\n(Use at your own risk!)"
     },
-    "button": "Login",
+    "button": "ورود",
     "retry": "Retry Login!",
     "reset": "Reset Credentials!",
     "errors": {
@@ -48,13 +48,13 @@
       "failure": "Login Process could not finish properly.\n{status_code}\n{status_message}",
       "credentials_invalid": "The stored credentials where no longer valid an you have been logged out!",
       "no_internet": "Authentication was not successful.\nMaybe there is no internet connection?\nError Message: {error_msg}",
-      "wrong_status": "Authentication was not successful.\nMaybe the server host provided is not correct?\nError Message: {error_msg}"
+      "wrong_status": "Authentication was not successful.\nMaybe the provided server host is not correct?\nError Message: {error_msg}"
     }
   },
   "categories": {
     "title": "Cookbook",
-    "all_categories": "All",
-    "uncategorized": "Uncategorised",
+    "all_categories": "همه",
+    "uncategorized": "دسته‌بندی نشده",
     "items": {
       "0": "no items",
       "1": "1 item",
@@ -62,7 +62,7 @@
     },
     "drawer": {
       "import": "Import Recipe",
-      "settings": "Settings"
+      "settings": "تنظیمات"
     },
     "errors": {
       "unknown": "Categories in unknown state",
@@ -87,21 +87,21 @@
     "fields": {
       "name": "Recipe Name",
       "description": "Recipe Description",
-      "keywords": "Keywords",
-      "category": "Category",
+      "keywords": "کلید واژه ها",
+      "category": "دسته‌بندی",
       "servings": {
         "1": "Serving",
         "else": "Servings"
       },
-      "source": "Source",
-      "source_button": "Source",
+      "source": "منبع",
+      "source_button": "منبع",
       "image": "Image",
       "time": {
         "prep": "Preparation time",
         "cook": "Cooking time",
         "total": "Total time",
-        "hours": "Hours",
-        "minutes": "Minutes"
+        "hours": "ساعت ها",
+        "minutes": "دقایق"
       },
       "nutrition": {
         "title": "Nutrition Information",
@@ -120,11 +120,11 @@
           "unsaturatedFatContent": "Unsaturated-fat content"
         }
       },
-      "general": "General",
+      "general": "عمومی",
       "times": "Times",
-      "tools": "Tools",
+      "tools": "ابزارها",
       "ingredients": "Ingredients",
-      "instructions": "Instructions"
+      "instructions": "دستورالعمل ها"
     },
     "errors": {
       "load_failed": "Failed to load Recipe!"
@@ -132,7 +132,7 @@
   },
   "recipe_edit": {
     "title": "Edit Recipe",
-    "button": "Save",
+    "button": "ذخیره",
     "errors": {
       "update_failed": "Update Failed {error_msg}"
     },
@@ -143,7 +143,7 @@
   },
   "recipe_create": {
     "title": "Create Recipe",
-    "button": "Create",
+    "button": "ساخت",
     "add_field": "add",
     "remove_field": "remove",
     "errors": {
@@ -162,7 +162,7 @@
   },
   "recipe_import": {
     "title": "Import Recipe",
-    "button": "Import",
+    "button": "وارد کردن",
     "field": "URL to Recipe",
     "errors": {
       "import_failed": "Import Failed {error_msg}"
@@ -192,12 +192,12 @@
     "title": "App Settings",
     "dark_mode": {
       "title": "Dark Mode",
-      "system": "System Default",
-      "dark": "Always",
-      "light": "Never"
+      "system": "پیش‌فرض سامانه",
+      "dark": "همواره",
+      "light": "هرگز"
     },
     "language": {
-      "title": "Language"
+      "title": "زبان"
     },
     "stay_awake": {
       "title": "Stay Awake",

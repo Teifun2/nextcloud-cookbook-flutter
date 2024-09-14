@@ -1,0 +1,215 @@
+{
+  "app_bar": {
+    "logout": "Cerrar sesión",
+    "clear_all": "Borrar todo"
+  },
+  "alert": {
+    "discard": "Descartar",
+    "clear": "Limpiar"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "no es un número válido",
+      "required": "requerido"
+    }
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "server_url": {
+      "field": "URL del servidor",
+      "validator": {
+        "empty": "Por favor, introduce la URL de tu instancia de Nextcloud.",
+        "pattern": "Por favor, introduce una URL válida"
+      }
+    },
+    "username": {
+      "field": "Usuario"
+    },
+    "password": {
+      "field": "Contraseña"
+    },
+    "settings": {
+      "title": "Configuración avanzada",
+      "app_password": "Usar Contraseña de Aplicación generada por uno mismo.\n      Necesaria para cuentas con 2FA.",
+      "self_signed_certificate": "Ignorar certificado inválido.\n      Necesario para certificados autofirmados.\n      (Úsalo bajo tu propio riesgo)"
+    },
+    "button": "Iniciar sesión",
+    "retry": "Reintentar inicio de sesión",
+    "reset": "Restablecer credenciales",
+    "errors": {
+      "not_reachable": "No se puede acceder a: {server_url}\n      {error_msg}",
+      "certificate_failed": "No se pudo verificar el certificado del servidor: {server_url}\n      {error_msg}",
+      "request_failed": "Falló la solicitud de Contraseña de Aplicación:\n      {error_msg}",
+      "parse_failed": "No se pudo analizar la respuesta de Contraseña de Aplicación:\n      {error_msg}",
+      "parse_missing": "No se encontró la Contraseña de Aplicación en la respuesta:\n      {error_msg}",
+      "auth_failed": "¡El nombre de usuario y/o la contraseña no son correctos!",
+      "authentication_not_found": "No se encontró autenticación en el almacenamiento",
+      "failed_remove_remote": "No se pudo eliminar la Contraseña de Aplicación remota",
+      "failure": "El proceso de inicio de sesión no pudo finalizar correctamente.\n      {status_code}\n      {status_message}",
+      "credentials_invalid": "¡Las credenciales almacenadas ya no son válidas y has cerrado sesión!",
+      "no_internet": "La autenticación no fue exitosa.\n      ¿Puede ser que no haya conexión a internet?\n      Mensaje de error: {error_msg}",
+      "wrong_status": "La autenticación no fue exitosa.\n      ¿Puede ser que el host del servidor proporcionado no sea correcto?\n      Mensaje de error: {error_msg}"
+    }
+  },
+  "categories": {
+    "title": "Cookbook",
+    "all_categories": "Todos",
+    "uncategorized": "Sin categoría",
+    "items": {
+      "0": "ningún elemento",
+      "1": "1 elemento",
+      "else": "{{value}} elementos"
+    },
+    "drawer": {
+      "import": "Importar Receta",
+      "settings": "Ajustes"
+    },
+    "errors": {
+      "unknown": "Categorías en estado desconocido",
+      "load_failed": "Error al cargar la categoría: {error_msg}",
+      "load_no_response": "No se pudieron recuperar las categorías del servidor.",
+      "api_version_check_failed": "Error al comprobar la versión de la API del servidor:\n      {error_msg}",
+      "api_version_above_confirmed": "La versión de la API del servidor se actualizó. Es posible que algunas funciones no funcionen como se esperaba. ¡Espera una actualización!\n      {version}",
+      "plugin_missing": "No se pudieron cargar las categorías. ¡Asegúrate de que el complemento Cookbook está instalado en esta instancia de Nextcloud!"
+    }
+  },
+  "recipe_list": {
+    "title_category": "Categoría: {category}",
+    "errors": {
+      "load_failed": "Error al cargar las Recetas breves"
+    }
+  },
+  "recipe": {
+    "title": "Receta:",
+    "prep": "Tiempo de preparación",
+    "cook": "Tiempo de cocción",
+    "total": "Tiempo total",
+    "fields": {
+      "name": "Nombre de la Receta",
+      "description": "Descripción de la Receta",
+      "keywords": "Palabras clave",
+      "category": "Categoría",
+      "servings": {
+        "1": "Porciones",
+        "else": "Porciones"
+      },
+      "source": "Fuente",
+      "source_button": "Fuente",
+      "image": "Imagen",
+      "time": {
+        "prep": "Tiempo de preparación",
+        "cook": "Tiempo de cocción",
+        "total": "Tiempo total",
+        "hours": "Horas",
+        "minutes": "Minutos"
+      },
+      "nutrition": {
+        "title": "Información nutricional",
+        "items": {
+          "calories": "Energía",
+          "carbohydrateContent": "Carbohidratos",
+          "cholesterolContent": "Colesterol",
+          "fatContent": "Grasa total",
+          "fiberContent": "Fibra",
+          "proteinContent": "Proteínas",
+          "saturatedFatContent": "Grasa saturada",
+          "servingSize": "Tamaño de la porción",
+          "sodiumContent": "Sodio",
+          "sugarContent": "Azúcar",
+          "transFatContent": "Contenido de grasa trans",
+          "unsaturatedFatContent": "Contenido de grasa insaturada"
+        }
+      },
+      "general": "General",
+      "times": "Tiempos",
+      "tools": "Herramientas",
+      "ingredients": "Ingredientes",
+      "instructions": "Instrucciones"
+    },
+    "errors": {
+      "load_failed": "Error al cargar la Receta"
+    }
+  },
+  "recipe_edit": {
+    "title": "Editar Receta",
+    "button": "Guardar",
+    "errors": {
+      "update_failed": "Error al actualizar {error_msg}"
+    },
+    "delete": {
+      "title": "Borrar Receta",
+      "dialog": "¿Estás seguro de que quieres eliminar {recipe} permanentemente?"
+    }
+  },
+  "recipe_create": {
+    "title": "Crear Receta",
+    "button": "Crear",
+    "add_field": "agregar",
+    "remove_field": "eliminar",
+    "errors": {
+      "update_failed": "Error al crear {error_msg}"
+    }
+  },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Cancelar edición",
+      "dialog": "¿Estás seguro de que quieres descartar los cambios de {recipe}?"
+    },
+    "dismiss_create": {
+      "title": "Cancelar creación",
+      "dialog": "¿Estás seguro de que quieres descartar la creación?"
+    }
+  },
+  "recipe_import": {
+    "title": "Importar Receta",
+    "button": "Importar",
+    "field": "URL de la Receta",
+    "errors": {
+      "import_failed": "Error al importar {error_msg}"
+    }
+  },
+  "search": {
+    "title": "Buscar Receta",
+    "description": "Buscar recetas por nombre o palabra clave",
+    "nothing_found": "No se encontró ninguna receta",
+    "errors": {
+      "search_failed": "No se pudieron cargar todas las Recetas.\n      {error_msg}"
+    }
+  },
+  "timer": {
+    "title": "Tus temporizadores",
+    "started": "Temporizador iniciado.",
+    "finished": "ha terminado.",
+    "button": {
+      "start": "iniciar temporizador",
+      "cancel": "cancelar temporizador"
+    },
+    "done": "El temporizador ha terminado.",
+    "missing": "Necesitas establecer el tiempo de cocción para usar un temporizador.",
+    "empty_list": "Aquí se mostrarán tus temporizadores activos."
+  },
+  "settings": {
+    "title": "Configuración de la aplicación",
+    "dark_mode": {
+      "title": "Modo oscuro",
+      "system": "Configuración predeterminada del sistema",
+      "dark": "Siempre",
+      "light": "Nunca"
+    },
+    "language": {
+      "title": "Idioma"
+    },
+    "stay_awake": {
+      "title": "Mantener pantalla activa",
+      "subtitle": "La pantalla se mantendrá encendida mientras esté en la pantalla de la receta."
+    },
+    "recipe_font_size": {
+      "title": "Tamaño de fuente de la receta",
+      "subtitle": "Cambia el tamaño de fuente de las herramientas de la receta, los ingredientes y las instrucciones para una mejor legibilidad."
+    },
+    "category_font_size": {
+      "title": "Tamaño de fuente de la categoría",
+      "subtitle": "Cambia el tamaño de fuente del título de la categoría. Esto puede ser útil si tienes nombres de categorías largos."
+    }
+  }
+}

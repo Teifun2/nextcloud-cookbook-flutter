@@ -1,9 +1,17 @@
 {
   "app_bar": {
-    "search": "Hledat",
-    "refresh": "Načíst znovu",
     "logout": "Odhlásit",
     "clear_all": "Vyčistit vše"
+  },
+  "alert": {
+    "discard": "Zahodit",
+    "clear": "Vyčistit"
+  },
+  "form": {
+    "validators": {
+      "invalid_number": "není platné číslo",
+      "required": "vyžadováno"
+    }
   },
   "login": {
     "title": "Přihlásit",
@@ -39,24 +47,30 @@
       "failed_remove_remote": "Nepovedlo se odstranit heslo pro externí aplikaci!",
       "failure": "Proces přihlašování se nepodařilo dokončit.\n{status_code}\n{status_message}",
       "credentials_invalid": "Uložené přihlašovací údaje už nebyly platné a proto jste byli odhlášeni!",
-      "no_internet": "Kontrola ověření se nebyla úspěšná.\nMožná není k dispozici připojení k Internetu?\nHlášení chyby: {error_msg}",
-      "wrong_status": "Kontrola ověření se nebyla úspěšná.\nMožná není správně zadaný hostitelský server?\nHlášení chyby: {error_msg}"
+      "no_internet": "Ověření se nebylo úspěšné.\nMožná není k dispozici připojení k Internetu?\nHlášení chyby: {error_msg}",
+      "wrong_status": "Ověření se nebylo úspěšné.\nMožná není správně zadaný hostitelský server?\nHlášení chyby: {error_msg}"
     }
   },
   "categories": {
     "title": "Kuchařka",
     "all_categories": "Všechno",
+    "uncategorized": "Nezařazeno",
+    "items": {
+      "0": "žádné položky",
+      "1": "1 položka",
+      "else": "{{value}} položek"
+    },
     "drawer": {
-      "import": "Importovat recept",
+      "import": "Naimportovat recept",
       "settings": "Nastavení"
     },
     "errors": {
       "unknown": "Kategorie v neznámém stavu",
       "load_failed": "Načítání kategorie se nezdařilo: {error_msg}",
       "load_no_response": "Nepodařilo se získat kategorie ze serveru.",
-      "api_version_check_failed": "Nepovedlo se zjistit verzi API rozhraní serveru:\n{error_msg}",
+      "api_version_check_failed": "Nepodařilo se zjistit verzi API rozhraní serveru:\n{error_msg}",
       "api_version_above_confirmed": "Verze aplikačního program. rozhraní (API) serveru byla aktualizována. Některé funkce nemusí fungovat, tak jak se očekává. Počkejte prosím na aktualizaci aplikace!\n{version}",
-      "plugin_missing": "Kategorie se nepodařilo načíst. Ověřte, že je na této instanci Nextcloud nainstalován zásuvný modul kuchařka!"
+      "plugin_missing": "Kategorie se nepodařilo načíst. Ověřte, že je na této instanci Nextcloud nainstalován doplněk Kuchařka!"
     }
   },
   "recipe_list": {
@@ -68,21 +82,24 @@
   "recipe": {
     "title": "Recept:",
     "prep": "Doba přípravy",
-    "cook": "Doba vaření",
+    "cook": "Doba tepelné úpravy",
     "total": "Celková doba",
     "fields": {
-      "name": "Název receptu:",
-      "description": "Popis receptu:",
-      "keywords": "Klíčová slova:",
-      "category": "Kategorie:",
-      "servings": "Porcí:",
-      "source": "Zdroj:",
+      "name": "Název receptu",
+      "description": "Popis receptu",
+      "keywords": "Klíčová slova",
+      "category": "Kategorie",
+      "servings": {
+        "1": "Porce",
+        "else": "Porce"
+      },
+      "source": "Zdroj",
       "source_button": "Zdroj",
-      "image": "Obrázek:",
+      "image": "Obrázek",
       "time": {
-        "prep": "Doba přípravy:",
-        "cook": "Doba vaření:",
-        "total": "Celková doba:",
+        "prep": "Doba příprav",
+        "cook": "Doba tepelné úpravy",
+        "total": "Celková doba",
         "hours": "Hodin",
         "minutes": "Minut"
       },
@@ -103,12 +120,14 @@
           "unsaturatedFatContent": "Obsah nenasycených tuků"
         }
       },
-      "tools": "Vybavení:",
-      "ingredients": "Přísady:",
-      "instructions": "Postup:"
+      "general": "Obecné",
+      "times": "Časy",
+      "tools": "Nástroje",
+      "ingredients": "Přísady",
+      "instructions": "Pokyny"
     },
     "errors": {
-      "load_failed": "Recept se nepovedlo načíst!"
+      "load_failed": "Recept se nepodařilo načíst!"
     }
   },
   "recipe_edit": {
@@ -116,26 +135,42 @@
     "button": "Uložit",
     "errors": {
       "update_failed": "Aktualizace se nezdařila: {error_msg}"
+    },
+    "delete": {
+      "title": "Smazat recept",
+      "dialog": "Opravdu chcete recept {recipe} nenávratně smazat?"
     }
   },
   "recipe_create": {
     "title": "Vytvořit recept",
     "button": "Vytvořit",
+    "add_field": "přidat",
+    "remove_field": "odebrat",
     "errors": {
       "update_failed": "Vytvoření se nezdařilo {error_msg}"
     }
   },
+  "recipe_form": {
+    "dismiss_edit": {
+      "title": "Zrušit úpravu",
+      "dialog": "Opravdu chcete vámi provedené změny v {recipe} zahodit?"
+    },
+    "dismiss_create": {
+      "title": "Zrušit vytvoření",
+      "dialog": "Opravdu chcete výtvor zahodit?"
+    }
+  },
   "recipe_import": {
-    "title": "Importovat recept",
-    "button": "Importovat",
+    "title": "Naimportovat recept",
+    "button": "Naimportovat",
     "field": "URL adresa receptu",
-    "clipboard": "Vložit obsah schránky",
     "errors": {
       "import_failed": "Import se nezdařil {error_msg}"
     }
   },
   "search": {
     "title": "Hledat recept",
+    "description": "Vyhledat recepty podle názvu nebo klíčového slova",
     "nothing_found": "Nenalezen žádný recept!",
     "errors": {
       "search_failed": "Nedaří se načíst veškeré recepty!\n{error_msg}"
@@ -145,8 +180,13 @@
     "title": "Vaše minutky",
     "started": "Minutka spuštěna.",
     "finished": "je dokončeno.",
+    "button": {
+      "start": "spustit časovač",
+      "cancel": "zrušit časovač"
+    },
     "done": "Minutka zvonila.",
-    "missing": "Pokud chcete použít časovač, je třeba nastavit dobu vaření."
+    "missing": "Pokud chcete použít časovač, je třeba nastavit dobu tepelné úpravy.",
+    "empty_list": "Vaše spuštěné časovače budou zobrazovány zde."
   },
   "settings": {
     "title": "Nastavení aplikace",
@@ -161,15 +201,15 @@
     },
     "stay_awake": {
       "title": "Nezhasínat",
-      "subtitle": "Při zobrazování receptu se obrazovka nevypne."
+      "subtitle": "Aby vám obrazovka s receptem nepotemněla, udržovat ji zapnutou."
     },
     "recipe_font_size": {
       "title": "Velikost písma receptů",
-      "subtitle": "Změní velikost písma vybavení, přísad a pokynů pro recept tak, aby bylo lépe čitelné."
+      "subtitle": "Změní velikost písma u vybavení, přísad a pokynů pro recept tak, aby bylo lépe čitelné."
     },
     "category_font_size": {
       "title": "Velikost písma kategorií",
-      "subtitle": "Změní velikost písma nadpisu kategorie. To se může hodit v případě dlouhých názvů kategorií."
+      "subtitle": "Změní velikost písma nadpisů kategorií. To se může hodit v případě jejich dlouhých názvů."
     }
   }
 }
