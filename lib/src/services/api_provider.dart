@@ -27,10 +27,16 @@ class ApiProvider {
       dio: client,
     );
 
+    nextcloudClient = NextcloudClient(
+      auth.server,
+      loginName: auth.loginName,
+      password: auth.appPassword,
+    );
+
     ncCookbookApi.setBasicAuth(
       'app_password',
       auth.loginName,
-      auth.password,
+      auth.appPassword,
     );
     recipeApi = ncCookbookApi.getRecipesApi();
     categoryApi = ncCookbookApi.getCategoriesApi();
@@ -39,6 +45,7 @@ class ApiProvider {
   }
   static final ApiProvider _apiProvider = ApiProvider._();
 
+  late NextcloudClient nextcloudClient;
   late NcCookbookApi ncCookbookApi;
   late RecipesApi recipeApi;
   late CategoriesApi categoryApi;

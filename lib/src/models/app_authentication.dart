@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,26 +7,12 @@ part 'app_authentication.g.dart';
 
 @JsonSerializable()
 class AppAuthentication extends Equatable {
-  AppAuthentication({
+  const AppAuthentication({
     required this.server,
     required this.loginName,
-    required this.basicAuth,
+    required this.appPassword,
     required this.isSelfSignedCertificate,
-  }) {
-    authenticatedClient.options
-      ..headers['authorization'] = basicAuth
-      ..headers['User-Agent'] = 'Cookbook App'
-      ..responseType = ResponseType.plain;
-
-    if (isSelfSignedCertificate) {
-      authenticatedClient.httpClientAdapter = IOHttpClientAdapter(
-        onHttpClientCreate: (client) {
-          client.badCertificateCallback = (cert, host, port) => true;
-          return client;
-        },
-      );
-    }
-  }
+  });
 
   factory AppAuthentication.fromJsonString(String jsonString) =>
       AppAuthentication.fromJson(
@@ -40,10 +24,9 @@ class AppAuthentication extends Equatable {
       return _$AppAuthenticationFromJson(jsonData);
       // ignore: avoid_catching_errors
     } on TypeError {
-      final basicAuth = parseBasicAuth(
-        jsonData['loginName'] as String,
-        jsonData['appPassword'] as String,
-      );
+      final basicAuth = jsonData['basicAuth'] as String?;
+      final appPassword =
+          jsonData['appPassword'] as String? ?? parseBasicAuth(basicAuth!);
 
       final selfSignedCertificate =
           jsonData['isSelfSignedCertificate'] as bool? ?? false;
@@ -51,30 +34,27 @@ class AppAuthentication extends Equatable {
       return AppAuthentication(
         server: jsonData['server'] as String,
         loginName: jsonData['loginName'] as String,
-        basicAuth: basicAuth,
+        appPassword: appPassword,
         isSelfSignedCertificate: selfSignedCertificate,
       );
     }
   }
   final String server;
   final String loginName;
-  final String basicAuth;
+  final String appPassword;
   final bool isSelfSignedCertificate;
-
-  final Dio authenticatedClient = Dio();
 
   String toJsonString() => json.encode(toJson());
   Map<String, dynamic> toJson() => _$AppAuthenticationToJson(this);
 
-  String get password {
+  static String parseBasicAuth(String basicAuth) {
     final base64 = basicAuth.substring(6);
     final string = utf8.decode(base64Decode(base64));
     final auth = string.split(':');
     return auth[1];
   }
 
-  static String parseBasicAuth(String loginName, String appPassword) =>
-      'Basic ${base64Encode(utf8.encode('$loginName:$appPassword'))}';
+  static String parsePassword(String loginName, String appPassword) => 'Basic ${base64Encode(utf8.encode('$loginName:$appPassword'))}';
 
   @override
   String toString() =>
@@ -84,7 +64,7 @@ class AppAuthentication extends Equatable {
   List<Object?> get props => [
         server,
         loginName,
-        basicAuth,
+        appPassword,
         isSelfSignedCertificate,
       ];
 }

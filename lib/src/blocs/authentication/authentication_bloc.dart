@@ -1,14 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nc_cookbook_api/nc_cookbook_api.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
 
 part 'authentication_event.dart';
+part 'authentication_exception.dart';
 part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc() : super(AuthenticationState()) {
+  AuthenticationBloc() : super(const AuthenticationState()) {
     on<AppStarted>(_mapAppStartedEventToState);
     on<LoggedIn>(_mapLoggedInEventToState);
     on<LoggedOut>(_mapLoggedOutEventToState);
@@ -19,19 +21,28 @@ class AuthenticationBloc
     AppStarted event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final hasToken = await userRepository.hasAppAuthentication();
-
-    if (hasToken) {
-      await userRepository.loadAppAuthentication();
+    if (userRepository.hasAuthentidation) {
       try {
+        await userRepository.loadAppAuthentication();
+
         final validCredentials = await userRepository.checkAppAuthentication();
 
         if (validCredentials) {
-          emit(AuthenticationState(status: AuthenticationStatus.authenticated));
+          final apiVersion = await UserRepository().fetchApiVersion();
+          emit(
+            AuthenticationState(
+              status: AuthenticationStatus.authenticated,
+              apiVersion: apiVersion,
+            ),
+          );
         } else {
           await userRepository.deleteAppAuthentication();
-          emit(AuthenticationState(status: AuthenticationStatus.invalid));
+          emit(const AuthenticationState(status: AuthenticationStatus.invalid));
         }
+      } on LoadAuthException {
+        emit(
+          const AuthenticationState(status: AuthenticationStatus.authenticated),
+        );
       } catch (e) {
         emit(
           AuthenticationState(
@@ -41,7 +52,11 @@ class AuthenticationBloc
         );
       }
     } else {
-      emit(AuthenticationState(status: AuthenticationStatus.unauthenticated));
+      emit(
+        const AuthenticationState(
+          status: AuthenticationStatus.unauthenticated,
+        ),
+      );
     }
   }
 
@@ -49,17 +64,38 @@ class AuthenticationBloc
     LoggedIn event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(AuthenticationState());
-    await userRepository.persistAppAuthentication(event.appAuthentication);
-    emit(AuthenticationState(status: AuthenticationStatus.authenticated));
+    emit(const AuthenticationState());
+    try {
+      await userRepository.persistAppAuthentication(event.appAuthentication);
+
+      final apiVersion = await UserRepository().fetchApiVersion();
+      emit(
+        AuthenticationState(
+          status: AuthenticationStatus.authenticated,
+          apiVersion: apiVersion,
+        ),
+      );
+    } catch (e) {
+      emit(
+        AuthenticationState(
+          status: AuthenticationStatus.error,
+          error: e.toString(),
+        ),
+      );
+    }
   }
 
   Future<void> _mapLoggedOutEventToState(
     LoggedOut event,
     Emitter<AuthenticationState> emit,
   ) async {
-    emit(AuthenticationState());
-    await userRepository.deleteAppAuthentication();
-    emit(AuthenticationState(status: AuthenticationStatus.unauthenticated));
+    emit(const AuthenticationState());
+    try {
+      await userRepository.deleteAppAuthentication();
+    } finally {
+      emit(
+        const AuthenticationState(status: AuthenticationStatus.unauthenticated),
+      );
+    }
   }
 }

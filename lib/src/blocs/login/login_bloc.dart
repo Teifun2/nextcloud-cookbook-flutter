@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nextcloud/nextcloud.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/authentication/authentication_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/models/app_authentication.dart';
 import 'package:nextcloud_cookbook_flutter/src/services/services.dart';
+import 'package:nextcloud_cookbook_flutter/src/util/nextcloud_login_qr_util.dart';
 import 'package:nextcloud_cookbook_flutter/src/util/url_validator.dart';
 
 part 'login_event.dart';
@@ -11,47 +16,67 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required this.authenticationBloc,
-  }) : super(LoginState()) {
-    on<LoginButtonPressed>(_mapLoginButtonPressedEventToState);
+  }) : super(const LoginState()) {
+    on<LoginFlowStart>(_mapLoginFlowStartEventToState);
+    on<LoginQRScenned>(_mapLoginQRScannedEventToState);
   }
   final UserRepository userRepository = UserRepository();
   final AuthenticationBloc authenticationBloc;
 
-  Future<void> _mapLoginButtonPressedEventToState(
-    LoginButtonPressed event,
+  Future<void> _mapLoginFlowStartEventToState(
+    LoginFlowStart event,
     Emitter<LoginState> emit,
   ) async {
-    emit(LoginState(status: LoginStatus.loading));
-
+    assert(URLUtils.isSanitized(event.serverURL));
     try {
-      AppAuthentication appAuthentication;
-      assert(URLUtils.isSanitized(event.serverURL));
+      final client = NextcloudClient(event.serverURL);
+      final init = await client.core.initLoginFlow();
+      emit(LoginState(status: LoginStatus.loading, url: init.login));
+      Timer.periodic(const Duration(seconds: 2), (timer) async {
+        try {
+          final result =
+              await client.core.getLoginFlowResult(token: init.poll.token);
+          timer.cancel();
 
-      if (!event.isAppPassword) {
-        appAuthentication = await userRepository.authenticate(
-          event.serverURL,
-          event.username,
-          event.originalBasicAuth,
-          isSelfSignedCertificate: event.isSelfSignedCertificate,
-        );
-      } else {
-        appAuthentication = await userRepository.authenticateAppPassword(
-          event.serverURL,
-          event.username,
-          event.originalBasicAuth,
-          isSelfSignedCertificate: event.isSelfSignedCertificate,
-        );
-      }
+          authenticationBloc.add(
+            LoggedIn(
+              appAuthentication: AppAuthentication(
+                server: result.server,
+                loginName: result.loginName,
+                appPassword: result.appPassword,
+                isSelfSignedCertificate: false,
+              ),
+            ),
+          );
+        } catch (e) {
+          debugPrint(e.toString());
+        }
+      });
+    } catch (e) {
+      emit(LoginState(status: LoginStatus.failure, error: e.toString()));
+    }
+  }
 
-      authenticationBloc.add(LoggedIn(appAuthentication: appAuthentication));
-      emit(LoginState());
-    } catch (error) {
-      emit(
-        LoginState(
-          status: LoginStatus.failure,
-          error: error.toString(),
+  Future<void> _mapLoginQRScannedEventToState(
+    LoginQRScenned event,
+    Emitter<LoginState> emit,
+  ) async {
+    assert(event.uri.isScheme('nc'));
+    try {
+      final auth = parseNCLoginQR(event.uri);
+
+      authenticationBloc.add(
+        LoggedIn(
+          appAuthentication: AppAuthentication(
+            server: auth['server']!,
+            loginName: auth['user']!,
+            appPassword: auth['password']!,
+            isSelfSignedCertificate: false,
+          ),
         ),
       );
+    } catch (e) {
+      emit(LoginState(status: LoginStatus.failure, error: e.toString()));
     }
   }
 }

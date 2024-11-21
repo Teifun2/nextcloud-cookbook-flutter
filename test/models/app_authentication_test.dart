@@ -14,15 +14,15 @@ void main() {
   )}';
   const isSelfSignedCertificate = false;
 
-  final auth = AppAuthentication(
+  const auth = AppAuthentication(
     server: server,
     loginName: loginName,
-    basicAuth: basicAuth,
+    appPassword: password,
     isSelfSignedCertificate: isSelfSignedCertificate,
   );
 
-  final encodedJson =
-      '"{\\"server\\":\\"$server\\",\\"loginName\\":\\"$loginName\\",\\"basicAuth\\":\\"$basicAuth\\",\\"isSelfSignedCertificate\\":$isSelfSignedCertificate}"';
+  const encodedJson =
+      '"{\\"server\\":\\"$server\\",\\"loginName\\":\\"$loginName\\",\\"appPassword\\":\\"$password\\",\\"isSelfSignedCertificate\\":$isSelfSignedCertificate}"';
   final jsonBasicAuth =
       '{"server":"$server","loginName":"$loginName","basicAuth":"$basicAuth","isSelfSignedCertificate":$isSelfSignedCertificate}';
   const jsonPassword =
@@ -45,12 +45,12 @@ void main() {
     });
 
     test('password', () {
-      expect(auth.password, equals(password));
+      expect(auth.appPassword, equals(password));
     });
 
     test('parseBasicAuth', () {
       expect(
-        AppAuthentication.parseBasicAuth(loginName, password),
+        AppAuthentication.parsePassword(loginName, password),
         equals(basicAuth),
       );
     });
