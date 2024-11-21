@@ -82,7 +82,14 @@ dependencies:
   timezone: ^0.9.1
 
   cached_network_image: ^3.0.0
-  flutter_cache_manager: ^3.3.0
+  #flutter_cache_manager: ^3.3.0
+  flutter_cache_manager_dio:
+    git:
+      url: https://github.com/josh-burton/flutter_cache_manager_dio.git
+      ref: dio-5.x
+  dio_cache_interceptor_sembast_storage: ^0.1.0
+  dio_cache_interceptor: ^3.4.1
+  path_provider: ^2.0.14
 
   flutter_typeahead: ^4.3.7
 

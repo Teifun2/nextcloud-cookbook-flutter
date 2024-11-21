@@ -70,6 +70,7 @@ class UserRepository {
       ApiProvider().ncCookbookApi.isSupportedSync(version);
 
   Future<APIVersion> fetchApiVersion() async {
+    await ApiProvider().initialize();
     final response = await ApiProvider().miscApi.version();
 
     return response.data!.apiVersion;

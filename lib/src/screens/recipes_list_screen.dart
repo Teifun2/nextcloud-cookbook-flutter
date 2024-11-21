@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_cache_manager_dio/flutter_cache_manager_dio.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nextcloud_cookbook_flutter/src/blocs/recipes_short/recipes_short_bloc.dart';
 import 'package:nextcloud_cookbook_flutter/src/widget/recipe_list_item.dart';
@@ -18,7 +18,7 @@ class RecipesListScreen extends StatefulWidget {
 
 class _RecipesListScreenState extends State<RecipesListScreen> {
   Future<void> refresh() async {
-    await DefaultCacheManager().emptyCache();
+    await DioCacheManager.instance.emptyCache();
     // ignore: use_build_context_synchronously
     BlocProvider.of<RecipesShortBloc>(context)
         .add(RecipesShortLoaded(category: widget.category));

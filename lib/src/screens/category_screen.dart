@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_cache_manager_dio/flutter_cache_manager_dio.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:nc_cookbook_api/nc_cookbook_api.dart';
@@ -72,7 +72,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Future<void> refresh() async {
-    await DefaultCacheManager().emptyCache();
+    await DioCacheManager.instance.emptyCache();
     // ignore: use_build_context_synchronously
     BlocProvider.of<CategoriesBloc>(context).add(const CategoriesLoaded());
   }
